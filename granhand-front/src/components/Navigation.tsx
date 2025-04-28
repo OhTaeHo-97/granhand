@@ -17,7 +17,7 @@ const Navigation = () => {
             <Link to="/store" className="nav-link text-xs tracking-widest">STORE</Link> */}
             <Link href="/journal" className="nav-link text-xs tracking-widest">JOURNAL</Link>
             <Link href="/event" className="nav-link text-xs tracking-widest">EVENT</Link>
-            <Link href="/" className="nav-link text-xs tracking-widest">AWARDS</Link>
+            <Link href="/awards" className="nav-link text-xs tracking-widest">AWARDS</Link>
             <Link href="/" className="nav-link text-xs tracking-widest">STORE</Link>
           </div>
           <div className="flex items-center space-x-6">
