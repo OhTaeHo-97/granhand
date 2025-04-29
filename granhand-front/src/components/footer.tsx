@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="bg-[#faf6ee] text-gray-600 px-8 py-12 text-sm">
+        <footer className="bg-[#faf6ee] text-gray-600 px-8 py-12 text-sm mt-16">
             <div className="container mx-auto px-6">
                 {/* 상단: 아이콘 + 메뉴 */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mx-auto">
