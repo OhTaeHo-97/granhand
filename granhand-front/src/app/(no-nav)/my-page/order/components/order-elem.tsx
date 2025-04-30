@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight, GiftIcon } from "lucide-react";
 
-export default function OrderElement({ state }: { state : string }) {
+export default function OrderElement({ state, isGift }: { state : string, isGift: boolean }) {
     const showOtherButtons = () => {
         return state === '배송 중' || state.includes('배송 완료') || state === '구매 확정'
     }
 
     return (
-        <section className="space-y-4 mt-6">
+        <section className="space-y-4 mt-10">
             {
-                state.includes('선물') ? (
+                isGift ? (
                     <div className="flex justify-between">
                         <div className="flex items-center gap-2">
                             <h2 className="text-sm font-semibold">2023.10.23</h2>

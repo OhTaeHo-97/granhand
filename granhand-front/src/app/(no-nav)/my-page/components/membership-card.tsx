@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function MembershipCard() {
     return (
@@ -8,7 +9,10 @@ export default function MembershipCard() {
             <div className="flex justify-between items-center w-full">
                 <div className="flex flex-col justify-center items-center w-1/8">
                 <div className="text-2xl font-bold">BASIC</div>
-                <Button variant="ghost" className="mt-6 bg-gray-100 text-gray-700 font-semibold text-sm px-4 py-2 rounded">등급 안내</Button>
+                <Link href="/membership">
+                    {/* 등급 안내 */}
+                    <Button variant="ghost" className="mt-6 bg-gray-100 text-gray-700 font-semibold text-sm px-4 py-2 rounded">등급 안내</Button>
+                </Link>
                 </div>
                 <div className="flex-1 pl-10 flex flex-col justify-center">
                 <p className="text-sm text-gray-700">
