@@ -38,7 +38,7 @@ const dummy = [
 export default function MyPage() {
   return (
     // {/* Main Content */}
-    <main className="flex-1 px-10 py-10 space-y-12">
+    <main className="flex-1 ml-10 space-y-12">
     <section>
       <div className="text-xl font-semibold mb-4">나의 멤버십 등급</div>
       <MembershipCard />
