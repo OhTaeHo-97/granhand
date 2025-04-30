@@ -12,15 +12,15 @@ export default function MyPageSidebar() {
         { title: '행운 뽑기', url: '/my-page/lucky' }
     ]
     const couponElems = [
-        { title: '보유 쿠폰', url: '/my-page/coupon/' },
+        { title: '보유 쿠폰', url: '/my-page/coupon' },
         { title: '쿠폰 등록', url: '/my-page/coupon/registration' },
     ]
     const infoElems = [
-        { title: '회원 정보 수정', url: '/my-page/edit' },
+        { title: '회원 정보 수정', url: '/my-page/info' },
     ]
 
     return (
-        <aside className="w-1/3 max-w-64 min-w-40 px-6 py-10 space-y-10 mr-[2%]">
+        <aside className="w-1/3 max-w-64 min-w-50 px-6 py-10 space-y-10 mr-[2%]">
             <div className="flex items-center gap-4">
                 <div className="flex flex-col items-center gap-2 w-full">
                     <Avatar className="w-12 h-12 text-white bg-gray-300 flex items-center justify-center text-3xl font-bold">B</Avatar>
@@ -31,7 +31,7 @@ export default function MyPageSidebar() {
             {/* 마이페이지 섹션 */}
             <SidebarElement title="마이페이지" elements={mypageElems} />
             {/* 나의 쿠폰함 섹션 */}
-            <SidebarElement title="마이페이지" elements={couponElems} />
+            <SidebarElement title="나의 쿠폰함" elements={couponElems} />
             {/* 회원 정보 섹션 */}
             <SidebarElement title="회원 정보" elements={infoElems} />
             </div>

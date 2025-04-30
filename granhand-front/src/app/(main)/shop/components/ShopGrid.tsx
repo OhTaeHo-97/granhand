@@ -64,40 +64,6 @@ export default async function ShopGrid({ searchParams }: { searchParams: { store
     const selectedStore = store || '그랑핸드'
     const selectedCategory = category || '전체'
     return (
-        // <section className="py-8">
-        // <h2 className="text-lg font-medium text-left mb-8 border-t pt-4">EVENT</h2>
-        // <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
-        //     {posts.map((post) => (
-        //     <Link
-        //         key={post.id}
-        //         href={`/journal/${post.id}`}
-        //         className="group cursor-pointer"
-        //     >
-        //         <div className="aspect-[4/3] overflow-hidden mb-4">
-        //         <Image
-        //             src={post.image}
-        //             alt={post.title}
-        //             width={225}
-        //             height={168.75}
-        //             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        //         />
-        //         </div>
-        //         <div className="space-y-2">
-        //         <h3 className="text-base font-medium group-hover:text-granhand-text transition-colors">
-        //             {post.title}
-        //         </h3>
-        //         <div className="flex items-center space-x-2 text-xs text-gray-500">
-        //             {/* <span>{post.category}</span> */}
-        //             {/* <span>·</span> */}
-        //             <span>{post.date}</span>
-        //             {/* <span>·</span> */}
-        //             {/* <span>{post.views}</span> */}
-        //         </div>
-        //         </div>
-        //     </Link>
-        //     ))}
-        // </div>
-        // </section>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-x-8 gap-y-12">
             {Array.from({ length: 15 }).map((_, index) => (
                 <Link
@@ -142,34 +108,5 @@ export default async function ShopGrid({ searchParams }: { searchParams: { store
                 </Link>
             ))}
         </div>
-        // posts.map((post) => (
-        //     <Link
-        //         key={post.id}
-        //         href={`/event/${post.id}`}
-        //         className="group cursor-pointer"
-        //     >
-        //         <div className="aspect-[4/3] overflow-hidden mb-4">
-        //             <Image
-        //                 src={post.image}
-        //                 alt={post.title}
-        //                 width={225}
-        //                 height={168.75}
-        //                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        //             />
-        //         </div>
-        //         <div className="space-y-2">
-        //             <h3 className="text-base font-medium group-hover:text-granhand-text transition-colors">
-        //                 {post.title}
-        //             </h3>
-        //             <div className="flex items-center space-x-2 text-xs text-gray-500">
-        //                 {/* <span>{post.category}</span> */}
-        //                 {/* <span>·</span> */}
-        //                 <span>{post.date}</span>
-        //                 {/* <span>·</span> */}
-        //                 {/* <span>{post.views}</span> */}
-        //             </div>
-        //         </div>
-        //     </Link>
-        //     ))}
     )
 }

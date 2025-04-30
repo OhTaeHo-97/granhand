@@ -13,7 +13,7 @@ export default function PointListHeader({
         <>
             <div className="text-base font-bold flex items-center gap-2">
                 포인트 상세 내역
-                <button className="w-5 h-5 flex items-center justify-center rounded-full border border-gray-300 text-gray-400 text-xs">?</button>
+                <div className="w-5 h-5 flex items-center justify-center rounded-full border border-gray-300 text-gray-400 text-xs">?</div>
             </div>
 
             {/* 탭 */}
