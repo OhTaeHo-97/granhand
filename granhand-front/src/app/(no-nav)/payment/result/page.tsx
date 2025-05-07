@@ -3,6 +3,7 @@ import Image from "next/image";
 import ProductInfoCard from "../../order/[id]/components/product-info-card";
 import PaymentInfo from "../../order/[id]/components/payment-info";
 import PaymentInfoBox from "../../order/[id]/components/payment-info-box";
+import Link from "next/link";
 
 export default function PaymentResult() {
     return (
@@ -46,12 +47,16 @@ export default function PaymentResult() {
                 </div> */}
 
                 <div className="flex justify-center gap-4 pt-6">
-                    <Button variant="outline" className="w-40 h-12 rounded-none font-bold">
-                    주문 상세
-                    </Button>
-                    <Button className="w-40 h-12 bg-black text-white rounded-none font-bold">
-                    쇼핑 계속하기
-                    </Button>
+                    <Link href="/order/1">
+                        <Button variant="outline" className="w-40 h-12 rounded-none font-bold">
+                        주문 상세
+                        </Button>
+                    </Link>
+                    <Link href="/shop">
+                        <Button className="w-40 h-12 bg-black text-white rounded-none font-bold">
+                        쇼핑 계속하기
+                        </Button>
+                    </Link>
                 </div>
             </section>
         </main>

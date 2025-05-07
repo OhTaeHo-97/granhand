@@ -121,7 +121,9 @@ export default function LoginPage() {
                 <Button className="w-full h-12 bg-gray-300 text-white font-semibold mb-4">로그인</Button>
 
                 {/* 3. 회원가입 버튼 */}
-                <Button variant="outline" className="w-full h-12 border-black text-black font-semibold mb-4">회원가입</Button>
+                <Link href={"/signup"}>
+                    <Button variant="outline" className="w-full h-12 border-black text-black font-semibold mb-4">회원가입</Button>
+                </Link>
 
                 {/* 4. 아이디/비밀번호 찾기 */}
                 <div className="flex justify-center space-x-4 text-sm text-gray-600">

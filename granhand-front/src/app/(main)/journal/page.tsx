@@ -6,7 +6,7 @@ import SearchInput from '@/components/searchInput'
 export default function JournalPage() {
     return (
         <div>
-            <main className="container mx-auto pt-8">
+            <main className="container mx-auto mt-10">
                 {/* <JournalGrid classType='border-t pt-4' showSubmenu={true} /> */}
                 <JournalGridTemp />
                 <div className='mb-20' />

@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -49,7 +50,7 @@ export default function NavigationBar() {
         // 상단 네비게이션
         <nav className="w-full flex items-center justify-between border-t pt-4">
             {/* 왼쪽: AWARDS + 드롭다운 */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 h-10">
             <h2 className="text-lg font-medium text-gray-900 m-0 p-0 leading-none">AWARDS</h2>
 
             <div className="relative">
@@ -76,9 +77,9 @@ export default function NavigationBar() {
             </div>
 
             {/* 오른쪽: 서브메뉴 */}
-            <div className="flex items-center gap-6 text-sm text-gray-400">
+            <div className="flex items-center text-sm text-gray-400">
                 {categories.map(({ label, value }) => (
-                    <button
+                    <Button
                         key={value}
                         onClick={() => onSelectCategory(value)}
                         className={`text-sm ${
@@ -88,7 +89,7 @@ export default function NavigationBar() {
                         } transition-colors min-w-[5%] hover:text-black`}
                     >
                         {label}
-                    </button>
+                    </Button>
                 ))}
             </div>
         </nav>

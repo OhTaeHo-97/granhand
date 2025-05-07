@@ -1,12 +1,28 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+const symbols = ['.', ',', '!', '&', '%', '?', '❤️']
 
 export default function OrderProductInfo() {
     const [enabled, setEnabled] = useState(false)
+    const [value, setValue] = useState('')
+    const [showSymbols, setShowSymbols] = useState(false)
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    const addSymbol = (symbol: string) => {
+        if(enabled) {
+            setValue((prev) => prev + symbol)
+            // 커서를 맨 뒤로
+            setTimeout(() => {
+                inputRef.current?.focus()
+            }, 0)
+        }
+    }
 
     return (
         <section className="space-y-4 mb-10">
@@ -47,13 +63,35 @@ export default function OrderProductInfo() {
                             className={enabled ? "bg-black" : "bg-white border"}
                         />
                     </div>
-                    <div className="flex items-center gap-2">
-                        <input
+                    <div className="flex items-center gap-2 relative">
+                        <Input
                             type="text"
                             placeholder="원하는 문구를 입력해 주세요."
                             className="flex-1 border rounded px-3 py-3 text-sm"
+                            ref={inputRef}
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            disabled={!enabled}
                         />
-                        <Button className="w-28 h-full text-sm bg-gray-100">특수기호</Button>
+                        <Button
+                            className="w-28 h-full text-sm bg-gray-100"
+                            onClick={() => setShowSymbols((prev) => !prev)}
+                        >
+                            특수기호
+                        </Button>
+                        {showSymbols && (
+                            <div className="absolute top-full right-0 mt-2 border rounded bg-gray-50 p-2 flex gap-2 shadow-lg z-10">
+                                {symbols.map((sym, index) => (
+                                    <Button
+                                        key={index}
+                                        onClick={() => addSymbol(sym)}
+                                        className="px-2 py-1 bg-white rounded shadow hover:bg-gray-100"
+                                    >
+                                        {sym}
+                                    </Button>
+                                ))}
+                            </div>
+                        )}
                     </div>
                     <p className="text-xs text-gray-400 mt-2">
                         10자 이하 영문 대문자, 숫자, 특수기호(., ! % & ? 🖤)만 가능합니다.<br />

@@ -12,7 +12,7 @@ export default function CouponPage() {
                     <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-white">
-                    <SelectItem value="door" defaultChecked>문 앞에 놓아주세요</SelectItem>
+                    <SelectItem value="door" defaultChecked>최신순</SelectItem>
                     <SelectItem value="call">도착 후 연락주세요</SelectItem>
                     <SelectItem value="none">요청사항 없음</SelectItem>
                 </SelectContent>

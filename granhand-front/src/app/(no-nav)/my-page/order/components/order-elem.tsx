@@ -1,10 +1,17 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { ChevronRight, GiftIcon } from "lucide-react";
+import { useState } from "react";
+import CancelModal from "../../cancel-return-exchange/components/cancel-modal";
+import Link from "next/link";
 
 export default function OrderElement({ state, isGift }: { state : string, isGift: boolean }) {
     const showOtherButtons = () => {
         return state === '배송 중' || state.includes('배송 완료') || state === '구매 확정'
     }
+
+    const [open, setOpen] = useState(false)
 
     return (
         <section className="space-y-4 mt-10">
@@ -17,24 +24,28 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                                 <GiftIcon className="w-3 h-3 text-white" />
                             </div>
                         </div>
-                        <Button className="text-sm text-gray-400 p-0 h-fit">
-                            <ChevronRight />
-                        </Button>
+                        <Link href="/order/confirm-cancel-return-exchange/1">
+                            <Button className="text-sm text-gray-400 p-0 h-fit">
+                                <ChevronRight />
+                            </Button>
+                        </Link>
                     </div>
                 ) : (
                     <div className="flex justify-between">
                         <span className="text-sm font-semibold">2023.10.23</span>
-                        <Button className="text-sm text-gray-400 p-0 h-fit">
-                            <ChevronRight />
-                        </Button>
+                        <Link href="/order/confirm-cancel-return-exchange/1">
+                            <Button className="text-sm text-gray-400 p-0 h-fit">
+                                <ChevronRight />
+                            </Button>
+                        </Link>
                     </div>
                 )
             }
             
-            <div className="border rounded-lg p-4">
-                <div className="flex justify-between items-start mb-4 text-sm">
+            <div className="border rounded-lg p-4 pt-2">
+                <div className="flex justify-between items-center mb-4 text-sm">
                     <span className="text-gray-500 font-semibold">{state}</span>
-                    <button className="text-gray-400 text-xs">문의하기</button>
+                    <Button className="text-gray-400 text-xs">문의하기</Button>
                 </div>
 
                 <div className="flex gap-4">
@@ -60,9 +71,10 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                 {
                     state !== '구매 확정' &&
                     (
-                        <button className="w-full border rounded py-2 text-sm">주문 취소</button>
+                        <Button className="w-full border rounded py-2 text-sm" onClick={() => setOpen((prev) => !prev)}>주문 취소</Button>
                     )
                 }
+                <CancelModal open={open} setOpen={setOpen} />
             </div>
         </section>
     )

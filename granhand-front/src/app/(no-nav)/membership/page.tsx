@@ -79,7 +79,7 @@ export default function MembershipPage() {
                 ].map((item) => (
                     <li key={item.level} className="flex gap-4 w-full items-center justify-center py-6">
                         <div className="pt-1 mr-6">
-                            <div className={`w-10 h-10 rounded-full  text-sm flex items-center justify-center font-bold grayscale text-white`} style={{ backgroundColor: item.color }}>
+                            <div className={`w-10 h-10 rounded-full  text-sm flex items-center justify-center font-bold text-white`} style={{ backgroundColor: item.color }}>
                                 {item.level[0]}
                             </div>
                         </div>

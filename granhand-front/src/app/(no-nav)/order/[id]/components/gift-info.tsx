@@ -1,6 +1,13 @@
+'use client'
+
+import { Button } from "@/components/ui/button";
 import GiftCard from "./gift-card";
+import MessageResendModal from "./modal/message-resend-modal";
+import { useState } from "react";
 
 export default function GiftInfo() {
+    const [open, setOpen] = useState(false)
+
     return (
         <section className="bg-white rounded-md overflow-hidden shadow-md max-w-sm">
             <h2 className="text-base font-bold">선물 받는 분 정보</h2>
@@ -27,10 +34,11 @@ export default function GiftInfo() {
                 <span>선물 수락</span>
                 </div>
 
-                <button className="w-full border rounded py-2 text-sm font-semibold text-gray-700">
+                <Button className="w-full border rounded py-2 text-sm font-semibold text-gray-700" onClick={() => setOpen((prev) => !prev)}>
                 메시지 다시 보내기
-                </button>
+                </Button>
             </div>
+            <MessageResendModal open={open} setOpen={setOpen} />
         </section>
     )
 }

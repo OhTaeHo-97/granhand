@@ -4,7 +4,7 @@ import SearchInput from "@/components/searchInput";
 
 export default function EventPage() {
     return (
-        <main className="container mx-auto pt-8">
+        <main className="container mx-auto mt-10">
             <EventGrid />
             <div className='mb-20' />
             <Pagination totalPages={15} />

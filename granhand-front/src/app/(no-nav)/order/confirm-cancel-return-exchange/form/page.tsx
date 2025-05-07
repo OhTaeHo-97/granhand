@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import CancelForm from "./components/cancel";
 import ExchangeForm from "./components/exchange";
 import RefundForm from "./components/refund";
+import Link from "next/link";
 
 export default function FormPage() {
     return (
@@ -25,9 +26,11 @@ export default function FormPage() {
                 <RefundForm />
             </div>
             <div className="py-6 border-t border-b flex justify-end">
-                <Button className="bg-black text-white rounded-none font-bold p-6 w-1/4 min-w-50">
-                    신청하기
-                </Button>
+                <Link href="/order/confirm-cancel-return-exchange/result" className="w-1/4 min-w-50">
+                    <Button className="bg-black text-white rounded-none font-bold p-6 w-full">
+                        신청하기
+                    </Button>
+                </Link>
             </div>
         </main>
     )

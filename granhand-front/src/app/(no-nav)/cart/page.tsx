@@ -7,6 +7,7 @@ import { Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
 import OptionModal from './components/modal'
 import ProductTable from './components/product-table'
+import Link from 'next/link'
 
 export default function CartPage() {
     const [open, setOpen] = useState(false)
@@ -34,7 +35,9 @@ export default function CartPage() {
               <div>
                 <span>110,000 KRW</span> + 배송비 무료 = <span>110,000 KRW</span>
               </div>
-              <Button className="text-base px-10 py-2 text-white bg-black rounded-none min-w-32 w-[25%] h-11">구매하기 (1)</Button>
+              <Link href="/payment">
+                <Button className="text-base px-10 py-2 text-white bg-black rounded-none min-w-32 w-[25%] h-11">구매하기 (1)</Button>
+              </Link>
             </div>
           </div>
 

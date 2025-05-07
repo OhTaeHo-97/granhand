@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from "@/components/ui/button"
 import { notFound, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -21,6 +22,12 @@ export default function ShopNavigation() {
     }
 
     const onClickPlace = (category: string) => {
+        console.log(category)
+        if(category === '가이드') {
+            router.push('/shop/scent-guide')
+            return
+        }
+
         const params = new URLSearchParams(searchParams)
         params.set('store', selectedStore)
         params.set('category', category)
@@ -51,26 +58,26 @@ export default function ShopNavigation() {
                             <span className="mx-3 text-gray-300 select-none">|</span>
                         )}
 
-                        <button
+                        <Button
                             key={store}
                             onClick={() => onClickStore(store)}
                             className={`text-sm ${
                                 selectedStore === store
                                     ? 'text-black semibold'
                                     : 'text-gray-400'
-                            } hover:text-black transition-colors min-w-[5%]`}
+                            } hover:text-black transition-colors min-w-[5%] h-2`}
                         >
                             {store}
-                        </button>
+                        </Button>
                     </div>
                 ))}
                 </div>
             </div>
 
             {/* 오른쪽: 서브메뉴 */}
-            <div className="flex items-center gap-4 text-sm text-gray-400">
+            <div className="flex items-center text-sm text-gray-400">
             {categories.map((category) => (
-                <button
+                <Button
                     key={category}
                     onClick={() => onClickPlace(category)}
                     className={`text-sm ${
@@ -80,7 +87,7 @@ export default function ShopNavigation() {
                     } hover:text-black transition-colors min-w-[5%]`}
                 >
                     {category}
-                </button>
+                </Button>
             ))}
             </div>
         </div>

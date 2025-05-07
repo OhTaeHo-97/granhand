@@ -14,7 +14,7 @@ export default function NationalityPage() {
             {/* 인증 버튼 */}
             <div className="flex items-center mb-8 gap-3">
                 <Link href="/find/id/korean" className="w-1/2">
-                    <Button className="w-full border bg-gray-200">
+                    <Button className="w-full border bg-neutral-400 text-white">
                         내국인
                     </Button>
                 </Link>

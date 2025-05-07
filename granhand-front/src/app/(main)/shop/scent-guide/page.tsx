@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { Check, MoreVertical } from 'lucide-react'
 import ScentGuideResult from './components/result'
+import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 const questions = [
     {
@@ -29,6 +31,7 @@ const questions = [
 
 export default function GuidePage() {
     const [answers, setAnswers] = useState<{ [key: number]: string }>({})
+    const router = useRouter()
 
     const handleSelect = (qId: number, option: string) => {
         setAnswers((prev) => {
@@ -46,7 +49,7 @@ export default function GuidePage() {
     return (
         <div className="mx-auto py-12">
         <h2 className="text-2xl font-semibold mb-4">GUIDE</h2>
-        <ScentGuideResult />
+        {/* <ScentGuideResult /> */}
         <div className="bg-gray-50 text-center text-gray-600 py-4 mb-10 text-sm">
             원하시는 향을 추천해 드립니다. 아래 항목을 모두 선택해 주세요.
         </div>
@@ -102,12 +105,13 @@ export default function GuidePage() {
 
         {/* 결과 확인 버튼 */}
         <div className="mt-12 text-right">
-            <button
+            <Button
             className={`px-6 py-3 text-white rounded disabled:opacity-50 min-w-1/3 ${allAnswered ? 'bg-black' : 'bg-gray-200'}`}
             disabled={questions.some((q) => !answers[q.id])}
+            onClick={() => router.push('/shop/scent-guide/result')}
             >
                 결과 확인
-            </button>
+            </Button>
         </div>
         </div>
     )

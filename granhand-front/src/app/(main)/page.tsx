@@ -18,7 +18,7 @@ export default function MainPage() {
                 </div>
 
                 {/* 이미지 */}
-                <div className="px-4">
+                <div className="">
                     <div className="w-full bg-[#D9D9D9] rounded-lg overflow-hidden mb-6">
                     <img
                         src="/images/gwanghwamun.jpg"
@@ -30,7 +30,7 @@ export default function MainPage() {
                 </div>
 
                 {/* 본문 */}
-                <div className="px-4 max-w-4xl mx-auto">
+                <div className="max-w-4xl">
                     <div className="font-bold text-lg text-[#222] mb-2">
                     그랑핸드의 <span className="font-extrabold">7번째 매장 광화문점</span>을 소개합니다.
                     </div>

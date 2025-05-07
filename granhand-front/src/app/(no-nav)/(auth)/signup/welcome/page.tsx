@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, DollarSign, Heart, Ticket, Truck } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SelfIdentificationPage() {
     return (
@@ -33,11 +34,13 @@ export default function SelfIdentificationPage() {
                     <span className="font-bold">하나만 구매해도 전 제품 무료 배송</span>
                 </li>
                 </ul>
-                <Button
-                className="w-[400px] py-5 border h-15 border-[#CFC9BC] text-[#3B352E] text-2xl font-normal rounded bg-white hover:bg-[#f5f3ef] transition"
-                >
-                로그인
-                </Button>
+                <Link href="/login">
+                    <Button
+                    className="w-[400px] py-5 border h-15 border-[#CFC9BC] text-[#3B352E] text-2xl font-normal rounded bg-white hover:bg-[#f5f3ef] transition"
+                    >
+                    로그인
+                    </Button>
+                </Link>
             </div>
 
             </div>

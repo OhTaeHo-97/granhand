@@ -172,6 +172,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check, ChevronLeft } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 const terms = [
@@ -297,12 +298,14 @@ export default function SignupPage() {
                     GRANHAN의 이용약관 및 개인정보 처리방침을 확인하였고, 이에 모두 동의합니다.
                     </span>
                 </div>
-                <Button
-                    className="w-full py-3 bg-white border border-gray-500 rounded text-black font-bold hover:bg-gray-300 transition"
-                    disabled={!(checked.service && checked.privacy && checked.age)}
-                >
-                    동의하고 가입하기
-                </Button>
+                <Link href="/signup/id">
+                    <Button
+                        className="w-full py-3 bg-white border border-gray-500 rounded text-black font-bold hover:bg-gray-300 transition"
+                        disabled={!(checked.service && checked.privacy && checked.age)}
+                    >
+                        동의하고 가입하기
+                    </Button>
+                </Link>
                 </div>
             </div>
         </div>

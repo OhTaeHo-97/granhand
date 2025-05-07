@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SelfIdentificationPage() {
     return (
@@ -33,12 +34,14 @@ export default function SelfIdentificationPage() {
                 </div>
                 <div className="mb-50 text-lg font-normal text-[#222]">안전한 이용을 위해 최초 한 번 본인인증을 진행해요.</div>
                 
-                <Button
-                className="w-full h-15 py-5 bg-[#302c26] text-white text-2xl font-normal rounded cursor-not-allowed"
-                disabled
-                >
-                본인 인증
-                </Button>
+                <Link href="/signup/welcome">
+                    <Button
+                    className="w-full h-15 py-5 bg-[#302c26] text-white text-2xl font-normal rounded cursor-not-allowed"
+                    disabled
+                    >
+                    본인 인증
+                    </Button>
+                </Link>
             </div>
             </div>
 

@@ -1,6 +1,8 @@
-// import "@/globals.css";
 import '@/app/globals.css'
+import Footer from '@/components/footer';
+import Header from '@/components/header';
 import Navigation from '@/components/Navigation'
+import { pretendard } from '../fonts'
 
 export default function TestLayout({
     children,
@@ -8,9 +10,23 @@ export default function TestLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="min-h-screen bg-white">
-            <Navigation />
-            {children}
-        </div>
+        <html lang="en" className={pretendard.variable}>
+            <body>
+                {/* <Header searchClick={onClickSearch} /> */}
+                {/* {
+                    isSearch ? (
+                        <SearchComponent />
+                    ) : (
+                        children
+                    )
+                } */}
+                <Header />
+                <div className="min-h-screen bg-white">
+                    <Navigation />
+                    {children}
+                </div>
+                <Footer />
+            </body>
+        </html>
     )
 }

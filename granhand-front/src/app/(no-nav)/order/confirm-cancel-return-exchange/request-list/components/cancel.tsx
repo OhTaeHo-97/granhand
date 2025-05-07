@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function OrderCancelRequestList() {
     return (
@@ -14,7 +15,9 @@ export default function OrderCancelRequestList() {
                 <div>
                     <span>취소 상품을 선택해주세요.</span>
                 </div>
-                <Button className="text-base px-10 py-2 text-white bg-black rounded-none min-w-32 w-[25%] h-11">다음</Button>
+                <Link href="/order/confirm-cancel-return-exchange/reason" className="min-w-32 w-[25%]">
+                    <Button className="text-base px-10 py-2 text-white bg-black rounded-none w-full h-11">다음</Button>
+                </Link>
                 </div>
             </div>
         </>

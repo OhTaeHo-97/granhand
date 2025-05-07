@@ -10,10 +10,10 @@ export default function JournalLayout({ children }: { children: React.ReactNode 
 
     return (
         <section className="container mx-auto px-6 pt-8">
-            <section className="py-8">
-                <JournalTitle showSubmenu={split.length < 3} />
-                {children}
-            </section>
+            {/* <section className="py-8"> */}
+            <JournalTitle showSubmenu={split.length < 3} />
+            {children}
+            {/* </section> */}
         </section>
     )
 }

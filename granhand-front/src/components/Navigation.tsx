@@ -19,6 +19,7 @@ const Navigation = () => {
             <Link href="/event" className="nav-link text-xs tracking-widest">EVENT</Link>
             <Link href="/awards" className="nav-link text-xs tracking-widest">AWARDS</Link>
             <Link href="/store" className="nav-link text-xs tracking-widest">STORE</Link>
+            <Link href="/shop" className="nav-link text-xs tracking-widest">SHOP</Link>
           </div>
           <div className="flex items-center space-x-6">
             {/* <Link to="/login" className="text-xs tracking-widest hover:text-gray-600">로그인</Link>

@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
+import Link from 'next/link';
 
 export default function JoinIdPage() {
     return (
@@ -32,12 +33,14 @@ export default function JoinIdPage() {
                 placeholder="이메일을 입력해 주세요."
                 className="w-full border border-[#CFC9BC] bg-white rounded text-[#7B736A] px-4 py-4 text-xl placeholder-[#C2BDB6] focus:outline-none focus:ring-2 focus:ring-[#ECE9E2] mb-24"
                 />
-                <Button
-                className="w-full h-15 py-5 bg-[#D6D1C4] text-white text-2xl font-normal rounded cursor-not-allowed"
-                disabled
-                >
-                다음
-                </Button>
+                <Link href="/signup/pw">
+                    <Button
+                    className="w-full h-15 py-5 bg-[#D6D1C4] text-white text-2xl font-normal rounded cursor-not-allowed"
+                    disabled
+                    >
+                    다음
+                    </Button>
+                </Link>
             </div>
             </div>
 

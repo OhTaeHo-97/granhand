@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function StoreContents() {
     return (
-        <>
+        <div className="mt-10">
             {/* 중단: 설명 텍스트 */}
             <div className="flex items-center gap-2 text-sm">
                 <span className="font-semibold text-gray-900">그랑핸드 광화문</span>
@@ -10,7 +10,7 @@ export default function StoreContents() {
             </div>
 
             {/* 하단: 이미지 그리드 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                 {/* 왼쪽 큰 이미지 */}
                 <Image
                     src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
@@ -63,6 +63,6 @@ export default function StoreContents() {
                     className="w-full h-auto object-cover"
                 />
             </div>  
-        </>
+        </div>
     )
 }

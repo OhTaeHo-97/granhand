@@ -1,9 +1,16 @@
+'use client'
+
+import { useState } from "react"
+import PointModal from "./modal/point-modal"
+
 export default function PointUse() {
+    const [open, setOpen] = useState(false)
+    
     return (
         <section className="space-y-2 mb-10">
             <div className="text-base font-bold flex items-center gap-2">
                 포인트
-                <div className="w-5 h-5 flex items-center justify-center rounded-full border border-gray-300 text-gray-400 text-xs">?</div>
+                <div className="w-5 h-5 flex items-center justify-center rounded-full border border-gray-300 text-gray-400 text-xs" onClick={() => setOpen((prev) => !prev)}>?</div>
             </div>
             <div className="flex gap-2">
                 <input
@@ -17,6 +24,7 @@ export default function PointUse() {
                 <span className="font-bold text-gray-700">사용 가능한 포인트</span>
                 <span className="font-bold text-gray-700">13,900</span>
             </div>
+            <PointModal open={open} setOpen={setOpen} />
         </section>
     )
 }

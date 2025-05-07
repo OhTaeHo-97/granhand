@@ -4,9 +4,9 @@ import Image from "next/image"
 
 export default function JournalDetailPage() {
     return (
-        <main className="flex flex-col md:flex-row md:items-start md:gap-12 mb-12">
+        <main className="flex flex-col md:flex-row md:items-start md:gap-12 mb-12 min-h-screen relative mt-10">
             {/* 카테고리 + 제목 + 날짜 + 조회수 + 이미지 */}
-            <div className="max-w-8xl">
+            <div className="max-w-8xl md:w-1/3 md:sticky md:top-0 self-start">
                 {/* 왼쪽 텍스트 */}
                 <div className="flex-1 space-y-4">
                     <div className="text-sm text-gray-500">#Team</div>
@@ -18,7 +18,7 @@ export default function JournalDetailPage() {
             </div>
 
             {/* 오른쪽 이미지 */}
-            <div className="flex-1 mt-8 md:mt-0">
+            <div className="flex-1 mt-8 md:mt-0 md:w-2/3 w-full max-h-[calc(100vh-32px)] overflow-y-auto pr-2">
                 <Image
                     src="/lovable-uploads/42187a99-0c6a-4176-bc95-5fcd322f7c2e.png"
                     alt="NOLL 놀이에 대한 모든 것"

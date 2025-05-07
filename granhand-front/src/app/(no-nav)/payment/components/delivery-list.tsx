@@ -1,10 +1,25 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 
 export default function DeliveryList() {
+    const handleAddress = () => {
+        window.open(
+            '/address',
+            '_blank',
+            'width=400,height=800,menubar=no,toolbar=no,location=yes,status=no'
+        );
+    }
+
     return (
         <section className="space-y-2 mb-10">
-            <h2 className="text-base font-bold">배송 정보</h2>
-            <Button className="border rounded-none text-sm text-center w-full h-12">새 배송지 추가</Button>
+            <div className="flex justify-between">
+                <h2 className="text-base font-bold">배송 정보</h2>
+                <Button className="border rounded-none text-sm text-center">
+                    배송지 목록
+                </Button>
+            </div>
+            <Button className="border rounded-none text-sm text-center w-full h-12" onClick={handleAddress}>새 배송지 추가</Button>
             <div className="text-xs text-gray-700 bg-gray-100 p-6 px-10">
                 <ul className="list-disc space-y-1.5">
                     <li>정확한 배송을 위해 도로명 주소만 사용합니다</li>

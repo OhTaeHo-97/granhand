@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function EventDetailPage() {
     return (
-        <main>
+        <main className="mt-10">
             <div className="mx-auto">
                 {/* <h1 className="text-2xl mb-4">NOLL 눈에 대한 모든 것.</h1>
                 <div className="flex items-center space-x-2 text-xs text-gray-500 mb-8">

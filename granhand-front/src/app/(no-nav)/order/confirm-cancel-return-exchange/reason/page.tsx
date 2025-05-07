@@ -4,6 +4,7 @@ import RequestListHeader from "../request-list/components/header";
 import { Button } from "@/components/ui/button";
 import CancelReason from "./components/cancel";
 import ExchangeRefundReason from "./components/exchange-refund";
+import Link from "next/link";
 
 export default function ReasonPage() {
     return (
@@ -16,7 +17,9 @@ export default function ReasonPage() {
             <div className="mt-6 border-b pb-6">
                 <div className="flex justify-between items-center text-lg font-semibold">
                     <div></div>
-                    <Button className="text-base px-10 py-2 text-white bg-black rounded-none min-w-32 w-[25%] h-11">다음</Button>
+                    <Link href="/order/confirm-cancel-return-exchange/form" className="min-w-32 w-[25%]">
+                        <Button className="text-base px-10 py-2 text-white bg-black rounded-none w-full h-11">다음</Button>
+                    </Link>
                 </div>
             </div>
         </main>
