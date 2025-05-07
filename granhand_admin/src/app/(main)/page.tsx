@@ -3,7 +3,6 @@
 import { BarChart3, Users, ShoppingBag, FileText, Settings, Home, ChevronDownIcon } from 'lucide-react';
 import * as Separator from '@radix-ui/react-separator';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import MainSidebar from './components/sidebar';
 // import { SelectValue } from '@radix-ui/react-select';
 
 const data = [
