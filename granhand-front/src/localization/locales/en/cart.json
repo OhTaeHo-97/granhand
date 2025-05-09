@@ -1,0 +1,17 @@
+{
+    "cart": "Cart",
+    "select_all": "Select All",
+    "info": "Product Information",
+    "quantity": "Quantity",
+    "amount": "Order Amount",
+    "shipping_info": "Shipping Information",
+    "remove": "Remove Selected Items",
+    "purchase": "Buy now",
+    "free_shipping": "Free Shipping",
+    "total_order": "Total Items Ordered:",
+    "empty": "Your cart is empty.",
+    "delivery_info": "Delivery usually takes 2-5 days, but may be delayed depending on the courier's circumstances. Blotter Cards are sent by mail and may take more than 5 business days to arrive.",
+    "bag_purchased": "In Shopping Bag: Purchased",
+    "bag_not_purchased": "In Shopping Bag: Not Purchased",
+    "options": "Change Options"
+}

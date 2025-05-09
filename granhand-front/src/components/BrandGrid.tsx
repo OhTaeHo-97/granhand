@@ -31,7 +31,7 @@ const brands = [
 
 const BrandGrid = () => {
   return (
-    <section className="py-8">
+    <section className="py-4">
       <h2 className="text-lg font-bold text-left mb-8 border-b border-b-[#6f6963] pb-4">BRAND SHOP</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {brands.map((brand) => (

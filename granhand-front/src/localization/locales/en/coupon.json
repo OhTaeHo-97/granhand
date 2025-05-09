@@ -1,0 +1,22 @@
+{
+    "coupon_terms": "Coupon Usage Guide",
+    "first": "1. Conditions of Use",
+    "first-1": "Coupons cannot be combined, and only one coupon can be applied per purchase.",
+    "first-2": "If the discount amount of a coupon exceeds the product price or the total order amount, the coupon cannot be used.",
+    "first-3": "For coupons with a minimum purchase amount requirement, the specified amount must be met to use the coupon.",
+    "second": "2. Validity Period",
+    "second-1": "Expired coupons will automatically be voided and will not be reissued.",
+    "second-2": "The validity period of each coupon follows the specific period stated.",
+    "third": "3. Coupon Retrieval and Restrictions",
+    "third-1": "Coupons will not be reissued for orders that are canceled or returned after the coupon's expiration date.",
+    "third-2": "In the case of partial cancellations or returns, if any products remain that used the coupon discount, the coupon will not be reissued.",
+    "third-3": "If partial cancellations or returns cause the order to fall below the minimum purchase requirement, only the actual payment amount excluding the coupon discount will be refunded.",
+    "third-4": "Some products may not be eligible for coupon discounts.",
+    "third-5": "Coupons may be reissued up to three times in cases of order cancellations or returns (regardless of reason). If the maximum reissue limit is exceeded, the coupon will not be reissued.",
+
+    "code": "Coupon Code",
+    "enter_code_placeholder": "Please enter your coupon code",
+    "register": "Register Coupon",
+    "register_cmpl": "Coupon has been registered. You can check it in My Coupons!",
+    "register_fail": "Invalid coupon code. Please check the number and try again."
+}

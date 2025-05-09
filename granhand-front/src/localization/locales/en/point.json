@@ -1,0 +1,33 @@
+{
+    "point_terms": "Point Usage Guide",
+    "first": "1. Earning Points",
+    "first-1": "Points can be earned through purchases and participation in events.",
+    "first-2": "The earning criteria vary depending on the event.",
+    "first-3": "Points apply to both online and offline payments at GRANHAND & Comfortable.",
+    "first-4": "Points from purchases will be automatically credited 7 days after the purchase confirmation or delivery completion date.",
+    "second": "2. Usage and Validity Period",
+    "second-1": "Points can be used starting from a minimum of KRW 1,000, and they are applied in order of the nearest expiration date.",
+    "second-2": "Points cannot be gifted or transferred to another person.",
+    "second-3": "When points are refunded due to order cancellations, points with the longest remaining validity will be refunded first.",
+    "second-4": "If purchased products are refunded or returned, the earned points will automatically expire and cannot be used for return shipping fees or other payment purposes.",
+    "second-5": "All points will have a specified validity period at the time of issuance. If no period is specified, the points must be used within one year from the date of issuance.",
+    "third": "3. Expiration",
+    "third-1": "Unused points will automatically expire upon reaching the expiration date.",
+    "third-2": "Upon membership withdrawal, all points held by the member will immediately expire, and expired points cannot be restored even if the member re-registers for the service.",
+
+    "expired_this_month": "Points Expiring This Month",
+    "point_history": "Point History",
+    "all": "All",
+    "earned": "Earned",
+    "used": "Used",
+    "expired": "Expired",
+
+    "confirm_earned": "Earned from Purchase Confirmation",
+    "special_event": "Earned from Special Event",
+    "attendance": "Daily Check-in",
+    "lucky": "Lucky Draw",
+
+    "use_order": "Used for Order",
+    "cancel_order": "Refund from Canceled Order",
+    "expired_point": "Points Expired"
+}

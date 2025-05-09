@@ -1,0 +1,9 @@
+{
+    "complete_reset_pw": "Your password has been changed. Redirecting to the login page.",
+    "less_required": "Please agree to all required terms of service.",
+
+    "register_cmpl": "Coupon has been registered. You can check it in My Coupons!",
+    "register_fail": "Invalid coupon code. Please check the number and try again.",
+
+    "confirm_cmpl": "Your purchase has been confirmed."
+}

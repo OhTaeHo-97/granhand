@@ -1,0 +1,17 @@
+{
+    "partnership": "제휴 문의",
+    "partnership_info": "개인 및 기업의 대량구매 문의는 <custom>대량구매 신청서</custom>를 통해 접수해주시기 바랍니다.",
+    "name": "성함",
+    "phone": "휴대폰 번호",
+    "email": "이메일 주소",
+    "subject": "제목",
+    "message": "내용",
+    "attachment": "사진",
+    "personal_info_collection": "(필수) 개인정보 수집 및 이용 동의",
+    "inquiry": "문의하기",
+    "name_placeholder": "성함을 입력해 주세요.",
+    "phone_placeholder": "연락처를 입력해 주세요.",
+    "email_placeholder": "이메일을 입력해 주세요.",
+    "subject_placeholder": "제목을 입력해 주세요. (최대 40자)",
+    "message_placeholder": "내용을 입력해 주세요."
+}

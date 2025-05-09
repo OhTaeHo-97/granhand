@@ -1,0 +1,17 @@
+{
+    "partnership": "Partnership Inquiry",
+    "partnership_info": "For bulk purchase inquiries (individual or corporate), please submit the <custom>bulk order request form.</custom>",
+    "name": "Name",
+    "phone": "Phone Number",
+    "email": "Email Address",
+    "subject": "Subject",
+    "message": "Message",
+    "attachment": "Attachment",
+    "personal_info_collection": "I agree to the collection and use of my personal information.",
+    "inquiry": "Submit Inquiry",
+    "name_placeholder": "Please enter your name.",
+    "phone_placeholder": "Please enter your phone number.",
+    "email_placeholder": "Please enter your email address.",
+    "subject_placeholder": "Please enter the subject. (Max 40 characters)",
+    "message_placeholder": "Please enter your message."
+}

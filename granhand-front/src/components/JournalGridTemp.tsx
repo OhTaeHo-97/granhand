@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LocaleTypes } from "../../utils/localization/settings";
+import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 
 const posts = [
     {
@@ -52,13 +54,20 @@ const posts = [
     }
 ];
 
-export default function JournalGridTemp() {
+interface PageProps {
+    params: { locale: LocaleTypes };
+}
+
+export default async function JournalGridTemp({ params: { locale } }: PageProps) {
+    // const currentLocale = locale === 'en' ? '/en' : ''
+    const currentLocale = getCurrentLocaleFromParams(locale)
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
             {posts.map((post) => (
             <Link
                 key={post.id}
-                href={`/journal/${post.id}`}
+                href={`${currentLocale}/journal/${post.id}`}
                 className="group cursor-pointer"
             >
                 <div className="aspect-[4/3] overflow-hidden mb-4">

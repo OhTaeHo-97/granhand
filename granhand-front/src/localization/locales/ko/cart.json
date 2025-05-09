@@ -1,0 +1,17 @@
+{
+    "cart": "장바구니",
+    "select_all": "전체 선택",
+    "info": "상품 정보",
+    "quantity": "수량",
+    "amount": "주문 금액",
+    "shipping_info": "배송 정보",
+    "remove": "선택상품 삭제",
+    "purchase": "구매하기",
+    "free_shipping": "배송비 무료",
+    "total_order": "총 주문 상품",
+    "empty": "장바구니가 비었습니다.",
+    "delivery_info": "배송은 2-5일 정도 소요되며 택배사의 상황에 따라 지연될 수 있습니다. Blotter Card는 우편 발송으로 영업일 기준 5일 이상 소요됩니다.",
+    "bag_purchased": "쇼핑백 : 구매함",
+    "bag_not_purchased": "쇼핑백 : 구매안함",
+    "options": "옵션 변경"
+}
