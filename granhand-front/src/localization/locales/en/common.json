@@ -14,9 +14,12 @@
     "next": "Next Step",
     "search": "Search...",
     "confirm": "Confirm",
+    "submit": "Submit",
     "required": "(Required)",
     "optional": "(Optional)",
     "granhand": "Granhand",
     "comfortable": "Comfortable",
-    "heyon": "Heyon"
+    "heyon": "Heyon",
+
+    "views": "views"
 }

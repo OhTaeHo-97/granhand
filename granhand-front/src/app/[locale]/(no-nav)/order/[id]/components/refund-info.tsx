@@ -3,7 +3,7 @@ import RefundInfoBox from "./refund-info-box";
 export default function RefundInfo({ t }: { t: (key: string) => string }) {
     return (
         <div className="bg-white text-sm text-gray-600 space-y-2 w-full">
-            <h2 className="font-semibold text-black">{t('payment:final_amount')}</h2>
+            <h2 className="font-semibold text-black text-base">{t('payment:final_amount')}</h2>
             <RefundInfoBox t={t} />
             {/* <div className="border rounded-md p-4 space-y-3 shadow-md">
                 <div className="flex justify-between font-semibold text-black">

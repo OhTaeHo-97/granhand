@@ -62,7 +62,7 @@ export default function ResetPasswordPage() {
                     </Button>
                 </div>
             </div>
-            <BasicModal open={open} setOpen={setOpen} contents="complete_reset_pw" btnText="confirm" locale={locale} category="auth" nextLink={`${currentLocale}/login`} />
+            <BasicModal open={open} setOpen={setOpen} contents="complete_reset_pw" btnText="confirm" locale={locale} nextLink={`${currentLocale}/login`} />
         </main>
     );
 }

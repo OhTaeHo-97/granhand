@@ -3,8 +3,9 @@ import OrderInfo from "./components/order-info";
 import { LocaleTypes } from "../../../../../../utils/localization/settings";
 import { translation } from "../../../../../../utils/localization/locales/server";
 
-export default async function OrderPage({ params: { locale } }: { params:{ locale: LocaleTypes } }) {
-    const { t } = await translation(locale, ["order", "payment"])
+export default async function OrderPage({ params: { locale }, searchParams }: { params:{ locale: LocaleTypes }, searchParams: Record<string, string> }) {
+    const state = searchParams.state
+    const { t } = await translation(locale, ["order", "payment", "my_page"])
 
     return (
         <div className="container mx-auto px-6 pt-8 min-w-2xl">
@@ -19,7 +20,7 @@ export default async function OrderPage({ params: { locale } }: { params:{ local
                 </div>
 
                 {/* 주문 상품 정보 */}
-                <ProductInfo t={t} />
+                <ProductInfo t={t} state={state} />
 
                 {/* 주문 상품 정보 + 결제 금액 + 환불 정보 */}
                 <OrderInfo hasRefund={true} t={t} />

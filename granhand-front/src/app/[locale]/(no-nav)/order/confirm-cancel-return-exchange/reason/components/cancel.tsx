@@ -1,16 +1,16 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-export default function CancelReason() {
+export default function CancelReason({ t }: { t: (key: string) => string }) {
     const cancelOptions = [
-        "상품이 마음에 들지 않아요.",
-        "다른 상품 추가 후 재주문 예정이에요.",
-        "쿠폰 등 혜택 미사용으로 재주문 예정이에요.",
+        t('order:unsatisfied'),
+        t('order:reorder'),
+        t('order:no_apply_benefit')
     ];
 
     return (
         <div className="max-w-md space-y-6">
             <div>
-                <h2 className="text-lg font-semibold">취소 사유를 선택해 주세요.</h2>
+                <h2 className="text-lg font-semibold">{t('order:cancel_reason_title')}</h2>
             </div>
 
             <RadioGroup>
@@ -27,11 +27,11 @@ export default function CancelReason() {
             </RadioGroup>
 
             <div className="mt-16">
-                <label className="block mb-2 text-sm font-medium text-gray-800">상세 설명</label>
+                <label className="block mb-2 text-sm font-medium text-gray-800">{t('order:cancel_reason_detail')}</label>
                 <div className="relative">
                 <textarea
                     maxLength={100}
-                    placeholder="상세 사유를 입력해 주세요. (선택사항)"
+                    placeholder={`${t('order:cancel_reason_placeholder')}`}
                     className="w-full h-28 border border-gray-300 rounded px-4 py-3 text-sm placeholder-gray-400 resize-none focus:outline-none focus:ring-1 focus:ring-gray-400"
                 />
                 <div className="absolute bottom-2 right-3 text-xs text-gray-400">0/100</div>

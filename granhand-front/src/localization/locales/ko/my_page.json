@@ -19,6 +19,10 @@
     "my_coupon": "나의 쿠폰함",
     "info": "회원 정보",
 
+    "no_cancel_accepted_gift": "취소 불가 안내 - 상대방이 선물을 수락해서 취소가 불가능해요.",
+    "no_cancel_invalid": "취소 불가 안내 - 배송 완료 후 7일이 지나거나 구매를 확정한 경우에는 교환/반품 접수가 불가능해요.",
+    "cancel_valid": "취소 유의사항 안내 - 출고 중인 상품은 취소 신청이 어려울 수 있어요.",
+
     "payment": "입금/결제",
     "awaiting_payment": "입금 대기",
     "payment_completed": "결제 완료",
@@ -75,6 +79,11 @@
     "day": "일",
     "check_in_toast": "1주 달성 시 500 포인트 추가 지급",
     "check_in": "출석 체크하기",
+    "perfect_attendance": "1주 개근 달성! 500 포인트가 추가 지급되었어요.",
+    "attendance_cmpl": "출석체크 완료! 방금 100 포인트가 지급되었어요.",
 
-    "today_luck": "100% 당첨되는 오늘의 행운은?"
+    "today_luck": "100% 당첨되는 오늘의 행운은?",
+    "need_attendance": "출석 체크 완료 후 참여하실 수 있어요.",
+    "already_draw": "오늘의 행운뽑기를 완료했어요. 내일 다시 도전해주세요!",
+    "draw_cmpl": "행운뽑기 완료! 100 포인트가 지급되었어요."
 }

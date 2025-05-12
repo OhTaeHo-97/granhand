@@ -13,5 +13,9 @@
     "delivery_info": "배송은 2-5일 정도 소요되며 택배사의 상황에 따라 지연될 수 있습니다. Blotter Card는 우편 발송으로 영업일 기준 5일 이상 소요됩니다.",
     "bag_purchased": "쇼핑백 : 구매함",
     "bag_not_purchased": "쇼핑백 : 구매안함",
-    "options": "옵션 변경"
+    "options": "옵션 변경",
+
+    "cancel_restrict": "상품이 준비되어 배송 예정일 경우 취소가 거부될 수 있어요. 주문 제작 상품은 취소가 불가능해요.",
+    "total_cancel": "총 취소 상품",
+    "cancel_directive": "취소 상품을 선택해 주세요."
 }

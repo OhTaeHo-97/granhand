@@ -3,19 +3,24 @@
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { Camera, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export default function ExchangeRefundReason() {
+    const locale = getLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['order'])
+
     const exchangeOptions = [
-        "상품이 마음에 들지 않아요.",
-        "옵션을 잘못 선택했어요.",
-        "상품에 이상이 있거나 파손되었어요.",
-        "일부 상품이 누락되었어요.",
-        "다른 상품이 배송되었어요.",
-        "배송된 장소에 상품이 없어요.",
-        "다른 주소로 오배송되었어요."
+        t('order:exchange_unsatisfied'),
+        t('order:wrong_options'),
+        t('order:defective'),
+        t('order:missing_items'),
+        t('order:wrong_product'),
+        t('order:no_product'),
+        t('order:wrong_address')
     ];
 
     const [images, setImages] = useState<File[]>([])
@@ -35,7 +40,7 @@ export default function ExchangeRefundReason() {
     return (
         <div className="max-w-md space-y-6 mx-auto mt-10">
             <div>
-                <h2 className="text-lg font-semibold">교환/반품 사유를 선택해 주세요.</h2>
+                <h2 className="text-lg font-semibold">{t('order:exchange_reason_title')}</h2>
             </div>
 
             <RadioGroup>
@@ -52,11 +57,11 @@ export default function ExchangeRefundReason() {
             </RadioGroup>
 
             <div className="mt-8">
-                <label className="block mb-2 text-sm font-medium text-gray-800">상세 설명 *</label>
+                <label className="block mb-2 text-sm font-medium text-gray-800">{t('order:exchange_details')} *</label>
                 <div className="relative">
                 <Textarea
                     maxLength={100}
-                    placeholder="상세 사유를 입력해 주세요. (선택사항)"
+                    placeholder={t('order:exchange_details_placeholder')}
                     className="w-full h-28 border border-gray-300 rounded px-4 py-3 text-sm placeholder-gray-400 resize-none focus:outline-none focus:ring-1 focus:ring-gray-400"
                     onChange={(e) => setContent(e.target.value)}
                 />
@@ -65,7 +70,7 @@ export default function ExchangeRefundReason() {
             </div>
             
             <div className="space-y-2 mb-14">
-                <div className="text-sm text-gray-700 font-medium">사진 ({images.length}/3)</div>
+                <div className="text-sm text-gray-700 font-medium">{t('order:exchange_photo')} ({images.length}/3)</div>
 
                 <div className="flex gap-3">
                     {/* 업로드 버튼 */}
@@ -107,16 +112,16 @@ export default function ExchangeRefundReason() {
             </div>
 
             <div className="text-xs text-gray-700 bg-gray-100 p-6">
-                <span className="font-semibold">교환/반품 유의사항 안내</span>
+                <span className="font-semibold">{t('order:exchange_policy_title')}</span>
                 <ul className="list-disc space-y-1.5 px-6 pt-3">
-                    <li>상품은 원래 상태 그대로 재포장해 주세요.</li>
-                    <li>제품 수령일로부터 영업일 기준 7일 이내 접수한 경우 교환/반품이 가능합니다.</li>
-                    <li>제품 불량 및 오배송일 경우 제품 상태와 상관없이 교환/반품이 가능합니다.</li>
-                    <li>단순 변심으로 인한 교환/반품일 경우 반송 택배비는 고객 부담입니다.</li>
-                    <li>제품 포장 및 미개봉 스티커가 훼손된 경우 불가능합니다.(ex. 핸드크림 상태, 사쉐 비닐 등)</li>
-                    <li>스탬핑 서비스를 받은 제품일 경우(멀티퍼퓸, 디퓨저, 캔들) 불가능합니다.</li>
-                    <li>교환 및 환불 가능 여부 확인을 위해 사진 촬영 후 채널톡으로 보내주시면 정확한 안내가 가능합니다.</li>
-                    <li>교환 및 환불이 불가능한 제품이 반품될 경우 왕복 및 재발송 비용은 고객 부담입니다.</li>
+                    <li>{t('order:exchange_policy1')}</li>
+                    <li>{t('order:exchange_policy2')}</li>
+                    <li>{t('order:exchange_policy3')}</li>
+                    <li>{t('order:exchange_policy4')}</li>
+                    <li>{t('order:exchange_policy5')}</li>
+                    <li>{t('order:exchange_policy6')}</li>
+                    <li>{t('order:exchange_policy7')}</li>
+                    <li>{t('order:exchange_policy8')}</li>
                 </ul>
             </div>
         </div>

@@ -1,8 +1,9 @@
+'use client'
+
 import Pagination from "@/components/pagination";
-import Image from "next/image";
-import Link from "next/link";
 import ProductCardList from "./components/product-card-list";
 import { ChevronLeft } from "lucide-react";
+import { notFound, useRouter, useSearchParams } from "next/navigation";
 
 const post = {
     id: 1,
@@ -13,13 +14,23 @@ const post = {
 }
 
 export default function WishLatestListPage() {
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const menu = searchParams.get('menu')
+    if(!menu || (menu !== 'wish' && menu !== 'latest')) notFound()
+
     return (
         <main className="container mx-auto px-6 pt-8">
             <div className="flex justify-between items-center mb-8">
                 <div className="flex items-center">
-                    <h2 className="text-2xl font-semibold">관심 상품</h2>
+                    <h2 className="text-2xl font-semibold">
+                        {menu === 'wish' ? '관심 상품' : '최근 본 상품'}
+                    </h2>
                 </div>
-                <div className="flex items-center text-xs text-gray-400 cursor-pointer">
+                <div
+                    className="flex items-center text-xs text-gray-400 cursor-pointer"
+                    onClick={() => {router.back()}}
+                >
                     <ChevronLeft className="w-4 h-4 text-gray-500 mr-3" />
                     <span className="text-base font-semibold">이전단계</span>
                 </div>

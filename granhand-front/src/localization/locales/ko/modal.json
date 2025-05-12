@@ -5,5 +5,9 @@
     "register_cmpl": "쿠폰이 등록되었습니다. 보유쿠폰에서 확인해 주세요!",
     "register_fail": "유효하지 않은 쿠폰이에요. 쿠폰번호를 다시 확인해 주세요.",
 
-    "confirm_cmpl": "구매 확정이 완료되었어요."
+    "confirm_cmpl": "구매 확정이 완료되었어요.",
+
+    "confirm": "확인",
+    "cancel_order": "주문취소",
+    "close": "닫기"
 }

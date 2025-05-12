@@ -5,5 +5,47 @@
     "space": "공간",
     "body": "바디",
     "guide": "가이드",
-    "multi_perfume": "멀티퍼퓸"
+    "signature": "시그니처",
+    "multiperfume": "멀티퍼퓸",
+    "diffuser": "디퓨저",
+    "candle": "캔들",
+    "sachet": "사쉐",
+    "handcream": "핸드크림",
+    "handwash": "핸드워시",
+
+    "guide_title": "원하시는 향을 추천해 드립니다. 아래 항목을 모두 선택해 주세요.",
+    "question1": "어떤 용도로 사용하시나요?",
+    "question2": "어떤 계절에 맞는 향을 찾으세요?",
+    "question3": "원하시는 계열을 선택해 주세요.",
+    "question4": "원하시는 분위기를 선택해 주세요.",
+    "show_result": "결과 확인",
+
+    "for_gift": "선물할 거예요",
+    "for_me": "제가 쓸 거예요",
+
+    "ss": "봄&여름",
+    "fw": "가을&겨울",
+    "no_season": "계절 상관없어요",
+
+    "floral": "플로럴",
+    "fruity": "프루티",
+    "citrus": "시트러스",
+    "woody": "우디",
+    "green": "그린",
+    "watery": "워터리",
+    "smoky": "스모키",
+    "musk": "머스크",
+    "vanilla": "바닐라",
+
+    "fresh": "청순한",
+    "delicate": "청초한",
+    "cozy": "포근한",
+    "tropical": "트로피칼",
+    "floral_vibe": "꽃내음",
+    "tea": "홍차",
+    "mature": "성숙한",
+    "sweet": "달콤한",
+    "subtle": "은은한",
+    "refined": "지적인",
+    "elegant": "우아한"
 }

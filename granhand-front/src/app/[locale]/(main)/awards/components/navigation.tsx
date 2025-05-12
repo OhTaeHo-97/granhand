@@ -28,7 +28,10 @@ export default function NavigationBar() {
     const onSelectMenu = (menu: string) => {
         const param = new URLSearchParams(params)
         param.set('menu', menu)
+        console.log('menu: ', menu)
         const pathname = selectedCategory ? `/${selectedCategory}` : ''
+        console.log('selectedCategory: ', selectedCategory)
+        console.log('param: ', param.toString())
         router.push(`${currentLocale}/awards${pathname}?${param.toString()}`)
     }
 
@@ -45,7 +48,8 @@ export default function NavigationBar() {
         if(menu) setSelectedMenu(menu)
 
         const paths = path.split('/')
-        if(paths.length < 3) setSelectedCategory('')
+        const baseLength = currentLocale === '' ? 3 : 4
+        if(paths.length < baseLength) setSelectedCategory('')
         else {
             categories.map(({ value }) => {
                 if(paths[2] === value) {

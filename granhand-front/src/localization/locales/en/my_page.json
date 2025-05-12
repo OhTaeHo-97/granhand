@@ -19,6 +19,10 @@
     "my_coupon": "My Coupon Box",
     "info": "Profile Information",
 
+    "no_cancel_accepted_gift": "Cancellation Not Allowed – The recipient has already accepted the gift.",
+    "no_cancel_invalid": "Cancellation Not Allowed – Exchange or return is unavailable after 7 days from delivery or once the purchase is confirmed.",
+    "cancel_valid": "Cancellation Notice – Orders that are being shipped may not be eligible for cancellation.",
+
     "payment": "Payment/Deposit",
     "awaiting_payment": "Awaiting Payment",
     "payment_completed": "Payment Completed",
@@ -75,6 +79,11 @@
     "day": " Days",
     "check_in_toast": "Earn an extra 500 points after 1 week of check-ins",
     "check_in": "Check In",
+    "perfect_attendance": "1-Week Perfect Attendance! You’ve received an extra 500 points.",
+    "attendance_cmpl": "Check-in complete! You’ve just earned 100 points.",
 
-    "today_luck": "What Will You Win Today? (100% Chance!)"
+    "today_luck": "What Will You Win Today? (100% Chance!)",
+    "need_attendance": "You can participate after completing the daily check-in.",
+    "already_draw": "You’ve completed today’s lucky draw. Please try again tomorrow!",
+    "draw_cmpl": "Lucky draw complete! You’ve received 100 points."
 }

@@ -5,5 +5,47 @@
     "space": "Space",
     "body": "Body",
     "guide": "Guide",
-    "multi_perfume": "Multi Perfume"
+    "signature": "Signature",
+    "multiperfume": "Multi Perfume",
+    "diffuser": "Diffuser",
+    "candle": "Candle",
+    "sachet": "Sachet",
+    "handcream": "Handcream",
+    "handwash": "Handwash",
+
+    "guide_title": "We'll recommend a fragrance for you. Please select all the options below.",
+    "question1": "What is the purpose of use?",
+    "question2": "Which season are you choosing a scent for?",
+    "question3": "Please select your preferred fragrance type.",
+    "question4": "Please select your preferred mood.",
+    "show_result": "View Results",
+
+    "for_gift": "It’s a gift.",
+    "for_me": "For myself.",
+
+    "ss": "Spring&Summer",
+    "fw": "Autumn&Winter",
+    "no_season": "No preference",
+
+    "floral": "Floral",
+    "fruity": "Fruity",
+    "citrus": "Citrus",
+    "woody": "Woody",
+    "green": "Green",
+    "watery": "Watery",
+    "smoky": "Smoky",
+    "musk": "Musk",
+    "vanilla": "Vanilla",
+
+    "fresh": "Fresh",
+    "delicate": "Delicate",
+    "cozy": "Cozy",
+    "tropical": "Tropical",
+    "floral_vibe": "Floral",
+    "tea": "Tea",
+    "mature": "Mature",
+    "sweet": "Sweet",
+    "subtle": "Subtle",
+    "refined": "Refined",
+    "elegant": "Elegant"
 }

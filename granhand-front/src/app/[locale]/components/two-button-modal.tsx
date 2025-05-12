@@ -6,7 +6,7 @@ import { useTranslation } from "../../../../utils/localization/client";
 
 export default function TwoButtonModal({ open, setOpen, contents, btnText1, btnText2, currentLocale, locale, nextLink }: { open: boolean, setOpen: (value: boolean) => void, contents: string, btnText1: string, btnText2: string, currentLocale?: string, locale: LocaleTypes, nextLink?: string }) {
     const router = useRouter()
-    const { t } = useTranslation(locale, ['common', 'auth'])
+    const { t } = useTranslation(locale, 'modal')
 
     const onClickConfirm = () => {
         setOpen(false)

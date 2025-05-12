@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function ProductInfoCard({ t }: { t: (key: string) => string }) {
+export default function ProductInfoCard({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
     return (
         <div className="space-y-4">
             {/* 상단: 이미지 + 상품 정보 */}
@@ -15,7 +15,7 @@ export default function ProductInfoCard({ t }: { t: (key: string) => string }) {
                 <div className="flex flex-col justify-center">
                     <div className="text-xs font-bold text-gray-400">GRANHAND</div>
                     <div className="font-semibold mt-1 leading-relaxed">Roland Multi Perfume</div>
-                    <div className="font-bold text-base mt-1">55,000원</div>
+                    <div className="font-bold text-base mt-1">55,000{currentLocale === '' ? '원' : ' KRW'}</div>
                 </div>
             </div>
 

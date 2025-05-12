@@ -1,0 +1,43 @@
+{
+    "title": "등급 안내",
+    "my_membership": "나의 멤버십 등급",
+    "benefit": "등급 혜택 안내",
+    "criteria": "기준",
+    "benefits": "혜택",
+    
+    "basic_point_acc": "포인트 적립 1%",
+    "basic_criteria": "최근 6개월 구매금액 10만 원 미만 및 미구매",
+    "basic_benefits_1": "신규 가입 10,000원 쿠폰 (가입 후 30일간 유효)",
+    "basic_benefits_2": "콤포타블 음료 교환권 1장 (유효기간 해당 월 1일 ~ 말일)",
+
+    "bronze_point_acc": "포인트 적립 2%",
+    "bronze_criteria": "최근 6개월 구매금액 10만 원 이상, 20만 원 미만",
+    "bronze_benefits_1": "적립 5,000원 쿠폰 제공 1장",
+    "bronze_benefits_2": "[APP 전용] 당월 10,000원 쿠폰 (균일가 제외)",
+
+    "silver_point_acc": "포인트 적립 3%",
+    "silver_criteria": "최근 6개월 구매금액 20만 원 이상, 50만 원 미만",
+    "silver_benefits_1": "적립 10,000원 쿠폰 제공 1장",
+    "silver_benefits_2": "[APP 전용] 당월 10,000원 쿠폰 (균일가 제외)",
+
+    "gold_point_acc": "포인트 적립 4%",
+    "gold_criteria": "최근 6개월 구매금액 50만 원 이상, 100만 원 미만",
+    "gold_benefits_1": "적립 15,000원 쿠폰 제공 1장",
+    "gold_benefits_2": "[APP 전용] 당월 10,000원 쿠폰 (균일가 제외)",
+
+    "vip_point_acc": "포인트 적립 5%",
+    "vip_criteria": "최근 6개월 구매금액 100만 원 이상",
+    "vip_benefits_1": "적립 20,000원 쿠폰 제공 1장",
+    "vip_benefits_2": "[APP 전용] 당월 10,000원 쿠폰 (균일가 제외)",
+
+    "tier_criteria": "회원 등급 기준 안내",
+    "criteria1": "매월 첫째 주 회원 등급이 갱신됩니다.",
+    "criteria2": "회원 등급은 최근 6개월 동안의 결제 완료 금액을 기준으로 산정됩니다.",
+    "criteria3": "쿠폰은 지급일로부터 한 달간 사용 가능합니다.",
+    "criteria4": "일부 상품은 혜택 제공 대상에서 제외될 수 있습니다.",
+
+    "tier_benefit": "회원 등급 혜택 안내",
+    "benefit1": "각 등급별 쿠폰은 매월 1일 자동 발급됩니다.",
+    "benefit2": "일부 쿠폰은 앱에서만 사용 가능합니다.",
+    "benefit3": "회원 탈퇴 시 모든 혜택은 소멸되며 복원되지 않습니다."
+}

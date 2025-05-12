@@ -1,16 +1,23 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useState } from "react";
-import LuckyModal from "./components/lucky-modal";
 import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import BasicModal from "@/app/[locale]/components/modal";
 
 export default function LuckyDrawPage() {
     const [open, setOpen] = useState(false)
+    const [attendance, setAttendance] = useState(false)
+    const [todayDraw, setTodayDraw] = useState(false)
     const locale = getLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'my_page')
+
+    const message = () => {
+        if(!attendance) return t('need_attendance')
+        else if(todayDraw) return t('already_draw')
+        return t('draw_cmpl')
+    }
 
     return (
         <main className="w-full mx-auto ml-10 min-h-screen flex flex-col items-center pt-24 pb-12">
@@ -27,7 +34,8 @@ export default function LuckyDrawPage() {
                     {t('lucky')}
                 </Button>
             </div>
-            <LuckyModal open={open} setOpen={setOpen} />
+            <BasicModal open={open} setOpen={setOpen} contents={message()} btnText="confirm" locale={locale} />
+            {/* <LuckyModal open={open} setOpen={setOpen} /> */}
         </main>
     )
 }

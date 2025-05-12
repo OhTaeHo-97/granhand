@@ -18,7 +18,7 @@ export function middleware(req: NextRequest) {
         return NextResponse.next()
     }
 
-    return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}`, req.url))
+    return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}${req.nextUrl.search}`, req.url))
 
     // 블로그
     // if(pathname.startsWith(`/${fallbackLng}/`) || pathname === `/${fallbackLng}`) {

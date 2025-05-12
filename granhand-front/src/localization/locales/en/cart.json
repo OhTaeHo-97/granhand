@@ -13,5 +13,9 @@
     "delivery_info": "Delivery usually takes 2-5 days, but may be delayed depending on the courier's circumstances. Blotter Cards are sent by mail and may take more than 5 business days to arrive.",
     "bag_purchased": "In Shopping Bag: Purchased",
     "bag_not_purchased": "In Shopping Bag: Not Purchased",
-    "options": "Change Options"
+    "options": "Change Options",
+
+    "cancel_restrict": "If the item is being prepared for shipment, cancellation may be denied. Custom-made items cannot be cancelled.",
+    "total_cancel": "item selected for cancellation",
+    "cancel_directive": "Please select the item(s) to cancel."
 }

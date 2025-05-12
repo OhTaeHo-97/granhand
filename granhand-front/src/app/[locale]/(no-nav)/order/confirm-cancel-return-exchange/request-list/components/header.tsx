@@ -1,21 +1,26 @@
 'use client'
 
+import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "../../../../../../../../utils/localization/client";
 
-export default function RequestListHeader({ category }: { category: string }) {
+export default function RequestListHeader({ category, curIndex, showProcess }: { category: string, curIndex?: number, showProcess: boolean }) {
     const router = useRouter()
+    const locale = getLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['order', 'my_page'])
+    // const currentLocale = useCurrentLocale()
     
     const cancelMenu = [
-        '상품 선택',
-        '사유 작성',
-        '취소 정보 확인'
+        t('order:cancel_process1'),
+        t('order:cancel_process2'),
+        t('order:cancel_process3')
     ]
 
     const exchangeMenu = [
-        '상품 선택',
-        '사유 작성',
-        '해결 방법 선택'
+        t('order:exchange_process1'),
+        t('order:exchange_process2'),
+        t('order:exchange_process3')
     ]
 
     const menuMap = {
@@ -31,30 +36,22 @@ export default function RequestListHeader({ category }: { category: string }) {
             <div className="flex items-center mb-8">
                 <ChevronLeft className="text-base text-gray-500 mr-3" onClick={() => router.back()} />
                 <h2 className="text-2xl font-semibold">
-                    {category === 'confirm' && '구매 확정'}
-                    {category === 'cancel' && '주문 취소'}
-                    {category === 'exchangeRefund' && '교환/반품 신청'}
+                    {category === 'confirm' && t('my_page:confirm_purchase')}
+                    {category === 'cancel' && t('my_page:order_cancel')}
+                    {category === 'exchangeRefund' && t('my_page:exchange_return')}
                 </h2>
             </div>
             {
-                curMenu && (
+                curMenu && showProcess && (
                     <div className="text-xs text-gray-400">
                         {curMenu.map((menu, index) => (
-                            <span key={index}>
+                            <span key={index} className={`${index === curIndex && 'text-[#5f5b56] text-semibold'}`}>
                                 {menu} { index !== cancelMenu.length - 1 ? " > " : "" }
                             </span>
                         ))}
                     </div>
                 )
             }
-
-            {/* <div className="text-xs text-gray-400">
-                {cancelMenu.map((menu, index) => (
-                    <span key={index}>
-                        {menu} { index !== cancelMenu.length - 1 ? " > " : "" }
-                    </span>
-                ))}
-            </div> */}
         </div>
     )
 }

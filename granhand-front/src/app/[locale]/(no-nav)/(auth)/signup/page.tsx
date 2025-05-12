@@ -178,7 +178,7 @@ export default function SignupPage() {
                     {/* </Link> */}
                 </div>
             </div>
-            <BasicModal open={open} setOpen={setOpen} contents="less_required" btnText="confirm" locale={locale} category="auth" />
+            <BasicModal open={open} setOpen={setOpen} contents="less_required" btnText="confirm" locale={locale} />
         </div>
     );
 }

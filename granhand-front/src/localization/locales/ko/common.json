@@ -14,9 +14,12 @@
     "next": "다음",
     "search": "검색어를 입력하세요.",
     "confirm": "확인",
+    "submit": "신청하기",
     "required": "(필수)",
     "optional": "(선택)",
     "granhand": "그랑핸드",
     "comfortable": "콤포타블",
-    "heyon": "헤이온"
+    "heyon": "헤이온",
+
+    "views": "조회수"
 }

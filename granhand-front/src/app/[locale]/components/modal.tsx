@@ -4,7 +4,7 @@ import { LocaleTypes } from "../../../../utils/localization/settings";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../utils/localization/client";
 
-export default function BasicModal({ open, setOpen, contents, btnText, locale, category, nextLink }: { open: boolean, setOpen: (value: boolean) => void, contents: string, btnText: string, locale: LocaleTypes, category: string, nextLink?: string }) {
+export default function BasicModal({ open, setOpen, contents, btnText, locale, nextLink }: { open: boolean, setOpen: (value: boolean) => void, contents: string, btnText: string, locale: LocaleTypes, nextLink?: string }) {
     const router = useRouter()
     // const { t } = useTranslation(locale, category)
     const { t } = useTranslation(locale, 'modal')

@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { subMonths, addMonths, isSameDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, isSameMonth, format, addDays } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import InfoModal from "./components/modal";
 import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import { Button } from "@/components/ui/button";
+import BasicModal from "@/app/[locale]/components/modal";
 
 export default function AttendancePage() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -14,6 +15,12 @@ export default function AttendancePage() {
     const [open, setOpen] = useState(false)
     const locale = getLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'my_page')
+    const perfectAttendance = false
+
+    const message = () => {
+        if(perfectAttendance) return t('perfect_attendance')
+        return t('attendance_cmpl')
+    }
 
     const handlePrevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
     const handleNextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
@@ -25,6 +32,9 @@ export default function AttendancePage() {
             setTimeout(() => setOpen(false), 2000);
         }
     };
+
+    const checkedToday = checkedDays.filter(day => isSameDay(day, today))
+    const isCheckedToday = !checkedToday || checkedToday.length === 0 ? false : true
 
     const renderCalendar = () => {
         const monthStart = startOfMonth(currentMonth);
@@ -107,13 +117,15 @@ export default function AttendancePage() {
                     {t('check_in_toast')}
                 </div>
             </div>
-            <button
+            <Button
                 onClick={handleCheck}
-                className="bg-black text-white text-center w-full py-3 font-medium text-sm"
+                className="bg-black text-white text-center w-full py-3 font-medium text-sm h-12"
+                disabled={isCheckedToday}
             >
                 {t('check_in')}
-            </button>
-            <InfoModal open={open} setOpen={setOpen} />
+            </Button>
+            <BasicModal open={open} setOpen={setOpen} btnText="confirm" locale={locale} contents={message()} />
+            {/* <InfoModal open={open} setOpen={setOpen} /> */}
         </main>
     );
 }

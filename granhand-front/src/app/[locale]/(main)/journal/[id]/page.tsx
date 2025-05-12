@@ -1,6 +1,12 @@
 import Image from "next/image"
+import { LocaleTypes } from "../../../../../../utils/localization/settings"
+import { translation } from "../../../../../../utils/localization/locales/server"
+import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams"
 
-export default function JournalDetailPage() {
+export default async function JournalDetailPage({ params: { locale } }: { params: { locale: LocaleTypes } }) {
+    const { t } = await translation(locale, 'common')
+    const currentLocale = getCurrentLocaleFromParams(locale)
+
     return (
         <main className="flex flex-col md:flex-row md:items-start md:gap-12 mb-12 min-h-screen relative mt-10">
             {/* 카테고리 + 제목 + 날짜 + 조회수 + 이미지 */}
@@ -10,7 +16,7 @@ export default function JournalDetailPage() {
                     <div className="text-sm text-gray-500">#Team</div>
                     <h1 className="text-2xl font-semibold text-black">NOLL 놀이에 대한 모든 것.</h1>
                     <div className="text-xs text-gray-400">
-                        2023-07-08 조회수 412
+                        2023-07-08 { currentLocale === '' ? `${t('views')} 412` : `412 ${t('views')}` }
                     </div>
                 </div>
             </div>

@@ -5,8 +5,9 @@ import { LocaleTypes } from "../../../../../../../utils/localization/settings";
 import { translation } from "../../../../../../../utils/localization/locales/server";
 import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 
-export default async function OrderGiftPage({ params: { locale } }: { params: { locale: LocaleTypes } }) {
-    const { t } = await translation(locale, ['payment', 'order'])
+export default async function OrderGiftPage({ params: { locale }, searchParams }: { params: { locale: LocaleTypes }, searchParams: Record<string, string> }) {
+    const state = searchParams.state
+    const { t } = await translation(locale, ['payment', 'order', 'my_page'])
     const currentLocale = getCurrentLocaleFromParams(locale)
 
     return (
@@ -24,7 +25,7 @@ export default async function OrderGiftPage({ params: { locale } }: { params: { 
                 <GiftInfo />
 
                 {/* 주문 상품 정보 */}
-                <ProductInfo t={t} />
+                <ProductInfo t={t} state={state} />
 
                 {/* 주문 상품 정보 + 결제 금액 + 환불 정보 */}
                 <OrderInfo hasRefund={false} t={t} />

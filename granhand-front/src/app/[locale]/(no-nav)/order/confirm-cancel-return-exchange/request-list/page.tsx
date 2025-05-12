@@ -12,9 +12,11 @@ import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 import { translation } from "../../../../../../../utils/localization/locales/server";
 
 export default async function RequestListPage({ searchParams, params: { locale } }: { searchParams: Record<string, string>, params: { locale: LocaleTypes } }) {
-    const { t } = await translation(locale, ['my_page'])
+    const { t } = await translation(locale, ['my_page', 'cart', 'payment'])
     const currentLocale = getCurrentLocaleFromParams(locale)
+    // console.log('searchParams: ', searchParams)
     const category = searchParams.category
+    // console.log('category: ', category)
     if(!category) notFound()
 
     return (
@@ -23,8 +25,8 @@ export default async function RequestListPage({ searchParams, params: { locale }
                 <ChevronLeft className="text-base text-gray-500 mr-3" />
                 <h2 className="text-2xl font-semibold">구매 확정</h2>
             </div> */}
-            <RequestListHeader category={category} />
-            <ProductInfoTable />
+            <RequestListHeader category={category} curIndex={0} showProcess={true} />
+            <ProductInfoTable t={t} currentLocale={currentLocale} />
             {/* <OrderConfirmRequestList /> */}
             { category === 'confirm' && <OrderConfirmRequestList /> }
             { category === 'cancel' && <OrderCancelRequestList /> }

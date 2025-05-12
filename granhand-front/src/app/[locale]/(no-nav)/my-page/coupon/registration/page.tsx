@@ -32,7 +32,7 @@ export default function CouponRegisterPage() {
             </div>
             <CouponRegisterModal isValid={true} open={open} setOpen={setOpen} />
             {/* open, setOpen, contents, btnText, locale, nextLink */}
-            <BasicModal open={open} setOpen={setOpen} btnText='확인' locale={locale} contents={ isValid ? 'register_cmpl' : 'register_fail' } category="coupon" />
+            <BasicModal open={open} setOpen={setOpen} btnText='확인' locale={locale} contents={ isValid ? 'register_cmpl' : 'register_fail' } />
         </div>
     )
 }

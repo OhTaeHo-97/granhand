@@ -17,17 +17,26 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
     const currentLocale = useCurrentLocale()
     const [open, setOpen] = useState(false)
     const [nextLink, setNextLink] = useState<string | undefined>(undefined)
-    const [content, setContent] = useState('')
+    // const [content, setContent] = useState('')
+    const isAcceptedGift = false
+    const isInvalid = false
     // const [cancelModalOpen, setCancelModalOpen] = useState(false)
     // const [confirmModalOpen, setConfirmModalOpen] = useState(false)
 
+    const message = () => {
+        if(isAcceptedGift) return t('my_page:no_cancel_accepted_gift')
+        if(isInvalid) return t('my_page:no_cancel_invalid')
+        return t('my_page:cancel_valid')
+    }
+    const btnText = isAcceptedGift || isInvalid ? 'confirm' : 'cancel_order'
+
     const cancelBtn = (id: number) => {
         const link = `${currentLocale}/order/confirm-cancel-return-exchange/request-list?category=cancel&select=${id}`
+        
         return (
             <Button className="w-full border rounded py-2 text-sm"
                 onClick={() => {
                     setNextLink(link)
-                    setContent('취소 유의사항 안내 - 출고 중인 상품은 취소 신청이 어려울 수 있어요.')
                     setOpen((prev) => !prev)
                 }}
             >
@@ -63,7 +72,7 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                                 <GiftIcon className="w-3 h-3 text-white" />
                             </div>
                         </div>
-                        <Link href="/order/confirm-cancel-return-exchange/1">
+                        <Link href={`${currentLocale}/order/1/gift?state=${state}`}>
                             <Button className="text-sm text-gray-400 p-0 h-fit">
                                 <ChevronRight />
                             </Button>
@@ -72,7 +81,7 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                 ) : (
                     <div className="flex justify-between">
                         <span className="text-sm font-semibold">2023.10.23</span>
-                        <Link href="/order/confirm-cancel-return-exchange/1">
+                        <Link href={`${currentLocale}/order/1?state=${state}`}>
                             <Button className="text-sm text-gray-400 p-0 h-fit">
                                 <ChevronRight />
                             </Button>
@@ -94,7 +103,7 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                             <div className="text-sm font-semibold leading-relaxed">Roland Multi Perfume</div>
                             <div className="text-xs text-gray-500 leading-relaxed">롤랑 멀티퍼퓸 100ml / 1개</div>
                         </div>
-                        <div className="text-base font-bold mt-1">35,000원</div>
+                        <div className="text-base font-bold mt-1">35,000{currentLocale === '' ? '원' : ' KRW'}</div>
                     </div>
                 </div>
 
@@ -120,7 +129,7 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                     )
                 }
                 {/* <CancelModal open={open} setOpen={setOpen} /> */}
-                <TwoButtonModal open={open} setOpen={setOpen} contents={content} btnText1="닫기" btnText2="주문취소" currentLocale={currentLocale} locale={locale} nextLink={nextLink} />
+                <TwoButtonModal open={open} setOpen={setOpen} contents={message()} btnText1="close" btnText2={btnText} currentLocale={currentLocale} locale={locale} nextLink={nextLink} />
             </div>
         </section>
     )

@@ -1,47 +1,47 @@
-'use client'
+// 'use client'
 
-import { useState } from 'react'
-import { Check, MoreVertical } from 'lucide-react'
+// import { useState } from 'react'
+// import { Check, MoreVertical } from 'lucide-react'
 import ScentGuideResult from '../components/result'
 
-const questions = [
-    {
-        id: 1,
-        text: '어떤 용도로 사용하시나요?',
-        options: ['선물할 거예요', '제가 쓸 거예요'],
-    },
-    {
-        id: 2,
-        text: '어떤 계절에 맞는 향을 찾으세요?',
-        options: ['봄', '여름', '가을', '겨울'],
-    },
-    {
-        id: 3,
-        text: '원하시는 계열을 선택해 주세요.',
-        options: ['플로럴', '우디', '시트러스', '머스크'],
-    },
-    {
-        id: 4,
-        text: '원하시는 분위기를 선택해 주세요.',
-        options: ['활기찬', '차분한', '따뜻한', '신선한'],
-    },
-]
+// const questions = [
+//     {
+//         id: 1,
+//         text: '어떤 용도로 사용하시나요?',
+//         options: ['선물할 거예요', '제가 쓸 거예요'],
+//     },
+//     {
+//         id: 2,
+//         text: '어떤 계절에 맞는 향을 찾으세요?',
+//         options: ['봄', '여름', '가을', '겨울'],
+//     },
+//     {
+//         id: 3,
+//         text: '원하시는 계열을 선택해 주세요.',
+//         options: ['플로럴', '우디', '시트러스', '머스크'],
+//     },
+//     {
+//         id: 4,
+//         text: '원하시는 분위기를 선택해 주세요.',
+//         options: ['활기찬', '차분한', '따뜻한', '신선한'],
+//     },
+// ]
 
 export default function GuidePage() {
-    const [answers, setAnswers] = useState<{ [key: number]: string }>({})
+    // const [answers, setAnswers] = useState<{ [key: number]: string }>({})
 
-    const handleSelect = (qId: number, option: string) => {
-        setAnswers((prev) => {
-            const newAnswers: { [key: number]: string } = { ...prev, [qId]: option }
-            const qIndex = questions.findIndex((q) => q.id === qId)
-            for (let i = qIndex + 1; i < questions.length; i++) {
-                delete newAnswers[questions[i].id]
-            }
-            return newAnswers
-        })
-    }
+    // const handleSelect = (qId: number, option: string) => {
+    //     setAnswers((prev) => {
+    //         const newAnswers: { [key: number]: string } = { ...prev, [qId]: option }
+    //         const qIndex = questions.findIndex((q) => q.id === qId)
+    //         for (let i = qIndex + 1; i < questions.length; i++) {
+    //             delete newAnswers[questions[i].id]
+    //         }
+    //         return newAnswers
+    //     })
+    // }
 
-    const allAnswered = questions.every((q) => answers[q.id])
+    // const allAnswered = questions.every((q) => answers[q.id])
 
     return (
         <div className="mx-auto py-12">

@@ -4,13 +4,13 @@ import ExchangeRefundAddress from "./exchange-refund-address";
 import RefundInfoBox from "../../../[id]/components/refund-info-box";
 import ProductInfoCard from "../../../[id]/components/product-info-card";
 
-export default function RefundForm({ t }: { t: (key: string) => string }) {
+export default function RefundForm({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
     return (
         <div className="w-full max-w-3xl mx-auto mb-20">
             <div className="rounded-lg space-y-4 bg-white mb-10">
                 <h2 className="text-base font-bold text-gray-700">교환/환불 상품 정보</h2>
                 <div className="border rounded-md p-6 space-y-6 bg-white">
-                    <ProductInfoCard t={t} />
+                    <ProductInfoCard t={t} currentLocale={currentLocale} />
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">

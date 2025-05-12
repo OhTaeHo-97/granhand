@@ -21,13 +21,13 @@ export default function FormPage() {
 
     return (
         <main className="container mx-auto px-6 pt-8">
-            <RequestListHeader category={category} />
-            {category === 'exchangeRefund' && <RefundForm t={t} />}
-            {category === 'cancel' && <CancelForm t={t} />}
+            <RequestListHeader category={category} curIndex={2} showProcess={true} />
+            {category === 'exchangeRefund' && <RefundForm t={t} currentLocale={currentLocale} />}
+            {category === 'cancel' && <CancelForm t={t} currentLocale={currentLocale} />}
             {/* <RefundForm t={t} /> */}
             <div className="py-6 border-t border-b flex justify-end">
                 <Button className="bg-black text-white rounded-none font-bold p-6 w-1/4 min-w-50" onClick={() => router.push(`${currentLocale}/order/confirm-cancel-return-exchange/result?${queryString}`)}>
-                    신청하기
+                    {t('submit')}
                 {/* currentLocale */}
                 </Button>
                 {/* <Link href="/order/confirm-cancel-return-exchange/result" className="w-1/4 min-w-50">

@@ -7,18 +7,20 @@ import { notFound } from "next/navigation";
 import CancelReason from "./components/cancel";
 import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 import NextButton from "./components/next-btn";
+import { translation } from "../../../../../../../utils/localization/locales/server";
 
-export default function ReasonPage({ searchParams, params: { locale } }: { searchParams: Record<string, string>, params: { locale: LocaleTypes } }) {
+export default async function ReasonPage({ searchParams, params: { locale } }: { searchParams: Record<string, string>, params: { locale: LocaleTypes } }) {
     const category = searchParams.category
+    const { t } = await translation(locale, ['order'])
     const currentLocale = getCurrentLocaleFromParams(locale)
     if(!category) notFound()    
 
     return (
         <main className="container mx-auto px-6 pt-8">
-            <RequestListHeader category={category} />
+            <RequestListHeader category={category} curIndex={1} showProcess={true} />
             {/* <ExchangeRefundReason /> */}
             { category === 'exchangeRefund' && <ExchangeRefundReason /> }
-            { category === 'cancel' && <CancelReason /> }
+            { category === 'cancel' && <CancelReason t={t} /> }
 
             <NextButton />
 
