@@ -25,7 +25,7 @@ export default function PaymentResult() {
 
             <section className="max-w-3xl mx-auto space-y-6">
                 <div className="border rounded-md p-6 space-y-6 bg-white">
-                    <ProductInfoCard t={t} />
+                    <ProductInfoCard t={t} currentLocale={currentLocale} />
                 </div>
                 <PaymentInfoBox t={t} />
 

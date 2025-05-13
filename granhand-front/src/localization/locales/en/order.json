@@ -77,6 +77,7 @@
     "exchange_details_placeholder": "For faster processing, please include details and photos.",
     "exchange_photo": "Photo",
     "exchange_policy_title": "Exchange & Return Policy Notes",
+    "only_exchange_policy_title": "Exchange Policy Notes",
     "exchange_policy1": "Please repackage the item in its original condition.",
     "exchange_policy2": "Exchanges or returns are available within 7 business days from the delivery date.",
     "exchange_policy3": "If the product is defective or incorrectly delivered, exchange/return is allowed regardless of its condition.",
@@ -84,5 +85,38 @@
     "exchange_policy5": "Exchanges/returns are not allowed if the product packaging or seals are damaged (e.g., hand cream, sachet packaging).",
     "exchange_policy6": "Products that have been personalized (e.g., stamping service on multiperfume, diffuser, candle) cannot be exchanged or refunded.",
     "exchange_policy7": "To check if your item is eligible for exchange or refund, please send photos via ChannelTalk for accurate assistance.",
-    "exchange_policy8": "If an ineligible product is returned, round-trip and reshipping costs will be charged to the customer."
+    "exchange_policy8": "If an ineligible product is returned, round-trip and reshipping costs will be charged to the customer.",
+    "only_exchange_policy1": "If the reason for exchange is initially determined to be our fault but later found to be the customer's fault, round-trip shipping fees may be charged or the exchange may be denied.",
+    "only_exchange_policy2": "If the seal is broken or there are signs of opening or use, the exchange may not be accepted and the product may be returned with postage due.",
+
+    "exchange_refund_item_info": "Exchange/Return Item Information",
+    "exchange_refund_selection": "Choose How You’d Like to Proceed",
+    "exchange": "Exchange",
+    "return_refund": "Return and Refund",
+
+    "pickup_info": "Check Pickup/Delivery Information",
+    "ship_fee_pay_method": "Shipping Fee Payment Method",
+    "exchange_ship_fee_info": "Exchange Shipping Fee Information",
+    "round_trip_ship_fee": "Round-Trip Shipping Fee",
+    "pickup_address": "Pickup Address",
+    "delivery_address": "Shipping Fee Details",
+    "edit_address": "Edit Address",
+
+    "refund_info": "Refund Information",
+    "return_ship_fee_info": "Return Shipping Fee Information",
+    "return_ship_fee": "Return Shipping Fee",
+
+    "exchange_submit": "Your exchange request has been submitted.",
+    "exchange_info1": "After the return item is collected, your replacement will be inspected and shipped within up to 7 business days. You can check the request details and status in ‘View Exchange Details’.",
+    "exchange_info2": "If the returned item is found to be damaged or not eligible for exchange, the request may be denied. Our customer service team will contact you.",
+    "refund_submit": "Your return request has been submitted.",
+    "refund_info1": "After the returned item is collected, it will be inspected and refunded via your original payment method within up to 7 business days. You can check the request details and status in ‘View Return Details’.",
+    "refund_info2": "If the returned item is found to be damaged or not eligible for return, the request may be denied. Our customer service team will contact you.",
+    "view_details": "Check Request History",
+
+    "exchange_procedure_title": "Exchange Procedure Guide",
+    "exchange_procedure1": "If there is a remaining balance to deduct, the amount will be refunded after deduction from the final payment method (in the order of card, Naver Pay, bank transfer → store credits).",
+    "exchange_procedure2": "The final refund amount will be confirmed after the returned item is collected.",
+    "pickup_track": "Pickup Tracking",
+    "delivery_track": "Delivery Tracking"
 }

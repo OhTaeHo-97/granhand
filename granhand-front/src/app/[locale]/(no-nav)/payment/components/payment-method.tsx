@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import StandardPayment from "./standard-payment";
 
 export default function PaymentMethod({ t }: { t: (key: string) => string }) {
     const [payType, setPayType] = useState('')
@@ -95,31 +96,32 @@ export default function PaymentMethod({ t }: { t: (key: string) => string }) {
                         <span className="text-sm text-gray-800">{t('payment:pay')}</span>
                     </Label>
                     {payType === 'normal' && (
-                        <RadioGroup
-                            value={normalMethod}
-                            onValueChange={setNormalMethod}
-                            className="grid grid-cols-2 gap-4 text-sm"
-                        >
-                            {[
-                                { value: "card", label: t('payment:card') },
-                                { value: "toss", label: t('payment:toss') },
-                                { value: "naver", label: t('payment:naver') },
-                                { value: "bank", label: t('payment:bank') },
-                            ].map(({ value, label }) => (
-                                <Label
-                                    key={value}
-                                    className={cn(
-                                        "border rounded py-6 px-3 text-center cursor-pointer",
-                                        normalMethod === value
-                                            ? "!border-black font-bold"
-                                            : "border-gray-300 font-normal"
-                                    )}
-                                >
-                                    <RadioGroupItem value={value} className="hidden" />
-                                    {label}
-                                </Label>
-                            ))}
-                        </RadioGroup>
+                        // <RadioGroup
+                        //     value={normalMethod}
+                        //     onValueChange={setNormalMethod}
+                        //     className="grid grid-cols-2 gap-4 text-sm"
+                        // >
+                        //     {[
+                        //         { value: "card", label: t('payment:card') },
+                        //         { value: "toss", label: t('payment:toss') },
+                        //         { value: "naver", label: t('payment:naver') },
+                        //         { value: "bank", label: t('payment:bank') },
+                        //     ].map(({ value, label }) => (
+                        //         <Label
+                        //             key={value}
+                        //             className={cn(
+                        //                 "border rounded py-6 px-3 text-center cursor-pointer",
+                        //                 normalMethod === value
+                        //                     ? "!border-black font-bold"
+                        //                     : "border-gray-300 font-normal"
+                        //             )}
+                        //         >
+                        //             <RadioGroupItem value={value} className="hidden" />
+                        //             {label}
+                        //         </Label>
+                        //     ))}
+                        // </RadioGroup>
+                        <StandardPayment normalMethod={normalMethod} setNormalMethod={setNormalMethod} />
                     )}
                 </RadioGroup>
             </div>

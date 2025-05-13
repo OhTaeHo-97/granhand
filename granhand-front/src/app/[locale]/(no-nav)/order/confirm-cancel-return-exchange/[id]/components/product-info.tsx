@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-export default function CancelProductInfo() {
+export default function ProductInfo({ t }: { t: (key: string) => string }) {
     return (
         // 주문 상품 정보
         <section className="rounded-lg space-y-4 bg-white">
-            <h2 className="text-base font-bold">취소 상품 정보</h2>
+            <h2 className="text-base font-bold">{t('order:cancel_item')}</h2>
 
             <div className="border rounded-md p-4 px-10 space-y-4 shadow-md">
                 <div className="flex gap-4">
@@ -24,19 +24,19 @@ export default function CancelProductInfo() {
                 {/* 중간: 옵션 정보 */}
                 <div className="text-sm border-t border-dashed pt-4 space-y-1 text-gray-600">
                     <div className="flex">
-                        <span className="text-gray-400 w-24">옵션</span>
+                        <span className="text-gray-400 w-24">{t('payment:option')}</span>
                         <span className="ml-4">롤랑 멀티퍼퓸 200ml / 1개</span>
                     </div>
                     <div className="flex">
-                        <span className="text-gray-400 w-24">쇼핑백</span>
+                        <span className="text-gray-400 w-24">{t('payment:shopping_bag')}</span>
                         <span className="ml-4">구매 안함</span>
                     </div>
                     <div className="flex">
-                        <span className="text-gray-400 w-24">스탬핑 여부</span>
+                        <span className="text-gray-400 w-24">{t('payment:is_stamping')}</span>
                         <span className="ml-4">N</span>
                     </div>
                     <div className="flex">
-                        <span className="text-gray-400 w-24">스탬핑 문구</span>
+                        <span className="text-gray-400 w-24">{t('payment:stamping_title')}</span>
                         <span className="ml-4">GRANHAND</span>
                     </div>
                 </div>

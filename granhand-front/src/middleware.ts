@@ -6,53 +6,33 @@ import { fallbackLng, locales } from '../utils/localization/settings'
 
 export function middleware(req: NextRequest) {
     const pathname = req.nextUrl.pathname
-    console.log('fallbackLng: ', fallbackLng)
-    console.log('pathname: ', pathname)
+    console.log(pathname)
 
-    // 두 번째 ChatGPT
     const pathnameHasLocale = locales.some(
         (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     )
+
+    // if(pathname.includes('/my-info')) {
+    //     const isAuthenticated = req.cookies.get('re-authenticated')?.value === 'true'
+
+    //     if(!isAuthenticated) {
+    //         let redirectUrl
+    //         if(pathnameHasLocale) {
+    //             redirectUrl = new URL(`/my-page/verify${req.nextUrl.search}`, req.url)
+    //         } else {
+    //             redirectUrl = new URL(`/${fallbackLng}/my-page/verify${req.nextUrl.search}`, req.url)
+    //         }
+    //         redirectUrl.searchParams.set('redirectTo', pathname) // 원래 위치 기억
+            
+    //         return NextResponse.redirect(redirectUrl)
+    //     }
+    // }
 
     if(pathnameHasLocale) {
         return NextResponse.next()
     }
 
     return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}${req.nextUrl.search}`, req.url))
-
-    // 블로그
-    // if(pathname.startsWith(`/${fallbackLng}/`) || pathname === `/${fallbackLng}`) {
-    //     return NextResponse.redirect(
-    //         new URL(
-    //             pathname.replace(`/${fallbackLng}`, pathname === `/${fallbackLng}` ? '/' : ''),
-    //             req.url
-    //         )
-    //     )
-    // }
-
-    // const pathnameIsMissingLocale = locales.every(
-    //     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-    // )
-
-    // if(pathnameIsMissingLocale) {
-    //     return NextResponse.rewrite(new URL(`/${fallbackLng}${pathname}`, req.url))
-    // }
-
-
-
-    // 첫 번째 ChatGPT
-    // const pathnameHasLocale = locales.some(
-    //     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-    // )
-
-    // if(pathnameHasLocale) return;
-
-    // const acceptLng = req.headers.get('accept-language') || ''
-    // const matchedLocale = locales.find((locale) => acceptLng.includes(locale)) || defaultLocale
-
-    // return NextResponse.redirect(
-    //     new URL(`/${matchedLocale}${pathname}`, req.url)
-    // )
 }
 
 export const config = {
@@ -60,8 +40,4 @@ export const config = {
     matcher: [
         '/((?!api|.*\\..*|_next/static|_next/image|manifest.json|assets|favicon.ico).*)',
     ],
-};
-
-// export const config = {
-//     matcher: ['/((?!api|_next|favicon.ico).*)']
-// }
+}

@@ -1,10 +1,14 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
+import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useState } from "react";
+import { useTranslation } from "../../../../../../../../utils/localization/client";
 
-export default function ExchangeRefundAddress({ title, info }: { title: string, info: { name: string, phone: string, address: string } }) {
+export default function ExchangeRefundAddress({ title, info, showEdit = true }: { title: string, info: { name: string, phone: string, address: string }, showEdit?: boolean }) {
     const [addressInfo, setAddressInfo] = useState(info)
+    const locale = getLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, 'order')
     const handleAddress = () => {
         window.open(
             '/address',
@@ -17,9 +21,11 @@ export default function ExchangeRefundAddress({ title, info }: { title: string, 
         <div className="border p-4 mt-5">
             <div className="flex justify-between items-center">
                 <h3 className="font-semibold text-black text-base">{title}</h3>
-                <Button className="text-sm text-gray-400 p-0 h-fit" onClick={handleAddress}>
-                    변경하기
-                </Button>
+                {showEdit && (
+                    <Button className="text-sm text-gray-400 p-0 h-fit" onClick={handleAddress}>
+                        {t('edit_address')}
+                    </Button>
+                )}
             </div>
             <div className="space-y-2 mt-5 text-gray-700">
                 <div>

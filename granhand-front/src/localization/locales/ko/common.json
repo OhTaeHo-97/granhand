@@ -1,5 +1,6 @@
 {
     "login": "로그인",
+    "logout": "로그아웃",
     "faq": "자주 묻는 질문",
     "about": "회사 소개",
     "recruitment": "채용 안내",
@@ -11,9 +12,11 @@
     "privacy_officer": "개인정보관리책임 최지혜",
     "info": "대표 정준혁 상호 (유)그랑핸드 사업자번호",
     "prev": "이전 단계",
+    "to_prev": "이전으로",
     "next": "다음",
     "search": "검색어를 입력하세요.",
     "confirm": "확인",
+    "cancel": "취소",
     "submit": "신청하기",
     "required": "(필수)",
     "optional": "(선택)",

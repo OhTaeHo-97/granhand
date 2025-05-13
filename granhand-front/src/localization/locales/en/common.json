@@ -1,5 +1,6 @@
 {
     "login": "Login",
+    "logout": "Logout",
     "faq": "FAQ",
     "about": "About",
     "recruitment": "Recruitment",
@@ -11,9 +12,11 @@
     "privacy_officer": "Privacy Officer Ji-hye Choi",
     "info": "Representative Junhyuk Jung Business Name GRANHAND. LLC Business Registration Number",
     "prev": "Previous Step",
+    "to_prev": "Back",
     "next": "Next Step",
     "search": "Search...",
     "confirm": "Confirm",
+    "cancel": "Cancel",
     "submit": "Submit",
     "required": "(Required)",
     "optional": "(Optional)",

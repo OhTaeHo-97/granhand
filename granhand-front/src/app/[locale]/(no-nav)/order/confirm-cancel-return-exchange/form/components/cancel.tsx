@@ -1,64 +1,79 @@
+'use client'
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import PaymentInfo from "../../../[id]/components/payment-info";
 import { Input } from "@/components/ui/input";
 import Information from "@/components/information";
 import ProductInfoCard from "../../../[id]/components/product-info-card";
+import { Button } from "@/components/ui/button";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function CancelForm({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const queryString = new URLSearchParams(searchParams).toString()
+
     return (
-        <div className="w-full max-w-3xl mx-auto mb-20">
-            <div className="rounded-lg space-y-4 bg-white mb-10">
-                <h2 className="text-base font-bold text-gray-700">{t('order:cancel_item')}</h2>
-                <div className="border rounded-md p-6 space-y-6 bg-white">
-                    <ProductInfoCard t={t} currentLocale={currentLocale} />
+        <>
+            <div className="w-full max-w-3xl mx-auto mb-20">
+                <div className="rounded-lg space-y-4 bg-white mb-10">
+                    <h2 className="text-base font-bold text-gray-700">{t('order:cancel_item')}</h2>
+                    <div className="border rounded-md p-6 space-y-6 bg-white">
+                        <ProductInfoCard t={t} currentLocale={currentLocale} />
+                    </div>
                 </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-                <PaymentInfo t={t} />
-                <div className="space-y-2">
-                    <div className="space-y-2 w-full">
-                        <h2 className="font-semibold text-black text-base">{t('order:refund_account')}</h2>
-                        <div className="rounded-md space-y-3">
-                            <Select>
-                                <SelectTrigger className="w-full border rounded px-4 py-2 text-sm h-15 data-[placeholder]:text-gray-400">
-                                    <SelectValue placeholder={t('order:select_bank')} />
-                                </SelectTrigger>
-                                <SelectContent className="bg-white">
-                                    <SelectItem value="shinhan">신한</SelectItem>
-                                    <SelectItem value="kb">국민</SelectItem>
-                                    <SelectItem value="nh">농협</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="rounded-md space-y-3 mt-2">
-                            <Input type="text" placeholder={t('order:select_bank')} className="h-15" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                    <PaymentInfo t={t} />
+                    <div className="space-y-2">
+                        <div className="space-y-2 w-full">
+                            <h2 className="font-semibold text-black text-base">{t('order:refund_account')}</h2>
+                            <div className="rounded-md space-y-3">
+                                <Select>
+                                    <SelectTrigger className="w-full border rounded px-4 py-2 text-sm h-15 data-[placeholder]:text-gray-400">
+                                        <SelectValue placeholder={t('order:select_bank')} />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white">
+                                        <SelectItem value="shinhan">신한</SelectItem>
+                                        <SelectItem value="kb">국민</SelectItem>
+                                        <SelectItem value="nh">농협</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="rounded-md space-y-3 mt-2">
+                                <Input type="text" placeholder={t('order:select_bank')} className="h-15" />
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100">
+                    <Information title={t('order:refund_method_info')} contents={[
+                        {
+                            elem: t('order:credit_check'),
+                            sub: [t('order:credit_check_info')]
+                        },
+                        {
+                            elem: t('order:bank'),
+                            sub: [t('order:bank_info')]
+                        }
+                    ]} />
+                    <Information bgColor="bg-gray-100" contents={[
+                        {
+                            elem: t('order:naver_pay'),
+                            sub: [t('order:naver_pay_info1'), t('order:naver_pay_info2'), t('order:naver_pay_info3')]
+                        },
+                        {
+                            elem: t('order:point'),
+                            sub: [t('order:point_info')]
+                        }
+                    ]} />
+                </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-100">
-                <Information title={t('order:refund_method_info')} contents={[
-                    {
-                        elem: t('order:credit_check'),
-                        sub: [t('order:credit_check_info')]
-                    },
-                    {
-                        elem: t('order:bank'),
-                        sub: [t('order:bank_info')]
-                    }
-                ]} />
-                <Information bgColor="bg-gray-100" contents={[
-                    {
-                        elem: t('order:naver_pay'),
-                        sub: [t('order:naver_pay_info1'), t('order:naver_pay_info2'), t('order:naver_pay_info3')]
-                    },
-                    {
-                        elem: t('order:point'),
-                        sub: [t('order:point_info')]
-                    }
-                ]} />
+            <div className="py-6 border-t border-b flex justify-end">
+                <Button className="bg-black text-white rounded-none font-bold p-6 w-1/4 min-w-50" onClick={() => router.push(`${currentLocale}/order/confirm-cancel-return-exchange/result?${queryString}`)}>
+                    {t('submit')}
+                </Button>
             </div>
-        </div>
+        </>
         // <>
         //     {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
         //         <PaymentInfo />

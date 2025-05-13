@@ -38,7 +38,7 @@ export default function RequestListHeader({ category, curIndex, showProcess }: {
                 <h2 className="text-2xl font-semibold">
                     {category === 'confirm' && t('my_page:confirm_purchase')}
                     {category === 'cancel' && t('my_page:order_cancel')}
-                    {category === 'exchangeRefund' && t('my_page:exchange_return')}
+                    {(category === 'exchangeRefund' || category === 'exchange' || category === 'refund') && t('my_page:exchange_return')}
                 </h2>
             </div>
             {

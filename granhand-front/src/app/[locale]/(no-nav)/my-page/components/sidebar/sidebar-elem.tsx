@@ -18,7 +18,12 @@ export default function SidebarElement({
     };
     const pathname = usePathname()
 
-    const isActive = (url: string) => pathname === url
+    const isActive = (url: string) => {
+        // if(pathname.includes('/my-page/info')) {
+        //     return '/my-page/info' === url
+        // }
+        return pathname === url
+    }
 
     return (
         <div>

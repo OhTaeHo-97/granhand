@@ -16,7 +16,7 @@ export default function MyPageSidebar({ currentLocale, t }: { currentLocale: str
         { title: t('my_page:coupon_register'), url: `${currentLocale}/my-page/coupon/registration` },
     ]
     const infoElems = [
-        { title: t('my_page:edit_info'), url: `${currentLocale}/my-page/info` },
+        { title: t('my_page:edit_info'), url: `${currentLocale}/my-page/verify` },
     ]
 
     return (

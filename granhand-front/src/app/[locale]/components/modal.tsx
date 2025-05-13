@@ -4,7 +4,7 @@ import { LocaleTypes } from "../../../../utils/localization/settings";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../utils/localization/client";
 
-export default function BasicModal({ open, setOpen, contents, btnText, locale, nextLink }: { open: boolean, setOpen: (value: boolean) => void, contents: string, btnText: string, locale: LocaleTypes, nextLink?: string }) {
+export default function BasicModal({ open, setOpen, setHasExistedOrder, contents, btnText, locale, nextLink }: { open: boolean, setOpen: (value: boolean) => void, setHasExistedOrder?: (value: boolean) => void, contents: string, btnText: string, locale: LocaleTypes, nextLink?: string }) {
     const router = useRouter()
     // const { t } = useTranslation(locale, category)
     const { t } = useTranslation(locale, 'modal')
@@ -14,8 +14,15 @@ export default function BasicModal({ open, setOpen, contents, btnText, locale, n
         if(nextLink) router.push(`${nextLink}`)
     }
 
+    const changeOpen = () => {
+        setOpen(false)
+        if(setHasExistedOrder) {
+            setHasExistedOrder(true)
+        }
+    }
+
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={changeOpen}>
             <DialogContent className="max-w-lg bg-white">
             <DialogHeader>
                 <DialogTitle>GRANHAND.</DialogTitle>

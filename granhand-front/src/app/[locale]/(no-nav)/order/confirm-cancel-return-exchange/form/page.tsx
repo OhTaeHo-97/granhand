@@ -3,11 +3,13 @@
 import RequestListHeader from "../request-list/components/header";
 import { Button } from "@/components/ui/button";
 import RefundForm from "./components/refund";
-import Link from "next/link";
 import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 import { notFound, useRouter, useSearchParams } from "next/navigation";
 import CancelForm from "./components/cancel";
+import ExchangeForm from "./components/exchange";
+import ExchangeRefundForm from "./components/exchange-refund";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export default function FormPage() {
     const router = useRouter()
@@ -22,20 +24,9 @@ export default function FormPage() {
     return (
         <main className="container mx-auto px-6 pt-8">
             <RequestListHeader category={category} curIndex={2} showProcess={true} />
-            {category === 'exchangeRefund' && <RefundForm t={t} currentLocale={currentLocale} />}
+            {/* <RefundForm t={t} currentLocale={currentLocale} /> */}
+            {category === 'exchangeRefund' && <ExchangeRefundForm />}
             {category === 'cancel' && <CancelForm t={t} currentLocale={currentLocale} />}
-            {/* <RefundForm t={t} /> */}
-            <div className="py-6 border-t border-b flex justify-end">
-                <Button className="bg-black text-white rounded-none font-bold p-6 w-1/4 min-w-50" onClick={() => router.push(`${currentLocale}/order/confirm-cancel-return-exchange/result?${queryString}`)}>
-                    {t('submit')}
-                {/* currentLocale */}
-                </Button>
-                {/* <Link href="/order/confirm-cancel-return-exchange/result" className="w-1/4 min-w-50">
-                    <Button className="bg-black text-white rounded-none font-bold p-6 w-full">
-                        신청하기
-                    </Button>
-                </Link> */}
-            </div>
         </main>
     )
 }

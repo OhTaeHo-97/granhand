@@ -1,38 +1,49 @@
-import { Button } from "@/components/ui/button";
-import { DollarSign, Gift, Heart, User } from "lucide-react";
+'use client'
 
-export default function LoseBenefit() {
+import { Button } from "@/components/ui/button";
+import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { DollarSign, Gift, Heart, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useTranslation } from "../../../../../../../utils/localization/client";
+
+export default function LoseBenefitPage() {
+    const router = useRouter()
+    const locale = getLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'auth'])
+    const currentLocale = useCurrentLocale()
+
     const benefits = [
         {
             icon: <Gift className="text-gray-300" />,
-            label: "즉시 사용 가능한",
-            value: "쿠폰",
+            label: t('auth:available'),
+            value: t('auth:coupon'),
             amount: "4",
         },
         {
             icon: <DollarSign className="text-gray-300" />,
-            label: "구매 시 사용 가능한",
-            value: "포인트",
+            label: t('auth:used_checkout'),
+            value: t('auth:point'),
             amount: "2,500",
         },
         {
             icon: <Heart className="text-gray-300" />,
-            label: "소중하게 담아놓았던",
-            value: "장바구니, 관심상품",
+            label: t('auth:save'),
+            value: t('auth:wishlist'),
             amount: "5",
             highlighted: true,
         },
         {
             icon: <User className="text-gray-300" />,
-            label: "쇼핑 혜택이 주어지는",
-            value: "회원등급",
+            label: t('auth:received_benefit'),
+            value: t('auth:tier'),
             amount: "Silver",
         },
     ];
+    
     return (
-        <div className="max-w-md space-y-6 mx-auto mt-10">
+        <div className="max-w-md space-y-6 mx-auto mt-10 min-h-screen">
             <div>
-                <h2 className="text-lg font-semibold">지금 탈퇴하시면, 아래 혜택이 모두 사라져요!</h2>
+                <h2 className="text-lg font-semibold">{t('auth:leave_benefit_title')}</h2>
             </div>
 
             {benefits.map((item, index) => (
@@ -54,11 +65,11 @@ export default function LoseBenefit() {
             ))}
 
             <div className="grid grid-cols-2 gap-4 pt-6">
-                <Button variant="outline" className="h-12 text-base">
-                취소
+                <Button variant="outline" className="h-12 text-base" onClick={() => router.push(`${currentLocale}/my-info`)}>
+                    {t('cancel')}
                 </Button>
-                <Button className="h-12 bg-black text-white text-base">
-                탈퇴하기
+                <Button className="h-12 bg-black text-white text-base" onClick={() => router.push(`${currentLocale}/my-info/leave/notice`)}>
+                    {t('auth:withdraw_btn')}
                 </Button>
             </div>
             

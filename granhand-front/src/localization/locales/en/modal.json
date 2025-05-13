@@ -9,5 +9,6 @@
 
     "confirm": "Confirm",
     "cancel_order": "Cancel Order",
-    "close": "Close"
+    "close": "Close",
+    "cancel": "Cancel"
 }

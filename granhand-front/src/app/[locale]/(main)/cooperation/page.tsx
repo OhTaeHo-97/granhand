@@ -31,7 +31,7 @@ export default function CoopPage() {
     }
 
     return (
-        <main className="container mx-auto px-6">
+        <main className="container mx-auto px-6 min-h-screen">
             <section className="py-8">
                 <h2 className={`text-xl font-semibold text-left mb-8 border-t pt-4`}>{t('settings:partnership')}</h2>
             </section>

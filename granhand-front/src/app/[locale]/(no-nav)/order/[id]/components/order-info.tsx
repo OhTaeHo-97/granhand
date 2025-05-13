@@ -4,7 +4,7 @@ import UserInfo from "./user-info";
 
 export default function OrderInfo({ hasRefund, t }: { hasRefund: boolean, t: (key: string) => string }) {
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <UserInfo t={t} />
 
             <div className="space-y-6">

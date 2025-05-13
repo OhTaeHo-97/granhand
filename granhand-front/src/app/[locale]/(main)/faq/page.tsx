@@ -69,28 +69,28 @@ export default function FaqPage() {
             </div>
             <div className="max-w-4xl">
                 {/* <h2 className="text-xl font-semibold mb-6">자주 묻는 질문</h2> */}
-                <div className="divide-y">
-                    {faqs.map((faq, index) => (
+                {/* <div className="divide-y"> */}
+                {faqs.map((faq, index) => (
                     <div key={index}>
-                        <button
-                        className="w-full flex justify-between items-center py-4 text-left"
+                        <Button
+                        className="w-full flex justify-between items-center py-4 text-left h-16 text-base"
                         onClick={() => toggle(index)}
                         >
-                        <span className="font-medium text-gray-900">{faq.question}</span>
-                        {openIndex === index ? (
-                            <ChevronUp className="w-4 h-4 text-gray-500" />
-                        ) : (
-                            <ChevronDown className="w-4 h-4 text-gray-500" />
-                        )}
-                        </button>
-                        {openIndex === index && faq.answer && (
-                        <div className="bg-gray-100 p-4 text-sm text-gray-600">
-                            {faq.answer}
-                        </div>
+                            <span className="font-medium text-gray-900">{faq.question}</span>
+                            {openIndex === index ? (
+                                <ChevronUp className="w-4 h-4 text-gray-500" />
+                            ) : (
+                                <ChevronDown className="w-4 h-4 text-gray-500" />
+                            )}
+                        </Button>
+                        {(openIndex === index && faq.answer) && (
+                            <div className="bg-gray-100 p-4 text-sm text-gray-600">
+                                {faq.answer}
+                            </div>
                         )}
                     </div>
-                    ))}
-                </div>
+                ))}
+                {/* </div> */}
             </div>
         </main>
     )

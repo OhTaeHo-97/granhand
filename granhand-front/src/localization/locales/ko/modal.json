@@ -9,5 +9,6 @@
 
     "confirm": "확인",
     "cancel_order": "주문취소",
-    "close": "닫기"
+    "close": "닫기",
+    "cancel": "취소"
 }
