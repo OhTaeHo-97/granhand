@@ -1,0 +1,17 @@
+{
+    "point_info": "Points Information",
+    "total_earned": "Total Earned",
+    "used": "Used",
+    "balance": "Balance",
+    "expired": "Expired",
+    "grant_withdraw_points": "Grant/Withdraw Points",
+    "increase_decrease": "Increase/Decrease",
+    "point": "Points",
+    "description": "Description",
+    "enter_description": "Enter reason/description.",
+    "point_history": "Points History",
+    "date": "Date",
+    "related_order_number": "Related Order Number",
+    "grant_points": "Grant Points(+)",
+    "withdraw_points": "Withdraw Points(-)"
+}

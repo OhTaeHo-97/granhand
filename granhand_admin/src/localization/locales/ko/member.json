@@ -1,0 +1,35 @@
+{
+    "personal_info": "개인 정보",
+    "all": "전체",
+    "id": "아이디",
+    "phone": "휴대폰 번호",
+    "name": "고객명",
+    "personal_info_placeholder": "입력하세요.",
+    "membership_level": "회원 등급",
+    "all_membership": "회원 등급 - 전체",
+    "member_type": "회원 구분",
+    "regular": "일반 회원",
+    "restricted": "불량 회원",
+    "withdrawn": "탈퇴 회원",
+
+    "total_members": "전체 회원",
+    "users": "명",
+    "registration_date": "가입일",
+    "total_purchase_amount": "누적 구매금액",
+    "reward_points": "적립 포인트",
+    "view_details": "관련 내역 보기",
+    "mark_restricted": "불량 회원 등록",
+    "unmark_restricted": "불량 회원 해제",
+    "delete_member": "회원 삭제",
+    "bulk_point": "포인트 일괄 처리",
+    "bulk_coupon": "쿠폰 일괄 처리",
+
+    "member_info": "회원 정보",
+    "birth": "생년월일",
+    "social_login": "소셜 로그인",
+    "marketing_consent": "광고성 정보 수신 동의",
+    "consent_history": "동의 여부 이력",
+
+    "member_notes": "회원 메모",
+    "notes_placeholder": "내용 입력 (최대 500자)"
+}

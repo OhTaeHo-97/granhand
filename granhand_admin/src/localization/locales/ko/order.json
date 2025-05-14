@@ -1,0 +1,10 @@
+{
+    "order_info": "주문 정보",
+    "no": "번호",
+    "order_date": "주문일",
+    "order_number": "주문번호",
+    "order_product": "주문상품",
+    "total_amount": "총 결제금액",
+    "payment_method": "결제수단",
+    "status": "상태"
+}

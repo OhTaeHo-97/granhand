@@ -1,0 +1,35 @@
+{
+    "personal_info": "Personal Information",
+    "all": "All",
+    "id": "ID",
+    "phone": "Phone Number",
+    "name": "Customer Name",
+    "personal_info_placeholder": "Please Enter",
+    "membership_level": "Membership Level",
+    "all_membership": "All Membership Levels",
+    "member_type": "Member Type",
+    "regular": "Regular Member",
+    "restricted": "Restricted Member",
+    "withdrawn": "Withdrawn Member",
+
+    "total_members": "Total Members",
+    "users": "Users",
+    "registration_date": "Registration Date",
+    "total_purchase_amount": "Total Purchase Amount",
+    "reward_points": "Reward Points",
+    "view_details": "View Details",
+    "mark_restricted": "Mark as Restricted Member",
+    "unmark_restricted": "Unmark Restricted Member",
+    "delete_member": "Delete Member",
+    "bulk_point": "Bulk Point Management",
+    "bulk_coupon": "Bulk Coupon Management",
+
+    "member_info": "Member Information",
+    "birth": "Date of Birth",
+    "social_login": "Social Login",
+    "marketing_consent": "Marketing Consent",
+    "consent_history": "Consent History",
+
+    "member_notes": "Member Notes",
+    "notes_placeholder": "Enter content (up to 500 characters)"
+}

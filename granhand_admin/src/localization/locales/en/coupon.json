@@ -1,0 +1,17 @@
+{
+    "coupon_info": "Coupon Information",
+    "instant_issue": "Issue Coupon Instantly",
+    "issued_coupon": "Issued Coupons",
+    "available_coupon": "Available Coupons",
+    "expired_coupon": "Expired Coupons",
+    "items": "Coupons",
+    "coupon_history": "Coupon History",
+    "coupon_number": "Coupon Number",
+    "coupon_name": "Coupon Name",
+    "applicable_products": "Applicable Products",
+    "purchase_amount": "Minimum Purchase Amount",
+    "discount_amount": "Discount Amount",
+    "issue_date": "Issue Date",
+    "validity_period": "Validity Period",
+    "usage_status": "Usage Status"
+}

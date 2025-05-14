@@ -1,0 +1,17 @@
+{
+    "coupon_info": "쿠폰 정보",
+    "instant_issue": "쿠폰 즉시 발급",
+    "issued_coupon": "발급된 쿠폰",
+    "available_coupon": "사용 가능 쿠폰",
+    "expired_coupon": "소멸된 쿠폰",
+    "items": "건",
+    "coupon_history": "쿠폰 내역",
+    "coupon_number": "쿠폰번호",
+    "coupon_name": "쿠폰명",
+    "applicable_products": "쿠폰 적용 상품",
+    "purchase_amount": "사용 가능 기준 금액",
+    "discount_amount": "할인 금액",
+    "issue_date": "발행일",
+    "validity_period": "사용 가능 기간",
+    "usage_status": "사용 여부"
+}

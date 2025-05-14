@@ -1,0 +1,10 @@
+{
+    "order_info": "Order Information",
+    "no": "No.",
+    "order_date": "Order Date",
+    "order_number": "Order Number",
+    "order_product": "Ordered Product",
+    "total_amount": "Total Payment Amount",
+    "payment_method": "Payment Method",
+    "status": "Status"
+}

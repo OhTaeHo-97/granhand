@@ -1,0 +1,17 @@
+{
+    "point_info": "포인트 정보",
+    "total_earned": "총 적립",
+    "used": "사용",
+    "balance": "보유",
+    "expired": "소멸",
+    "grant_withdraw_points": "포인트 지급/회수",
+    "increase_decrease": "증감 여부",
+    "point": "포인트",
+    "description": "내용",
+    "enter_description": "사유/내용을 입력하세요.",
+    "point_history": "포인트 내역",
+    "date": "일자",
+    "related_order_number": "관련 주문정보",
+    "grant_points": "포인트 지급(+)",
+    "withdraw_points": "포인트 회수(-)"
+}
