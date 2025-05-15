@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 import MembershipLevelSelect from "../../components/membership-level";
 import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
-import TargetAudienceModal from "./target-audience-modal";
+import TargetModal from "./target";
 
 export default function PushSendPage() {
     const locale = getLocaleAsLocaleTypes()
@@ -171,7 +171,8 @@ export default function PushSendPage() {
             <div className="flex justify-center pt-4 mt-8">
                 <Button className="bg-[#322A24] text-white h-10 w-40">{t('send_push')}</Button>
             </div>
-            <TargetAudienceModal open={targetModalOpen} setOpen={setTargetModalOpen} />
+            <TargetModal open={targetModalOpen} setOpen={setTargetModalOpen} />
+            {/* <TargetAudienceModal open={targetModalOpen} setOpen={setTargetModalOpen} /> */}
         </>
     )
 }

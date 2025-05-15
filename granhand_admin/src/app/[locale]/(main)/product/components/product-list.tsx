@@ -4,14 +4,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Image from "next/image";
 
-export default function ProductList() {
+export default function ProductList({ t }: { t: (key: string) => string }) {
     return (
         <div className="p-6 shadow-sm">
             {/* ------------------- 상품 목록 테이블 ------------------- */}
             <div>
                 <div className="mb-4 justify-between flex items-center">
                     <div className="text-[#5E5955] font-bold text-base">
-                        목록 (총 <span className="text-blue-500">303</span> 개)
+                        {t('list')} ({t('total')} <span className="text-blue-500">303</span> {t('items')})
                     </div>
                     <div className="flex gap-2">
                         <Select defaultValue="newest">
@@ -19,9 +19,9 @@ export default function ProductList() {
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent className="bg-white">
-                                <SelectItem value="newest">등록순</SelectItem>
-                                <SelectItem value="이메일">이메일</SelectItem>
-                                <SelectItem value="전화번호">전화번호</SelectItem>
+                                <SelectItem value="newest_first">{t('newest_first')}</SelectItem>
+                                <SelectItem value="by_category">{t('by_category')}</SelectItem>
+                                <SelectItem value="by_recommendation">{t('by_recommendation')}</SelectItem>
                             </SelectContent>
                         </Select>
                         <Select defaultValue="50">
@@ -30,8 +30,8 @@ export default function ProductList() {
                             </SelectTrigger>
                             <SelectContent className="bg-white">
                                 <SelectItem value="50">50</SelectItem>
-                                <SelectItem value="이메일">이메일</SelectItem>
-                                <SelectItem value="전화번호">전화번호</SelectItem>
+                                <SelectItem value="100">100</SelectItem>
+                                <SelectItem value="500">500</SelectItem>
                             </SelectContent>
                         </Select>
                         <Button className="border ">엑셀 다운로드</Button>
@@ -41,15 +41,15 @@ export default function ProductList() {
                     <thead className="bg-[#322A2408] border-t h-20">
                         <tr className="border-b text-[#6F6963]">
                             <th className="p-2 items-center"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></th>
-                            <th className="p-2 items-center">No</th>
-                            <th className="p-2 text-center">상품 코드</th>
-                            <th className="p-2 text-center">카테고리</th>
-                            <th className="p-2 text-center">상품명</th>
-                            <th className="p-2 text-center">판매가</th>
-                            <th className="p-2 text-center">상태</th>
-                            <th className="p-2 text-center">재고</th>
-                            <th className="p-2 text-center">등록일</th>
-                            <th className="p-2 text-center">관리</th>
+                            <th className="p-2 text-center">No</th>
+                            <th className="p-2 text-center">{t('product_code')}</th>
+                            <th className="p-2 text-center">{t('category')}</th>
+                            <th className="p-2 text-center">{t('product_name')}</th>
+                            <th className="p-2 text-center">{t('price')}</th>
+                            <th className="p-2 text-center">{t('status')}</th>
+                            <th className="p-2 text-center">{t('stock')}</th>
+                            <th className="p-2 text-center">{t('registration_date')}</th>
+                            <th className="p-2 text-center">{t('manage')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,8 +79,8 @@ export default function ProductList() {
                             <td className="p-2 text-center">2,345</td>
                             <td className="p-2 text-center">2023-11-23</td>
                             <td className="p-2 flex gap-1 flex-wrap items-center justify-center text-[#5E5955]">
-                                <Button className="border rounded px-2">조회</Button>
-                                <Button className="border rounded px-2">옵션 수정</Button>
+                                <Button className="border rounded px-2">{t('view')}</Button>
+                                <Button className="border rounded px-2">{t('edit_options')}</Button>
                             </td>
                         </tr>
                         ))}
@@ -90,22 +90,22 @@ export default function ProductList() {
 
             {/* ------------------- 하단 버튼 ------------------- */}
             <div className="flex gap-2 mt-4">
-                <Button variant="outline">복제</Button>
-                <Button variant="outline">삭제</Button>
+                <Button variant="outline">{t('duplicate')}</Button>
+                <Button variant="outline">{t('delete')}</Button>
                 <Select defaultValue="default">
                     <SelectTrigger className="w-fit">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
-                        <SelectItem value="default">상태 변경</SelectItem>
+                        <SelectItem value="default">{t('change_status')}</SelectItem>
                         <SelectItem value="이메일">이메일</SelectItem>
                         <SelectItem value="전화번호">전화번호</SelectItem>
                     </SelectContent>
                 </Select>
-                <Button variant="outline">카테고리 변경</Button>
-                <Button variant="outline">판매가 변경</Button>
-                <Button variant="outline">판매기간 변경</Button>
-                <Button variant="outline">재고 변경</Button>
+                <Button variant="outline">{t('change_category')}</Button>
+                <Button variant="outline">{t('change_price')}</Button>
+                <Button variant="outline">{t('edit_sale_period')}</Button>
+                <Button variant="outline">{t('update_stock')}</Button>
             </div>
 
             {/* ------------------- 페이지네이션 ------------------- */}

@@ -1,13 +1,16 @@
 'use client'
 
-import { ChevronUpIcon, Settings } from "lucide-react";
+import { Settings } from "lucide-react";
 import ProductSidebarElem from "./sidebar-elem";
 import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import CateogrySettingsModal from "./category-settings";
+import { useState } from 'react'
 
 export default function ProductSidebar() {
     const locale = getLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'product')
+    const [open, setOpen] = useState(false)
 
     const giftset = [{ title: t('all'), url: '/product/giftset' }]
     const perfume = [
@@ -34,7 +37,7 @@ export default function ProductSidebar() {
     return (
         <aside className="w-64 border-r m-3 p-6 space-y-4 min-h-screen shadow-sm">
             {/* 헤더 */}
-            <div className="flex justify-between items-center mb-16 font-bold text-[#5E5955] text-base">
+            <div className="flex justify-between items-center mb-16 font-bold text-[#5E5955] text-base" onClick={() => setOpen((prev) => !prev)}>
                 <span>{t('all_category')}</span>
                 <Settings className="!w-6 !h-6" />
             </div>
@@ -54,6 +57,7 @@ export default function ProductSidebar() {
                 <div className="font-semibold text-[#6f6963] text-base">{t('komfortabel')}</div>
                 <ProductSidebarElem title={t('komfortabel')} elements={komfortabel} />
             </div>
+            <CateogrySettingsModal open={open} setOpen={setOpen} t={t} />
         </aside>
     )
 }

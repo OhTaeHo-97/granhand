@@ -71,5 +71,7 @@
     "reset": "Reset",
     "search": "Search",
     "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
     "view_all": "View All"
 }

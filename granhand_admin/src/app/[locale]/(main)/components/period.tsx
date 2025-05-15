@@ -32,7 +32,7 @@ export default function PeriodElement({
     ]
 
     return (
-        <div className="flex items-center gap-4 p-5">
+        <>
             <div className="flex border border-gray-300 divide-x divide-gray-300 rounded overflow-hidden">
                 <div className="flex flex-col space-y-4">
                     <RadioGroup
@@ -93,6 +93,6 @@ export default function PeriodElement({
                     </PopoverContent>
                 </Popover>
             </div>
-        </div>
+        </>
     )
 }

@@ -1,42 +1,67 @@
-import Pagination from "@/components/pagination"
-import { LocaleTypes } from "../../../../../utils/localization/settings";
-import { translation } from "../../../../../utils/localization/locales/server";
-import OrderStatus from "./components/order-status"
-import OrderFilter from "./components/order-filter"
-import OrderList from "./components/order-list"
+// 'use client'
 
-export default async function OrderPage({ params }: { params: { locale: LocaleTypes } }) {
+// import { Button } from "@/components/ui/button"
+// import { CalendarIcon, Computer, RefreshCw, Search } from "lucide-react"
+// import { Checkbox } from "@/components/ui/checkbox"
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+// import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+// import { Calendar } from "@/components/ui/calendar"
+// import { format } from "date-fns"
+// import { Label } from "@/components/ui/label"
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+// import { useState } from "react"
+import Pagination from "@/components/pagination"
+import { LocaleTypes } from "../../../../../../utils/localization/settings"
+import { translation } from "../../../../../../utils/localization/locales/server"
+import OrderStatus from "../components/order-status"
+import OrderFilter from "../components/order-filter"
+import ExchangeList from "./components/exchange-list"
+
+// const statusList = [
+//     { label: "교환 요청", count: 0, value: "all" },
+//     { label: "교환 보류", count: 3, value: "pending" },
+//     { label: "교환 수거 중", count: 1, value: "paid" },
+//     { label: "교환 수거 완료", count: 100, value: "ready" },
+//     { label: "교환 재발송", count: 100, value: "ready" },
+//     { label: "교환 완료", count: 100, value: "ready" },
+// ]
+
+export default async function ExchangePage({ params }: { params: { locale: LocaleTypes } }) {
     const { locale } = await params
     const { t } = await translation(locale, ['common', 'product', 'order', 'push'])
     const statusList = [
-        { label: t('order:all'), count: 205, value: "all" },
-        { label: t('order:awaiting_payment'), count: 2, value: "awaiting_payment" },
-        { label: t('order:payment_completed'), count: 27, value: "payment_completed" },
-        { label: t('order:prepare_ship'), count: 100, value: "prepare_ship" },
-        { label: t('order:in_transit'), count: 45, value: "in_transit" },
-        { label: t('order:delivery_delayed'), count: 1, value: "delivery_delayed" },
-        { label: t('order:delivered'), count: 1, value: "delivered" },
-        { label: t('order:confirm_purchase'), count: 1, value: "confirm_purchase" }
+        { label: t('order:exchange_requested'), count: 105, value: "exchange_requested" },
+        { label: t('order:exchange_pending'), count: 2, value: "exchange_pending" },
+        { label: t('order:pickup'), count: 27, value: "pickup" },
+        { label: t('order:pickup_cmpl'), count: 100, value: "pickup_cmpl" },
+        { label: t('order:re_ship'), count: 100, value: "re_ship" },
+        { label: t('order:exchange_cmpl'), count: 100, value: "exchange_cmpl" }
     ]
 
+    // const [startDate, setStartDate] = useState<Date | undefined>(new Date())
+    // const [endDate, setEndDate] = useState<Date | undefined>(new Date())
+
+    // const quickRanges = ["오늘", "3일", "7일", "1개월"]
+    
     return (
         <main className="flex-1 border">
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
-                <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:order_management')}</h1>
+                <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:exchange_manage')}</h1>
                 {/* 상품 상태 */ }
                 <OrderStatus statusList={statusList} />
                 {/* 검색 */}
                 <OrderFilter />
 
                 {/* 테이블 */}
-                <OrderList t={t} category='order_management' />
+                <ExchangeList t={t} />
                 <Pagination totalPages={15} />
             </div>
         </main>
     )
 
-    // <div className="p-12 text-black text-sm space-y-4">
-    //             <h1 className="text-2xl font-bold">주문 목록</h1>
+    // <main className="flex-1 border">
+    //         <div className="p-12 text-black text-sm space-y-4">
+    //             <h1 className="text-2xl font-bold">교환 관리</h1>
     //             {/* 상품 상태 */ }
     //             <RadioGroup defaultValue="all" className="flex gap-2">
     //                 {statusList.map((item) => (
@@ -167,9 +192,6 @@ export default async function OrderPage({ params }: { params: { locale: LocaleTy
     //                         </SelectContent>
     //                     </Select>
     //                     <Button className="border ">엑셀 다운로드</Button>
-    //                     <Button className="border "><Share className="x-4 y-4" />주문 일괄 등록</Button>
-    //                     <Button className="border ">관리자 생성 주문</Button>
-    //                     <Button className="border bg-black text-white">주문 생성</Button>
     //                 </div>
     //             </div>
     //             <table className="w-full text-left border-collapse min-w-6xl border">
@@ -177,15 +199,17 @@ export default async function OrderPage({ params }: { params: { locale: LocaleTy
     //                     <tr className="border-b text-gray-400">
     //                         <th className="p-2 items-center border"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></th>
     //                         <th className="p-2 items-center border"></th>
-    //                         <th className="p-2 items-center border">주문일시</th>
-    //                         <th className="p-2 text-center border">주문번호</th>
+    //                         <th className="p-2 items-center border">주문번호</th>
+    //                         <th className="p-2 text-center border">교환 처리 일시</th>
     //                         <th className="p-2 text-center border">구매자</th>
     //                         <th className="p-2 text-center border">주문상품</th>
     //                         <th className="p-2 text-center border">수량</th>
-    //                         <th className="p-2 text-center border">주문상태</th>
+    //                         <th className="p-2 text-center border">주문 상태</th>
+    //                         <th className="p-2 text-center border">교환 사유</th>
     //                         <th className="p-2 text-center border">운송장 정보</th>
-    //                         <th className="p-2 text-center border">배송정보</th>
-    //                         <th className="p-2 text-center border">결제</th>
+    //                         <th className="p-2 text-center border">교환 배송비</th>
+    //                         <th className="p-2 text-center border">회수지 정보</th>
+    //                         <th className="p-2 text-center border">재배송지 정보</th>
     //                     </tr>
     //                 </thead>
     //                 <tbody>
@@ -193,60 +217,44 @@ export default async function OrderPage({ params }: { params: { locale: LocaleTy
     //                     <tr key={i} className="border-b h-14">
     //                         <td className="p-2 items-center border"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
     //                         <td className="p-2 text-center border"><Computer /></td>
-    //                         <td className="p-2 text-center border">2024-02-10 16:15:35</td>
-    //                         <td className="p-2 text-center border">2024021012345678</td>
+    //                         <td className="p-2 text-center border underline">2024021012345678</td>
     //                         <td className="p-2 text-center border">
-    //                             <div className="flex items-start gap-3">
-    //                                 {/* 이미지 영역 */}
-    //                                 {/* <Image src="/placeholder.png" alt="하이" width={48} height={48} className="w-12 h-12 bg-gray-100 border border-gray-300 flex items-center justify-center text-gray-400 text-xs"/> */}
-    //                                     {/* 이미지 없으면 placeholder */}
-    //                                     {/* <Image src="/" />
-    //                                 </Image> */}
-
-    //                                 {/* 텍스트 영역 */}
-    //                                 <div>
-    //                                     <div className="font-semibold text-black">홍길동 / 010-1234-5678</div>
-    //                                     <div className="flex items-center gap-1 text-gray-400 text-xs mt-1">
-    //                                         {/* <span className="text-lg leading-none">•</span> */}
-    //                                         <span>honghong@gmail.com</span>
-    //                                     </div>
+    //                             <div>
+    //                                 <div className="flex items-center gap-1 text-gray-400 text-xs mt-1">
+    //                                     <span>교환 요청일</span>
     //                                 </div>
+    //                                 <div className="font-semibold text-black">2024-02-10 16:15:35</div>
+    //                             </div>
+    //                         </td>
+    //                         <td className="p-2 text-center border text-red-500">
+    //                             <div>
+    //                                 <div className="font-semibold text-black">홍길동 / 010-1234-5678</div>
+    //                                 <div className="flex items-center gap-1 text-gray-400 text-xs mt-1">
+    //                                     <span>honghong@gmail.com</span>
+    //                                 </div>
+    //                                 <Button className="bg-white, border">관리자 메모</Button>
     //                             </div>
     //                         </td>
     //                         <td className="p-2 text-center border">
     //                             <div className="space-y-1 text-sm">
-    //                                 <div className="flex items-center gap-1 text-gray-400 text-xs">
-    //                                     <span>24021099987651</span>
-    //                                 </div>
     //                                 <div className="flex items-center gap-1 font-semibold text-black">Roland Multi Perfume 100ml</div>
     //                                 <div className="flex items-center gap-1 text-gray-400 text-xs">
-    //                                     <span>각인 여부 : Y</span>
+    //                                     <span>각인 여부 : Y / 문구: GRANHAND</span>
     //                                 </div>
     //                                 <div className="flex items-center gap-1 text-gray-400 text-xs">
-    //                                     <span>문구: GRANHAND</span>
+    //                                     <span>용량: 100ml</span>
+    //                                 </div>
+    //                                 <div className="flex items-center gap-1 text-gray-400 text-xs">
+    //                                     <span>쇼핑백: 구매 안함</span>
     //                                 </div>
     //                             </div>
     //                         </td>
-    //                         <td className="p-2 text-center bodrer">2</td>
-    //                         <td className="p-2 text-center border">결제 완료</td>
+    //                         <td className="p-2 text-center border">1</td>
+    //                         <td className="p-2 text-center border text-red-500">교환 요청</td>
+    //                         <td className="p-2 text-center border underline">오배송</td>
+    //                         <td className="p-2 text-center border"></td>
+    //                         <td className="p-2 text-center border">35,000원</td>
     //                         <td className="p-2 text-center border">
-    //                             <Select defaultValue="대한">
-    //                                 <SelectTrigger className="w-fit">
-    //                                     <SelectValue />
-    //                                 </SelectTrigger>
-    //                                 <SelectContent className="bg-white">
-    //                                     <SelectItem value="대한">CJ 대한통운</SelectItem>
-    //                                     <SelectItem value="한진">한진택배</SelectItem>
-    //                                 </SelectContent>
-    //                             </Select>
-    //                             <Input placeholder="운송장 번호" />
-    //                             {/* CJ 대한통운<br/>
-    //                             <span className="underline">56780001234</span> */}
-    //                         </td>
-    //                         <td className="p-2 flex gap-1 flex-wrap items-center justify-center border">
-    //                         <div className="flex justify-between gap-4">
-
-    //                             {/* 왼쪽 정보 */}
     //                             <div className="space-y-1 text-sm">
     //                                 <div className="font-semibold text-black">
     //                                     홍길순 / <span className="font-semibold">010-0000-0000</span>
@@ -260,17 +268,21 @@ export default async function OrderPage({ params }: { params: { locale: LocaleTy
     //                                     부재 시 문 앞에 놓아주세요.
     //                                 </div>
     //                             </div>
-    //                             {/* 오른쪽 버튼들 */}
-    //                             <div className="flex flex-col gap-2 shrink-0">
-    //                                 <Button variant="outline" size="sm">안내 문자 발송</Button>
-    //                                 <Button variant="outline" size="sm">배송지 수정</Button>
-    //                                 <Button variant="outline" size="sm">관리자 메모</Button>
-    //                             </div>
-    //                             </div>
     //                         </td>
-    //                         <td className="p-2 gap-1">
-    //                             <Button className="border rounded px-2">결제 내역</Button>
-    //                             <Button className="border rounded px-2">주문서</Button>
+    //                         <td className="p-2 text-center border">
+    //                         <div className="space-y-1 text-sm">
+    //                                 <div className="font-semibold text-black">
+    //                                     홍길순 / <span className="font-semibold">010-0000-0000</span>
+    //                                 </div>
+    //                                 <div className="text-gray-400">
+    //                                     부산 부산진구 서전로 8<br/>
+    //                                     위워크 7층<br/>
+    //                                     우) 12345
+    //                                 </div>
+    //                                 <div className="text-blue-600 mt-1">
+    //                                     부재 시 문 앞에 놓아주세요.
+    //                                 </div>
+    //                             </div>
     //                         </td>
     //                     </tr>
     //                     ))}
@@ -280,4 +292,5 @@ export default async function OrderPage({ params }: { params: { locale: LocaleTy
     //         </div>
     //         <Pagination totalPages={15} />
     //         </div>
+    //     </main>
 }

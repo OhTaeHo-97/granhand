@@ -31,7 +31,7 @@ export default async function MemberDetailPage({ params }: { params: { locale: L
     const currentLocale = getCurrentLocaleFromParams(locale)
 
     return (
-            <main className="container mx-auto px-6 py-8 space-y-12 text-sm text-gray-800">
+        <main className="container mx-auto px-6 py-8 space-y-12 text-sm text-gray-800">
             {/* 1. 회원 정보 */}
             <div className="shadow-sm">
                 <section className="p-8">
@@ -83,6 +83,6 @@ export default async function MemberDetailPage({ params }: { params: { locale: L
             <div className="shadow-sm p-8">
                 <MemberNotes t={t} />
             </div>
-            </main>
+        </main>
     );
 }

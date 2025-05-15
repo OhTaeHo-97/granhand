@@ -29,9 +29,9 @@ export default function MainSidebar() {
         { title: t('product_manage'), url: '/product' },
         { title: t('all_orders'), url: '/order/all' },
         { title: t('order_manage'), url: '/order' },
-        { title: t('cancel_manage'), url: '/cancel' },
-        { title: t('exchange_manage'), url: '/exchange' },
-        { title: t('return_manage'), url: '/refund' },
+        { title: t('cancel_manage'), url: '/order/cancel' },
+        { title: t('exchange_manage'), url: '/order/exchange' },
+        { title: t('return_manage'), url: '/order/refund' },
         { title: t('ship_settings'), url: '/delivery' },
         { title: t('point_manage'), url: '/point' },
         { title: t('coupon_manage'), url: '/coupon' }

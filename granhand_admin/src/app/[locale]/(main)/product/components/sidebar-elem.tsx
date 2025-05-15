@@ -18,8 +18,6 @@ export default function ProductSidebarElem({
     };
     const pathname = usePathname()
 
-    console.log(pathname)
-
     const isActive = (url: string) => pathname === url
 
     return (
