@@ -9,12 +9,12 @@ import { Camera, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import MembershipLevelSelect from "../../components/membership-level";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import TargetModal from "./target";
 
 export default function PushSendPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'push')
 
     const [targetModalOpen, setTargetModalOpen] = useState(false)

@@ -4,15 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import CouponRegisterModal from "./components/coupon-register-modal";
 import { useState } from "react";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 import BasicModal from "@/app/[locale]/components/modal";
 
 export default function CouponRegisterPage() {
     const [open, setOpen] = useState(false)
     const [coupon, setCoupon] = useState('')
-    const [isValid, setIsValid] = useState(false)
-    const locale = getLocaleAsLocaleTypes()
+    // const [isValid, setIsValid] = useState(false)
+    const [isValid] = useState(false)
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'coupon')
 
     return (

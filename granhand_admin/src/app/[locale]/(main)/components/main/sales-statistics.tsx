@@ -1,8 +1,7 @@
 'use client'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
-import { useEffect, useState } from "react";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useTranslation } from "../../../../../../utils/localization/client";
 
@@ -17,7 +16,7 @@ const data = [
 ]
 
 export default function SalesStatistics() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'common')
 
     // const params = useSearchParams()

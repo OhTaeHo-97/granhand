@@ -1,7 +1,6 @@
 import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@radix-ui/react-checkbox";
 import { Pencil } from "lucide-react";
 
 export default function EventPage() {

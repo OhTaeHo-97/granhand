@@ -1,14 +1,14 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale"
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale"
 import { ChevronLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useTranslation } from "../../../../../../utils/localization/client"
 
 export default function MyInfoHeader() {
     const router = useRouter()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'common')
 
     return (

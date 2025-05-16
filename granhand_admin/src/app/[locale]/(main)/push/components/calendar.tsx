@@ -154,7 +154,7 @@ export default function CustomCalendarWithTime({
                     </SelectTrigger>
                     <SelectContent className="bg-white border rounded shadow-md">
                         {TIMES.map((time) => (
-                            <SelectItem value={time} className="px-3 py-2 /cursor-pointer">{time}</SelectItem>
+                            <SelectItem key={time} value={time} className="px-3 py-2 /cursor-pointer">{time}</SelectItem>
                         ))}
                     </SelectContent>
                 </Select>

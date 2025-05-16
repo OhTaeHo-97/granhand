@@ -1,9 +1,9 @@
 'use client'
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+// import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useState } from "react";
-import { useTranslation } from "../../../../../../utils/localization/client";
+// import { useTranslation } from "../../../../../../utils/localization/client";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
@@ -15,8 +15,8 @@ interface Status {
 
 export default function OrderStatus({ statusList }: { statusList: Status[] }) {
     const [orderState, setOrderState] = useState('all')
-    const locale = getLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    // const locale = useLocaleAsLocaleTypes()
+    // const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
 
     return (
         <RadioGroup

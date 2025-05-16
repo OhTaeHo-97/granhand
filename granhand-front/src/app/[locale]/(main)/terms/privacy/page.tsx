@@ -7,7 +7,7 @@ export default function PrivacyPage() {
 
             <main className="container max-w-6xl">
                 <div className="text-sm text-gray-700 mb-2">
-                    그랑핸드 (이하 "회사"는) 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.
+                    {'그랑핸드 (이하 "회사"는) 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.'}
                 </div>
                 <div className="text-sm text-gray-700 mb-10">
                     회사는 개인정보처리방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
@@ -222,7 +222,7 @@ export default function PrivacyPage() {
                     <section className="mb-6">
                         <h2 className="font-semibold mb-2">개인정보 자동수집 장치의 설치, 운영 및 그 거부에 관한 사항</h2>
                         <div className="text-sm text-gray-700 mb-2">
-                        회사는 귀하의 정보를 수시로 저장하고 찾아내는 "쿠키(cookie)" 등을 운용합니다. 쿠키란 웹사이트를 운영하는데 이용되는 서버가 귀하의 브라우저에 보내는 아주 작은 텍스트 파일로서 귀하의 컴퓨터 하드디스크에 저장됩니다.<br/>회사은(는) 다음과 같은 목적을 위해 쿠키를 사용합니다.
+                        {'회사는 귀하의 정보를 수시로 저장하고 찾아내는 "쿠키(cookie)" 등을 운용합니다. 쿠키란 웹사이트를 운영하는데 이용되는 서버가 귀하의 브라우저에 보내는 아주 작은 텍스트 파일로서 귀하의 컴퓨터 하드디스크에 저장됩니다.'}<br/>회사은(는) 다음과 같은 목적을 위해 쿠키를 사용합니다.
                         </div>
                         <ol className="pl-5 text-sm text-gray-700 space-y-1.5 mb-4 list-decimal">
                             <li>쿠키 등 사용 목적</li>

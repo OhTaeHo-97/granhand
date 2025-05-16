@@ -3,10 +3,10 @@
 import { Instagram } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "../../utils/localization/client";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 
 export default function Footer() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'common')
     const currentLocale = useCurrentLocale()
 

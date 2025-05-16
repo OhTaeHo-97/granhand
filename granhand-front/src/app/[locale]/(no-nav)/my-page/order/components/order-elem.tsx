@@ -3,16 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight, GiftIcon } from "lucide-react";
 import { useState } from "react";
-import CancelModal from "../../cancel-return-exchange/components/cancel-modal";
 import Link from "next/link";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 import TwoButtonModal from "@/app/[locale]/components/two-button-modal";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function OrderElement({ state, isGift }: { state : string, isGift: boolean }) {
     const router = useRouter()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'shop', 'payment', 'order', 'my_page'])
     const currentLocale = useCurrentLocale()
     const [open, setOpen] = useState(false)
@@ -97,7 +97,7 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                 </div>
 
                 <div className="flex gap-4">
-                    <img src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png" alt="product" className="w-25 h-25 object-cover rounded" />
+                    <Image src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png" alt="product" className="w-25 h-25 object-cover rounded" />
                     <div className="flex flex-col justify-between gap-0.5">
                         <div>
                             <div className="text-sm font-semibold leading-relaxed">Roland Multi Perfume</div>
@@ -129,7 +129,7 @@ export default function OrderElement({ state, isGift }: { state : string, isGift
                     )
                 }
                 {/* <CancelModal open={open} setOpen={setOpen} /> */}
-                <TwoButtonModal open={open} setOpen={setOpen} contents={message()} btnText1="close" btnText2={btnText} currentLocale={currentLocale} locale={locale} nextLink={nextLink} />
+                <TwoButtonModal open={open} setOpen={setOpen} contents={message()} btnText1="close" btnText2={btnText} locale={locale} nextLink={nextLink} />
             </div>
         </section>
     )

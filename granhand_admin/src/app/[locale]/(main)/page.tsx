@@ -5,13 +5,13 @@ import VisitorSummary from './components/main/visitor-summary';
 import PartnershipInquiries from './components/main/partnership_inquiry';
 import { LocaleTypes } from '../../../../utils/localization/settings';
 import { translation } from '../../../../utils/localization/locales/server';
-import { getCurrentLocaleFromParams } from '@/lib/getCurrentLocaleFromParams';
+// import { getCurrentLocaleFromParams } from '@/lib/getCurrentLocaleFromParams';
 
-export default async function DashboardPage({ params }: { params: { locale: LocaleTypes } }) {
+export default async function DashboardPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     // console.log('locale: ', locale)
     const { t } = await translation(locale, 'common')
-    const currentLocale = getCurrentLocaleFromParams(locale)
+    // const currentLocale = getCurrentLocaleFromParams(locale)
 
     const stats = [
         { title: t('new_order'), count: "875", color: "text-red-500" },

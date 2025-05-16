@@ -1,11 +1,11 @@
 'use client'
 
 import Information from "@/components/information";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../../../utils/localization/client";
 
 export default function RefundInformation() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'order')
     
     return (

@@ -6,10 +6,11 @@ import { useTranslation } from "../../../../../../../../utils/localization/clien
 // import { useParams, usePathname } from "next/navigation";
 // import { LocaleTypes } from "../../../../../../../../utils/localization/settings";
 import Link from "next/link";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 // import { useState } from "react";
 
-export default function FindId({ onNext }: { onNext: () => void }) {
+export default function FindId() {
+// export default function FindId({ onNext }: { onNext: () => void }) {
     // const [name, setName] = useState("");
     // const [phone, setPhone] = useState("");
 
@@ -20,7 +21,7 @@ export default function FindId({ onNext }: { onNext: () => void }) {
     // };
 
     // const locale = useParams()?.locale as LocaleTypes
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     // const pathname = usePathname()
     // const currentLocale = pathname.split('/')[1] === 'en' ? '/en' : ''

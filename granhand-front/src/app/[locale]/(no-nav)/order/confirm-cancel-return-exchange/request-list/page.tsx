@@ -1,7 +1,4 @@
-import ProductTable from "@/app/[locale]/(no-nav)/cart/components/product-table";
-import { Button } from "@/components/ui/button";
 import ProductInfoTable from "../components/product-info-table";
-import { ChevronLeft } from "lucide-react";
 import OrderConfirmRequestList from "./components/confirm";
 import OrderCancelRequestList from "./components/cancel";
 import RequestListHeader from "./components/header";
@@ -11,11 +8,13 @@ import { LocaleTypes } from "../../../../../../../utils/localization/settings";
 import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 import { translation } from "../../../../../../../utils/localization/locales/server";
 
-export default async function RequestListPage({ searchParams, params: { locale } }: { searchParams: Record<string, string>, params: { locale: LocaleTypes } }) {
+export default async function RequestListPage({ searchParams, params }: { searchParams: Promise<Record<string, string>>, params: Promise<{ locale: LocaleTypes }> }) {
+    const { locale } = await params
     const { t } = await translation(locale, ['my_page', 'cart', 'payment'])
     const currentLocale = getCurrentLocaleFromParams(locale)
     // console.log('searchParams: ', searchParams)
-    const category = searchParams.category
+    // const category = searchParams.category
+    const { category } = await searchParams
     // console.log('category: ', category)
     if(!category) notFound()
 

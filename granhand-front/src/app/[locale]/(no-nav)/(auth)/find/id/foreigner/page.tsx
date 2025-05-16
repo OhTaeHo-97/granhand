@@ -2,13 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LocaleTypes } from "../../../../../../../../utils/localization/settings";
-import { useParams } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 // import { useState } from "react";
 
-export default function ForeignFindId({ onNext }: { onNext: () => void }) {
+// export default function ForeignFindId({ onNext }: { onNext: () => void }) {
+export default function ForeignFindId() {
     // const [name, setName] = useState("");
     // const [phone, setPhone] = useState("");
     // const [validatation, setValidation] = useState("")
@@ -20,7 +19,7 @@ export default function ForeignFindId({ onNext }: { onNext: () => void }) {
     // };
 
     // const locale = useParams()?.locale as LocaleTypes
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
 
     return (

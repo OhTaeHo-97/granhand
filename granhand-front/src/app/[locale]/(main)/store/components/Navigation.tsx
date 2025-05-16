@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale"
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale"
 import { cn } from "@/lib/utils"
 import { ChevronDown } from "lucide-react"
 import { notFound, useRouter, useSearchParams } from "next/navigation"
@@ -13,7 +13,7 @@ export default function StoreNavigation() {
     const searchParams = useSearchParams()
     const router = useRouter()
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'store'])
     const currentLocale = useCurrentLocale()
 

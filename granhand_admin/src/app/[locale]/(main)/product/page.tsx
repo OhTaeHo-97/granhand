@@ -5,19 +5,14 @@ import ProductListHeader from "./components/header";
 import ProductList from "./components/product-list";
 import { LocaleTypes } from "../../../../../utils/localization/settings";
 import { translation } from "../../../../../utils/localization/locales/server";
+import Link from "next/link";
+import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 
-export default async function ProductListPage({ params }: { params: { locale: LocaleTypes } }) {
-    // const locale = getLocaleAsLocaleTypes()
-    // const { t } = useTranslation(locale, ['common', 'push'])
-    // const [quickRange, setQuickRange] = useState('')
-    // const [startDate, setStartDate] = useState<Date | undefined>(new Date())
-    // const [endDate, setEndDate] = useState<Date | undefined>(new Date())
-
-    // const quickRanges = ["오늘", "3일", "7일", "1개월"]
-
+export default async function ProductListPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     const { t } = await translation(locale, 'product')
-    // const currentLocale = getCurrentLocaleFromParams(locale)
+    const currentLocale = getCurrentLocaleFromParams(locale)
+    console.log(currentLocale)
 
     return (
         <div className="flex-1 border">
@@ -28,7 +23,9 @@ export default async function ProductListPage({ params }: { params: { locale: Lo
                 <div className="space-x-2">
                     <Button variant="outline" className="text-[#5E5955]"><BookOpen className="!w-4 !h-4" />{t('template_manage')}</Button>
                     <Button variant="outline" className="text-[#5E5955]"><List className="!w-4 !h-4" />{t('recommendation_manage')}</Button>
-                    <Button className="bg-[#322A24] text-white"><Plus className="!w-4 !h-4" />{t('register_product')}</Button>
+                    <Link href={`${currentLocale}/product/register`}>
+                        <Button className="bg-[#322A24] text-white"><Plus className="!w-4 !h-4" />{t('register_product')}</Button>
+                    </Link>
                 </div>
             </div>
 

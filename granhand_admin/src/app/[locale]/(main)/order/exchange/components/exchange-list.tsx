@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Monitor, Smartphone } from "lucide-react";
+import { Smartphone } from "lucide-react";
 
 export default function ExchangeList({ t }: { t: (key: string) => string }) {
     return (

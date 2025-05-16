@@ -13,5 +13,12 @@
     "date": "일자",
     "related_order_number": "관련 주문정보",
     "grant_points": "포인트 지급(+)",
-    "withdraw_points": "포인트 회수(-)"
+    "withdraw_points": "포인트 회수(-)",
+
+    "point_manage": "포인트 관리",
+    "member_name": "회원명 (아이디)",
+    "earned": "지급",
+    "revoked": "회수",
+    "total": "총",
+    "records": "건"
 }

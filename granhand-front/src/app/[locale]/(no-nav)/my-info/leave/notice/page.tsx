@@ -5,7 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import BasicModal from "@/app/[locale]/components/modal";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import LeaveDenyModal from "../components/deny-modal";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ export default function LeaveNote() {
     const [open, setOpen] = useState(false)
     const [agree, setAgree] = useState(false)
     const [hasExistedOrder, setHasExistedOrder] = useState(true)
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

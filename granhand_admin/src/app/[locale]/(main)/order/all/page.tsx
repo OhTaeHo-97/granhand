@@ -5,7 +5,7 @@ import { LocaleTypes } from "../../../../../../utils/localization/settings";
 import { translation } from "../../../../../../utils/localization/locales/server";
 import OrderList from "../components/order-list";
 
-export default async function AllOrderPage({ params }: { params: { locale: LocaleTypes } }) {
+export default async function AllOrderPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     const { t } = await translation(locale, ['common', 'product', 'order', 'push'])
     const statusList = [

@@ -1,17 +1,16 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import SignupHeader from '../components/header';
 import { useRouter } from 'next/navigation';
-import { getLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale';
+import { useLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale';
 import { useTranslation } from '../../../../../../../utils/localization/client';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 
 export default function JoinPwPage() {
     const router = useRouter()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

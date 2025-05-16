@@ -2,17 +2,17 @@
 
 import { Globe, Home, Search, ShoppingBag, User } from "lucide-react";
 import Link from "next/link";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslation } from "../../utils/localization/client";
-import { fallbackLng, LocaleTypes, locales } from "../../utils/localization/settings";
+import { fallbackLng, LocaleTypes } from "../../utils/localization/settings";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { cn } from "@/lib/utils";
 
 export default function Header() {
     const router = useRouter()
     const pathname = usePathname()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const currentLocale = useCurrentLocale()
     const { t, i18n } = useTranslation(locale, 'common')
 

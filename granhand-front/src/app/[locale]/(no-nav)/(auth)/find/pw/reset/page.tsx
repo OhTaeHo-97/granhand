@@ -3,31 +3,29 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
-import { LocaleTypes } from "../../../../../../../../utils/localization/settings";
 import BasicModal from "@/app/[locale]/components/modal";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 
 export default function ResetPasswordPage() {
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
+    // const [name, setName] = useState("");
+    // const [phone, setPhone] = useState("");
     const [open, setOpen] = useState(false)
     const router = useRouter()
 
     // const locale = useParams()?.locale as LocaleTypes
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     // const pathname = usePathname()
     // const currentLocale = pathname.split('/')[1] === 'en' ? '/en' : ''
     const currentLocale = useCurrentLocale()
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Find ID attempt:", { name, phone });
-    };
+    // const handleSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     console.log("Find ID attempt:", { name, phone });
+    // };
 
     return (
         <main className="space-y-6 container mx-auto px-6 pt-8">

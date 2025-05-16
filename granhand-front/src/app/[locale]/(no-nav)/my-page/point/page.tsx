@@ -3,11 +3,10 @@ import PointCard from "./components/point-card";
 import PointDetails from "./components/point-details/point-details";
 import { LocaleTypes } from "../../../../../../utils/localization/settings";
 import { translation } from "../../../../../../utils/localization/locales/server";
-import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 
-export default async function PointPage({ params: { locale } }: { params: { locale: LocaleTypes } }) {
+export default async function PointPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+    const { locale } = await params
     const { t } = await translation(locale, ['my_page', 'point'])
-    const currentLocale = getCurrentLocaleFromParams(locale)
 
     return (
         <main className="w-full mx-auto ml-10">

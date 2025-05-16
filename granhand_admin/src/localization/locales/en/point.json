@@ -13,5 +13,12 @@
     "date": "Date",
     "related_order_number": "Related Order Number",
     "grant_points": "Grant Points(+)",
-    "withdraw_points": "Withdraw Points(-)"
+    "withdraw_points": "Withdraw Points(-)",
+
+    "point_manage": "Point Management",
+    "member_name": "Member Name (ID)",
+    "earned": "Earned",
+    "revoked": "Revoked",
+    "total": "Total",
+    "records": "Records"
 }

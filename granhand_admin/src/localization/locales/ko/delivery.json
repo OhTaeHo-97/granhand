@@ -1,0 +1,26 @@
+{
+    "ship_setting": "배송 설정",
+    "ship_info": "배송 정보",
+    "select_courier": "택배사 선택",
+    "ship_fee": "배송비",
+    "conditional_free_ship": "조건부 무료배송",
+    "default_ship_fee": "기본 배송비",
+    "free_ship_condition": "무료배송 조건",
+    "applied_limit": "이상 구매 시 적용",
+
+    "regional_ship_fee": "지역별 배송비",
+    "enable_regional_ship_fee": "지역별 배송비 사용",
+    "free_ship": "무료배송",
+    "jeju_additional_fee": "제주도 추가 배송비",
+    "remote_area_additional_fee": "도서산간 추가 배송비",
+
+    "exchange_setting": "교환/반품 설정",
+    "one_way_fee": "반품 배송비(편도)",
+    "round_trip_fee": "교환 배송비(왕복)",
+    "ship_return_address": "출고 및 회수지",
+    "address_name": "출고 및 회수지 명",
+    "ship_address": "출고지 주소",
+    "search_postal_code": "우편번호 검색",
+    "return_address": "회수지 주소",
+    "primary_number": "대표 연락처"
+}

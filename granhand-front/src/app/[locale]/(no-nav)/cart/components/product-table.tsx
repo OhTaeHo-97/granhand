@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { set } from "date-fns";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 
 interface Product {
     id: number,

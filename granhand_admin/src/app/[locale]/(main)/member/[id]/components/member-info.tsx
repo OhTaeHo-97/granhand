@@ -18,7 +18,7 @@ export default async function MemberInfo({ info, t }: { info: {
     agreeHistory?: Array<string> },
     t: (key: string) => string
 }) {
-    const { name, sort, id, rating, phone, price, birth, point, social, joinDate, agree, agreeHistory} = await info
+    const { name, sort, id, rating, phone, price, birth, point, social, joinDate} = await info
     return (
         <div className="border border-gray-200 text-[#6f6963] text-sm w-full bg-white min-w-120">
             {/* 필터 표 */}
@@ -28,7 +28,7 @@ export default async function MemberInfo({ info, t }: { info: {
             <TwoElemTable title={[t('member:birth'), t('member:reward_points')]} value={[birth, point.toLocaleString() + '원']} />
             <TwoElemTable title={[t('member:social_login'), t('member:registration_date')]} value={[social, joinDate]} />
             <TwoElemTable title={[t('member:marketing_consent'), t('member:consent_history')]} value={[(
-                <div className="justify-start flex flex-nowrap gap-10 h-full items-center">
+                <div key={'consent_history1'} className="justify-start flex flex-nowrap gap-10 h-full items-center">
                     <Label className="flex items-center gap-2">
                         {/* <input type="checkbox" className="accent-black w-4 h-4" checked={agree.push} /> */}
                         <Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/>
@@ -41,7 +41,7 @@ export default async function MemberInfo({ info, t }: { info: {
                     </Label>
                 </div>
             ), (
-                <div className="flex items-center">
+                <div key={'consent_history2'} className="flex items-center">
                     <span>2023-01-05 11:54 앱 푸시 수신 동의</span><Button className="bg-white text-[#5E5955] border min-w-fit max-w-3 h-7 ml-4">{t('view_all')}</Button>
                 </div>
             )]} />

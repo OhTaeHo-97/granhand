@@ -5,13 +5,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 
 export default function ReceiverInfo({ t }: { t: (key: string) => string }) {
-    const [selected, setSelected] = useState("kakao");
+    const [selected, setSelected] = useState("kakao_talk");
 
     return (
         <section className="space-y-2 mb-10">
             <h2 className="text-base font-bold">{t('payment:recipient_info')}</h2>
             {/* 라디오 버튼 */}
-            <RadioGroup onValueChange={(value) => setSelected(value)}>
+            <RadioGroup value={selected} onValueChange={(value) => setSelected(value)}>
                 <div className="flex items-center gap-8">
                     <Label key="kakao_talk" className="flex items-start gap-3 cursor-pointer space-y-4">
                         <RadioGroupItem

@@ -3,7 +3,8 @@ import { LocaleTypes } from "../../../../../../utils/localization/settings"
 import { translation } from "../../../../../../utils/localization/locales/server"
 import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams"
 
-export default async function JournalDetailPage({ params: { locale } }: { params: { locale: LocaleTypes } }) {
+export default async function JournalDetailPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+    const { locale } = await params
     const { t } = await translation(locale, 'common')
     const currentLocale = getCurrentLocaleFromParams(locale)
 

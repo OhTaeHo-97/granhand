@@ -73,5 +73,9 @@
     "save": "저장",
     "edit": "변경",
     "delete": "삭제",
-    "view_all": "전체 보기"
+    "manage": "관리",
+    "view_all": "전체 보기",
+
+    "granhand": "그랑핸드",
+    "komfortabel": "콤포타블"
 }

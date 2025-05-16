@@ -1,14 +1,14 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, DollarSign, Heart, Ticket, Truck } from 'lucide-react';
+import { DollarSign, Heart, Ticket, Truck } from 'lucide-react';
 import Link from 'next/link';
 import SignupHeader from '../components/header';
-import { getLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale';
+import { useLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale';
 import { useTranslation } from '../../../../../../../utils/localization/client';
 
 export default function SelfIdentificationPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

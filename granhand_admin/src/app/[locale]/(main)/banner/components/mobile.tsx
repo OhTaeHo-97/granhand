@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ImageIcon, LinkIcon, Pencil, Plus, Trash2 } from "lucide-react";
-import Image from "next/image";
+import { ImageIcon } from "lucide-react";
 
 const banners = [
     { label: "1", image: "/app_1_3_seven_01.jpg", link: "app_1.3.event_01" },

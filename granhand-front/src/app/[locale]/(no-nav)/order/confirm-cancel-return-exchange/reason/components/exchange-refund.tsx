@@ -3,14 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { Camera, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export default function ExchangeRefundReason() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['order'])
 
     const exchangeOptions = [

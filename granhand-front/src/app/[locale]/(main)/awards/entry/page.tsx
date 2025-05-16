@@ -1,8 +1,7 @@
 import Pagination from "@/components/pagination";
-import SearchInput from "@/components/searchInput";
+// import SearchInput from "@/components/searchInput";
 // import Image from "next/image";
-import { LocaleTypes } from "../../../../../../utils/localization/settings";
-import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
+// import { LocaleTypes } from "../../../../../../utils/localization/settings";
 // import { Button } from "@/components/ui/button";
 import EntryElement from "./components/entry-elem";
 
@@ -13,15 +12,17 @@ const awards = Array.from({ length: 9 }, (_, i) => ({
     image: "/placeholder.png" // 임시 이미지
 }));
 
-export default async function EventRegistrationPage({ params: { locale } }: { params:{ locale: LocaleTypes } }) {
-    const currentLocale = getCurrentLocaleFromParams(locale)
+export default function EventRegistrationPage() {
+// export default async function EventRegistrationPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+    // const currentLocale = getCurrentLocaleFromParams(locale)
+    // const { locale } = await params
 
     return (
         <>
             {/* 카드 리스트 */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                 {awards.map((award) => (
-                    <EntryElement id={award.id} image={award.image} title={award.title} date={award.date} />
+                    <EntryElement id={award.id} key={award.id} image={award.image} title={award.title} date={award.date} />
                 // <div key={award.id} className="space-y-4">
                 //     {/* 이미지 */}
                 //     <div className="aspect-[4/3] bg-gray-200 flex items-center justify-center">
@@ -53,7 +54,7 @@ export default async function EventRegistrationPage({ params: { locale } }: { pa
             <div className='mb-20' />
             <Pagination totalPages={15} />
             <div className='mb-14' />
-            <SearchInput />
+            {/* <SearchInput /> */}
         </>
     )
 }

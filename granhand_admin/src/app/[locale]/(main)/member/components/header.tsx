@@ -5,14 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { RefreshCwIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import MembershipLevelSelect from "../../components/membership-level";
 
 export default function MemberHeader() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'member'])
 
     const [category, setCategory] = useState('')
@@ -22,14 +22,14 @@ export default function MemberHeader() {
         { label: t('member:phone'), value: 'phone' },
         { label: t('member:name'), value: 'name' }
     ]
-    const levels = [
-        { label: t('member:all_membership'), value: 'all_membership' },
-        { label: 'VIP', value: 'vip' },
-        { label: 'Gold', value: 'gold' },
-        { label: 'Silver', value: 'silver' },
-        { label: 'Bronze', value: 'bronze' },
-        { label: 'Basic', value: 'basic' }
-    ]
+    // const levels = [
+    //     { label: t('member:all_membership'), value: 'all_membership' },
+    //     { label: 'VIP', value: 'vip' },
+    //     { label: 'Gold', value: 'gold' },
+    //     { label: 'Silver', value: 'silver' },
+    //     { label: 'Bronze', value: 'bronze' },
+    //     { label: 'Basic', value: 'basic' }
+    // ]
     const types = [
         {label: t('member:regular'), value: 'regular'},
         {label: t('member:restricted'), value: 'restricted'},
@@ -52,7 +52,7 @@ export default function MemberHeader() {
                         </SelectTrigger>
                         <SelectContent className="bg-white border rounded shadow-md">
                             {personalInfos.map(({ label, value }) => (
-                                <SelectItem value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
+                                <SelectItem key={value} value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>

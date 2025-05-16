@@ -5,7 +5,7 @@ import OrderFilter from "../components/order-filter"
 import CancelList from "./components/cancel-list"
 import Pagination from "@/components/pagination"
 
-export default async function CancelPage({ params }: { params: { locale: LocaleTypes } }) {
+export default async function CancelPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     const { t } = await translation(locale, ['common', 'product', 'order', 'push'])
     const statusList = [

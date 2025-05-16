@@ -1,6 +1,6 @@
 'use client'
 
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import RequestListHeader from "../request-list/components/header";
 import CancelResult from "./components/cancel";
 import RefundResult from "./components/refund";
@@ -13,7 +13,7 @@ export default function ResultPage() {
     const router = useRouter()
     const currentLocale = useCurrentLocale()
     const searchParams = useSearchParams()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'order')
     // const queryString = new URLSearchParams(searchParams).toString()
     const category = searchParams.get('category')

@@ -1,12 +1,12 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import Image from "next/image";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 
 export default function EntryElement({ id, image, title, date }: { id: number, image: string, title: string, date: string }) {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'awards')
 
     return (

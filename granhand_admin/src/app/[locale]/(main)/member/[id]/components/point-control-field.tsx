@@ -27,10 +27,8 @@ export default function PointControlField({ t }: { t: (key: string) => string })
                         </SelectTrigger>
                         <SelectContent className="bg-white border rounded shadow-md">
                             {pointStatus.map(({ label, value }) => (
-                                <SelectItem value={value} className="px-3 py-2 /cursor-pointer">{label}</SelectItem>
+                                <SelectItem key={value} value={value} className="px-3 py-2 /cursor-pointer">{label}</SelectItem>
                             ))}
-                            {/* <SelectItem value="give" className="px-3 py-2 /cursor-pointer">포인트 지급(+)</SelectItem>
-                            <SelectItem value="take" className="px-3 py-2 cursor-pointer">포인트 회수(-)</SelectItem> */}
                         </SelectContent>
                     </Select>
                 </td>

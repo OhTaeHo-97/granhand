@@ -4,7 +4,8 @@ import { LocaleTypes } from "../../../../../utils/localization/settings";
 import MyPageSidebar from "./components/sidebar/sidebar";
 import MyPageTitle from "./components/title";
 
-export default async function MyPageLayout({ children, params: { locale } }: { children: React.ReactNode, params: { locale: LocaleTypes } }) {
+export default async function MyPageLayout({ children, params }: { children: React.ReactNode, params: Promise<{ locale: LocaleTypes }> }) {
+    const { locale } = await params
     const { t } = await translation(locale, ['my_page'])
     const currentLocale = getCurrentLocaleFromParams(locale)
     

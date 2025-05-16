@@ -4,11 +4,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState } from "react"
 import PushSendPage from "./components/send-push"
 import PushListPage from "./components/push-list"
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
 import { useTranslation } from "../../../../../utils/localization/client"
 
 export default function PushPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'push')
     const [tabState, setTabState] = useState('send')
     

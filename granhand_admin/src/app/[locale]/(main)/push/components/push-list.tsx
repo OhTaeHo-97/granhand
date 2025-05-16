@@ -7,23 +7,23 @@ import { RefreshCw, Search } from "lucide-react";
 import { useState } from "react"
 import Pagination from "@/components/pagination";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import PeriodElement from "../../components/period";
 
 export default function PushListPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'push'])
     const [quickRange, setQuickRange] = useState('')
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
 
-    const quickRanges = [
-        { label: t('push:today'), value: 'today' },
-        { label: t('push:last_3_days'), value: 'last_3_days' },
-        { label: t('push:last_7_days'), value: 'last_7_days' },
-        { label: t('push:last_1_month'), value: 'last_1_month' }
-    ]
+    // const quickRanges = [
+    //     { label: t('push:today'), value: 'today' },
+    //     { label: t('push:last_3_days'), value: 'last_3_days' },
+    //     { label: t('push:last_7_days'), value: 'last_7_days' },
+    //     { label: t('push:last_1_month'), value: 'last_1_month' }
+    // ]
     return (
         <>
             {/* 발송 타입 */}

@@ -1,32 +1,32 @@
 'use client'
 
-import { useState } from "react";
+// import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 // import Navigation from "@/components/Navigation";
-import { Apple, Facebook, Mail, MessageCircleMore } from "lucide-react";
+import { Apple, MessageCircleMore } from "lucide-react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InstagramLogoIcon } from "@radix-ui/react-icons";
 import { useTranslation } from "../../../../../../utils/localization/client";
 // import { useParams, usePathname } from "next/navigation";
 // import { LocaleTypes } from "../../../../../../utils/localization/settings";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 
 export default function LoginPage() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
     // const locale = useParams()?.locale as LocaleTypes
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     // const pathname = usePathname()
     // const currentLocale = pathname.split('/')[1] === 'en' ? '/en' : ''
     const currentLocale = useCurrentLocale()
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Login attempt:", { email, password });
-    };
+    // const handleSubmit = (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     console.log("Login attempt:", { email, password });
+    // };
 
     return (
         <div className="space-y-6 container mx-auto px-6 pt-8">

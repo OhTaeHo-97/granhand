@@ -3,8 +3,10 @@ import OrderInfo from "./components/order-info";
 import { LocaleTypes } from "../../../../../../utils/localization/settings";
 import { translation } from "../../../../../../utils/localization/locales/server";
 
-export default async function OrderPage({ params: { locale }, searchParams }: { params:{ locale: LocaleTypes }, searchParams: Record<string, string> }) {
-    const state = searchParams.state
+export default async function OrderPage({ params, searchParams }: { params: Promise<{ locale: LocaleTypes }>, searchParams: Promise<Record<string, string>> }) {
+    const { locale } = await params
+    // const state = searchParams.state
+    const { state } = await searchParams
     const { t } = await translation(locale, ["order", "payment", "my_page"])
 
     return (

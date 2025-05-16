@@ -1,6 +1,6 @@
 'use client'
 
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale"
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale"
 import { useTranslation } from "../../../../../../utils/localization/client"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import BasicModal from "@/app/[locale]/components/modal"
 
 export default function ChangePasswordPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

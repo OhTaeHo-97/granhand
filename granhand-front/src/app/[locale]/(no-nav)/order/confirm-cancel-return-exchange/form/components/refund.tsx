@@ -3,13 +3,13 @@
 import ExchangeRefundAddress from "./exchange-refund-address";
 import RefundInfoBox from "../../../[id]/components/refund-info-box";
 import { useState } from "react";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 import StandardPayment from "@/app/[locale]/(no-nav)/payment/components/standard-payment";
 
 export default function RefundForm() {
     const [normalMethod, setNormalMethod] = useState('')
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'order')
     const currentLocale = useCurrentLocale()
 

@@ -2,15 +2,17 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import BasicModal from "@/app/[locale]/components/modal";
 
 export default function LuckyDrawPage() {
     const [open, setOpen] = useState(false)
-    const [attendance, setAttendance] = useState(false)
-    const [todayDraw, setTodayDraw] = useState(false)
-    const locale = getLocaleAsLocaleTypes()
+    // const [attendance, setAttendance] = useState(false)
+    // const [todayDraw, setTodayDraw] = useState(false)
+    const [attendance] = useState(false)
+    const [todayDraw] = useState(false)
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'my_page')
 
     const message = () => {

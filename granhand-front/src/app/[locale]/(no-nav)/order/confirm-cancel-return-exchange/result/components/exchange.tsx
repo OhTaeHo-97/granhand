@@ -1,5 +1,4 @@
 import Information from "@/components/information";
-import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
 export default function ExchangeResult({ t }: { t: (key: string) => string }) {

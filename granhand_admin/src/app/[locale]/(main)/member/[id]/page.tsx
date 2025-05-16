@@ -25,7 +25,7 @@ const info = {
     agree: { push: true, sms: false }
 }
 
-export default async function MemberDetailPage({ params }: { params: { locale: LocaleTypes } }) {
+export default async function MemberDetailPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     const { t } = await translation(locale, ['common', 'member', 'coupon', 'order', 'point'])
     const currentLocale = getCurrentLocaleFromParams(locale)

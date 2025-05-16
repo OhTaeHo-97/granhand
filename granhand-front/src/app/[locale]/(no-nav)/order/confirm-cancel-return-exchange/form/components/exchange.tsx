@@ -2,13 +2,13 @@
 
 import ExchangeRefundAddress from "./exchange-refund-address";
 import StandardPayment from "@/app/[locale]/(no-nav)/payment/components/standard-payment";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useState } from "react";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export default function ExchangeForm() {
     const [normalMethod, setNormalMethod] = useState('')
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'order')
     const currentLocale = useCurrentLocale()
 

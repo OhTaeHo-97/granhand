@@ -2,17 +2,16 @@
 
 import { useState } from 'react'
 import { Check, MoreVertical } from 'lucide-react'
-import ScentGuideResult from './components/result'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { getLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale'
+import { useLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale'
 import { useTranslation } from '../../../../../../utils/localization/client'
 
 export default function GuidePage() {
     const [answers, setAnswers] = useState<{ [key: number]: string }>({})
     const router = useRouter()
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'shop')
     const currentLocale = useCurrentLocale()
 
@@ -147,7 +146,7 @@ export default function GuidePage() {
                                     {canShowOptions && (
                                         <div className="flex flex-wrap gap-4 text-sm mb-4">
                                             {dynamicOptions.map((opt) => (
-                                                <button
+                                                <Button
                                                     key={opt.value}
                                                     onClick={() => handleSelect(q.id, opt.value)}
                                                     className={`px-4 py-2 rounded text-gray-600 transition ${
@@ -157,7 +156,7 @@ export default function GuidePage() {
                                                     }`}
                                                 >
                                                     {opt.label}
-                                                </button>
+                                                </Button>
                                             ))}
                                         </div>
                                     )}

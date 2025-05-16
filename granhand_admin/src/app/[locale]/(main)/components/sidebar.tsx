@@ -5,7 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowRightIcon, GlobeIcon, LayoutGridIcon } from "lucide-react";
 import SidebarElement from "./sidebar-elem";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocales";
 import { fallbackLng, LocaleTypes } from "../../../../../utils/localization/settings";
 import { useTranslation } from "../../../../../utils/localization/client";
 
@@ -13,7 +13,7 @@ export default function MainSidebar() {
     const router = useRouter()
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const segmentsPath = pathname.slice(1).split('/')
     const withoutLocalePath = locale === fallbackLng ? segmentsPath : segmentsPath.slice(1)
     const { t, i18n } = useTranslation(locale, 'common')

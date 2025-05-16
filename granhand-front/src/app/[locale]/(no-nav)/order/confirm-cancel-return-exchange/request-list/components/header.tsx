@@ -1,13 +1,13 @@
 'use client'
 
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export default function RequestListHeader({ category, curIndex, showProcess }: { category: string, curIndex?: number, showProcess: boolean }) {
     const router = useRouter()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['order', 'my_page'])
     // const currentLocale = useCurrentLocale()
     

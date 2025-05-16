@@ -1,11 +1,11 @@
 'use client'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
 
 export default function MembershipLevelSelect() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'member'])
 
     const levels = [
@@ -24,7 +24,7 @@ export default function MembershipLevelSelect() {
             </SelectTrigger>
             <SelectContent className="bg-white border rounded shadow-md">
                 {levels.map(({ label, value }) => (
-                    <SelectItem value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
+                    <SelectItem key={value} value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
                 ))}
             </SelectContent>
         </Select>

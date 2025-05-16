@@ -3,11 +3,11 @@
 import { useState } from "react";
 import PointListHeader from "./point-details-header";
 import PointDetailsList from "./point-details-list";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export default function PointDetails() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'point', 'my_page', 'point', 'store'])
     const currentLocale = useCurrentLocale()
 

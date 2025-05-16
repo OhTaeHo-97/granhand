@@ -1,13 +1,14 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useState } from "react";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export default function ExchangeRefundAddress({ title, info, showEdit = true }: { title: string, info: { name: string, phone: string, address: string }, showEdit?: boolean }) {
-    const [addressInfo, setAddressInfo] = useState(info)
-    const locale = getLocaleAsLocaleTypes()
+    // const [addressInfo, setAddressInfo] = useState(info)
+    const [addressInfo] = useState(info)
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'order')
     const handleAddress = () => {
         window.open(

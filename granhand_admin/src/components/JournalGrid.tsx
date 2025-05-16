@@ -57,7 +57,8 @@ const posts = [
 
 // const categories = ['All', 'News', 'Culture', 'Life', 'Team', 'Essay', 'Film'];
 
-const JournalGrid = ({ classType, showSubmenu }: { classType: string; showSubmenu: boolean; }) => {
+// const JournalGrid = ({ classType, showSubmenu }: { classType: string; showSubmenu: boolean; }) => {
+const JournalGrid = () => {
   // const [selectedCategory, setSelectedCategory] = useState('All');
 
   // const filteredPosts = selectedCategory === 'All'

@@ -3,12 +3,11 @@
 import Information from "@/components/information";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 
 export default function NationalityPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     // const pathname = usePathname()
     // const currentLocale = pathname.split('/')[1] === 'en' ? '/en' : ''

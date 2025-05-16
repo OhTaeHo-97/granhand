@@ -3,12 +3,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import MemberHeader from "./components/header";
 import { LocaleTypes } from "../../../../../utils/localization/settings";
 import { translation } from "../../../../../utils/localization/locales/server";
-import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 
-export default async function MemberList({ params }: { params: { locale: LocaleTypes } }) {
+export default async function MemberList({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     const { t } = await translation(locale, ['common', 'member'])
-    const currentLocale = getCurrentLocaleFromParams(locale)
 
     return (
         <main className="flex-1 border">

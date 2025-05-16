@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroupItem } from "@/components/ui/radio-group";
@@ -164,7 +163,7 @@ export default function RegisterEvenPage() {
                 </div>
             </div>
             <div className="p-12">
-            <Textarea className="resize-none min-h-screen" />'
+            <Textarea className="resize-none min-h-screen" />
             </div>
         </main>
     )

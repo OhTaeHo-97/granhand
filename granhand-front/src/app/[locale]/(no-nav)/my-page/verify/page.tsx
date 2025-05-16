@@ -1,4 +1,4 @@
-import EmailUserVerify from "./components/email";
+// import EmailUserVerify from "./components/email";
 import SnsUserVerify from "./components/sns";
 
 export default function VerifyUserPage() {

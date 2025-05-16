@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
-import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { Camera, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { useTranslation } from "../../../../../utils/localization/client";
@@ -17,7 +17,7 @@ export default function CoopPage() {
     const [images, setImages] = useState<File[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'settings'])
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {

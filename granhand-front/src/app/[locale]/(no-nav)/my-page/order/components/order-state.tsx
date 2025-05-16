@@ -5,14 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { cn } from "@/lib/utils";
 import { PopoverArrow, PopoverClose } from "@radix-ui/react-popover";
 import { X } from "lucide-react";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 
 export default function OrderStateCard() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'shop', 'payment', 'order', 'my_page'])
     // const currentLocale = useCurrentLocale()
 

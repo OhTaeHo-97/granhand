@@ -29,7 +29,7 @@ export default function StoreSidebarElem({
             <ul className="mt-2 space-y-1 text-sm">
                 {
                     elements.map(({ title, url }) => (
-                        <Link href={url}>
+                        <Link key={title} href={url}>
                             <li
                                 key={url}
                                 className={`px-6 py-2

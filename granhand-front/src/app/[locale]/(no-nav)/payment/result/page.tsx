@@ -1,16 +1,14 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import ProductInfoCard from "../../order/[id]/components/product-info-card";
-import PaymentInfo from "../../order/[id]/components/payment-info";
 import PaymentInfoBox from "../../order/[id]/components/payment-info-box";
 import Link from "next/link";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../utils/localization/client";
 
 export default function PaymentResult() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'payment'])
     const currentLocale = useCurrentLocale()
 

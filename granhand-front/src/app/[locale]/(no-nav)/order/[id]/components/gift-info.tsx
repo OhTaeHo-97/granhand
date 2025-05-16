@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 import GiftCard from "./gift-card";
 import MessageResendModal from "./modal/message-resend-modal";
 import { useState } from "react";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 
 export default function GiftInfo() {
     const [open, setOpen] = useState(false)
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'payment', 'order'])
 
     return (

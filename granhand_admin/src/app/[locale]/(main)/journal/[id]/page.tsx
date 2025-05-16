@@ -1,5 +1,5 @@
-// export default function JournalDeatilPage() {
-//     return (
-
-//     )
-// }
+export default function JournalDeatilPage() {
+    return (
+        <></>
+    )
+}

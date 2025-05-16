@@ -5,13 +5,13 @@ import ProductCardList from "./components/product-card-list";
 import { ChevronLeft } from "lucide-react";
 import { notFound, useRouter, useSearchParams } from "next/navigation";
 
-const post = {
-    id: 1,
-    title: 'Roland Multi Perfume',
-    option: '롤랑 멀티퍼퓸 100ml / 200ml',
-    price: '35,000',
-    image: "/lovable-uploads/373d6254-162e-4da2-a5ef-e87c36cd99d7.png"
-}
+// const post = {
+//     id: 1,
+//     title: 'Roland Multi Perfume',
+//     option: '롤랑 멀티퍼퓸 100ml / 200ml',
+//     price: '35,000',
+//     image: "/lovable-uploads/373d6254-162e-4da2-a5ef-e87c36cd99d7.png"
+// }
 
 export default function WishLatestListPage() {
     const router = useRouter()

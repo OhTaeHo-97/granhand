@@ -2,13 +2,13 @@
 
 import { Settings } from "lucide-react";
 import ProductSidebarElem from "./sidebar-elem";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import CateogrySettingsModal from "./category-settings";
 import { useState } from 'react'
 
 export default function ProductSidebar() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'product')
     const [open, setOpen] = useState(false)
 

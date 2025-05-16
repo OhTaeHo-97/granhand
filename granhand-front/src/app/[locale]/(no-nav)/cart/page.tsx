@@ -8,7 +8,7 @@ import { useState } from 'react'
 import OptionModal from './components/modal'
 import ProductTable from './components/product-table'
 import Link from 'next/link'
-import { getLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale'
+import { useLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale'
 import { useTranslation } from '../../../../../utils/localization/client'
 
 const sample = [
@@ -51,7 +51,7 @@ export default function CartPage() {
     const [selectedIds, setSelectedIds] = useState<number[]>([])
     const [products, setProducts] = useState(sample)
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'cart'])
     const currentLocale = useCurrentLocale()
 

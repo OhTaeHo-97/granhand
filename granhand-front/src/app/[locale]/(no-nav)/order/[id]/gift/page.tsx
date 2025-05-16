@@ -3,12 +3,14 @@ import ProductInfo from "../components/product-info";
 import GiftInfo from "../components/gift-info";
 import { LocaleTypes } from "../../../../../../../utils/localization/settings";
 import { translation } from "../../../../../../../utils/localization/locales/server";
-import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
+// import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 
-export default async function OrderGiftPage({ params: { locale }, searchParams }: { params: { locale: LocaleTypes }, searchParams: Record<string, string> }) {
-    const state = searchParams.state
+export default async function OrderGiftPage({ params, searchParams }: { params: Promise<{ locale: LocaleTypes }>, searchParams: Promise<Record<string, string>> }) {
+    const { state } = await searchParams
+    // const state = searchParams.state
+    const { locale } = await params
     const { t } = await translation(locale, ['payment', 'order', 'my_page'])
-    const currentLocale = getCurrentLocaleFromParams(locale)
+    // const currentLocale = getCurrentLocaleFromParams(locale)
 
     return (
         <div className="container mx-auto px-6 pt-8 min-w-2xl">

@@ -6,7 +6,8 @@ import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 // import { useState } from "react";
 
-export default function ForeignFindPw({ onNext }: { onNext: () => void }) {
+export default function ForeignFindPw() {
+// export default function ForeignFindPw({ onNext }: { onNext: () => void }) {
     const router = useRouter()
     // const [name, setName] = useState("");
     // const [phone, setPhone] = useState("");

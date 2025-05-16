@@ -2,10 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "../../../../../../../utils/localization/client";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 
 export default function SnsUserVerify() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'auth')
 
     return (

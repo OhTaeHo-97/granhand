@@ -2,13 +2,13 @@
 
 import BasicModal from "@/app/[locale]/components/modal";
 import { Button } from "@/components/ui/button";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useState } from "react";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export default function OrderConfirmRequestList() {
     const [open, setOpen] = useState(false)
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'order', 'my_page'])
     const currentLocale = useCurrentLocale()
 

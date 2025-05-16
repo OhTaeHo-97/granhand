@@ -2,15 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import { LocaleTypes } from "../../../../../../../../utils/localization/settings";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 
 export default function FindIdHeader() {
     const router = useRouter()
     // const locale = useParams()?.locale as LocaleTypes
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
 
     return (

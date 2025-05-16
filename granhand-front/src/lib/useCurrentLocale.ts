@@ -3,7 +3,7 @@
 import { useParams, usePathname } from "next/navigation"
 import { LocaleTypes } from "../../utils/localization/settings"
 
-export function getLocaleAsLocaleTypes() {
+export function useLocaleAsLocaleTypes() {
     return useParams()?.locale as LocaleTypes
 }
 

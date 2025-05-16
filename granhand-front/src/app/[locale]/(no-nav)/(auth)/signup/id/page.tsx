@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import SignupHeader from '../components/header';
-import { getLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale';
+import { useLocaleAsLocaleTypes, useCurrentLocale } from '@/lib/useCurrentLocale';
 import { useTranslation } from '../../../../../../../utils/localization/client';
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 
 export default function JoinIdPage() {
     const router = useRouter()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

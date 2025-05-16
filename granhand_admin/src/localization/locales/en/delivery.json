@@ -1,0 +1,26 @@
+{
+    "ship_setting": "Shipping Settings",
+    "ship_info": "Shipping Information",
+    "select_courier": "Select Courier",
+    "ship_fee": "Shipping Fee",
+    "conditional_free_ship": "Conditional Free Shipping",
+    "default_ship_fee": "Default Shipping Fee",
+    "free_ship_condition": "Free Shipping Condition",
+    "applied_limit": "Applied for purchases over",
+
+    "regional_ship_fee": "Regional Shipping Fees",
+    "enable_regional_ship_fee": "Enable Regional Shipping Fees",
+    "free_ship": "Free Shipping",
+    "jeju_additional_fee": "Jeju Island Additional Fee",
+    "remote_area_additional_fee": "Remote Area Additional Fee (Islands & Highlands)",
+
+    "exchange_setting": "Exchange/Return Settings",
+    "one_way_fee": "Return Shipping Fee (One-way)",
+    "round_trip_fee": "Exchange Shipping Fee (Round-trip)",
+    "ship_return_address": "Shipping & Return Address",
+    "address_name": "Address Name",
+    "ship_address": "Shipping Address",
+    "search_postal_code": "Search Postal Code",
+    "return_address": "Return Address",
+    "primary_number": "Primary Contact Number"
+}

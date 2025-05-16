@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Computer, Monitor, Upload } from "lucide-react";
+import { Monitor, Upload } from "lucide-react";
 
 export default function OrderList({ t, category }: { t: (key: string) => string, category: string }) {
     return (

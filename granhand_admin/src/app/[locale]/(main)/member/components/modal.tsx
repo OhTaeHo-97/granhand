@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 
 export default function InfoModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
     return (

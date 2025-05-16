@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "../../../../../../utils/localization/client";
@@ -14,7 +14,7 @@ export default function LeavePage() {
     const [selectedReason, setSelectedReason] = useState("");
     const [feedback, setFeedback] = useState("");
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

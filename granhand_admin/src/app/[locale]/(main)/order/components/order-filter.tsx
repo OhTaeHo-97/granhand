@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import PeriodElement from "../../components/period";
 import { useState } from "react";
@@ -14,7 +14,7 @@ export default function OrderFilter() {
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
     const [quickRange, setQuickRange] = useState('')
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
 
     const dateFilters = [
@@ -50,7 +50,7 @@ export default function OrderFilter() {
                             </SelectTrigger>
                             <SelectContent className="bg-white border rounded shadow-md">
                                 {dateFilters.map(({ label, value }) => (
-                                    <SelectItem value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
+                                    <SelectItem key={value} value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
@@ -68,7 +68,7 @@ export default function OrderFilter() {
                         </SelectTrigger>
                         <SelectContent className="bg-white border rounded shadow-md">
                             {filterCategories.map(({ label, value }) => (
-                                <SelectItem value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
+                                <SelectItem key={value} value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>

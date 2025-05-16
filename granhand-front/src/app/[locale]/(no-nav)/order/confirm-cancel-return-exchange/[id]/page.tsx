@@ -7,12 +7,12 @@ import CancelDetail from "./components/cancel";
 import RefundDetail from "./components/refund";
 import ProductInfo from "./components/product-info";
 import ExchangeDetail from "./components/exchange";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 
 export default function OrderDetailPage() {
     const router = useRouter()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['order', 'payment'])
 
     return (

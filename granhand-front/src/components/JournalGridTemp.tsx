@@ -1,7 +1,11 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
-import { LocaleTypes } from "../../utils/localization/settings";
-import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
+// import { LocaleTypes } from "../../utils/localization/settings";
+// import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
+// import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useCurrentLocale } from "@/lib/useCurrentLocale";
 
 const posts = [
     {
@@ -54,13 +58,8 @@ const posts = [
     }
 ];
 
-interface PageProps {
-    params: { locale: LocaleTypes };
-}
-
-export default async function JournalGridTemp({ params: { locale } }: PageProps) {
-    // const currentLocale = locale === 'en' ? '/en' : ''
-    const currentLocale = getCurrentLocaleFromParams(locale)
+export default function JournalGridTemp() {
+    const currentLocale = useCurrentLocale()
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">

@@ -1,14 +1,14 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { DollarSign, Gift, Heart, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../../../../utils/localization/client";
 
 export default function LoseBenefitPage() {
     const router = useRouter()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

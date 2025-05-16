@@ -11,8 +11,9 @@ const post = {
     image: "/lovable-uploads/373d6254-162e-4da2-a5ef-e87c36cd99d7.png"
 }
 
-export default async function ShopGrid({ searchParams, locale }: { searchParams: { store?: string; category?: string }, locale: LocaleTypes }) {
-    const { store, category } = await searchParams
+export default async function ShopGrid({ store, category, locale }: { store?: string, category?: string, locale: LocaleTypes }) {
+// export default async function ShopGrid({ searchParams, locale }: { searchParams: { store?: string; category?: string }, locale: LocaleTypes }) {
+    // const { store, category } = await searchParams
     const currentLocale = getCurrentLocaleFromParams(locale)
 
     const selectedStore = store

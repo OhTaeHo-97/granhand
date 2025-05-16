@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale"
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale"
 import { notFound, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useTranslation } from "../../../../../../utils/localization/client"
@@ -13,7 +13,7 @@ export default function ShopNavigation() {
     const searchParams = useSearchParams()
     const router = useRouter()
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'shop'])
     const currentLocale = useCurrentLocale()
 

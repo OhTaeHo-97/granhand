@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { subMonths, addMonths, isSameDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, isSameMonth, format, addDays } from "date-fns";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import { Button } from "@/components/ui/button";
 import BasicModal from "@/app/[locale]/components/modal";
@@ -13,7 +13,7 @@ export default function AttendancePage() {
     const [checkedDays, setCheckedDays] = useState<Date[]>([]);
     const [today] = useState(new Date());
     const [open, setOpen] = useState(false)
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'my_page')
     const perfectAttendance = false
 

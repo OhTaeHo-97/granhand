@@ -8,6 +8,7 @@ import {
     useSensors,
     DragEndEvent,
     DragOverlay,
+    DragStartEvent,
 } from "@dnd-kit/core"
 import {
     SortableContext,
@@ -160,7 +161,7 @@ export default function CategorySettingModal({ open, setOpen, t }: { open: boole
     if (!open) return null
 
     // 드래그 시작 시 부모 기억
-    function handleDragStart(event: any) {
+    function handleDragStart(event: DragStartEvent) {
         const { active } = event
         const { parent } = findNodeAndParent(tree, active.id as string)
         activeParentId.current = parent ? parent.id : null

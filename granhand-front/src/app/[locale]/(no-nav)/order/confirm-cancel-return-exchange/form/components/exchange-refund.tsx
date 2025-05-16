@@ -2,7 +2,7 @@
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 import ProductInfoCard from "../../../[id]/components/product-info-card";
 import ExchangeInformation from "./info/exchange-info";
@@ -20,7 +20,7 @@ export default function ExchangeRefundForm() {
     const searchParams = useSearchParams()
     // const queryString = new URLSearchParams(searchParams).toString()
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'order')
     const currentLocale = useCurrentLocale()
 

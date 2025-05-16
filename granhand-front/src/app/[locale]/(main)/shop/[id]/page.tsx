@@ -3,14 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import { PopoverClose } from "@radix-ui/react-popover";
-import { Check, ChevronDown, ChevronLeft, ChevronRight, Copy, Heart, Minus, Plus, Share2, X } from "lucide-react";
+import { Check, ChevronDown, Copy, Heart, Minus, Plus, Share2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "../../../../../../utils/localization/client";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useRouter } from "next/navigation";
 
 const images = [
@@ -77,7 +76,7 @@ export default function ShopDetailPage() {
         setIsDragging(false)
     }
 
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'shop', 'payment', 'order', 'cart'])
     const currentLocale = useCurrentLocale()
 

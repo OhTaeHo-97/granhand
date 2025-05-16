@@ -3,15 +3,13 @@
 import Information from "@/components/information";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
-import { useParams, usePathname } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
-import { LocaleTypes } from "../../../../../../../../utils/localization/settings";
 import Link from "next/link";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 
 export default function FindIdResultPage() {
     // const locale = useParams()?.locale as LocaleTypes
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     // const pathname = usePathname()
     // const currentLocale = pathname.split('/')[1] === 'en' ? '/en' : ''

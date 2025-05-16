@@ -2,12 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check, ChevronLeft } from "lucide-react";
-import Link from "next/link";
+import { Check } from "lucide-react";
 import { useState } from "react";
 import SignupHeader from "./components/header";
 import { useTranslation } from "../../../../../../utils/localization/client";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
 import BasicModal from "@/app/[locale]/components/modal";
@@ -16,7 +15,7 @@ export default function SignupPage() {
     // const locale = useParams()?.locale as LocaleTypes
     const router = useRouter()
     const [open, setOpen] = useState(false)
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 
@@ -77,9 +76,9 @@ export default function SignupPage() {
         return checked.service && checked.privacy && checked.age
     }
 
-    const isAllChecked = () => {
-        return isRequiredChecked() && checked.marketing && checked.ad
-    }
+    // const isAllChecked = () => {
+    //     return isRequiredChecked() && checked.marketing && checked.ad
+    // }
 
     const onClickSignupBtn = () => {
         if(!isRequiredChecked()) {

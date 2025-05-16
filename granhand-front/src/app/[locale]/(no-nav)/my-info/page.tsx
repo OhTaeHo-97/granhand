@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import LoginInfo from "./components/login-info";
 import MemberInfo from "./components/member-info";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../utils/localization/client";
 import { useState } from "react";
 import TwoButtonModal from "../../components/two-button-modal";
@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 export default function MyPage() {
     const router = useRouter()
     const [open, setOpen] = useState(false)
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'auth'])
     const currentLocale = useCurrentLocale()
 

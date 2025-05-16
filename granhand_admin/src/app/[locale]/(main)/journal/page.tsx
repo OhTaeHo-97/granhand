@@ -98,7 +98,7 @@ export default function JournalListPage() {
                         <tr key={i} className="border-b h-14">
                             <td className="p-2 items-center">121</td>
                             <td className="p-2 text-center">News, Life</td>
-                            <td className="p-2 text-center"><Pin className="text-red-300" />19 Februrary 2024: 'GRANHAND' Brand Book Published</td>
+                            <td className="p-2 text-center"><Pin className="text-red-300" />{"19 Februrary 2024: 'GRANHAND' Brand Book Published"}</td>
                             <td className="p-2 text-center">2024-02-23</td>
                             <td className="p-2 text-center">584</td>
                             <td className="p-2 flex gap-1 flex-wrap items-center justify-center">

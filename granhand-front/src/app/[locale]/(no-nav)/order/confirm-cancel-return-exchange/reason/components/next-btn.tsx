@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
@@ -10,7 +10,7 @@ export default function NextButton() {
     const searchParams = useSearchParams()
     const currentLocale = useCurrentLocale()
     const queryString = new URLSearchParams(searchParams).toString()
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'common')
 
     return (

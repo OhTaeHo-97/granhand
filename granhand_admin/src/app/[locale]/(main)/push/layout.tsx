@@ -1,7 +1,7 @@
 import { translation } from "../../../../../utils/localization/locales/server"
 import { LocaleTypes } from "../../../../../utils/localization/settings"
 
-export default async function PushLayout({ children, params }: { children: React.ReactNode, params: { locale: LocaleTypes } }) {
+export default async function PushLayout({ children, params }: { children: React.ReactNode, params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     const { t } = await translation(locale, 'common')
 

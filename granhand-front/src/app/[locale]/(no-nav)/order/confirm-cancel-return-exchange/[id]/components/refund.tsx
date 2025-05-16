@@ -1,13 +1,13 @@
 'use client'
 
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import ExchangeRefundAddress from "../../form/components/exchange-refund-address";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 import { Button } from "@/components/ui/button";
 import RefundInfoBox from "../../../[id]/components/refund-info-box";
 
 export default function RefundDetail() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['order', 'payment'])
 
     return (

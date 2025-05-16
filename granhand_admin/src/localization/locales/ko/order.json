@@ -76,5 +76,16 @@
     "exchange_reason": "교환 사유",
     "exchange_ship_fee": "교환 배송비",
     "pickup_address": "회수지 정보",
-    "re_ship_address": "재배송지 정보"
+    "re_ship_address": "재배송지 정보",
+
+    "return_manage": "반품 관리",
+    "return_hold": "반품 보류",
+    "return_pickup": "반품 수거 중",
+    "return_pickup_cmpl": "반품 수거 완료",
+    "return_cmpl": "반품 완료",
+    "return_request_date": "반품요청일",
+    "return_reason": "반품사유",
+    "return_track_number": "반품 운송장 번호",
+    "return_pickup_date": "반품 수거 완료일",
+    "refund_amount": "환불 금액"
 }

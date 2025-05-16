@@ -1,8 +1,7 @@
 'use client'
 
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 
 const data = [
@@ -15,21 +14,21 @@ const data = [
     { date: '7월 20일', pageview: 9000, visitor: 2000 },
 ]
 
-const visitorData = [
-    { name: '월', value: 50 },
-    { name: '화', value: 80 },
-    { name: '수', value: 65 },
-    { name: '목', value: 95 },
-    { name: '금', value: 70 }
-]
+// const visitorData = [
+//     { name: '월', value: 50 },
+//     { name: '화', value: 80 },
+//     { name: '수', value: 65 },
+//     { name: '목', value: 95 },
+//     { name: '금', value: 70 }
+// ]
 
-const orderData = [
-    { name: '월', value: 20 },
-    { name: '화', value: 60 },
-    { name: '수', value: 35 },
-    { name: '목', value: 85 },
-    { name: '금', value: 40 }
-]
+// const orderData = [
+//     { name: '월', value: 20 },
+//     { name: '화', value: 60 },
+//     { name: '수', value: 35 },
+//     { name: '목', value: 85 },
+//     { name: '금', value: 40 }
+// ]
 
 const dateProgress = [
     { date: "오늘", value: 13, total: 100 },

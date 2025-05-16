@@ -76,5 +76,16 @@
     "exchange_reason": "Reason for Exchange",
     "exchange_ship_fee": "Exchange Shipping Fee",
     "pickup_address": "Pickup Address Info",
-    "re_ship_address": "Re-shipping Address Info"
+    "re_ship_address": "Re-shipping Address Info",
+
+    "return_manage": "Return Management",
+    "return_hold": "Return On Hold",
+    "return_pickup": "Pickup In Progress",
+    "return_pickup_cmpl": "Pickup Completed",
+    "return_cmpl": "Return Completed",
+    "return_request_date": "Return Request Date",
+    "return_reason": "Reason for Return",
+    "return_track_number": "Tracking No.",
+    "return_pickup_date": "Pickup Date",
+    "refund_amount": "Refund Amount"
 }

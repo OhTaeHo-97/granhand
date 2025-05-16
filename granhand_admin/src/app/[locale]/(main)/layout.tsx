@@ -1,6 +1,5 @@
 // // 'use client'
 
-import { pretendard } from "@/app/fonts";
 import MainSidebar from "./components/sidebar";
 
 import '@/app/globals.css'
@@ -83,14 +82,10 @@ import '@/app/globals.css'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html className={pretendard.variable}>
-            <body>
-                <div className="flex min-h-screen">
-                    {/* Sidebar */}
-                    <MainSidebar />
-                    {children}
-                </div>
-            </body>
-        </html>
+        <div className="flex min-h-screen">
+            {/* Sidebar */}
+            <MainSidebar />
+            {children}
+        </div>
     )
 }

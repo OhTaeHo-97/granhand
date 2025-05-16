@@ -1,13 +1,13 @@
 'use client'
 
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocale"
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale"
 import { useTranslation } from "../../../../../../utils/localization/client"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
 
 export default function StandardPayment({ normalMethod, setNormalMethod }: { normalMethod: string, setNormalMethod: (value: string) => void }) {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'payment'])
 
     return (

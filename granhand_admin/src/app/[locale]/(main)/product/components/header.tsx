@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import PeriodElement from "../../components/period";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import { RefreshCw, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 export default function ProductListHeader() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'push'])
     const [quickRange, setQuickRange] = useState('')
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
@@ -86,7 +86,7 @@ export default function ProductListHeader() {
                         </SelectTrigger>
                         <SelectContent className="bg-white border rounded shadow-md">
                             {filterOptions.map(({ label, value }) => (
-                                <SelectItem value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
+                                <SelectItem key={value} value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>

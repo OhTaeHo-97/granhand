@@ -1,6 +1,3 @@
-import { ListBulletIcon } from "@radix-ui/react-icons"
-import { CalendarIcon, CoinsIcon, GiftIcon } from "lucide-react";
-import Link from "next/link";
 import MainItemLayout from "./components/main-layout";
 import MembershipCard from "./components/membership-card";
 import { LocaleTypes } from "../../../../../utils/localization/settings";
@@ -39,7 +36,8 @@ const dummy = [
   }
 ]
 
-export default async function MyPage({ params: { locale } }: { params: { locale: LocaleTypes } }) {
+export default async function MyPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+  const { locale } = await params
   const { t } = await translation(locale, ['my_page'])
   const currentLocale = getCurrentLocaleFromParams(locale)
 

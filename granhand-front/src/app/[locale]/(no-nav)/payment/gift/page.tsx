@@ -1,9 +1,7 @@
 'use client'
 
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import CouponSelect from "../components/coupon-select";
-import DeliveryList from "../components/delivery-list";
-import DeliveryRequest from "../components/delivery-request";
 import GiftMessage from "../components/gift-message";
 import OrderProductInfo from "../components/order-product-info";
 import PaymentInfoCheck from "../components/payment-info-check";
@@ -13,7 +11,7 @@ import ReceiverInfo from "../components/receiver-info";
 import { useTranslation } from "../../../../../../utils/localization/client";
 
 export default function PaymentGiftPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'payment', 'coupon', 'point'])
     const currentLocale = useCurrentLocale()
 

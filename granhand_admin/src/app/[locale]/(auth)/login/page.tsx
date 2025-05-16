@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
 
 const loginSchema = z.object({
@@ -17,7 +17,7 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
-  const locale = getLocaleAsLocaleTypes()
+  const locale = useLocaleAsLocaleTypes()
   const { t } = useTranslation(locale, ['common', 'auth'])
 
   const form = useForm<LoginValues>({
@@ -28,12 +28,13 @@ export default function LoginPage() {
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors }
-  } = form
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   setError,
+  //   formState: { errors }
+  // } = form
+  const { setError } = form
 
   function onSubmit(data: LoginValues) {
     console.log(data);

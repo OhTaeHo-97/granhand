@@ -5,17 +5,6 @@ import { useState } from "react";
 import MobileBanner from "./components/mobile";
 import PcBanner from "./components/pc";
 
-const banners = [
-    { label: "1", image: "/app_1_3_seven_01.jpg", link: "app_1.3.event_01" },
-    { label: "2", image: null, link: "" },
-    { label: "3", image: null, link: "" },
-    { label: "이벤트 배너", image: null, link: "" },
-    { label: "마이페이지 배너", image: null, link: "" },
-    { label: "알림 배너", image: null, link: "" },
-];
-
-const rowHeaders = ["고정", "미리보기", "링크"];
-
 export default function BannerPage() {
     const [tab, setTab] = useState("mobile");
 

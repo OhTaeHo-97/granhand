@@ -2,7 +2,6 @@
 
 import { useCurrentLocale } from "@/lib/useCurrentLocale";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 const Navigation = () => {
   // const pathname = usePathname()

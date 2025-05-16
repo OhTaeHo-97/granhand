@@ -3,9 +3,12 @@
 // import Navigation from "@/components/Navigation";
 import BrandGrid from "@/components/BrandGrid";
 import JournalGridTemp from "@/components/JournalGridTemp";
-import { LocaleTypes } from "../../../../utils/localization/settings";
+// import { LocaleTypes } from "../../../../utils/localization/settings";
+import Image from "next/image";
 
-export default function MainPage({ params }: { params: { locale: LocaleTypes } }) {
+// export default async function MainPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+export default async function MainPage() {
+    // const { locale } = await params
     return (
         <main className="container mx-auto px-6 pt-8">
             <BrandGrid />
@@ -20,7 +23,9 @@ export default function MainPage({ params }: { params: { locale: LocaleTypes } }
                 {/* 이미지 */}
                 <div className="">
                     <div className="w-full bg-[#D9D9D9] rounded-lg overflow-hidden mb-6">
-                    <img
+                    <Image
+                        width={400}
+                        height={400}
                         src="/images/gwanghwamun.jpg"
                         alt="GRANHAND Gwanghwamun"
                         className="w-full object-cover"
@@ -41,7 +46,7 @@ export default function MainPage({ params }: { params: { locale: LocaleTypes } }
             </div>
 
             <h2 className="text-lg font-bold text-left mb-8 border-b pb-4">JOURNAL</h2>
-            <JournalGridTemp params={params} />
+            <JournalGridTemp />
         </main>
     )
 }

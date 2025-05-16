@@ -6,7 +6,6 @@ import { fallbackLng, locales } from '../utils/localization/settings'
 
 export function middleware(req: NextRequest) {
     const pathname = req.nextUrl.pathname
-    console.log(pathname)
 
     const pathnameHasLocale = locales.some(
         (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`

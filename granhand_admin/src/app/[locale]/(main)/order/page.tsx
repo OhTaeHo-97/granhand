@@ -5,7 +5,7 @@ import OrderStatus from "./components/order-status"
 import OrderFilter from "./components/order-filter"
 import OrderList from "./components/order-list"
 
-export default async function OrderPage({ params }: { params: { locale: LocaleTypes } }) {
+export default async function OrderPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
     const { t } = await translation(locale, ['common', 'product', 'order', 'push'])
     const statusList = [

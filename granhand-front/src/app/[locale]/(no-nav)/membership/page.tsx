@@ -1,11 +1,11 @@
 'use client'
 
 import { Avatar } from "@/components/ui/avatar";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../utils/localization/client";
 
 export default function MembershipPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'membership')
     const currentLocale = useCurrentLocale()
 

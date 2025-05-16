@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SearchIcon, X } from "lucide-react";
 import { useEffect } from "react";
-import SelectDestination from "./select-destination";
 
 export default function TargetModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
     // ESC로 닫기

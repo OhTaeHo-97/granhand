@@ -7,11 +7,11 @@ import OrderProductInfo from "./components/order-product-info";
 import CouponSelect from "./components/coupon-select";
 import PointUse from "./components/point-use";
 import PaymentMethod from "./components/payment-method";
-import { getLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../utils/localization/client";
 
 export default function PaymentPage() {
-    const locale = getLocaleAsLocaleTypes()
+    const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'payment', 'coupon', 'point'])
     const currentLocale = useCurrentLocale()
 

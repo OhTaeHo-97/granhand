@@ -1,7 +1,6 @@
 'use client'
 
 import PointModal from "@/app/[locale]/(no-nav)/payment/components/modal/point-modal"
-import { Button } from "@/components/ui/button"
 import { useState } from "react"
 
 export default function PointListHeader({
