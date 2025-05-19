@@ -1,0 +1,13 @@
+{
+    "scent_manage": "향 설명 관리",
+    "create_description": "글 작성",
+    "all": "전체",
+    "scent_type": "향 종류",
+    "edit": "편집",
+    "submit": "작성",
+    "scent_description": "향 설명",
+    "scent_notes": "향조 노트",
+    "scent_guide": "향 가이드",
+    "placeholder": "텍스트를 입력하세요.",
+    "preview": "미리보기"
+}

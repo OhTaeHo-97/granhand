@@ -1,0 +1,15 @@
+{
+    "notice_manage": "Notice Management",
+    "create_notice": "Create Notice",
+    "all_notice": "All Notices",
+    "category": "Category",
+    "title": "Title",
+    "date": "Date",
+    "edit": "Edit",
+    "write_post": "Write Post",
+    "submit": "Submit",
+    "title_placeholder": "Enter a title.",
+    "content": "Content",
+    "content_placeholder": "Enter content.",
+    "post_details": "Post Details"
+}

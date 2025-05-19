@@ -1,0 +1,15 @@
+{
+    "notice_manage": "공지사항 관리",
+    "create_notice": "글 작성",
+    "all_notice": "전체 공지",
+    "category": "분류",
+    "title": "제목",
+    "date": "날짜",
+    "edit": "편집",
+    "write_post": "글 작성",
+    "submit": "작성",
+    "title_placeholder": "제목을 입력하세요.",
+    "content": "내용",
+    "content_placeholder": "내용을 입력하세요.",
+    "post_details": "글 상세"
+}

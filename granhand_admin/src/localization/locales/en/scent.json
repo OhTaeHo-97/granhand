@@ -1,0 +1,13 @@
+{
+    "scent_manage": "Scent Description Management",
+    "create_description": "Create Description",
+    "all": "All",
+    "scent_type": "Scent Type",
+    "edit": "Edit",
+    "submit": "Submit",
+    "scent_description": "Scent Description",
+    "scent_notes": "Scent Notes",
+    "scent_guide": "Scent Guide",
+    "placeholder": "Enter text.",
+    "preview": "Preview"
+}
