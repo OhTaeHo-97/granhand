@@ -1,0 +1,18 @@
+{
+    "store_manage": "스토어 관리",
+    "branch_name": "지점명",
+    "address": "주소",
+    "visibility_setting": "노출 설정",
+    "visible": "노출",
+    "hidden": "숨김",
+    "passport": "패스포트",
+    "image": "이미지",
+    "gallery": "갤러리",
+    "upload": "업로드",
+    "delete": "삭제",
+    "gallery_upload": "스토어 갤러리 업로드",
+    "category": "카테고리",
+    "sub_category": "중분류",
+    "detail_category": "소분류",
+    "attachment": "첨부파일"
+}

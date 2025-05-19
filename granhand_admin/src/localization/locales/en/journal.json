@@ -1,0 +1,28 @@
+{
+    "journal_manage": "Journal Management",
+    "create_post": "Create Post",
+    "search_filter": "Search Filters",
+    "tag": "Tags",
+    "tag_palceholder": "Please Select",
+    "all": "All",
+    "tag_manage": "Tag Management",
+    "all_journal_post": "All Journal Posts",
+    "latest_first": "Latest First",
+    "featured_first": "Featured First",
+    "most_viewed": "Most Viewed",
+    "title": "Title",
+    "date_created": "Date Created",
+    "views": "Views",
+    "korean_title_placeholder": "Enter Korean Title",
+    "english_title_placeholder": "Enter English Title",
+
+    "cover_image": "Cover Image",
+    "upload_file": "Upload File",
+    "write_post": "Write Post",
+    "publish_immediately": "Publish Immediately",
+    "schedule_for_later": "Schedule for Later",
+    "korean": "Korean",
+    "english": "English",
+    "cancel": "Cancel",
+    "publish": "Publish"
+}

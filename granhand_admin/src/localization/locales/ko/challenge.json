@@ -1,0 +1,17 @@
+{
+    "challenge_manage": "챌린지 관리",
+    "create_challenge": "글 작성",
+    "list": "목록",
+    "total": "총",
+    "challenge_name": "챌린지명",
+    "description": "설명",
+    "status": "상태",
+    "manage": "관리",
+    "edit": "수정",
+    "change_status": "상태 변경",
+    "create_challenge_title": "챌린지 생성",
+    "active": "활성",
+    "inactive": "비활성",
+    "challenge_name_placeholder": "챌린지명을 입력해 주세요.",
+    "description_placeholder": "설명 입력"
+}

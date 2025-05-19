@@ -1,0 +1,22 @@
+{
+    "partnership_manage": "제휴 문의 관리",
+    "all_inquires": "전체 제휴문의",
+    "title": "제목",
+    "name": "성함",
+    "phone": "휴대폰번호",
+    "email": "이메일 주소",
+    "date": "날짜",
+    "response_status": "회신 여부",
+    "pending": "대기중",
+    "replied": "답변완료",
+    "content": "내용",
+    "image": "사진",
+    "reply": "회신",
+    "sender": "발송인",
+    "recipient": "수신인",
+    "create_inquiry": "글 작성",
+    "reply_email": "메일 회신",
+    "sent_email": "발송 메일",
+    "close": "닫기",
+    "send_email": "메일 발송"
+}

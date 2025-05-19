@@ -1,0 +1,17 @@
+{
+    "challenge_manage": "Challenge Management",
+    "create_challenge": "Create Challenge",
+    "list": "List",
+    "total": "Total:",
+    "challenge_name": "Challenge Name",
+    "description": "Description",
+    "status": "Status",
+    "manage": "Manage",
+    "edit": "Edit",
+    "change_status": "Change Status",
+    "create_challenge_title": "Create Challenge",
+    "active": "active",
+    "inactive": "inactive",
+    "challenge_name_placeholder": "Please enter the challenge name.",
+    "description_placeholder": "Enter description"
+}

@@ -72,9 +72,12 @@
     "search": "검색",
     "save": "저장",
     "edit": "변경",
+    "edit2": "수정",
     "delete": "삭제",
     "manage": "관리",
     "view_all": "전체 보기",
+    "cancel": "취소",
+    "confirm": "확인",
 
     "granhand": "그랑핸드",
     "komfortabel": "콤포타블"

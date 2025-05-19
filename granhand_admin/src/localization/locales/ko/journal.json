@@ -1,0 +1,28 @@
+{
+    "journal_manage": "저널 관리",
+    "create_post": "글 작성",
+    "search_filter": "검색 필터",
+    "tag": "태그",
+    "tag_palceholder": "선택하세요.",
+    "all": "전체",
+    "tag_manage": "태그 관리",
+    "all_journal_post": "전체 저널 게시글",
+    "latest_first": "최근 작성순",
+    "featured_first": "메인 노출순",
+    "most_viewed": "조회순",
+    "title": "제목",
+    "date_created": "작성일",
+    "views": "조회수",
+    "korean_title_placeholder": "한국어 제목을 입력하세요.",
+    "english_title_placeholder": "영문 제목을 입력하세요.",
+
+    "cover_image": "대표 이미지",
+    "upload_file": "첨부파일",
+    "write_post": "글 작성",
+    "publish_immediately": "즉시 발행",
+    "schedule_for_later": "예약 발행",
+    "korean": "한국어",
+    "english": "영어",
+    "cancel": "취소",
+    "publish": "작성"
+}

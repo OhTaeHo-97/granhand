@@ -72,8 +72,12 @@
     "search": "Search",
     "save": "Save",
     "edit": "Edit",
+    "edit2": "Edit",
     "delete": "Delete",
+    "manage": "Manage",
     "view_all": "View All",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
 
     "granhand": "Granhand",
     "komfortabel": "Komfortabel"

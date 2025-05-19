@@ -6,6 +6,7 @@ import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import CateogrySettingsModal from "./category-settings";
 import { useState } from 'react'
+import SubSidebarElem from "../../components/sub-sidebar/sub-sidebar-elem";
 
 export default function ProductSidebar() {
     const locale = useLocaleAsLocaleTypes()
@@ -45,12 +46,12 @@ export default function ProductSidebar() {
             {/* GRANHAND 그룹 */}
             <div>
                 <div className="font-bold text-[#5E5955] text-base">{t('granhand')}</div>
-                <ProductSidebarElem title={t('giftset')} elements={giftset} />
-                <ProductSidebarElem title={t('perfume')} elements={perfume} />
-                <ProductSidebarElem title={t('space')} elements={space} />
-                <ProductSidebarElem title={t('body')} elements={body} />
-                <ProductSidebarElem title={t('natural')} elements={natural} />
-                <ProductSidebarElem title={t('tools')} elements={tool} />
+                <SubSidebarElem title={t('giftset')} elements={giftset} />
+                <SubSidebarElem title={t('perfume')} elements={perfume} />
+                <SubSidebarElem title={t('space')} elements={space} />
+                <SubSidebarElem title={t('body')} elements={body} />
+                <SubSidebarElem title={t('natural')} elements={natural} />
+                <SubSidebarElem title={t('tool')} elements={tool} />
             </div>
 
             <div>

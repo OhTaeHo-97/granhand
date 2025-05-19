@@ -6,13 +6,14 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 export default function StoreSidebarElem({
-    title, elements
+    title,
+    elements
 }: {
     title: string,
     elements: Array<{title: string, url: string}>,
 }) {
     const [sOpenSections, setSOpenSections] = useState(true);
-    const pToggleSection = () => {
+    const sToggleSection = () => {
         setSOpenSections((prev) => !prev);
     };
 
@@ -22,10 +23,35 @@ export default function StoreSidebarElem({
 
     return (
         <div>
-            <div className="flex items-center cursor-pointer font-bold text-gray-700 gap-3 mt-4" onClick={() => pToggleSection()}>
+            <div className="flex items-center cursor-pointer gap-3 mt-4 ml-4 font-bold text-[#5E5955] text-base" onClick={() => sToggleSection()}>
+                {sOpenSections ? <ChevronUpIcon className="!w-4 !h-4" /> : <ChevronDownIcon className="!w-4 !h-4" />} {title}
+            </div>
+            <div className="flex items-center cursor-pointer font-bold text-gray-700 gap-3 mt-4" onClick={() => sToggleSection()}>
                 {sOpenSections ? <ChevronUpIcon className="w-4 h-4" /> : <ChevronDownIcon className="w-4 h-4" />} {title}
             </div>
             {sOpenSections && (
+            <ul className="mt-2 space-y-1 text-sm">
+                {
+                    elements.map(({ title, url }) => (
+                        <Link key={title} href={url}>
+                            <li
+                                key={url}
+                                className={`px-12 py-2
+                                ${isActive(url)
+                                    ? "text-[#5E5955] bg-[#322A240F] rounded"
+                                    : "text-[#C0BCB6]"
+                                }`}
+                            >
+                                {title}
+                            </li>
+                        </Link>
+                    ))
+                }
+            </ul>
+            )}
+
+
+            {/* {sOpenSections && (
             <ul className="mt-2 space-y-1 text-sm">
                 {
                     elements.map(({ title, url }) => (
@@ -44,7 +70,7 @@ export default function StoreSidebarElem({
                     ))
                 }
             </ul>
-            )}
+            )} */}
         </div>
     )
 }

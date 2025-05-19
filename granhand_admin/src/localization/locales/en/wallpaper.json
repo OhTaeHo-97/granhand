@@ -1,0 +1,23 @@
+{
+    "wallpaper_manage": "Wallpaper Management",
+    "create_post": "Create Post",
+    "all_wallpaper": "All Wallpaper Posts",
+    "title": "Title",
+    "date_created": "Date Created",
+    "views": "Views",
+    "latest_first": "Latest First",
+    "featured_first": "Featured First",
+    "most_viewed": "Most Viewed",
+    "cover_image": "Cover Image",
+    "upload_file": "Upload File",
+    "korean_title_placeholder": "Enter Korean Title",
+    "english_title_placeholder": "Enter English Title",
+    "korean": "Korean",
+    "english": "English",
+    "write_post": "Write Post",
+    "publish_immediately": "Publish Immediately",
+    "schedule_for_later": "Schedule for Later",
+    "enter_content": "Enter content",
+    "cancel": "Cancel",
+    "publish": "Publish"
+}

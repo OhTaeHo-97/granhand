@@ -132,5 +132,5 @@ export default function TargetModal({ open, setOpen }: { open: boolean, setOpen:
                 </div>
             </div>
         </div>
-    );
+    )
 }

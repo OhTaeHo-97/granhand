@@ -1,0 +1,22 @@
+{
+    "partnership_manage": "Partnership Inquiry Management",
+    "all_inquires": "All Inquiries",
+    "title": "Title",
+    "name": "Name",
+    "phone": "Phone Number",
+    "email": "Email Address",
+    "date": "Date",
+    "response_status": "Response Status",
+    "pending": "Pending",
+    "replied": "Replied",
+    "content": "Content",
+    "image": "Image",
+    "reply": "Reply",
+    "sender": "Sender",
+    "recipient": "Recipient",
+    "create_inquiry": "Create Inquiry",
+    "reply_email": "Reply to Email",
+    "sent_email": "Sent Email",
+    "close": "Close",
+    "send_email": "Send Email"
+}

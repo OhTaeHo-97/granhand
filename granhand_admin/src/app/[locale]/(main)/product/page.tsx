@@ -12,7 +12,6 @@ export default async function ProductListPage({ params }: { params: Promise<{ lo
     const { locale } = await params
     const { t } = await translation(locale, 'product')
     const currentLocale = getCurrentLocaleFromParams(locale)
-    console.log(currentLocale)
 
     return (
         <div className="flex-1 border">

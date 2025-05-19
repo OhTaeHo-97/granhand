@@ -50,7 +50,7 @@ export default function CouponList({ t }: { t: (key: string) => string }) {
                                 <td className="p-2 text-center">2024-01-31 11:59</td>
                                 <td className="p-2 text-center">제한 없음</td>
                                 <td className="p-2 text-center">
-                                    <Button className="border rounded px-2 text-[#5E5955]">삭제</Button>
+                                    <Button className="border rounded px-2 text-[#5E5955]">{t('delete')}</Button>
                                 </td>
                             </tr>
                         ))}

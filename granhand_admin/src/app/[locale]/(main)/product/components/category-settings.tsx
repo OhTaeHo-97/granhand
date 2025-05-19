@@ -16,14 +16,14 @@ import {
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { useCategoryStore, CategoryNode } from "../state/category-store"
+import { ProductCategoryNode, useProductCategoryStore } from "@/lib/product/product-state"
 
 // 트리 유틸
 function findNodeAndParent(
-    nodes: CategoryNode[],
+    nodes: ProductCategoryNode[],
     id: string,
-    parent: CategoryNode | null = null
-): { node: CategoryNode | null; parent: CategoryNode | null } {
+    parent: ProductCategoryNode | null = null
+): { node: ProductCategoryNode | null; parent: ProductCategoryNode | null } {
     for (const node of nodes) {
         if (node.id === id) return { node, parent }
         if (node.children) {
@@ -35,11 +35,11 @@ function findNodeAndParent(
 }
 
 function moveWithinSiblings(
-    nodes: CategoryNode[],
+    nodes: ProductCategoryNode[],
     parentId: string | null,
     activeId: string,
     overId: string
-): CategoryNode[] {
+): ProductCategoryNode[] {
     if (parentId === null) {
         // 최상위
         const idxA = nodes.findIndex((n) => n.id === activeId)
@@ -78,7 +78,7 @@ function SortableItem({
     setActiveId,
     t
 }: {
-    node: CategoryNode
+    node: ProductCategoryNode
     depth: number
     activeId: string | null
     setActiveId: (id: string | null) => void
@@ -117,7 +117,7 @@ function RenderTree({
     setActiveId,
     t
 }: {
-    nodes: CategoryNode[]
+    nodes: ProductCategoryNode[]
     depth?: number
     activeId: string | null
     setActiveId: (id: string | null) => void
@@ -138,8 +138,8 @@ function RenderTree({
 }
 
 export default function CategorySettingModal({ open, setOpen, t }: { open: boolean, setOpen: (v: boolean) => void, t: (key: string) => string }) {
-    const { categories, setCategories } = useCategoryStore()
-    const [tree, setTree] = useState<CategoryNode[]>(categories)
+    const { categories, setCategories } = useProductCategoryStore()
+    const [tree, setTree] = useState<ProductCategoryNode[]>(categories)
     const [activeId, setActiveId] = useState<string | null>(null)
     const activeParentId = useRef<string | null>(null)
 

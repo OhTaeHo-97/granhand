@@ -1,0 +1,18 @@
+{
+    "store_manage": "Store Management",
+    "branch_name": "Branch Name",
+    "address": "Address",
+    "visibility_setting": "Visibility Settings",
+    "visible": "Visible",
+    "hidden": "Hidden",
+    "passport": "Passport",
+    "image": "Image",
+    "gallery": "Gallery",
+    "upload": "Upload",
+    "delete": "Delete",
+    "gallery_upload": "Upload Store Gallery",
+    "category": "Category",
+    "sub_category": "Subcategory",
+    "detail_category": "Detail Category",
+    "attachment": "Attachment"
+}
