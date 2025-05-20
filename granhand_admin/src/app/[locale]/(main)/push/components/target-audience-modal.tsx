@@ -11,7 +11,7 @@ export default function TargetAudienceModal({ open, setOpen }: { open: boolean, 
             <DialogContent className="fixed inset-0 z-50 flex items-center justify-center !w-full !h-full !max-w-none !p-0 sm:rounded-none bg-white">
                 <div className="w-full h-full overflow-y-auto p-8">
                     <DialogHeader>
-                        <DialogTitle className="text-xl font-bold">발송 대상 선택</DialogTitle>
+                        <DialogTitle className="text-2xl font-bold text-[#111111]">발송 대상 선택</DialogTitle>
                     </DialogHeader>
                     <div className="p-8 space-y-6 text-sm text-[#6f6963] max-w-6xl mx-auto h-full overflow-y-auto overflow-x-auto">
                         {/* 제목 */}

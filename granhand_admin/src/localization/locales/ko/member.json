@@ -31,5 +31,30 @@
     "consent_history": "동의 여부 이력",
 
     "member_notes": "회원 메모",
-    "notes_placeholder": "내용 입력 (최대 500자)"
+    "notes_placeholder": "내용 입력 (최대 500자)",
+
+    "recently_joined": "최근 가입순",
+    "highest_spend": "누적 금액 높은순",
+    "lowest_spend": "누적 금액 낮은순",
+    "highest_points": "적립 포인트 높은순",
+    "lowest_points": "적립 포인트 낮은순",
+
+    "restricted_title": "불량 회원으로 등록하시겠습니까?",
+    "unmark_restricted_title": "불량 회원 해제하시겠습니까?",
+    "cannot_process_title": "탈퇴/불량 회원은 처리가 불가합니다.",
+    "cannot_process_sub": "불량 회원은 해제 후 진행해 주세요.",
+    "member_note": "회원 메모",
+    "note_placeholder": "내용 입력 (최대 500자)",
+    "point_title": "포인트 지급/회수",
+    "adjustment_type": "증감 여부",
+    "description": "내용",
+    "description_placeholder": "사유/내용을 입력하세요.",
+    "issue_coupon_title": "쿠폰 즉시 발급",
+    "coupon": "쿠폰",
+
+    "order": "주문",
+    "note": "메모",
+    "withdrawn_btn": "탈퇴",
+    "restricted_btn": "불량",
+    "active": "일반"
 }

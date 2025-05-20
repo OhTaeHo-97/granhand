@@ -31,5 +31,30 @@
     "consent_history": "Consent History",
 
     "member_notes": "Member Notes",
-    "notes_placeholder": "Enter content (up to 500 characters)"
+    "notes_placeholder": "Enter content (up to 500 characters)",
+
+    "recently_joined": "Recently Joined",
+    "highest_spend": "Highest Total Spend",
+    "lowest_spend": "Lowest Total Spend",
+    "highest_points": "Highest Reward Points",
+    "lowest_points": "Lowest Reward Points",
+
+    "restricted_title": "Do you want to mark this user as restricted?",
+    "unmark_restricted_title": "Do you want to unmark this user as restricted?",
+    "cannot_process_title": "Withdrawn or restricted members cannot be processed.",
+    "cannot_process_sub": "Please unmark the user as restricted before proceeding.",
+    "member_note": "Member Note",
+    "note_placeholder": "Enter content (up to 500 characters)",
+    "point_title": "Add/Deduct Points",
+    "adjustment_type": "Adjustment Type (Add / Deduct)",
+    "description": "Description",
+    "description_placeholder": "Please enter a reason or description.",
+    "issue_coupon_title": "Issue Coupon Instantly",
+    "coupon": "Coupon",
+
+    "order": "Orders",
+    "note": "Note",
+    "withdrawn_btn": "Withdrawn",
+    "restricted_btn": "Restricted",
+    "active": "Active"
 }

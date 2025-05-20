@@ -18,6 +18,16 @@ export default function PushListPage() {
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
 
+    const handleCancelRepeated = () => {
+        const confirmed = window.confirm('반복 예약을 취소하시겠습니까?')
+
+        if(confirmed) {
+            console.log('반복 예약 취소')
+        } else {
+            console.log('반복 예약 취소 취소')
+        }
+    }
+
     // const quickRanges = [
     //     { label: t('push:today'), value: 'today' },
     //     { label: t('push:last_3_days'), value: 'last_3_days' },
@@ -89,7 +99,7 @@ export default function PushListPage() {
                     <td className="p-2 text-center">일반 푸시</td>
                     <td className="p-2 flex gap-1 flex-wrap items-center justify-center text-[#5E5955]">
                         <Button className="border rounded px-2">{t('push:edit_schedule')}</Button>
-                        <Button className="border rounded px-2">{t('push:cancel_repeat')}</Button>
+                        <Button className="border rounded px-2" onClick={handleCancelRepeated}>{t('push:cancel_repeat')}</Button>
                     </td>
                 </tr>
                 ))}

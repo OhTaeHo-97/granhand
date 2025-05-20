@@ -44,5 +44,11 @@
     "excluded_product": "제외 상품",
     "usage_limit": "사용 횟수",
     "limited_per_member": "동일 회원이 최대 1회까지 사용 가능",
-    "unlimited_uses": "회수 제한 없음"
+    "unlimited_uses": "회수 제한 없음",
+
+    "orders": "주문",
+    "note": "메모",
+    "withdrawn": "탈퇴",
+    "restricted": "불량",
+    "active": "일반"
 }

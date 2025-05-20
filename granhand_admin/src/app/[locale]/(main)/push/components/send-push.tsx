@@ -12,13 +12,16 @@ import MembershipLevelSelect from "../../components/membership-level";
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import TargetModal from "./target";
+import ScheduleSendModal from "./schedule-send-modal";
 
 export default function PushSendPage() {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'push')
 
     const [targetModalOpen, setTargetModalOpen] = useState(false)
-    const [selectedTarget, setSelectedTarget] = useState('')
+    const [typeModalOpen, setTypeModalOpen] = useState(false)
+    const [selectedType, setSelectedType] = useState('immediate_send')
+    const [selectedTarget, setSelectedTarget] = useState('all_member')
     const [images, setImages] = useState<File[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -41,14 +44,19 @@ export default function PushSendPage() {
                         <Label className="font-semibold">{t('send_type')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                    <RadioGroup className="flex gap-6">
-                        <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="immediate_send" /> {t('immediate_send')}
-                        </Label>
-                        <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="schedule_send" /> {t('schedule_send')}
-                        </Label>
-                    </RadioGroup>
+                        <RadioGroup className="flex gap-6" value={selectedType} onValueChange={(value) => {
+                            setSelectedType(value)
+                            if(value === 'schedule_send') {
+                                setTypeModalOpen(true)
+                            }
+                        }}>
+                            <Label className="flex items-center gap-2 w-20">
+                                <RadioGroupItem value="immediate_send" /> {t('immediate_send')}
+                            </Label>
+                            <Label className="flex items-center gap-2 w-20">
+                                <RadioGroupItem value="schedule_send" /> {t('schedule_send')}
+                            </Label>
+                        </RadioGroup>
                     </div>
                 </div>
 
@@ -58,7 +66,7 @@ export default function PushSendPage() {
                         <Label className="font-semibold">{t('target_audience')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <RadioGroup className="flex gap-6" defaultValue={selectedTarget} onValueChange={(value) => {
+                        <RadioGroup className="flex gap-6" value={selectedTarget} onValueChange={(value) => {
                             setSelectedTarget(value)
                             if(value === 'specific_member') {
                                 setTargetModalOpen(true)
@@ -172,6 +180,7 @@ export default function PushSendPage() {
                 <Button className="bg-[#322A24] text-white h-10 w-40">{t('send_push')}</Button>
             </div>
             <TargetModal open={targetModalOpen} setOpen={setTargetModalOpen} />
+            <ScheduleSendModal open={typeModalOpen} setOpen={setTypeModalOpen} />
             {/* <TargetAudienceModal open={targetModalOpen} setOpen={setTargetModalOpen} /> */}
         </>
     )

@@ -1,4 +1,4 @@
-export default function OrderInfo({ t }: { t: (key: string) => string }) {
+export default function OrderInfo({ t, itemCnt }: { t: (key: string) => string, itemCnt: number }) {
     return (
         <div className="overflow-auto border rounded bg-white">
             <table className="w-full text-center border-collapse border text-[#111111]">
@@ -15,7 +15,7 @@ export default function OrderInfo({ t }: { t: (key: string) => string }) {
                 </tr>
             </thead>
             <tbody>
-                {Array.from({ length: 12 }).map((_, i) => (
+                {Array.from({ length: itemCnt }).map((_, i) => (
                 <tr key={i} className="border-b h-15">
                     <td className="p-2 border">4</td>
                     <td className="p-2 border">2024-01-12 14:54</td>

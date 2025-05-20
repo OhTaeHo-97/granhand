@@ -1,28 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-export default function MemberModal({
+export default function MemberPointCouponModal({
     open,
     setOpen,
     title,
     contents,
-    isTwoBtn,
-    btnText1,
-    btnText2,
+    btnText,
     confirmFn
 }: {
     open: boolean,
     setOpen: (value: boolean) => void,
     title?: string,
     contents: React.ReactNode,
-    isTwoBtn: boolean,
-    btnText1: string,
-    btnText2?: string,
+    btnText: string,
     confirmFn: () => void
 }) {
     return (
         <Dialog open={open} onOpenChange={setOpen} >
-            <DialogContent className="max-w-lg bg-white min-w-150 min-h-80">
+            <DialogContent className="max-w-5xl bg-white min-w-150 min-h-80 overflow-auto">
             <DialogHeader>
                 {/* <h1 className="text-2xl font-bold text-[#5E5955]">{t('member_list')}</h1> */}
                 <DialogTitle className="font-bold text-2xl text-[#111111]">{(title) && title}</DialogTitle>
@@ -44,7 +40,7 @@ export default function MemberModal({
                     <SelectItem value="include">구매함</SelectItem>
                 </SelectContent>
                 </Select> */}
-                <div className="mt-10 flex justify-center gap-4">
+                {/* <div className="mt-10 flex justify-center gap-4">
                     {isTwoBtn && (
                         <Button className="border rounded px-6 py-1 flex items-center gap-1 text-[#322A24] w-1/6">
                             {btnText2}
@@ -53,15 +49,12 @@ export default function MemberModal({
                     <Button className="bg-[#322A24] text-white rounded px-6 py-1 flex items-center gap-1 w-1/6" onClick={confirmFn}>
                         {btnText1}
                     </Button>
-                </div>
+                </div> */}
             </div>
+            <DialogFooter>
+                <Button className="bg-[#322A24] text-white rounded px-6 py-1 flex items-center gap-1 w-1/6" onClick={confirmFn}>{btnText}</Button>
+            </DialogFooter>
             </DialogContent>
         </Dialog>
     )
-
-    // <DialogFooter>
-    //             {/* <Button className="w-1/4" variant="outline" onClick={() => setOpen(false)}>취소</Button> */}
-    //             {/* <Button className="w-1/4 bg-black text-white" onClick={() => setOpen(false)}>완료</Button> */}
-    //             <Button className="w-1/6 bg-gray-100 text-gray-600" onClick={() => setOpen(false)}>확인</Button>
-    //         </DialogFooter>
 }

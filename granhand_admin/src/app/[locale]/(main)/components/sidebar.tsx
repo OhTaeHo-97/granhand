@@ -49,10 +49,10 @@ export default function MainSidebar() {
         { title: t('faq_manage'), url: '/faq' }
     ]
     const staticElems = [
-        { title: t('overview'), url: '/outline' },
-        { title: t('sales'), url: '/sales' },
-        { title: t('period_analysis'), url: '/periodic' },
-        { title: t('google_analytics'), url: '/analytics' },
+        { title: t('overview'), url: '/statistic/overview' },
+        { title: t('sales'), url: '/statistic/sales' },
+        { title: t('period_analysis'), url: '/statistic/periodic' },
+        { title: t('google_analytics'), url: '/statistic/analytics' },
     ]
     
     const isRoot = () => pathname === '/' || pathname === '/en'

@@ -1,4 +1,4 @@
-export default function PointHistory({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
+export default function PointHistory({ t, currentLocale, itemCnt }: { t: (key: string) => string, currentLocale: string, itemCnt: number }) {
     return (
         <table className="w-full text-center border-collapse border">
         <thead className="bg-[#322A2408] h-15">
@@ -10,7 +10,15 @@ export default function PointHistory({ t, currentLocale }: { t: (key: string) =>
             </tr>
         </thead>
         <tbody>
-            <tr className="border-b h-15 text-[#111111]">
+            {Array.from({ length: itemCnt }).map((_, i) => (
+                <tr className="border-b h-15 text-[#111111]">
+                    <td className="p-2 border">2023-11-23 09:16</td>
+                    <td className="p-2 border">구매확정 적립</td>
+                    <td className="p-2 border text-blue-400">721{currentLocale === '' ? '원' : ' KRW'}</td>
+                    <td className="p-2 border underline">2023112365674620</td>
+                </tr>
+            ))}
+            {/* <tr className="border-b h-15 text-[#111111]">
                 <td className="p-2 border">2023-11-23 09:16</td>
                 <td className="p-2 border">구매확정 적립</td>
                 <td className="p-2 border text-blue-400">721{currentLocale === '' ? '원' : ' KRW'}</td>
@@ -21,7 +29,7 @@ export default function PointHistory({ t, currentLocale }: { t: (key: string) =>
                 <td className="p-2 border">주문 사용</td>
                 <td className="p-2 border text-red-400">-5000{currentLocale === '' ? '원' : ' KRW'}</td>
                 <td className="p-2 border underline">2023100933138412</td>
-            </tr>
+            </tr> */}
         </tbody>
         </table>
     )

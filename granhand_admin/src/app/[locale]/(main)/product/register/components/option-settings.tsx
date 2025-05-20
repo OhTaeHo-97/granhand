@@ -1,11 +1,17 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { GripVertical } from "lucide-react";
+import { useState } from "react";
+import OptionEditModal from "./modal/option-edit-modal";
 
 export default function OptionSettings({ t }: { t: (key: string) => string }) {
+    const [openOptionEditModal, setOpenOptionEditModal] = useState(false)
+
     return (
         <section className="mb-8">
             <h2 className="font-bold text-xl text-[#5E5955]">{t('product:options_settings')}</h2>
@@ -53,7 +59,7 @@ export default function OptionSettings({ t }: { t: (key: string) => string }) {
                         <div className="flex items-center gap-2">
                             <Label className="w-20 text-[#6F6963]">{t('product:option_name')}</Label>
                             <Input defaultValue={t('product:volume')} className="w-64" />
-                            <Button variant="outline">{t('product:add_input')}</Button>
+                            <Button variant="outline" onClick={() => setOpenOptionEditModal((prev) => !prev)}>{t('product:add_input')}</Button>
                         </div>
 
                         {/* 헤더 */}
@@ -144,6 +150,7 @@ export default function OptionSettings({ t }: { t: (key: string) => string }) {
                     </div>
                 </div>
             </div>
+            <OptionEditModal open={openOptionEditModal} setOpen={setOpenOptionEditModal} />
         </section>
     )
 }

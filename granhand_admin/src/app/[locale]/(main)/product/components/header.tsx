@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import CategorySelect from "./category-select";
 
 export default function ProductListHeader() {
     const locale = useLocaleAsLocaleTypes()
@@ -23,7 +24,7 @@ export default function ProductListHeader() {
     ]
 
     return (
-        <div className="p-12 shadow-sm space-y-4 mb-12">
+        <div className="p-6 shadow-sm space-y-4 mb-12">
             <div className="border border-gray-200 text-[#231815B2] text-sm w-full bg-white">
                 <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
                     <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
@@ -40,16 +41,7 @@ export default function ProductListHeader() {
                         <Label className="font-semibold">{t('product:category')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Select defaultValue="select">
-                            <SelectTrigger className="">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent className="bg-white">
-                                <SelectItem value="select">분류 선택</SelectItem>
-                                <SelectItem value="이메일">이메일</SelectItem>
-                                <SelectItem value="전화번호">전화번호</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <CategorySelect />
                     </div>
                 </div>
                 

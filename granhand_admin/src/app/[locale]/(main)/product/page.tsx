@@ -37,7 +37,7 @@ export default async function ProductListPage({ params }: { params: Promise<{ lo
                     {/* ------------------- 검색 필터 ------------------- */}
                     <ProductListHeader />
                     {/* ------------------- 상품 목록 테이블 ------------------- */}
-                    <ProductList t={t} />
+                    <ProductList />
                 </main>
             </div>
         </div>

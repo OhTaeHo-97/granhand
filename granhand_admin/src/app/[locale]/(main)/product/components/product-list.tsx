@@ -1,10 +1,48 @@
+'use client'
+
 import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Image from "next/image";
+import StockUpdateModal from "../register/components/modal/stock-update-modal";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useTranslation } from "../../../../../../utils/localization/client";
+import { useState } from "react";
+import CateogrySettingsModal from "./category-settings";
+import { useRouter } from "next/navigation";
+// import OptionSettings from "../register/components/option-settings";
+import OptionEditModal from "../register/components/modal/option-edit-modal";
 
-export default function ProductList({ t }: { t: (key: string) => string }) {
+export default function ProductList() {
+    const router = useRouter()
+    const locale = useLocaleAsLocaleTypes()
+    const currentLocale = useCurrentLocale()
+    const { t } = useTranslation(locale, 'product')
+    const [openStockUpdate, setOpenStockUpdate] = useState(false)
+    const [openCategory, setOpenCategory] = useState(false)
+    const [openOptionSettings, setOpenOptionSettings] = useState(false)
+
+    const handleDuplicate = () => {
+        const confirmed = window.confirm('해당 상품을 복제하시겠습니까?')
+
+        if(confirmed) {
+            console.log('상품 복제')
+        } else {
+            console.log('상품 복제 취소')
+        }
+    }
+
+    const handleDelete = () => {
+        const confirmed = window.confirm('해당 상품을 삭제하시겠습니까?')
+
+        if(confirmed) {
+            console.log('상품 복제')
+        } else {
+            console.log('상품 복제 취소')
+        }
+    }
+
     return (
         <div className="p-6 shadow-sm">
             {/* ------------------- 상품 목록 테이블 ------------------- */}
@@ -79,8 +117,8 @@ export default function ProductList({ t }: { t: (key: string) => string }) {
                             <td className="p-2 text-center">2,345</td>
                             <td className="p-2 text-center">2023-11-23</td>
                             <td className="p-2 flex gap-1 flex-wrap items-center justify-center text-[#5E5955]">
-                                <Button className="border rounded px-2">{t('view')}</Button>
-                                <Button className="border rounded px-2">{t('edit_options')}</Button>
+                                <Button className="border rounded px-2" onClick={() => router.push(`${currentLocale}/product/register`)}>{t('view')}</Button>
+                                <Button className="border rounded px-2" onClick={() => setOpenOptionSettings((prev) => !prev)}>{t('edit_options')}</Button>
                             </td>
                         </tr>
                         ))}
@@ -90,8 +128,8 @@ export default function ProductList({ t }: { t: (key: string) => string }) {
 
             {/* ------------------- 하단 버튼 ------------------- */}
             <div className="flex gap-2 mt-4">
-                <Button variant="outline">{t('duplicate')}</Button>
-                <Button variant="outline">{t('delete')}</Button>
+                <Button variant="outline" onClick={handleDuplicate}>{t('duplicate')}</Button>
+                <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
                 <Select defaultValue="default">
                     <SelectTrigger className="w-fit">
                         <SelectValue />
@@ -102,14 +140,17 @@ export default function ProductList({ t }: { t: (key: string) => string }) {
                         <SelectItem value="전화번호">전화번호</SelectItem>
                     </SelectContent>
                 </Select>
-                <Button variant="outline">{t('change_category')}</Button>
-                <Button variant="outline">{t('change_price')}</Button>
-                <Button variant="outline">{t('edit_sale_period')}</Button>
-                <Button variant="outline">{t('update_stock')}</Button>
+                <Button variant="outline" onClick={() => setOpenCategory((prev) => !prev)}>{t('change_category')}</Button>
+                <Button variant="outline" onClick={() => router.push(`${currentLocale}/product/register`)}>{t('change_price')}</Button>
+                <Button variant="outline" onClick={() => router.push(`${currentLocale}/product/register`)}>{t('edit_sale_period')}</Button>
+                <Button variant="outline" onClick={() => setOpenStockUpdate((prev) => !prev)}>{t('update_stock')}</Button>
             </div>
 
             {/* ------------------- 페이지네이션 ------------------- */}
             <Pagination totalPages={10} />
+            <StockUpdateModal open={openStockUpdate} setOpen={setOpenStockUpdate} />
+            <CateogrySettingsModal open={openCategory} setOpen={setOpenCategory} t={t} />
+            <OptionEditModal open={openOptionSettings} setOpen={setOpenOptionSettings} />
         </div>
     )
 }
