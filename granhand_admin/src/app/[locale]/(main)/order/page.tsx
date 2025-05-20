@@ -29,7 +29,7 @@ export default async function OrderPage({ params }: { params: Promise<{ locale: 
                 <OrderFilter />
 
                 {/* 테이블 */}
-                <OrderList t={t} category='order_management' />
+                <OrderList category='order_management' />
                 <Pagination totalPages={15} />
             </div>
         </main>

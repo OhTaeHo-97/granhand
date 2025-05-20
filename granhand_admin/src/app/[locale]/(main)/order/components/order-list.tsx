@@ -1,10 +1,26 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { Monitor, Upload } from "lucide-react";
+import { useTranslation } from "../../../../../../utils/localization/client";
+import EditAddressModal from "./modal/edit-address-modal";
+import { useState } from "react";
+import SendSmsModal from "./modal/send-sms-modal";
+import AdminNotesModal from "./modal/admin-notes-modal";
+import PaymentDetailModal from "./modal/payment-details-modal";
 
-export default function OrderList({ t, category }: { t: (key: string) => string, category: string }) {
+export default function OrderList({ category }: { category: string }) {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const [openEditAddress, setOpenEditAddress] = useState(false)
+    const [openSendSms, setOpenSendSms] = useState(false)
+    const [openAdminNotes, setOpenAdminNotes] = useState(false)
+    const [openPaymentDetail, setOpenPaymentDetail] = useState(false)
+
     return (
         <div className="p-6 shadow-sm">
             <div>
@@ -128,17 +144,17 @@ export default function OrderList({ t, category }: { t: (key: string) => string,
                                         {/* 오른쪽 버튼들 */}
                                         <div className="flex flex-col items-center gap-2 shrink-0">
                                             {category === 'order_management' && (
-                                                <Button variant="outline" size="sm">{t('order:send_noti')}</Button>
+                                                <Button variant="outline" size="sm" onClick={() => setOpenSendSms((prev) => !prev)}>{t('order:send_noti')}</Button>
                                             )}
-                                            <Button variant="outline" size="sm">{t('order:edit_address')}</Button>
-                                            <Button variant="outline" size="sm">{t('order:admin_note')}</Button>
+                                            <Button variant="outline" size="sm" onClick={() => setOpenEditAddress((prev) => !prev)}>{t('order:edit_address')}</Button>
+                                            <Button variant="outline" size="sm" onClick={() => setOpenAdminNotes((prev) => !prev)}>{t('order:admin_note')}</Button>
                                         </div>
                                     </div>
                                 </div>
                             </td>
                             <td className="p-2">
                                 <div className="flex flex-col items-center justify-center gap-2">
-                                    <Button className="border rounded px-2">{t('order:payment_details')}</Button>
+                                    <Button className="border rounded px-2" onClick={() => setOpenPaymentDetail((prev) => !prev)}>{t('order:payment_details')}</Button>
                                     <Button className="border rounded px-2">{t('order:order_sheet')}</Button>
                                 </div>
                             </td>
@@ -147,6 +163,10 @@ export default function OrderList({ t, category }: { t: (key: string) => string,
                     </tbody>
                 </table>
             </div>
+            <SendSmsModal open={openSendSms} setOpen={setOpenSendSms} />
+            <EditAddressModal open={openEditAddress} setOpen={setOpenEditAddress} />
+            <AdminNotesModal open={openAdminNotes} setOpen={setOpenAdminNotes} />
+            <PaymentDetailModal open={openPaymentDetail} setOpen={setOpenPaymentDetail} />
         </div>
     )
 }
