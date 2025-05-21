@@ -1,9 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Monitor, Smartphone } from "lucide-react";
+'use client'
 
-export default function CancelList({ t }: { t: (key: string) => string }) {
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+import OrderDetailModal from "./modal/order-detail-modal";
+import CancelListTable from "./cancel-list-table";
+import ExcelDownloadModal from "../../components/modal/excel-download-modal";
+
+export default function CancelList({ cancelState, t }: { cancelState: string, t: (key: string) => string }) {
+    const [openOrderDetail, setOpenOrderDetail] = useState(false)
+    const [openExcelDown, setOpenExcelDown] = useState(false)
+
     return (
         <div className="p-6 shadow-sm">
             <div>
@@ -22,10 +29,11 @@ export default function CancelList({ t }: { t: (key: string) => string }) {
                                 <SelectItem value="500">500</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Button className="border">엑셀 다운로드</Button>
+                        <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>엑셀 다운로드</Button>
                     </div>
                 </div>
-                <table className="w-full text-left border-collapse min-w-6xl border">
+                <CancelListTable cancelState={cancelState} t={t} />
+                {/* <table className="w-full text-left border-collapse min-w-6xl border">
                     <thead className="bg-[#322A2408] border-t h-20">
                         <tr className="border-b text-[#6F6963]">
                             <th className="p-2 items-center border"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></th>
@@ -96,8 +104,10 @@ export default function CancelList({ t }: { t: (key: string) => string }) {
                             </>
                         ))}
                     </tbody>
-                </table>
+                </table> */}
             </div>
+            <OrderDetailModal open={openOrderDetail} setOpen={setOpenOrderDetail} />
+            <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
         </div>
     )
 }

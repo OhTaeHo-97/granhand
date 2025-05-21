@@ -87,5 +87,17 @@
     "return_reason": "반품사유",
     "return_track_number": "반품 운송장 번호",
     "return_pickup_date": "반품 수거 완료일",
-    "refund_amount": "환불 금액"
+    "refund_amount": "환불 금액",
+
+    "confirm_payment": "입금 확인 처리",
+    "cancel_order": "주문 취소 처리",
+    "edit_engraving": "각인 수정",
+    "prepare_shipment": "배송 준비 처리",
+    "mark_as_shipped": "배송 중 처리",
+    "delay_shipment": "배송 지연 처리",
+    "await_payment": "입금 대기 처리",
+    "force_complete": "강제 배송 완료 처리",
+    "edit_tracking": "운송장 정보 수정",
+    "process_exchange": "교환 처리",
+    "process_return": "반품 처리"
 }

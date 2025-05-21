@@ -13,8 +13,8 @@ interface Status {
     value: string
 }
 
-export default function OrderStatus({ statusList }: { statusList: Status[] }) {
-    const [orderState, setOrderState] = useState('all')
+export default function OrderStatus({ orderState, setOrderState, statusList }: { orderState?: string, setOrderState?: (value: string) => void, statusList: Status[] }) {
+    // const [orderState, setOrderState] = useState('all')
     // const locale = useLocaleAsLocaleTypes()
     // const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
 

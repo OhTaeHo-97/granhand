@@ -94,7 +94,7 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-[100px_1fr] h-full">
-                                <div className="flex items-center justify-center p-2 text-[#6F6963]"></div>
+                                    <div className="flex items-center justify-center p-2 text-[#6F6963]"></div>
                                     <div className="px-5 py-4 w-full">
                                         <div className="flex items-center gap-4">
                                             <Input placeholder="상세주소 입력" defaultValue="1층 101호" {...form.register('detailAddress')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />

@@ -87,5 +87,17 @@
     "return_reason": "Reason for Return",
     "return_track_number": "Tracking No.",
     "return_pickup_date": "Pickup Date",
-    "refund_amount": "Refund Amount"
+    "refund_amount": "Refund Amount",
+
+    "confirm_payment": "Confirm Payment",
+    "cancel_order": "Cancel Order",
+    "edit_engraving": "Edit Engraving",
+    "prepare_shipment": "Prepare Shipment",
+    "mark_as_shipped": "Mark as Shipped",
+    "delay_shipment": "Delay Shipment",
+    "await_payment": "Await Payment",
+    "force_complete": "Force Complete",
+    "edit_tracking": "Edit Tracking",
+    "process_exchange": "Process Exchange",
+    "process_return": "Process Return"
 }

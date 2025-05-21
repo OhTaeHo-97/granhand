@@ -1,13 +1,18 @@
-import { LocaleTypes } from "../../../../../../utils/localization/settings"
-import { translation } from "../../../../../../utils/localization/locales/server"
+'use client'
+
 import OrderStatus from "../components/order-status"
 import OrderFilter from "../components/order-filter"
 import CancelList from "./components/cancel-list"
 import Pagination from "@/components/pagination"
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useTranslation } from "../../../../../../utils/localization/client"
+import { useState } from "react"
 
-export default async function CancelPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
-    const { locale } = await params
-    const { t } = await translation(locale, ['common', 'product', 'order', 'push'])
+export default function CancelPage() {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const [cancelState, setCancelState] = useState('')
+
     const statusList = [
         { label: t('order:all'), count: 105, value: "all" },
         { label: t('order:cancel_requested'), count: 2, value: "cancel_requested" },
@@ -20,12 +25,12 @@ export default async function CancelPage({ params }: { params: Promise<{ locale:
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
                 <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:cancel_manage')}</h1>
                 {/* 상품 상태 */ }
-                <OrderStatus statusList={statusList} />
+                <OrderStatus orderState={cancelState} setOrderState={setCancelState} statusList={statusList} />
                 {/* 검색 */}
                 <OrderFilter />
 
                 {/* 테이블 */}
-                <CancelList t={t} />
+                <CancelList cancelState={cancelState} t={t} />
                 <Pagination totalPages={15} />
             </div>
         </main>

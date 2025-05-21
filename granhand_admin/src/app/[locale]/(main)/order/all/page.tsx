@@ -30,7 +30,7 @@ export default async function AllOrderPage({ params }: { params: Promise<{ local
                 <OrderFilter />
 
                 {/* 테이블 */}
-                <OrderList t={t} category='all_orders' />
+                <OrderList category='all_orders' />
                 <Pagination totalPages={15} />
             </div>
         </main>
