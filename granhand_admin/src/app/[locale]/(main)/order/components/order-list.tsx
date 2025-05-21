@@ -12,14 +12,18 @@ import { useState } from "react";
 import SendSmsModal from "./modal/send-sms-modal";
 import AdminNotesModal from "./modal/admin-notes-modal";
 import PaymentDetailModal from "./modal/payment-details-modal";
+import BulkOrderModal from "./modal/bulk-order-modal";
+import EditEngravingModal from "./modal/edit-engraving-modal";
 
 export default function OrderList({ category }: { category: string }) {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const [openBulkOrder, setOpenBulkOrder] = useState(false)
     const [openEditAddress, setOpenEditAddress] = useState(false)
     const [openSendSms, setOpenSendSms] = useState(false)
     const [openAdminNotes, setOpenAdminNotes] = useState(false)
     const [openPaymentDetail, setOpenPaymentDetail] = useState(false)
+    const [openEditEngraving, setOpenEditEngraving] = useState(false)
 
     return (
         <div className="p-6 shadow-sm">
@@ -42,8 +46,8 @@ export default function OrderList({ category }: { category: string }) {
                         <Button className="border">엑셀 다운로드</Button>
                         {category === 'order_management' && (
                             <>
-                                <Button className="border"><Upload />{t('order:bulk_order')}</Button>
-                            <Button className="border">{t('order:admin_order')}</Button>
+                            <Button className="border" onClick={() => setOpenBulkOrder((prev) => !prev)}><Upload />{t('order:bulk_order')}</Button>
+                            <Button className="border" onClick={() => setOpenEditEngraving((prev) => !prev)}>{t('order:admin_order')}</Button>
                             <Button className="bg-[#322A24] text-white">{t('order:create_order')}</Button>
                             </>
                         )}
@@ -163,10 +167,12 @@ export default function OrderList({ category }: { category: string }) {
                     </tbody>
                 </table>
             </div>
+            <BulkOrderModal open={openBulkOrder} setOpen={setOpenBulkOrder} />
             <SendSmsModal open={openSendSms} setOpen={setOpenSendSms} />
             <EditAddressModal open={openEditAddress} setOpen={setOpenEditAddress} />
             <AdminNotesModal open={openAdminNotes} setOpen={setOpenAdminNotes} />
             <PaymentDetailModal open={openPaymentDetail} setOpen={setOpenPaymentDetail} />
+            <EditEngravingModal open={openEditEngraving} setOpen={setOpenEditEngraving} />
         </div>
     )
 }
