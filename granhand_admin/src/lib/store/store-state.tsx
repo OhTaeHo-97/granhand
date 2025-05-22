@@ -15,76 +15,34 @@ interface StoreCategoryState {
 export const useStoreCategoryStore = create<StoreCategoryState>((set) => ({
     categories: [
         {
-            id: "granhand",
-            title: "granhand",
-            url: "/product/giftset",
+            id: "store",
+            title: "STORE",
+            url: "/store/granhand/gwanghwa",
             children: [
                 {
-                    id: "giftset",
-                    title: "giftset",
-                    url: "/product/giftset",
-                    children: [{ id: "granhand_all", title: "all", url: "/product/giftset" }],
-                },
-                {
-                    id: "perfume",
-                    title: "perfume",
-                    url: "/product/signiture",
+                    id: "granhand",
+                    title: "granhand",
+                    url: "/store/granhand/gwanghwa",
                     children: [
-                        { id: "signature", title: "signature", url: "/product/signiture" },
-                        { id: "sub_perfume", title: "perfume", url: "/product/perfume" },
-                        { id: "multiperfume", title: "multiperfume", url: "/product/multiperfume" },
+                        { id: "gwanghwa", title: "광화", url: "/store/granhand/gwanghwa" },
+                        { id: "dosan", title: "도산", url: "/store/granhand/dosan" },
+                        { id: "namsan", title: "남산", url: "/store/granhand/namsan" },
+                        { id: "mapo", title: "마포", url: "/store/granhand/mapo" },
+                        { id: "seochon", title: "서촌", url: "/store/granhand/seochon" },
+                        { id: "sokyeok", title: "소격", url: "/store/granhand/sokyeok" },
+                        { id: "bukchon", title: "북촌", url: "/store/granhand/bukchon" },
+                        { id: "seokyo", title: "서교", url: "/store/granhand/seokyo" }
                     ],
                 },
-                {
-                    id: "space",
-                    title: "space",
-                    url: "/product/diffuser",
-                    children: [
-                        { id: "diffuser", title: "diffuser", url: "/product/diffuser" },
-                        { id: "candle", title: "candle", url: "/product/candle" },
-                        { id: "sachet", title: "sachet", url: "/product/sashe" },
-                    ],
-                },
-                {
-                    id: "body",
-                    title: "body",
-                    url: "/product/handcream",
-                    children: [
-                        { id: "handcream", title: "handcream", url: "/product/handcream" },
-                        { id: "handwash", title: "handwash", url: "/product/handwash" },
-                    ],
-                },
-                {
-                    id: "natural",
-                    title: "natural",
-                    url: "/product/natural",
-                    children: [
-                        { id: "natural_spray", title: "natural_spray", url: "/product/natural" },
-                        { id: "tea", title: "tea", url: "/product/tea" },
-                    ],
-                },
-                {
-                    id: "tools",
-                    title: "tools",
-                    url: "/product/tools",
-                    children: [
-                        { id: "tools_all", title: "all", url: "/product/tools" },
-                    ],
-                },
-            ]
-        },
-        {
-            id: "komfortabel",
-            title: "komfortabel",
-            url: "/product/komfortabel",
-            children: [
                 {
                     id: "komfortabel",
-                    title: "sub_komfortabel",
-                    url: "/product/komfortabel",
+                    title: "komfortabel",
+                    url: "/store/komfortabel/namsan",
                     children: [
-                        { id: "sub_komfortabel_all", title: "all", url: "/product/komfortabel" },
-                    ]
+                        { id: "k_namsan", title: "남산", url: "/store/komfortabel/namsan" },
+                        { id: "anguk", title: "안국", url: "/store/komfortabel/anguk" },
+                        { id: "city_office", title: "시청", url: "/store/komfortabel/city_office" },
+                    ],
                 }
             ]
         }

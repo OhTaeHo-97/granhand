@@ -5,7 +5,13 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function CreateChallengeModal({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
+interface ChallengeInfo {
+    title: string,
+    description: string,
+    status: string
+}
+
+export default function ChallengeModal({ open, setOpen, challengeInfo, t }: { open: boolean, setOpen: (value: boolean) => void, challengeInfo?: ChallengeInfo, t: (key: string) => string }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="bg-white !min-w-fit !min-h-fit">
@@ -21,6 +27,7 @@ export default function CreateChallengeModal({ open, setOpen, t }: { open: boole
                             <div className="flex items-center gap-4 p-5">
                                 <RadioGroup
                                     className="flex gap-4"
+                                    value={challengeInfo && challengeInfo.status}
                                     // value={type}
                                     // onValueChange={setType}
                                     aria-label="Publishing type"
@@ -28,14 +35,14 @@ export default function CreateChallengeModal({ open, setOpen, t }: { open: boole
                                     <div className="flex items-center gap-4">
                                         <Label className="flex items-center gap-3 cursor-pointer !text-[#231815B2]">
                                             <RadioGroupItem
-                                                value="immediate"
-                                                id="immediate"
+                                                value="active"
+                                                id="active"
                                             /> {t('challenge:active')}
                                         </Label>
                                         <Label className="flex items-center gap-3 cursor-pointer !text-[#231815B2]">
                                             <RadioGroupItem
-                                                value="scheduled"
-                                                id="scheduled"
+                                                value="inactive"
+                                                id="inactive"
                                             /> {t('challenge:inactive')}
                                         </Label>
                                     </div>
@@ -47,7 +54,7 @@ export default function CreateChallengeModal({ open, setOpen, t }: { open: boole
                                 <Label className="font-semibold">{t('challenge:challenge_name')}</Label>
                             </div>
                             <div className="flex items-center gap-4 p-5">
-                                <Input type="text" placeholder={t('challenge:challenge_name_placeholder')} />
+                                <Input type="text" value={challengeInfo && challengeInfo.title} placeholder={t('challenge:challenge_name_placeholder')} />
                             </div>
                         </div>
                         <div className="grid grid-cols-[100px_1fr] h-full">
@@ -55,7 +62,7 @@ export default function CreateChallengeModal({ open, setOpen, t }: { open: boole
                                 <Label className="font-semibold">{t('challenge:description')}</Label>
                             </div>
                             <div className="flex items-center gap-4 p-5">
-                                <Textarea placeholder={t('challenge:description_placeholder')} className="resize-none" />
+                                <Textarea value={challengeInfo && challengeInfo.description} placeholder={t('challenge:description_placeholder')} className="resize-none" />
                             </div>
                         </div>
                     </div>

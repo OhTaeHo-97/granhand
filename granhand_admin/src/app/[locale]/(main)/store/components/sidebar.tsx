@@ -6,6 +6,7 @@ import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale
 import { useTranslation } from "../../../../../../utils/localization/client"
 import { useState } from "react"
 import SubSidebarElem from "../../components/sub-sidebar/sub-sidebar-elem"
+import StoreCategorySettings from "./category-settings"
 
 export default function StoreSidebar() {
     const locale = useLocaleAsLocaleTypes()
@@ -52,6 +53,7 @@ export default function StoreSidebar() {
                 <StoreSidebarElem title="그랑핸드" elements={granhand} />
                 <StoreSidebarElem title="콤포타블" elements={komfortabel} />
             </div> */}
+            <StoreCategorySettings open={open} setOpen={setOpen} t={t} />
         </aside>
     )
 }

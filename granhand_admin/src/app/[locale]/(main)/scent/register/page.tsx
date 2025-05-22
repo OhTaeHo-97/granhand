@@ -1,6 +1,6 @@
 'use client'
 
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
 import { useTranslation } from "../../../../../../utils/localization/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,6 +10,15 @@ import { Textarea } from "@/components/ui/textarea"
 export default function RegisterScentPage() {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'scent'])
+    const currentLocale = useCurrentLocale()
+
+    const handlePreview = () => {
+        window.open(
+            `${currentLocale}/scent-preview`,
+            '_blank',
+            'width=400,height=800,menubar=no,toolbar=no,location=yes,status=no'
+        )
+    }
 
     return (
         <div className="flex-1 border">
@@ -61,7 +70,7 @@ export default function RegisterScentPage() {
                             </div>
                         </div>
                     </div>
-                    <Button variant="outline">{t('scent:preview')}</Button>
+                    <Button variant="outline" onClick={handlePreview}>{t('scent:preview')}</Button>
                 </div>
             </div>
         </div>

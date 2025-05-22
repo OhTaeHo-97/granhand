@@ -32,7 +32,7 @@ export default async function JournalListPage({ params }: { params: Promise<{ lo
                     </div>
                 </div>
 
-                <JournalSearchFilter t={t} />
+                <JournalSearchFilter />
                 {/* <JournalList t={t} /> */}
                 <JournalList />
                 <Pagination totalPages={15} />

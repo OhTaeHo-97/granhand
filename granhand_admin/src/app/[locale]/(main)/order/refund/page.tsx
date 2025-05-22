@@ -1,13 +1,18 @@
+'use client'
+
 import Pagination from "@/components/pagination"
-import { LocaleTypes } from "../../../../../../utils/localization/settings"
-import { translation } from "../../../../../../utils/localization/locales/server"
 import OrderStatus from "../components/order-status"
 import OrderFilter from "../components/order-filter"
 import RefundList from "./components/refund-list"
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useTranslation } from "../../../../../../utils/localization/client"
+import { useState } from "react"
 
-export default async function RefundPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
-    const { locale } = await params
-    const { t } = await translation(locale, ['common', 'product', 'order', 'push'])
+export default function RefundPage() {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const [refundState, setRefundState] = useState('')
+
     const statusList = [
         { label: t('order:return_requested'), count: 105, value: "return_requested" },
         { label: t('order:return_hold'), count: 2, value: "return_hold" },
@@ -21,12 +26,12 @@ export default async function RefundPage({ params }: { params: Promise<{ locale:
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
                 <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:return_manage')}</h1>
                 {/* 상품 상태 */ }
-                <OrderStatus statusList={statusList} />
+                <OrderStatus orderState={refundState} setOrderState={setRefundState} statusList={statusList} />
                 {/* 검색 */}
                 <OrderFilter />
 
                 {/* 테이블 */}
-                <RefundList t={t} />
+                <RefundList refundState={refundState} t={t} />
                 <Pagination totalPages={15} />
             </div>
         </main>

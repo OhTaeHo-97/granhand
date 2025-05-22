@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-export default function EditOrProcessOrderModal({ open, title, contentsTxt, contents, setOpen }: { open: boolean, title: string, contentsTxt: string, contents: React.ReactNode, setOpen: (value: boolean) => void }) {
+export default function EditOrProcessOrderModal({ open, width, title, contentsTxt, contents, setOpen }: { open: boolean, width?: string, title: string, contentsTxt: string, contents: React.ReactNode, setOpen: (value: boolean) => void }) {
     return (
         <Dialog open={open} onOpenChange={setOpen} >
-            <DialogContent className="max-w-7xl bg-white min-w-150 min-h-80">
+            <DialogContent className={`max-w-7xl ${width} bg-white min-w-150 max-h-200 min-h-80 overflow-auto`}>
             <DialogHeader>
                 <DialogTitle className="font-bold text-2xl text-[#111111]">{title}</DialogTitle>
             </DialogHeader>

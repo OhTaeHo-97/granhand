@@ -2,13 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { Pin } from "lucide-react";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import { useRouter } from "next/navigation";
 
 // export default function JournalList({ t }: { t: (key: string) => string }) {
 export default function JournalList() {
+    const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
+    const currentLocale = useCurrentLocale()
     const { t } = useTranslation(locale, ['common', 'journal'])
 
     const handleDelete = () => {
@@ -71,7 +74,7 @@ export default function JournalList() {
                                 <td className="p-2 text-center">2024-02-23</td>
                                 <td className="p-2 text-center">584</td>
                                 <td className="p-2 flex items-center justify-center gap-3">
-                                    <Button className="border rounded px-2">{t('edit2')}</Button>
+                                    <Button className="border rounded px-2" onClick={() => router.push(`${currentLocale}/journal/1`)}>{t('edit2')}</Button>
                                     <Button className="border rounded px-2" onClick={handleDelete}>{t('delete')}</Button>
                                 </td>
                             </tr>

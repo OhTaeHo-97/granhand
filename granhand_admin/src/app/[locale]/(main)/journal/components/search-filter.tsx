@@ -1,18 +1,42 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { RefreshCw, Search } from "lucide-react";
+import TagSettingsModal from "./modal/tag-settings";
+import { useEffect, useState } from "react";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useTranslation } from "../../../../../../utils/localization/client";
+import { JournalTagNode, useJournalTagStore } from "@/lib/journal/journal-state";
 
-export default function JournalSearchFilter({ t }: { t: (key: string) => string }) {
+export default function JournalSearchFilter() {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const [openTagSetting, setOpenTagSetting] = useState(false)
+    const { tags } = useJournalTagStore()
+    
     return (
         <>
-            <div className="border border-gray-200 text-[#6f6963] text-sm w-full bg-white mb-7 mt-10">
-                <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
+            <div className="flex justify-between items-center mt-10">
+                <div className="text-[#5E5955] font-bold text-base">
+                    검색 필터
+                </div>
+                <Button variant="outline" className="px-2 py-0 text-[#5E5955]" onClick={() => setOpenTagSetting((prev) => !prev)}>태그 관리</Button>
+            </div>
+            <div className="border border-gray-200 text-[#6f6963] text-sm w-full bg-white mb-7">
+                <div className="grid grid-cols-[150px_1fr] border-gray-200 h-full">
                     <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                         <Label className="font-semibold">{t('journal:search_filter')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Label className="flex items-center gap-2">
+                        {tags.map((tag) => (
+                            <Label key={tag.id} className="flex items-center gap-2">
+                                <Checkbox id={`checkbox-${tag.id}`} className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/>
+                                <span className="text-[#111111]">{tag.title}</span>
+                            </Label>
+                        ))}
+                        {/* <Label className="flex items-center gap-2">
                             <Checkbox id="select" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/>
                             <span className="text-[#111111]">{t('journal:all')}</span>
                         </Label>
@@ -39,7 +63,7 @@ export default function JournalSearchFilter({ t }: { t: (key: string) => string 
                         <Label className="flex items-center gap-2">
                             <Checkbox id="select" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/>
                             <span className="text-[#111111]">Film</span>
-                        </Label>
+                        </Label> */}
                     </div>
                 </div>
             </div>
@@ -53,6 +77,8 @@ export default function JournalSearchFilter({ t }: { t: (key: string) => string 
                     {t('search')}
                 </Button>
             </div>
+            
+            <TagSettingsModal open={openTagSetting} setOpen={setOpenTagSetting} />
         </>
     )
 }

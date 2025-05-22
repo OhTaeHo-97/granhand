@@ -9,7 +9,7 @@ import { Pencil } from "lucide-react";
 // import { translation } from "../../../../../utils/localization/locales/server";
 // import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 import ChallengeList from "./components/challenge-list";
-import CreateChallengeModal from "./components/create-challenge-modal";
+import ChallengeModal from "./components/challenge-modal";
 import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
 import { useState } from "react";
@@ -38,7 +38,7 @@ export default function ChallengePage() {
                 <ChallengeList t={t} currentLocale={currentLocale} />
                 <Pagination totalPages={15} />
             </div>
-            <CreateChallengeModal open={open} setOpen={setOpen} t={t} />
+            <ChallengeModal open={open} setOpen={setOpen} t={t} />
         </main>
     )
 }

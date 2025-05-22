@@ -2,9 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { X } from "lucide-react";
+import { useRef, useState } from "react";
 
-export default function CreateJournalHeader({ selected, setSelected, t }: { selected: string[], setSelected: (value: string[]) => void, t: (key: string) => string }) {
+interface JournalInformation {
+    titleKo: string,
+    titleEn: string,
+    images: string[],
+    tags: string[]
+}
+
+export default function CreateJournalHeader({ selected, journalInfo, setSelected, t }: { selected: string[], journalInfo?: JournalInformation, setSelected: (value: string[]) => void, t: (key: string) => string }) {
     const OPTIONS = ["News", "Culture", "Life", "Team", "Essay", "Film"]
+    const inputRef = useRef<HTMLInputElement | null>(null)
+    const [images, setImages] = useState<File[]>([])
+    const [prevSelected, setPrevSelected] = useState<string[]>(journalInfo ? journalInfo.tags : [])
+    const [prevImages, setPrevImages] = useState<string[]>(journalInfo ? journalInfo.images : [])
 
     const handleSelect = (value: string) => {
         if (!selected.includes(value)) {
@@ -14,6 +26,16 @@ export default function CreateJournalHeader({ selected, setSelected, t }: { sele
 
     const handleRemove = (value: string) => {
         setSelected(selected.filter((v) => v !== value))
+    }
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.[0]) {
+            setImages((prev) => [...prev, e.target.files![0]])
+        }
+    }
+
+    const handleDelete = (index: number) => {
+        setImages((prev) => prev.filter((_, i) => i !== index))
     }
 
     return (
@@ -37,6 +59,17 @@ export default function CreateJournalHeader({ selected, setSelected, t }: { sele
                         </SelectContent>
                     </Select>
                     <div className="flex gap-2 flex-wrap">
+                        {prevSelected.map((item) => (
+                            <div key={item} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded">
+                                <span className="text-gray-700">{item}</span>
+                                <Button
+                                    onClick={() => handleRemove(item)}
+                                    className="text-gray-500 hover:text-black h-5 p-0"
+                                >
+                                    <X size={16} />
+                                </Button>
+                            </div>
+                        ))}
                         {selected.map((item) => (
                             <div key={item} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded">
                                 <span className="text-gray-700">{item}</span>
@@ -53,10 +86,43 @@ export default function CreateJournalHeader({ selected, setSelected, t }: { sele
                 <div className="border-r border-gray-200 flex items-center justify-center p-2 border-l bg-[#322A2408] border-b h-full text-[#6F6963]">
                     {t('journal:cover_image')}
                 </div>
-                <div className="flex items-center p-5 h-full text-[#5E5955]">
-                    <Button className="border">
+                <div className="flex items-center gap-4 p-5 h-full text-[#5E5955]">
+                    <Button
+                        variant="outline"
+                        className="text-[#5E5955]"
+                        onClick={() => inputRef.current?.click()}
+                    >
                         {t('journal:upload_file')}
+                        <Input
+                            ref={inputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="hidden"
+                        />
                     </Button>
+                    {prevImages.map((img, idx) => (
+                        <div key={idx} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded">
+                            <span>{img}</span>
+                            <Button
+                                onClick={() => handleDelete(idx)}
+                                className="text-gray-500 hover:text-black h-5 p-0"
+                            >
+                                <X size={16} />
+                            </Button>
+                        </div>
+                    ))}
+                    {images.map((img, idx) => (
+                        <div key={idx} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded">
+                            <span>{img.name}</span>
+                            <Button
+                                onClick={() => handleDelete(idx)}
+                                className="text-gray-500 hover:text-black h-5 p-0"
+                            >
+                                <X size={16} />
+                            </Button>
+                        </div>
+                    ))}
                 </div>
             </div>
             <div className="grid grid-cols-[150px_1fr]">
@@ -65,10 +131,10 @@ export default function CreateJournalHeader({ selected, setSelected, t }: { sele
                 </div>
                 <div className="grid divide-y divide-gray-200">
                     <div className="p-5">
-                        <Input placeholder={t('journal:korean_title_placeholder')} />
+                        <Input value={journalInfo && journalInfo.titleKo} placeholder={t('journal:korean_title_placeholder')} />
                     </div>
                     <div className="p-5">
-                        <Input placeholder={t('journal:english_title_placeholder')} />
+                        <Input value={journalInfo && journalInfo.titleEn} placeholder={t('journal:english_title_placeholder')} />
                     </div>
                 </div>
             </div>
