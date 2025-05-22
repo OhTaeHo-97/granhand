@@ -1,10 +1,28 @@
+'use client'
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import CategorySelect from "../../components/category-select";
+import { useState } from "react";
+import PeriodElement from "../../../components/period";
 
 export default function SalesType({ t }: { t: (key: string) => string }) {
+    const quickRanges = [
+        { label: '3일', value: '3days' },
+        { label: '5일', value: '5days' },
+        { label: '7일', value: '7days' },
+        { label: '15일', value: '15days' },
+        { label: '30일', value: '30days' },
+    ]
+
+    const [applySalePeriod, setApplySalePeriod] = useState('none')
+    const [startDate, setStartDate] = useState<Date | undefined>(new Date())
+    const [endDate, setEndDate] = useState<Date | undefined>(new Date())
+    const [quickRange, setQuickRange] = useState('')
+
     return (
         <section>
             <h2 className="font-bold text-xl text-[#5E5955]">{t('product:sales_type')}</h2>
@@ -33,7 +51,8 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:category')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Select defaultValue="select">
+                        <CategorySelect />
+                        {/* <Select defaultValue="select">
                             <SelectTrigger className="">
                                 <SelectValue />
                             </SelectTrigger>
@@ -42,7 +61,7 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                                 <SelectItem value="이메일">이메일</SelectItem>
                                 <SelectItem value="전화번호">전화번호</SelectItem>
                             </SelectContent>
-                        </Select>
+                        </Select> */}
                     </div>
                 </div>
                 
@@ -51,7 +70,7 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:sales_period')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <RadioGroup defaultValue="now" className="flex gap-6">
+                        <RadioGroup value={applySalePeriod} onValueChange={setApplySalePeriod} className="flex gap-6">
                             <Label className="flex items-center gap-2 w-20">
                             <RadioGroupItem value="none" /> {t('product:not_applied')}
                             </Label>
@@ -59,6 +78,9 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                             <RadioGroupItem value="apply" /> {t('product:applied')}
                             </Label>
                         </RadioGroup>
+                        {applySalePeriod === 'apply' && (
+                            <PeriodElement startDate={startDate} endDate={endDate} quickRange={quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} quickRanges={quickRanges} t={t}  />
+                        )}
                     </div>
                 </div>
 

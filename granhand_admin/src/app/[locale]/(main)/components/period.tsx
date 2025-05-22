@@ -11,6 +11,7 @@ export default function PeriodElement({
     startDate,
     endDate,
     quickRange,
+    quickRanges,
     setStartDate,
     setEndDate,
     setQuickRange,
@@ -19,17 +20,19 @@ export default function PeriodElement({
     startDate: Date | undefined,
     endDate: Date | undefined,
     quickRange: string,
+    quickRanges?: { label: string, value: string }[],
     setStartDate: (value: Date) => void,
     setEndDate: (value: Date) => void,
     setQuickRange: (value:string) => void,
     t: (key: string) => string
 }) {
-    const quickRanges = [
+    const defaultQuickRanges = [
         { label: t('push:today'), value: 'today' },
         { label: t('push:last_3_days'), value: 'last_3_days' },
         { label: t('push:last_7_days'), value: 'last_7_days' },
         { label: t('push:last_1_month'), value: 'last_1_month' }
     ]
+    const usedQuickRanges = quickRanges ?? defaultQuickRanges
 
     return (
         <>
@@ -41,7 +44,7 @@ export default function PeriodElement({
                         // className="flex text-sm"
                         className="inline-flex border rounded overflow-hidden !gap-0"
                     >
-                        {quickRanges.map(({ value, label }, idx) => (
+                        {usedQuickRanges.map(({ value, label }, idx) => (
                             <Label
                                 key={value}
                                 className={cn(

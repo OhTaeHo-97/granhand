@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ImageIcon, Plus } from "lucide-react";
+import Image from "next/image";
 
 export default function BasicInfo({ t }: { t: (key: string) => string }) {
     return (
@@ -45,7 +46,37 @@ export default function BasicInfo({ t }: { t: (key: string) => string }) {
                     </div>
                     <div className="p-4 h-full">
                         <div className="flex gap-4 flex-wrap">
-                            {[1, 2, 3].map((idx) => (
+                            {[1, 2].map((i) => (
+                                <div key={i} className="flex flex-col items-center gap-2">
+                                    <div className="w-40 h-40 relative border">
+                                        <Image
+                                            src={`/sample${i}.jpg`}  // public/sample1.jpg, sample2.jpg 준비 필요
+                                            alt="썸네일"
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Button variant="outline" className="h-8 px-4">{t('edit')}</Button>
+                                        <Button variant="outline" className="h-8 px-4">{t('delete')}</Button>
+                                    </div>
+                                </div>
+                            ))}
+                            <div key={'new'} className="flex flex-col items-center gap-2">
+                                <div className="w-40 h-40 border-2 border-dashed flex items-center justify-center">
+                                    <Plus className="w-6 h-6" />
+                                    {/* <Image
+                                        src={`/sample${i}.jpg`}  // public/sample1.jpg, sample2.jpg 준비 필요
+                                        alt="썸네일"
+                                        fill
+                                        className="object-cover"
+                                    /> */}
+                                </div>
+                                <div className="flex gap-2">
+                                    <Button variant="outline" className="h-8 px-4">{t('product:register')}</Button>
+                                </div>
+                            </div>
+                            {/* {[1, 2, 3].map((idx) => (
                                 <div key={idx} className="w-24 h-24 border bg-gray-50 flex flex-col items-center justify-between gap-1 p-2">
                                     <ImageIcon className="w-8 h-8" />
                                     <Button variant="outline" size="sm" className="w-20">{t('product:register')}</Button>
@@ -53,7 +84,7 @@ export default function BasicInfo({ t }: { t: (key: string) => string }) {
                             ))}
                             <div className="w-24 h-24 border-2 border-dashed flex items-center justify-center">
                                 <Plus className="w-6 h-6" />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

@@ -1,10 +1,34 @@
+'use client'
+
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { X } from "lucide-react";
+import { useState } from "react";
 
 export default function SalesInfo({ t }: { t: (key: string) => string }) {
+    const [targetMember, setTargetMember] = useState('all_members')
+    const [emails, setEmails] = useState<string[]>([])
+    const [inputValue, setInputValue] = useState('')
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value)
+    }
+
+    const handleInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if(event.key === 'Enter' && inputValue.trim() !== '') {
+            setEmails([...emails, inputValue.trim()])
+            setInputValue('');
+        }
+    }
+
+    const handleRemoveEmail = (emailToRemove: string) => {
+        setEmails(emails.filter((email) => email !== emailToRemove));
+    }
+
     return (
         <section>
             <h2 className="font-bold text-xl text-[#5E5955]">{t('product:sales_info')}</h2>
@@ -48,30 +72,45 @@ export default function SalesInfo({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:target_audience')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                    <RadioGroup defaultValue="now" className="flex gap-6">
-                        <Label className="flex items-center gap-2 w-20">
-                        <RadioGroupItem value="all" /> {t('product:all_members')}
-                        </Label>
-                        <Label className="flex items-center gap-2 w-20">
-                        <RadioGroupItem value="normal" /> {t('product:specific_members')}
-                        </Label>
-                        <Label className="flex items-center gap-2 min-w-20">
-                        <RadioGroupItem value="badness" /> {t('product:member_by_tier')}
-                        </Label>
-                    </RadioGroup>
-                    <Select defaultValue="all">
-                        <SelectTrigger className="border rounded px-2 py-1 gap-1 w-full h-auto flex items-center max-w-52">
-                        <SelectValue placeholder="회원 등급 - 전체" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white border rounded shadow-md">
-                            <SelectItem value="all" className="px-3 py-2 /cursor-pointer">회원 등급 - 전체</SelectItem>
-                            <SelectItem value="vip" className="px-3 py-2 cursor-pointer">VIP</SelectItem>
-                            <SelectItem value="gold" className="px-3 py-2 cursor-pointer">Gold</SelectItem>
-                            <SelectItem value="silver" className="px-3 py-2 cursor-pointer">Silver</SelectItem>
-                            <SelectItem value="bronze" className="px-3 py-2 cursor-pointer">Bronze</SelectItem>
-                            <SelectItem value="basic" className="px-3 py-2 cursor-pointer">Basic</SelectItem>
-                        </SelectContent>
-                    </Select>
+                        <RadioGroup value={targetMember} onValueChange={setTargetMember} className="flex gap-6">
+                            <Label className="flex items-center gap-2 w-20">
+                            <RadioGroupItem value="all_members" /> {t('product:all_members')}
+                            </Label>
+                            <Label className="flex items-center gap-2 w-20">
+                            <RadioGroupItem value="specific_members" /> {t('product:specific_members')}
+                            </Label>
+                            {targetMember === 'specific_members' && (
+                                <Input type="text" placeholder="아이디(이메일) 입력" value={inputValue} onChange={handleInputChange} onKeyPress={handleInputKeyPress} className="w-40" />
+                            )}
+                            <Label className="flex items-center gap-2 min-w-20">
+                            <RadioGroupItem value="member_by_tier" /> {t('product:member_by_tier')}
+                            </Label>
+                        </RadioGroup>
+                        <Select defaultValue="all" disabled={targetMember !== 'member_by_tier'}>
+                            <SelectTrigger className="border rounded px-2 py-1 gap-1 w-full h-auto flex items-center max-w-52">
+                            <SelectValue placeholder="회원 등급 - 전체" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white border rounded shadow-md">
+                                <SelectItem value="all" className="px-3 py-2 /cursor-pointer">회원 등급 - 전체</SelectItem>
+                                <SelectItem value="vip" className="px-3 py-2 cursor-pointer">VIP</SelectItem>
+                                <SelectItem value="gold" className="px-3 py-2 cursor-pointer">Gold</SelectItem>
+                                <SelectItem value="silver" className="px-3 py-2 cursor-pointer">Silver</SelectItem>
+                                <SelectItem value="bronze" className="px-3 py-2 cursor-pointer">Bronze</SelectItem>
+                                <SelectItem value="basic" className="px-3 py-2 cursor-pointer">Basic</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        {targetMember === 'specific_members' && (
+                            <div className="email-tags-container">
+                                {emails.map((email, index) => (
+                                <div key={index} className="email-tag bg-[#E9E6E0] rounded-lg px-2 py-1 flex items-center gap-2">
+                                    <span className="text-[#5E5955]">{email}</span>
+                                    <Button className="p-0 text-[#C0BCB6]" onClick={() => handleRemoveEmail(email)}>
+                                        <X className="w-4 h-4" />
+                                    </Button>
+                                </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
 
