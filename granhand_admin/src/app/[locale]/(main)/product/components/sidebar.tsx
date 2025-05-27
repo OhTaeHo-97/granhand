@@ -5,13 +5,21 @@ import ProductSidebarElem from "./sidebar-elem";
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import CateogrySettingsModal from "./category-settings";
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SubSidebarElem from "../../components/sub-sidebar/sub-sidebar-elem";
+import api from "@/utils/api";
+import { useSession } from "next-auth/react";
 
 export default function ProductSidebar() {
+    const { data: session, status } = useSession()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'product')
     const [open, setOpen] = useState(false)
+
+    useEffect(() => {
+        console.log('Full session object: ', session)
+        console.log('Session token: ', session?.token)
+    }, [session])
 
     const giftset = [{ title: t('all'), url: '/product/giftset' }]
     const perfume = [
@@ -34,6 +42,29 @@ export default function ProductSidebar() {
     ]
     const tool = [{ title: t('all'), url: '/product/tool' }]
     const komfortabel = [{ title: t('all'), url: '/product/komfortabel' }]
+
+    const fetchData = async () => {
+        if(status !== 'authenticated' || !session?.token) {
+            console.log('Cannot fetch data - no valid session')
+            return
+        }
+
+        try {
+            console.log('request token: ', session?.token)
+            const response = await api.get('/product/category', {
+                token: session.token
+            })
+            console.log('response:', response)
+        } catch (error) {
+            console.error('API error:', error)
+        }
+    }
+
+    useEffect(() => {
+        if(status === 'authenticated') {
+            fetchData()
+        }
+    }, [status, session])
 
     return (
         <aside className="w-64 border-r m-3 p-6 space-y-4 min-h-screen shadow-sm">

@@ -115,7 +115,7 @@ export default function RegisterAttachmentModal({ open, setOpen, t }: { open: bo
                                 <Label className="font-semibold">미리보기</Label>
                             </div>
                             <div className="flex items-center gap-4 p-5">
-                                {images.map((img, idx) => (
+                                {images.map((img) => (
                                     <div key={img.localId} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded">
                                         {img.file.type && img.file.type.startsWith('image/') && (
                                             <Image

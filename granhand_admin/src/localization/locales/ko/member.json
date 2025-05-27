@@ -41,6 +41,7 @@
 
     "restricted_title": "불량 회원으로 등록하시겠습니까?",
     "unmark_restricted_title": "불량 회원 해제하시겠습니까?",
+    "delete_member_title": "회원을 삭제하시겠습니까?",
     "cannot_process_title": "탈퇴/불량 회원은 처리가 불가합니다.",
     "cannot_process_sub": "불량 회원은 해제 후 진행해 주세요.",
     "member_note": "회원 메모",

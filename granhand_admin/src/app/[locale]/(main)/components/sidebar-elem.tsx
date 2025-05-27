@@ -3,20 +3,22 @@
 import { useCurrentLocale } from "@/lib/useCurrentLocales";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SidebarElement({
     title,
     elements,
 }: {
-    title: string,
+    title: { title: string, url: string },
     elements: Array<{ title: string, url: string }>,
 }) {
+    const router = useRouter()
     const currentLocale = useCurrentLocale()
     const [openSections, setOpenSections] = useState(true);
     const toggleSection = () => {
         setOpenSections((prev) => !prev);
+        router.push(`${currentLocale}${title.url}`)
     };
     const pathname = usePathname()
 
@@ -24,8 +26,10 @@ export default function SidebarElement({
 
     return (
         <div>
-            <div className="flex justify-between items-center cursor-pointer font-bold text-[#5E5955]" onClick={() => toggleSection()}>{title}
-            {openSections ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            <div className="flex justify-between items-center cursor-pointer font-bold text-[#5E5955]" onClick={() => toggleSection()}>{title.title}
+                {elements.length !== 0 && (
+                    openSections ? <ChevronUpIcon /> : <ChevronDownIcon />
+                )}
             </div>
             {openSections && (
             <ul className="mt-2 space-y-1 text-sm">

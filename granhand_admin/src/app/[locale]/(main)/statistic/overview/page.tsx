@@ -1,7 +1,9 @@
 'use client'
 
 import { Progress } from "@/components/ui/progress";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useTranslation } from "../../../../../../utils/localization/client";
 
 
 const data = [
@@ -49,102 +51,96 @@ const trafficProgress = [
 ]
 
 export default function StatisticsOverview() {
-    return (
-        <main className="flex-1 border p-12">
-            <h1 className="text-2xl font-bold">개요</h1>
-            <div className="flex justify-between items-center mb-15 f-1">
-                <div className="grid grid-cols-2 gap-4 p-4 w-full">
-                {/* 그래프 2개 */}
-                    <div className="border p-4 bg-white w-full">
-                        <div className="font-semibold mb-2">방문자 통계</div>   
-                        {/* <ResponsiveContainer width="100%" height={200}>
-                            <BarChart data={visitorData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="value" fill="#8884d8" />
-                            </BarChart>
-                        </ResponsiveContainer> */}
-                        <div className="p-6 border bg-white">
-                            <div className="font-semibold mb-4">방문자 & 페이지뷰</div>
-                            <ResponsiveContainer width="100%" height={300}>
-                                <AreaChart data={data}>
-                                    <defs>
-                                        <linearGradient id="colorPageview" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#90cdf4" stopOpacity={0.8}/>
-                                            <stop offset="95%" stopColor="#90cdf4" stopOpacity={0}/>
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="date" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Area type="monotone" dataKey="pageview" stroke="#63b3ed" fill="url(#colorPageview)" name="페이지뷰" />
-                                    <Line type="monotone" dataKey="visitor" stroke="#2b6cb0" dot={{ r: 5 }} activeDot={{ r: 7 }} name="방문자" />
-                                </AreaChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </div>
-                    <div className="border p-4 bg-white w-full">
-                        <div className="font-semibold mb-2">선물 주문건 통계</div>
-                        {/* <ResponsiveContainer width="100%" height={200}>
-                            <BarChart data={orderData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="value" fill="#82ca9d" />
-                            </BarChart>
-                        </ResponsiveContainer> */}
-                        <div className="p-6 border bg-white">
-                            <div className="font-semibold mb-4">방문자 & 페이지뷰</div>
-                            <ResponsiveContainer width="100%" height={300}>
-                                <AreaChart data={data}>
-                                    <defs>
-                                        <linearGradient id="colorPageview" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#90cdf4" stopOpacity={0.8}/>
-                                            <stop offset="95%" stopColor="#90cdf4" stopOpacity={0}/>
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="date" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Area type="monotone" dataKey="pageview" stroke="#63b3ed" fill="url(#colorPageview)" name="페이지뷰" />
-                                    <Line type="monotone" dataKey="visitor" stroke="#2b6cb0" dot={{ r: 5 }} activeDot={{ r: 7 }} name="방문자" />
-                                </AreaChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </div>
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, 'statistics')
 
-                {/* 프로그레스 바 2개 */}
-                    <div className="border p-4 bg-white">
-                        <div className="font-semibold mb-2">기간별 분석</div>
-                        <div className="space-y-2">
-                            {dateProgress.map((item, i) => (
-                                <div key={i}>
-                                    <div className="flex justify-between text-sm mb-1">
-                                        <span>{item.date}</span>
-                                        <span>{item.value}명</span>
-                                    </div>
-                                    <Progress value={(item.value / item.total) * 100} />
-                                </div>
-                            ))}
+    return (
+        <main className="flex-1 border">
+            <div className="p-12 text-[#231815B2] text-sm space-y-4">
+                <h1 className="text-2xl font-bold text-[#5E5955]">{t('overview')}</h1>
+                <div className="flex justify-between items-center mb-15 f-1">
+                    <div className="grid grid-cols-2 gap-4 w-full">
+                        <div className="shadow-sm p-4 bg-white w-full">
+                            <h2 className="text-[#5E5955] font-bold text-base mb-2">{t('visitor_statistics')}</h2>   
+                            <div className="p-6 border bg-white">
+                                <div className="font-semibold mb-4">방문자 & 페이지뷰</div>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <AreaChart data={data}>
+                                        <defs>
+                                            <linearGradient id="colorPageview" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="#90cdf4" stopOpacity={0.8}/>
+                                                <stop offset="95%" stopColor="#90cdf4" stopOpacity={0}/>
+                                            </linearGradient>
+                                        </defs>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="date" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Area type="monotone" dataKey="pageview" stroke="#63b3ed" fill="url(#colorPageview)" name="페이지뷰" />
+                                        <Line type="monotone" dataKey="visitor" stroke="#2b6cb0" dot={{ r: 5 }} activeDot={{ r: 7 }} name="방문자" />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
                         </div>
-                    </div>
-                    <div className="border p-4 bg-white">
-                        <div className="font-semibold mb-2">트래픽</div>
-                        <div className="space-y-2">
-                            {trafficProgress.map((item, i) => (
-                                <div key={i}>
-                                    <div className="flex justify-between text-sm mb-1">
-                                        <span>{item.date}</span>
-                                        <span>{item.size} ({item.value}%)</span>
+                        <div className="shadow-sm p-4 bg-white w-full">
+                            <h2 className="text-[#5E5955] font-bold text-base mb-2">{t('gift_order_statistics')}</h2>
+                            {/* <ResponsiveContainer width="100%" height={200}>
+                                <BarChart data={orderData}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Bar dataKey="value" fill="#82ca9d" />
+                                </BarChart>
+                            </ResponsiveContainer> */}
+                            <div className="p-6 border bg-white">
+                                <div className="font-semibold mb-4">방문자 & 페이지뷰</div>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <AreaChart data={data}>
+                                        <defs>
+                                            <linearGradient id="colorPageview" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="#90cdf4" stopOpacity={0.8}/>
+                                                <stop offset="95%" stopColor="#90cdf4" stopOpacity={0}/>
+                                            </linearGradient>
+                                        </defs>
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="date" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Area type="monotone" dataKey="pageview" stroke="#63b3ed" fill="url(#colorPageview)" name="페이지뷰" />
+                                        <Line type="monotone" dataKey="visitor" stroke="#2b6cb0" dot={{ r: 5 }} activeDot={{ r: 7 }} name="방문자" />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+
+                        <div className="shadow-sm p-4 bg-white">
+                            <h2 className="text-[#5E5955] font-bold text-base mb-2">{t('analysis_by_period')}</h2>
+                            <div className="space-y-6">
+                                {dateProgress.map((item, i) => (
+                                    <div key={i}>
+                                        <div className="flex justify-between text-sm mb-1">
+                                            <span>{item.date}</span>
+                                            <span>{item.value}명</span>
+                                        </div>
+                                        <Progress value={(item.value / item.total) * 100} className="border bg-[#E9E6E0] h-3" />
                                     </div>
-                                    <Progress value={item.value} />
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                        </div>
+                        <div className="shadow-sm p-4 bg-white">
+                            <h2 className="text-[#5E5955] font-bold text-base mb-2">{t('traffic')}</h2>
+                            <div className="space-y-6">
+                                {trafficProgress.map((item, i) => (
+                                    <div key={i}>
+                                        <div className="flex justify-between text-sm mb-1">
+                                            <span>{item.date}</span>
+                                            <span>{item.size} ({item.value}%)</span>
+                                        </div>
+                                        <Progress value={item.value} className="border bg-[#E9E6E0] h-3" />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

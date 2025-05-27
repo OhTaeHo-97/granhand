@@ -30,7 +30,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
                 {/* Sales Stats + Daily Summary */}
                 <div className="grid grid-cols-2 gap-6">
                     <SalesStatistics />
-                    <DailySummary t={t} />
+                    <DailySummary />
                 </div>
 
                 {/* Visitor Stats + Partnership Inquiries */}

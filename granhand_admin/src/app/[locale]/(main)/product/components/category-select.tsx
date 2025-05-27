@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 
 // 선택된 카테고리 정보를 담을 타입 정의
-interface SelectedCategory extends ProductCategoryNode {
+export interface SelectedCategory extends ProductCategoryNode {
     path: string;
 }
 
@@ -131,10 +131,10 @@ const getCategoryPath = (nodes: ProductCategoryNode[], targetId: string, current
 
 
 // 메인 카테고리 선택 컴포넌트
-export default function CategorySelect() {
+export default function CategorySelect({ selectedCategories, setSelectedCategories }: { selectedCategories: SelectedCategory[], setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>> }) {
     const { categories } = useProductCategoryStore()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    const [selectedCategories, setSelectedCategories] = useState<SelectedCategory[]>([])
+    // const [selectedCategories, setSelectedCategories] = useState<SelectedCategory[]>([])
     const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set()) // 확장된 노드 ID 목록
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -230,7 +230,7 @@ export default function CategorySelect() {
             </div>
             {/* 선택된 카테고리 칩 목록 */}
             <div className="flex flex-wrap gap-2">
-                {selectedCategories.map(category => (
+                {selectedCategories && selectedCategories.map(category => (
                     <div key={category.id} className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm text-gray-700">
                         <span>{category.path}</span>
                         <Button

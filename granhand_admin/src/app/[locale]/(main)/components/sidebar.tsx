@@ -112,12 +112,13 @@ export default function MainSidebar() {
                 </Link>
             </div>
             {/* 마이페이지 섹션 */}
-            <SidebarElement title={t('member_manage')} elements={memberManage} />
+            <SidebarElement title={{ title: t('member_manage'), url: '/member' }} elements={memberManage} />
             {/* 나의 쿠폰함 섹션 */}
-            <SidebarElement title={t('shopping_manage')} elements={shoppingElems} />
+            <SidebarElement title={{ title: t('shopping_manage'), url: '/product' }} elements={shoppingElems} />
             {/* 회원 정보 섹션 */}
-            <SidebarElement title={t('content_manage')} elements={contentsElems} />
-            <SidebarElement title={t('statistics')} elements={staticElems} />
+            <SidebarElement title={{ title: t('content_manage'), url: '/journal' }} elements={contentsElems} />
+            <SidebarElement title={{ title: t('statistics'), url: '/statistic/overview' }} elements={staticElems} />
+            <SidebarElement title={{ title: t('settings'), url: '/settings' }} elements={[]} />
             </div>
         </aside>
     )

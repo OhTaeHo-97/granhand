@@ -1,32 +1,69 @@
 'use client'
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { GripVertical } from "lucide-react";
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+// import { GripVertical } from "lucide-react";
 import { useState } from "react";
 import OptionEditModal from "./modal/option-edit-modal";
+import OptionTable from "./option-table";
 
-export default function OptionSettings({ t }: { t: (key: string) => string }) {
+interface OptionSettings {
+    data: {
+        useStamping: string,
+        useBtnOption: string,
+        btnOptionSections: { id: number, title: string, options: OptionType[] }[],
+        useDropOption: string,
+        dropOptionSections: { id: number, title: string, options: OptionType[] }[]
+    },
+    onChange: (field: string, value: any) => void
+}
+
+export type OptionType = {
+    id: number
+    optionValue: string
+    price: number
+    inventoryId: string
+    quantity: number
+    status: string
+}
+
+export default function OptionSettings({ data, onChange, t }: OptionSettings & { t: (key: string) => string }) {
     const [openOptionEditModal, setOpenOptionEditModal] = useState(false)
+
+    const setBtnOptionSections: React.Dispatch<React.SetStateAction<{ id: number, title: string, options: OptionType[] }[]>> = (value) => {
+        if (typeof value === 'function') {
+            onChange('btnOptionSections', value(data.btnOptionSections));
+        } else {
+            onChange('btnOptionSections', value);
+        }
+    }
+
+    const setDropOptionSections: React.Dispatch<React.SetStateAction<{ id: number, title: string, options: OptionType[] }[]>> = (value) => {
+        if (typeof value === 'function') {
+            onChange('dropOptionSections', value(data.dropOptionSections));
+        } else {
+            onChange('dropOptionSections', value);
+        }
+    }
 
     return (
         <section className="mb-8">
             <h2 className="font-bold text-xl text-[#5E5955]">{t('product:options_settings')}</h2>
             <div className="border border-gray-200 text-[#231815B2] text-sm w-full bg-white mt-4 mb-7 min-w-178 divide-y divide-gray-200">
-            <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
+                <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
                     <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                         <Label className="font-semibold">{t('product:use_stamping')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <RadioGroup defaultValue="now" className="flex gap-6">
+                        <RadioGroup defaultValue={data.useStamping} onValueChange={(value) => onChange('useStamping', value)} className="flex gap-6">
                             <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="all" /> {t('product:enabled')}
+                            <RadioGroupItem value="Y" /> {t('product:enabled')}
                             </Label>
                             <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="pc" /> {t('product:disabled')}
+                            <RadioGroupItem value="N" /> {t('product:disabled')}
                             </Label>
                         </RadioGroup>
                     </div>
@@ -37,118 +74,36 @@ export default function OptionSettings({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:use_btn_option')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <RadioGroup defaultValue="now" className="flex gap-6">
+                        <RadioGroup value={data.useBtnOption} onValueChange={(value) => onChange('useBtnOption', value)} className="flex gap-6">
                             <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="all" /> {t('product:enabled')}
+                            <RadioGroupItem value="Y" /> {t('product:enabled')}
                             </Label>
                             <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="pc" /> {t('product:disabled')}
+                            <RadioGroupItem value="N" /> {t('product:disabled')}
                             </Label>
                         </RadioGroup>
                     </div>
                 </div>
-
-                <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
-                    <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
-                        <Label className="font-semibold">{t('product:btn_option')}</Label>
-                    </div>
-                    <div className="flex items-center gap-4 p-5">
-                    <div className="space-y-4 text-sm">
-
-                        {/* 옵션명 입력 */}
-                        <div className="flex items-center gap-2">
-                            <Label className="w-20 text-[#6F6963]">{t('product:option_name')}</Label>
-                            <Input defaultValue={t('product:volume')} className="w-64" />
-                            <Button variant="outline" onClick={() => setOpenOptionEditModal((prev) => !prev)}>{t('product:add_input')}</Button>
-                        </div>
-
-                        {/* 헤더 */}
-                        <div className="grid grid-cols-[30px_1fr_1fr_1fr_1fr_120px] bg-gray-50 border border-gray-200 text-gray-600">
-                            <div></div>
-                            <div className="p-2 border-l border-gray-200">{t('product:option_value')}</div>
-                            <div className="p-2 border-l border-gray-200">{t('product:option_price')}</div>
-                            <div className="p-2 border-l border-gray-200">{t('product:inventory_id')}</div>
-                            <div className="p-2 border-l border-gray-200">{t('product:quantity')}</div>
-                            <div className="p-2 border-l border-gray-200">{t('product:status')}</div>
-                        </div>
-
-                        {/* 옵션 행 1 */}
-                        <div className="grid grid-cols-[30px_1fr_1fr_1fr_1fr_120px] border border-t-0 border-gray-200 items-center gap-2 p-2">
-                            <div className="flex justify-center text-gray-400">
-                                <GripVertical className="w-4 h-4" />
-                            </div>
-                            <Input defaultValue="100ml" />
-                            <Input defaultValue="35,000" />
-                            <Input defaultValue="MP100_MO" />
-                            <Input defaultValue="85" />
-                            <Select defaultValue="판매중">
-                                <SelectTrigger>
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="판매중">판매중</SelectItem>
-                                    <SelectItem value="일시품절">일시품절</SelectItem>
-                                    <SelectItem value="판매중지">판매중지</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        {/* 옵션 행 2 */}
-                        <div className="grid grid-cols-[30px_1fr_1fr_1fr_1fr_120px] border border-t-0 border-gray-200 items-center gap-2 p-2">
-                            <div className="flex justify-center text-gray-400">
-                                <GripVertical className="w-4 h-4" />
-                            </div>
-                            <Input defaultValue="200ml" />
-                            <Input defaultValue="45,000" />
-                            <Input defaultValue="MP200_MO" />
-                            <Input defaultValue="64" />
-                            <Select defaultValue="판매중">
-                                <SelectTrigger>
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="판매중">판매중</SelectItem>
-                                    <SelectItem value="일시품절">일시품절</SelectItem>
-                                    <SelectItem value="판매중지">판매중지</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        </div>
-                    </div>
-                </div>
+                
+                {data.useBtnOption === 'Y' && <OptionTable title={t('product:btn_option')} sections={data.btnOptionSections} setSections={setBtnOptionSections} t={t} />}
 
                 <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
                     <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                         <Label className="font-semibold">{t('product:use_drop_option')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <RadioGroup defaultValue="now" className="flex gap-6">
+                        <RadioGroup value={data.useDropOption} onValueChange={(value) => onChange('useDropOption', value)} className="flex gap-6">
                             <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="all" /> {t('product:enabled')}
+                            <RadioGroupItem value="Y" /> {t('product:enabled')}
                             </Label>
                             <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="pc" /> {t('product:disabled')}
+                            <RadioGroupItem value="N" /> {t('product:disabled')}
                             </Label>
                         </RadioGroup>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
-                    <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
-                        <Label className="font-semibold">{t('product:drop_option')}</Label>
-                    </div>
-                    <div className="flex items-center gap-4 p-5">
-                        <RadioGroup defaultValue="now" className="flex gap-6">
-                            <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="all" /> {t('product:enabled')}
-                            </Label>
-                            <Label className="flex items-center gap-2 w-20">
-                            <RadioGroupItem value="pc" /> {t('product:disabled')}
-                            </Label>
-                        </RadioGroup>
-                        
-                    </div>
-                </div>
+                {data.useDropOption !== 'N' && <OptionTable title={t('product:drop_option')} sections={data.dropOptionSections} setSections={setDropOptionSections} t={t} />}
             </div>
             <OptionEditModal open={openOptionEditModal} setOpen={setOpenOptionEditModal} />
         </section>

@@ -1,0 +1,41 @@
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
+export default function SearchModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
+    return (
+        <Dialog open={open} onOpenChange={setOpen} >
+            <DialogContent className="bg-white max-w-130 min-h-80 w-full overflow-auto mx-auto min-w-7xl max-h-4xl">
+            <DialogHeader>
+                <DialogTitle className="p-10"><span className="font-bold text-2xl text-[#111111]">변경 이력 추가</span></DialogTitle>
+            </DialogHeader>
+            <div className="text-[#111111] py-4">
+                <div className="items-center gap-4 p-5">
+                    <table className="w-full text-left border-collapse min-w-6xl">
+                        <thead className="bg-[#322A2408] border-t h-20">
+                            <tr className="border-b text-[#6F6963]">
+                                <th className="p-2 text-center">No</th>
+                                <th className="p-2 text-center">수정일</th>
+                                <th className="p-2 text-center">IP</th>
+                                <th className="p-2 text-center">유형</th>
+                                <th className="p-2 text-center">구분</th>
+                                <th className="p-2 text-center">상태</th>
+                                <th className="p-2 text-center">판매가</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b h-14 text-[#1A1A1A]">
+                                <td className="p-2 text-center"></td>
+                                <td className="p-2 text-center"></td>
+                                <td className="p-2 text-center"></td>
+                                <td className="p-2 text-center"></td>
+                                <td className="p-2 text-center"></td>
+                                <td className="p-2 text-center"></td>
+                                <td className="p-2 text-center"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </DialogContent>
+        </Dialog>
+    )
+}

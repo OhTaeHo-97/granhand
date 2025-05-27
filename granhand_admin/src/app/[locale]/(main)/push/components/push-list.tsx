@@ -7,16 +7,23 @@ import { RefreshCw, Search } from "lucide-react";
 import { useState } from "react"
 import Pagination from "@/components/pagination";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import PeriodElement from "../../components/period";
+import ScheduleSendModal from "./schedule-send-modal";
+import { useRouter } from "next/navigation";
+import { format } from "date-fns";
 
 export default function PushListPage() {
+    const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'push'])
+    const currentLocale = useCurrentLocale()
     const [quickRange, setQuickRange] = useState('')
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
+    const [message, setMessage] = useState('')
+    const [openScheduleSend, setOpenScheduleSend] = useState(false)
 
     const handleCancelRepeated = () => {
         const confirmed = window.confirm('반복 예약을 취소하시겠습니까?')
@@ -28,12 +35,30 @@ export default function PushListPage() {
         }
     }
 
-    // const quickRanges = [
-    //     { label: t('push:today'), value: 'today' },
-    //     { label: t('push:last_3_days'), value: 'last_3_days' },
-    //     { label: t('push:last_7_days'), value: 'last_7_days' },
-    //     { label: t('push:last_1_month'), value: 'last_1_month' }
-    // ]
+    const handleClickInitiate = () => {
+        setQuickRange('')
+        setStartDate(new Date())
+        setEndDate(new Date())
+        setMessage('')
+    }
+
+    const handleClickSearch = () => {
+        const pathname=`${currentLocale}/push`
+        const startDateStr = startDate ? format(startDate, 'yyyy-MM-dd') : ''
+        const endDateStr = endDate ? format(endDate, 'yyyy-MM-dd') : ''
+        const queryParams = {
+            startDate: startDateStr,
+            endDate: endDateStr,
+            message: message,
+            tab: 'history'
+        }
+
+        const params = new URLSearchParams(queryParams)
+        const queryString = params.toString()
+
+        router.push(`${pathname}?${queryString}`)
+    }
+
     return (
         <>
             {/* 발송 타입 */}
@@ -53,16 +78,16 @@ export default function PushListPage() {
                         <Label className="font-semibold">{t('push:message_content')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Input type="text" placeholder={t('search')} />
+                        <Input type="text" defaultValue={message} onChange={(e) => setMessage(e.target.value)} placeholder={t('search')} />
                     </div>
                 </div>
             </div>
             <div className="flex mx-auto justify-center items-center w-full gap-10 mb-10">
-                <Button className="bg-white text-[#322A24] border w-32">
+                <Button className="bg-white text-[#322A24] border w-32" onClick={handleClickInitiate}>
                     <RefreshCw />
                     {t('reset')}
                 </Button>
-                <Button className="bg-[#322A24] text-white w-32">
+                <Button className="bg-[#322A24] text-white w-32" onClick={handleClickSearch}>
                     <Search />
                     {t('search')}
                 </Button>
@@ -98,7 +123,7 @@ export default function PushListPage() {
                     <td className="p-2 text-center">발송 완료</td>
                     <td className="p-2 text-center">일반 푸시</td>
                     <td className="p-2 flex gap-1 flex-wrap items-center justify-center text-[#5E5955]">
-                        <Button className="border rounded px-2">{t('push:edit_schedule')}</Button>
+                        <Button className="border rounded px-2" onClick={() => setOpenScheduleSend((prev) => !prev)}>{t('push:edit_schedule')}</Button>
                         <Button className="border rounded px-2" onClick={handleCancelRepeated}>{t('push:cancel_repeat')}</Button>
                     </td>
                 </tr>
@@ -107,6 +132,7 @@ export default function PushListPage() {
             </table>
             </div>
             <Pagination totalPages={15} />
+            <ScheduleSendModal open={openScheduleSend} setOpen={setOpenScheduleSend} />
         </>
     )
 }

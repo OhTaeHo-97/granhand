@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { format } from "date-fns"
+import { endOfDay, format, startOfDay, subDays, subMonths } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import CustomCalendarWithTime from "../push/components/calendar"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
+import { useEffect } from "react"
 
 export default function PeriodElement({
     startDate,
@@ -33,6 +34,50 @@ export default function PeriodElement({
         { label: t('push:last_1_month'), value: 'last_1_month' }
     ]
     const usedQuickRanges = quickRanges ?? defaultQuickRanges
+
+    useEffect(() => {
+        const today = new Date()
+        let calculatedStartDate: Date
+        let calculatedEndDate: Date
+
+        switch (quickRange) {
+            case 'today':
+                calculatedStartDate = startOfDay(today)
+                calculatedEndDate = endOfDay(today)
+                break
+            case 'last_3_days':
+                calculatedStartDate = startOfDay(subDays(today, 2))
+                calculatedEndDate = endOfDay(today)
+                break
+            case 'last_5_days':
+                calculatedStartDate = startOfDay(subDays(today, 4))
+                calculatedEndDate = endOfDay(today)
+                break
+            case 'last_7_days':
+                calculatedStartDate = startOfDay(subDays(today, 6))
+                calculatedEndDate = endOfDay(today)
+                break
+            case 'last_15_days':
+                calculatedStartDate = startOfDay(subDays(today, 14))
+                calculatedEndDate = endOfDay(today)
+                break
+            case 'last_30_days':
+                calculatedStartDate = startOfDay(subDays(today, 29))
+                calculatedEndDate = endOfDay(today)
+                break
+            case 'last_1_month':
+                calculatedStartDate = startOfDay(subMonths(today, 1))
+                calculatedEndDate = endOfDay(today)
+                break
+            default:
+                return
+        }
+
+        if (calculatedStartDate && calculatedEndDate) {
+            setStartDate(calculatedStartDate)
+            setEndDate(calculatedEndDate)
+        }
+    }, [quickRange, setStartDate, setEndDate])
 
     return (
         <>
@@ -87,7 +132,7 @@ export default function PeriodElement({
                             <CalendarIcon className="h-4 w-4" />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
+                    <PopoverContent className="w-auto p-0 bg-white">
                         {/* <Calendar mode="single" selected={endDate} onSelect={setEndDate}></Calendar> */}
                         <CustomCalendarWithTime initialDate={endDate} initialTime="12:00" onCancel={() => alert('취소')} onSave={(date, time) => {
                             setEndDate(date)

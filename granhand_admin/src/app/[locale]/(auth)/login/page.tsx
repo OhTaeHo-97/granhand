@@ -8,40 +8,85 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { signIn, useSession } from 'next-auth/react'
 
 const loginSchema = z.object({
-  email: z.string().min(1, "아이디를 입력해주세요."),
-  password: z.string().min(1, "비밀번호를 입력해주세요."),
+  id: z.string()
+    .min(1, "아이디를 입력해주세요."),
+    // .email("올바른 이메일 형식을 입력해주세요."),
+  passwd: z.string()
+    .min(1, "비밀번호를 입력해주세요.")
+    // .min(8, "비밀번호를 8자리 이상 입력해주세요.")
+    // .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+]).{8,}$/, '비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상입니다.'),
 });
 
 type LoginValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const router = useRouter()
   const locale = useLocaleAsLocaleTypes()
   const { t } = useTranslation(locale, ['common', 'auth'])
+  const [isLoading, setIsLoading] = useState(false)
+  const searchParams = useSearchParams()
+  const errorParam = searchParams.get('error')
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      id: "",
+      passwd: "",
     },
   });
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   setError,
-  //   formState: { errors }
-  // } = form
   const { setError } = form
 
-  function onSubmit(data: LoginValues) {
-    console.log(data);
-    setError('email', { message: '계정 정보를 다시 확인해 주세요.' })
-    setError('password', { message: '비밀번호를 다시 확인해 주세요.' })
+  async function onSubmit(data: LoginValues) {
+    setIsLoading(true)
+
+    try {
+      const result = await signIn('credentials', {
+        id: data.id,
+        passwd: data.passwd,
+        redirect: false,
+      })
+
+      if(result?.error) {
+        console.error('Login failed: ', result.error)
+        setError('id', { message: t('auth:invalid_credentials') })
+        setError('passwd', { message: t('auth:invalid_credentials') })
+      } else {
+        console.log('Login Successful!')
+        router.push('/')
+      }
+    } catch (error) {
+      console.error('An unexpected error occurred during sign-in:', error)
+      setError('id', { message: '로그인 실패' })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
+  const { data: session } = useSession()
+  useEffect(() => {
+    if(session) {
+      router.replace('/')
+    }
+  }, [session, router])
+
+  useEffect(() => {
+    // URL에 error 파라미터가 있다면 제거하고 리다이렉트
+    if (errorParam) {
+        const newSearchParams = new URLSearchParams(searchParams.toString());
+        newSearchParams.delete('error');
+        // callbackUrl은 유지할 수 있도록 error만 제거
+        router.replace(`${window.location.pathname}?${newSearchParams.toString()}`);
+        // 이펙트 종료 후 로직이 바로 실행되지 않도록 여기서 리턴하거나 플래그 사용
+        // 리다이렉트 후 컴포넌트가 다시 렌더링될 때 errorParam이 없으므로 이 useEffect는 다시 실행되지 않습니다.
+        return; 
+    }
+}, [errorParam, router, searchParams]);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
       <div className="w-full max-w-md space-y-8 p-8">
@@ -53,12 +98,12 @@ export default function LoginPage() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
-              name="email"
+              name="id"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t('id')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={t('id_placeholder')} {...field} className={`h-12 ${ form.formState.errors.email && '!border-red-500' }`} />
+                    <Input placeholder={t('id_placeholder')} {...field} className={`h-12 ${ form.formState.errors.id && '!border-red-500' }`} />
                   </FormControl>
                   <FormMessage className="text-red-500" />
                 </FormItem>
@@ -67,12 +112,12 @@ export default function LoginPage() {
 
             <FormField
               control={form.control}
-              name="password"
+              name="passwd"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t('pw')}</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder={t('pw_placeholder')} {...field} className={`h-12 ${ form.formState.errors.password && '!border-red-500' }`} />
+                    <Input type="password" placeholder={t('pw_placeholder')} {...field} className={`h-12 ${ form.formState.errors.passwd && '!border-red-500' }`} />
                   </FormControl>
                   <FormMessage className="text-red-500" />
                 </FormItem>
@@ -80,16 +125,10 @@ export default function LoginPage() {
             />
 
             <Button type="submit" className="w-full bg-[#DBD7D0] text-white hover:bg-gray-300 h-12">
-              {t('login')}
+              {isLoading ? '로그인 중' : t('login')}
             </Button>
           </form>
         </Form>
-
-        <div className="text-center">
-          <a href="#" className="text-sm text-[#C0BCB6] hover:text-gray-900 underline">
-            {t('auth:find_pw')}
-          </a>
-        </div>
       </div>
     </div>
   );

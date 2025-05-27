@@ -4,24 +4,71 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import CategorySelect from "../../components/category-select";
-import { useState } from "react";
+import CategorySelect, { SelectedCategory } from "../../components/category-select";
+// import { useState } from "react";
 import PeriodElement from "../../../components/period";
+// import { ProductCategoryNode } from "@/lib/product/product-state";
+// import { AlignVerticalJustifyEnd } from "lucide-react";
 
-export default function SalesType({ t }: { t: (key: string) => string }) {
+interface SalesTypeProps {
+    data: {
+        displayType: string,
+        selectedCategories: SelectedCategory[],
+        applySalePeriod: string,
+        startDate: Date | undefined,
+        endDate: Date | undefined,
+        quickRange: string,
+        showNaver: string,
+        showKakao: string,
+        exposureName: string
+    }
+    onChange: (field: string, value: any) => void
+}
+
+export default function SalesType({
+    data,
+    onChange,
+    t
+}: SalesTypeProps & { t: (key: string) => string }) {
     const quickRanges = [
-        { label: '3일', value: '3days' },
-        { label: '5일', value: '5days' },
-        { label: '7일', value: '7days' },
-        { label: '15일', value: '15days' },
-        { label: '30일', value: '30days' },
+        { label: '3일', value: 'last_3_days' },
+        { label: '5일', value: 'last_5_days' },
+        { label: '7일', value: 'last_7_days' },
+        { label: '15일', value: 'last_15_days' },
+        { label: '30일', value: 'last_30_days' },
     ]
 
-    const [applySalePeriod, setApplySalePeriod] = useState('none')
-    const [startDate, setStartDate] = useState<Date | undefined>(new Date())
-    const [endDate, setEndDate] = useState<Date | undefined>(new Date())
-    const [quickRange, setQuickRange] = useState('')
+    const setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>> = (value) => {
+        if (typeof value === 'function') {
+            onChange('selectedCategories', value(data.selectedCategories));
+        } else {
+            onChange('selectedCategories', value);
+        }
+    }
+    
+    const setStartDate: React.Dispatch<React.SetStateAction<Date | undefined>> = (value) => {
+        if (typeof value === 'function') {
+            onChange('startDate', value(data.startDate));
+        } else {
+            onChange('startDate', value);
+        }
+    }
+
+    const setEndDate: React.Dispatch<React.SetStateAction<Date | undefined>> = (value) => {
+        if (typeof value === 'function') {
+            onChange('endDate', value(data.endDate));
+        } else {
+            onChange('endDate', value);
+        }
+    }
+
+    const setQuickRange: React.Dispatch<React.SetStateAction<string>> = (value) => {
+        if (typeof value === 'function') {
+            onChange('quickRange', value(data.quickRange));
+        } else {
+            onChange('quickRange', value);
+        }
+    }
 
     return (
         <section>
@@ -32,7 +79,7 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:display_type')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <RadioGroup defaultValue="now" className="flex gap-6">
+                        <RadioGroup defaultValue={data.displayType} className="flex gap-6" onValueChange={(value) => onChange('displayType', value)}>
                             <Label className="flex items-center gap-2 w-20">
                             <RadioGroupItem value="all" /> {t('product:all')}
                             </Label>
@@ -51,17 +98,7 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:category')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <CategorySelect />
-                        {/* <Select defaultValue="select">
-                            <SelectTrigger className="">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent className="bg-white">
-                                <SelectItem value="select">분류 선택</SelectItem>
-                                <SelectItem value="이메일">이메일</SelectItem>
-                                <SelectItem value="전화번호">전화번호</SelectItem>
-                            </SelectContent>
-                        </Select> */}
+                        <CategorySelect selectedCategories={data.selectedCategories} setSelectedCategories={setSelectedCategories} />
                     </div>
                 </div>
                 
@@ -70,7 +107,7 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:sales_period')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <RadioGroup value={applySalePeriod} onValueChange={setApplySalePeriod} className="flex gap-6">
+                        <RadioGroup value={data.applySalePeriod} onValueChange={(value) => onChange('applySalePeriod', value)} className="flex gap-6">
                             <Label className="flex items-center gap-2 w-20">
                             <RadioGroupItem value="none" /> {t('product:not_applied')}
                             </Label>
@@ -78,8 +115,8 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                             <RadioGroupItem value="apply" /> {t('product:applied')}
                             </Label>
                         </RadioGroup>
-                        {applySalePeriod === 'apply' && (
-                            <PeriodElement startDate={startDate} endDate={endDate} quickRange={quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} quickRanges={quickRanges} t={t}  />
+                        {data.applySalePeriod === 'apply' && (
+                            <PeriodElement startDate={data.startDate} endDate={data.endDate} quickRange={data.quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} quickRanges={quickRanges} t={t}  />
                         )}
                     </div>
                 </div>
@@ -90,18 +127,34 @@ export default function SalesType({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('product:external_exposure')}</Label>
                     </div>
                     <div className="flex gap-2 items-center p-5 h-full">
-                        <Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/><Label className="text-sm font-medium">{t('product:naver_shopping')}</Label>
-                        <Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/><Label className="text-sm font-medium">{t('product:kakao_shopping')}</Label>
+                        <Label className="text-sm font-medium">
+                            <Checkbox
+                                id="show-naver"
+                                checked={data.showNaver === 'Y'}
+                                onCheckedChange={(checked) => onChange('showNaver', checked ? 'Y' : 'N')}
+                                className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                            /> {t('product:naver_shopping')}
+                        </Label>
+                        <Label className="text-sm font-medium">
+                            <Checkbox
+                                id="show-kakao"
+                                checked={data.showKakao === 'Y'}
+                                onCheckedChange={(checked) => onChange('showKakao', checked ? 'Y' : 'N')}
+                                className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                            /> {t('product:kakao_shopping')}
+                        </Label>
                     </div>
                     <div className="border-r border-gray-200 flex items-center justify-center p-5 border-l bg-[#322A2408] h-full border-b text-[#6F6963]">
                         <Label className="font-semibold">{t('product:external_product_name')}</Label>
                     </div>
                     <div className="flex items-center p-2">
-                    <Input
-                        type="text"
-                        placeholder={t('product:external_product_name_placeholder')}
-                        className="border rounded px-2 py-1 flex-1 min-w-[200px] h-8"
-                    />
+                        <Input
+                            type="text"
+                            value={data.exposureName}
+                            onChange={(e) => onChange('exposureName', e.target.value)}
+                            placeholder={t('product:external_product_name_placeholder')}
+                            className="border rounded px-2 py-1 flex-1 min-w-[200px] h-8"
+                        />
                     </div>
                 </div>
             </div>

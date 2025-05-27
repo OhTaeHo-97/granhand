@@ -5,17 +5,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
-import { RefreshCwIcon, SearchIcon } from "lucide-react";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { RefreshCw, RefreshCwIcon, Search, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import MembershipLevelSelect from "../../components/membership-level";
+import { useRouter } from "next/navigation";
 
 export default function MemberHeader() {
+    const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'member'])
+    const currentLocale = useCurrentLocale()
 
-    const [category, setCategory] = useState('')
+    const [infoCategory, setInfoCategory] = useState('all')
+    const [infoInput, setInfoInput] = useState('')
+    const [level, setLevel] = useState('all_membership')
+    const [category, setCategory] = useState('all')
+
     const personalInfos = [
         { label: t('member:all'), value: 'all' },
         { label: t('member:id'), value: 'id' },
@@ -31,6 +38,7 @@ export default function MemberHeader() {
     //     { label: 'Basic', value: 'basic' }
     // ]
     const types = [
+        {label: t('member:all'), value: 'all'},
         {label: t('member:regular'), value: 'regular'},
         {label: t('member:restricted'), value: 'restricted'},
         {label: t('member:withdrawn'), value: 'withdrawn'}
@@ -45,6 +53,28 @@ export default function MemberHeader() {
         { label: 'Basic', value: 'basic' }
     ]
 
+    const handleInitiate = () => {
+        setInfoCategory('all')
+        setInfoInput('')
+        setLevel('all_membership')
+        setCategory('all')
+    }
+
+    const handleClickSearch = () => {
+        const pathname = `${currentLocale}/member`
+        const queryParams = {
+            infoCategory: infoCategory,
+            infoInput: infoInput,
+            level: level,
+            category: category
+        }
+
+        const params = new URLSearchParams(queryParams)
+        const queryString = params.toString()
+
+        router.push(`${pathname}?${queryString}`)
+    }
+
     return (
         <div className="p-6 shadow-sm space-y-4 mb-12">
             <div className="border border-gray-200 text-[#231815B2] text-sm w-full bg-white">
@@ -53,7 +83,7 @@ export default function MemberHeader() {
                         <Label className="font-semibold">{t('member:personal_info')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Select defaultValue='all'>
+                        <Select value={infoCategory} onValueChange={setInfoCategory}>
                             <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-24 h-8">
                             <SelectValue placeholder={t('member:all')} />
                             </SelectTrigger>
@@ -67,19 +97,21 @@ export default function MemberHeader() {
                             type="text"
                             placeholder={t('member:personal_info_placeholder')}
                             className="border rounded px-2 py-1 flex-1 min-w-[200px] h-8"
+                            defaultValue={infoInput}
+                            onChange={(e) => setInfoInput(e.target.value)}
                         />
                     </div>
                     <div className="bg-[#322A2408] border-r border-l border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                         <Label className="font-semibold">{t('member:membership_level')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Select defaultValue="all_membership">
+                        <Select value={level} onValueChange={setLevel}>
                             <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-40 h-8">
                             <SelectValue placeholder={t('member:all_membership')} />
                             </SelectTrigger>
                             <SelectContent className="bg-white border rounded shadow-md">
                                 {levels.map(({ label, value }) => (
-                                    <SelectItem value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
+                                    <SelectItem key={value} value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
@@ -112,87 +144,16 @@ export default function MemberHeader() {
                     </div>
                 </div>
             </div>
+            <div className="flex mx-auto justify-center items-center w-full gap-10 mt-10 mb-10">
+                <Button className="bg-white text-[#322A24] border w-32" onClick={handleInitiate}>
+                    <RefreshCw />
+                    {t('reset')}
+                </Button>
+                <Button className="bg-[#322A24] text-white w-32" onClick={handleClickSearch}>
+                    <Search />
+                    {t('search')}
+                </Button>
+            </div>
         </div>
-
-        // <>
-        //     <div className="border border-gray-200 text-[#6f6963] text-sm w-full bg-white">
-        //         {/* 필터 표 */}
-        //         <div className="grid grid-cols-[150px_1fr_150px_1fr] border-b border-gray-200 h-14">
-        //             {/* 첫 번째 행 */}
-        //             <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 border-b">
-        //                 {t('member:personal_info')}
-        //             </div>
-        //             <div className="flex gap-2 items-center p-2">
-        //             <Select defaultValue='all'>
-        //                 <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-24 h-8">
-        //                 <SelectValue placeholder={t('member:all')} />
-        //                 </SelectTrigger>
-        //                 <SelectContent className="bg-white border rounded shadow-md">
-        //                     {personalInfos.map(({ label, value }) => (
-        //                         <SelectItem key={value} value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
-        //                     ))}
-        //                 </SelectContent>
-        //             </Select>
-        //             <Input
-        //                 type="text"
-        //                 placeholder={t('member:personal_info_placeholder')}
-        //                 className="border rounded px-2 py-1 flex-1 min-w-[200px] h-8"
-        //             />
-        //             </div>
-        //             <div className="border-r border-gray-200 flex items-center justify-center p-2 border-l bg-[#322A2408] h-14 border-b">
-        //                 {t('member:membership_level')}
-        //             </div>
-        //             <div className="flex items-center p-2">
-        //             {/* <Select defaultValue="all_membership">
-        //                 <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-40 h-8">
-        //                 <SelectValue placeholder={t('member:all_membership')} />
-        //                 </SelectTrigger>
-        //                 <SelectContent className="bg-white border rounded shadow-md">
-        //                     {levels.map(({ label, value }) => (
-        //                         <SelectItem value={value} className="px-3 py-2 cursor-pointer">{label}</SelectItem>
-        //                     ))}
-        //                 </SelectContent>
-        //             </Select> */}
-        //             <MembershipLevelSelect />
-        //             </div>
-        //         </div>
-
-        //         {/* 두 번째 행 */}
-        //         <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-14">
-        //             <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2">
-        //                 {t('member:member_type')}
-        //             </div>
-        //             <div className="flex items-center gap-4 p-2">
-        //             <RadioGroup
-        //                 className="flex items-center gap-4 p-2"
-        //                 onValueChange={setCategory}
-        //                 value={category}
-        //             >
-        //                 {types.map(({ label, value }) => (
-        //                     <Label key={value}
-        //                     className="mr-1"
-        //                     >
-        //                         <RadioGroupItem
-        //                             value={value}
-        //                         >
-        //                             <span className="text-sm text-[#231815B2]">{label}</span>
-        //                         </RadioGroupItem>
-        //                         <span className="text-sm text-[#231815B2] ml-2">{label}</span>
-        //                     </Label>
-        //                 ))}
-        //             </RadioGroup>
-        //             </div>
-        //         </div>
-        //     </div>
-        //     {/* 버튼 */}
-        //     <div className="flex gap-2 justify-center p-4">
-        //         <Button className="border rounded px-6 py-1 flex items-center gap-1 text-[#322A24]">
-        //         <RefreshCwIcon className="w-4 h-4" /> {t('reset')}
-        //         </Button>
-        //         <Button className="bg-[#322A24] text-white rounded px-6 py-1 flex items-center gap-1">
-        //         <SearchIcon className="w-4 h-4" /> {t('search')}
-        //         </Button>
-        //     </div>
-        // </>
     )
 }

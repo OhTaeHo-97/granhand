@@ -6,11 +6,15 @@ import PushSendPage from "./components/send-push"
 import PushListPage from "./components/push-list"
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
 import { useTranslation } from "../../../../../utils/localization/client"
+import { useSearchParams } from "next/navigation"
 
 export default function PushPage() {
+    const searchParams = useSearchParams()
+    const tab = searchParams.get('tab')
+
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'push')
-    const [tabState, setTabState] = useState('send')
+    const [tabState, setTabState] = useState(tab ? tab : 'send')
     
     return (
         <div>

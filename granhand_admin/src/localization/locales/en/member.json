@@ -41,6 +41,7 @@
 
     "restricted_title": "Do you want to mark this user as restricted?",
     "unmark_restricted_title": "Do you want to unmark this user as restricted?",
+    "delete_member_title": "Do you want to delete the selected member?",
     "cannot_process_title": "Withdrawn or restricted members cannot be processed.",
     "cannot_process_sub": "Please unmark the user as restricted before proceeding.",
     "member_note": "Member Note",

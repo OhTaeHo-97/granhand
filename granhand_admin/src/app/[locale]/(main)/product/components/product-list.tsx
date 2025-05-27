@@ -8,13 +8,17 @@ import Image from "next/image";
 import StockUpdateModal from "../register/components/modal/stock-update-modal";
 import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CateogrySettingsModal from "./category-settings";
 import { useRouter } from "next/navigation";
 // import OptionSettings from "../register/components/option-settings";
 import OptionEditModal from "../register/components/modal/option-edit-modal";
+import SearchModal from "./search-modal";
+import { useSession } from "next-auth/react";
+import api from "@/utils/api";
+import { SelectedCategory } from "./category-select";
 
-export default function ProductList() {
+export default function ProductList({ selectedCategories}: { selectedCategories: SelectedCategory[] }) {
     const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const currentLocale = useCurrentLocale()
@@ -22,6 +26,44 @@ export default function ProductList() {
     const [openStockUpdate, setOpenStockUpdate] = useState(false)
     const [openCategory, setOpenCategory] = useState(false)
     const [openOptionSettings, setOpenOptionSettings] = useState(false)
+    const [openViewModal, setOpenViewModal] = useState(false)
+    const [sortCategory, setSortCategory] = useState('newest_first')
+    const [itemCnt, setItemCnt] = useState('50')
+
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const { data: session, status } = useSession()
+
+    const fetchData = async (page: number, size: number) => {
+        if(status !== 'authenticated' || !session?.token) {
+            console.log('Cannot fetch data - no valid session')
+            return
+        }
+
+        try {
+            const params: Record<string, any> = {
+                page,
+                size
+            }
+            if(selectedCategories.length !== 0) params.category = selectedCategories[0].path
+            
+            console.log('product list: ', session.token)
+
+            const response = await api.get('/product/list', {
+                token: session.token,
+                params
+            })
+            console.log('product list response: ', response)
+        } catch (error) {
+            console.error('Failed to fetch products:', error)
+        }
+    }
+
+    useEffect(() => {
+        if(status === 'authenticated') {
+            fetchData(currentPage, Number(itemCnt))
+        }
+    }, [status, itemCnt, sortCategory, currentPage])
 
     const handleDuplicate = () => {
         const confirmed = window.confirm('해당 상품을 복제하시겠습니까?')
@@ -43,6 +85,36 @@ export default function ProductList() {
         }
     }
 
+    // useEffect(() => {
+    //     const response = await api.get('/product/list', {
+    //     })
+    // }, [currentPage])
+
+    useEffect(() => {
+        router.push(`${currentLocale}/product?sortCategory=${sortCategory}&itemCnt=${itemCnt}`)
+    }, [sortCategory, itemCnt])
+
+    // const { data: session } = useSession()
+
+    // const clickPage = async (page: number) => {
+    //     const params: Record<string, any> = {
+    //         page: currentPage,
+    //         size: size
+    //     }
+
+    //     if(category) {
+    //         params.category = category
+    //     }
+
+    //     const response = await api.get('/product/list', {
+    //         token: session?.token,
+    //         isFormData: false,
+    //         params
+    //     })
+    //     console.log('product list response: ', response)
+    //     setCurrentPage(page)
+    // }
+
     return (
         <div className="p-6 shadow-sm">
             {/* ------------------- 상품 목록 테이블 ------------------- */}
@@ -52,7 +124,7 @@ export default function ProductList() {
                         {t('list')} ({t('total')} <span className="text-blue-500">303</span> {t('items')})
                     </div>
                     <div className="flex gap-2">
-                        <Select defaultValue="newest">
+                        <Select value={sortCategory} onValueChange={setSortCategory}>
                             <SelectTrigger className="w-fit">
                                 <SelectValue />
                             </SelectTrigger>
@@ -62,7 +134,7 @@ export default function ProductList() {
                                 <SelectItem value="by_recommendation">{t('by_recommendation')}</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Select defaultValue="50">
+                        <Select value={itemCnt} onValueChange={setItemCnt}>
                             <SelectTrigger className="w-fit">
                                 <SelectValue />
                             </SelectTrigger>
@@ -117,7 +189,7 @@ export default function ProductList() {
                             <td className="p-2 text-center">2,345</td>
                             <td className="p-2 text-center">2023-11-23</td>
                             <td className="p-2 flex gap-1 flex-wrap items-center justify-center text-[#5E5955]">
-                                <Button className="border rounded px-2" onClick={() => router.push(`${currentLocale}/product/register`)}>{t('view')}</Button>
+                                <Button className="border rounded px-2" onClick={() => setOpenViewModal((prev) => !prev)}>{t('view')}</Button>
                                 <Button className="border rounded px-2" onClick={() => setOpenOptionSettings((prev) => !prev)}>{t('edit_options')}</Button>
                             </td>
                         </tr>
@@ -147,10 +219,12 @@ export default function ProductList() {
             </div>
 
             {/* ------------------- 페이지네이션 ------------------- */}
-            <Pagination totalPages={10} />
+            <Pagination totalPages={10} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+
             <StockUpdateModal open={openStockUpdate} setOpen={setOpenStockUpdate} />
             <CateogrySettingsModal open={openCategory} setOpen={setOpenCategory} t={t} />
             <OptionEditModal open={openOptionSettings} setOpen={setOpenOptionSettings} />
+            <SearchModal open={openViewModal} setOpen={setOpenViewModal} />
         </div>
     )
 }

@@ -130,7 +130,7 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                         if(!result.success) {
                             result.error.errors.forEach((err) => {
                                 const field = err.path[0];
-                                form.setError(field as any, { message: err.message });
+                                setError(field as any, { message: err.message });
                             })
                             return
                         }

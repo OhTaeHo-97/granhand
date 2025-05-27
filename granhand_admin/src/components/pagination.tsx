@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from "react"
+import { Button } from "./ui/button"
 
-export default function Pagination({ totalPages }: { totalPages: number }) {
-    const [currentPage, setCurrentPage] = useState(1)
+export default function Pagination({ totalPages, currentPage, setCurrentPage }: { totalPages: number, currentPage: number, setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
+    // const [currentPage, setCurrentPage] = useState(1)
 
     const pagesPerGroup = 10
 
@@ -22,69 +23,54 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
     return (
         <div className="flex justify-center items-center gap-2 py-8 flex-wrap">
             {/* 처음으로 ≪ */}
-            <button
+            <Button
                 onClick={goToFirstPage}
                 disabled={currentPage === 1}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
             >
                 ≪
-            </button>
+            </Button>
 
             {/* 이전 ＜ */}
-            <button
+            <Button
                 onClick={goToPrevGroup}
                 disabled={currentPage === 1}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
             >
                 ＜
-            </button>
+            </Button>
 
             {/* 페이지 숫자 */}
             {pages.map((page) => (
-                <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`text-sm ${
-                    currentPage === page ? 'text-black font-semibold' : 'text-gray-400'
-                } hover:text-black transition-colors min-w-[3%]`}
+                <Button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    // onClick={() => setCurrentPage(page)}
+                    className={`text-sm ${
+                        currentPage === page ? 'text-black font-semibold' : 'text-gray-400'
+                    } hover:text-black transition-colors min-w-[3%]`}
                 >
                 {page}
-                </button>
+                </Button>
             ))}
 
             {/* 다음 ＞ */}
-            <button
+            <Button
                 onClick={goToNextGroup}
                 disabled={currentPage === totalPages}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
             >
                 ＞
-            </button>
+            </Button>
 
             {/* 마지막으로 ≫ */}
-            <button
+            <Button 
                 onClick={goToLastPage}
                 disabled={currentPage === totalPages}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
             >
                 ≫
-            </button>
+            </Button>
         </div>
-        // <div className="flex justify-center space-x-4 py-8">
-        //     {Array.from({ length: totalPages }, (_, index) => {
-        //         const page = index + 1
-        //         return (
-        //             <button
-        //                 key={page}
-        //                 onClick={() => setCurrentPage(page)}
-        //                 className={`text-sm ${
-        //                 currentPage === page ? 'text-black font-semibold' : 'text-gray-400'
-        //                 } transition-colors`}
-        //             >
-        //                 {page}
-        //             </button>
-        //         )
-        //     })}
-        // </div>
     )
 }

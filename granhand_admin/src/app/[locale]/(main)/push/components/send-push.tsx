@@ -105,9 +105,9 @@ export default function PushSendPage() {
 
             {/* 이미지 등록 */}
             <div className="space-y-6 mt-8">
+                <h2 className="font-bold text-xl text-[#5E5955]">{t('upload_image')}</h2>
                 <Label className="font-semibold block">
-                    <h2 className="font-bold text-xl text-[#5E5955]">{t('upload_image')}</h2>
-                        <div className="flex gap-3 mt-3">
+                    <div className="flex gap-3 mt-3">
                         {/* 업로드 버튼 */}
                         {images.length < 3 && (
                             <Button
@@ -116,11 +116,11 @@ export default function PushSendPage() {
                             >
                                 <Camera className="w-3 h-3 text-gray-400" />
                                 <Input
-                                ref={inputRef}
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                                className="hidden"
+                                    ref={inputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    className="hidden"
                                 />
                             </Button>
                         )}
@@ -177,7 +177,9 @@ export default function PushSendPage() {
 
             {/* 버튼 */}
             <div className="flex justify-center pt-4 mt-8">
-                <Button className="bg-[#322A24] text-white h-10 w-40">{t('send_push')}</Button>
+                <Button className="bg-[#322A24] text-white h-10 w-40" onClick={() => {
+                    const confirmed = window.confirm('알림을 보내시겠습니까?')
+                }}>{t('send_push')}</Button>
             </div>
             <TargetModal open={targetModalOpen} setOpen={setTargetModalOpen} />
             <ScheduleSendModal open={typeModalOpen} setOpen={setTypeModalOpen} />
