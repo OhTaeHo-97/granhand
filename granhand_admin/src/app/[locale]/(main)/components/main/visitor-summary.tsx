@@ -1,4 +1,4 @@
-export default function VisitorSummary({ t }: {t: (key: string) => string }) {
+export default function VisitorSummary({ t }: { t: (key: string) => string }) {
     return (
         <section className="bg-white rounded-lg p-6 shadow-sm">
             <h2 className="font-semibold text-base mb-4">{t('visitor_overview')}</h2>

@@ -29,7 +29,9 @@ async function request<T>(
     options: RequestOptions = {}
 ): Promise<any> {
     const baseUrl = options.baseUrl || API_BASE_URL
-    let url = endpoint.startsWith('http') ? endpoint : `${baseUrl}${endpoint}`
+    // let url = endpoint.startsWith('http') ? endpoint : `${baseUrl}${endpoint}`
+    let url = endpoint
+    console.log('url:', url)
 
     const { params, headers: customHeaders, token, isFormData, baseUrl: _, ...restOptions } = options
 
@@ -67,6 +69,8 @@ async function request<T>(
 
     if(!options.isFormData) {
         headers['Content-Type'] = 'application/json'
+    } else {
+        headers['Content-Type'] = 'multipart/form-data'
     }
 
     if(options.token) {
@@ -102,18 +106,21 @@ async function request<T>(
             headers: config.headers, 
             body: options.isFormData ? 'FormData' : config.body
         })
+        // console.log('config:', config)
 
         const response = await fetch(url, config)
 
         console.log(`[API] ${method} ${url} Response Status: ${response.status}`)
 
         if (response.status === 401 || response.status === 403) {
-            signIn('credentials', { callbackUrl: window.location.pathname })
-            throw new ApiError(
-                response.status,
-                'Your session has expired. Please log in again.',
-                null
-            )
+            // signIn('credentials', { callbackUrl: window.location.pathname })
+            // throw new ApiError(
+            //     response.status,
+            //     'Your session has expired. Please log in again.',
+            //     null
+            // )
+            console.log('status:', response.status)
+            return
         }
 
         let responseBody: any

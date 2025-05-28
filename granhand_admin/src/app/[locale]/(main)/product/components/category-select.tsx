@@ -26,36 +26,36 @@ function CategorySelectItem({
     selectedCategories: SelectedCategory[]
     onCategorySelect: (category: ProductCategoryNode, isSelected: boolean) => void
     isExpanded?: boolean // Optional for leaf nodes
-    onToggleExpand?: (nodeId: string) => void // Optional for leaf nodes
+    onToggleExpand?: (nodeId: number) => void // Optional for leaf nodes
 }) {
-    const isSelected = selectedCategories.some(item => item.id === node.id);
-    const hasChildren = node.children && node.children.length > 0;
+    const isSelected = selectedCategories.some(item => item.idx === node.idx)
+    const hasChildren = node.children && node.children.length > 0
 
     return (
         // 레벨에 따른 들여쓰기 적용
         <div style={{ marginLeft: depth * 16 }} className="flex items-center py-1"> {/* Adjust indentation */}
             {hasChildren ? (
                 // 상위 카테고리 (자식 있음): 점, 확장/축소 아이콘, 라벨
-                <div className="flex items-center cursor-pointer" onClick={() => onToggleExpand?.(node.id)}>
+                <div className="flex items-center cursor-pointer" onClick={() => onToggleExpand?.(node.idx)}>
                     {/* <div className="w-1 h-1 rounded-full bg-gray-400 mr-2 flex-shrink-0"></div> Grey dot */}
                     {isExpanded ? (
                         <ChevronDown className="w-3 h-3 mr-1 flex-shrink-0" /> // Expanded icon
                     ) : (
                          <ChevronRight className="w-3 h-3 mr-1 flex-shrink-0" /> // Collapsed icon
                     )}
-                    <span className="font-semibold text-[#5E5955] flex-grow text-left">{node.title}</span> {/* Category name */}
+                    <span className="font-semibold text-[#5E5955] flex-grow text-left">{node.catename}</span> {/* Category name */}
                 </div>
             ) : (
                 // 하위 카테고리 (자식 없음): 체크박스, 라벨
                 <div className="flex items-center text-[#C0BCB6]">
                     <Checkbox
-                        id={`category-${node.id}`}
+                        id={`category-${node.idx}`}
                         checked={isSelected}
                         onCheckedChange={(checked) => onCategorySelect(node, checked as boolean)}
                         className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white mr-2 flex-shrink-0"
                     />
-                    <Label htmlFor={`category-${node.id}`} className="text-[#5E5955] cursor-pointer flex-grow text-left font-normal"> {/* Adjust font weight */}
-                        {node.title}
+                    <Label htmlFor={`category-${node.idx}`} className="text-[#5E5955] cursor-pointer flex-grow text-left font-normal"> {/* Adjust font weight */}
+                        {node.catename}
                     </Label>
                 </div>
             )}
@@ -76,17 +76,17 @@ function RenderCategoryTree({
     depth?: number
     selectedCategories: SelectedCategory[]
     onCategorySelect: (category: ProductCategoryNode, isSelected: boolean) => void
-    expandedNodes: Set<string>;
-    onToggleExpand: (nodeId: string) => void;
+    expandedNodes: Set<number>;
+    onToggleExpand: (nodeId: number) => void;
 }) {
     return (
         <div className="flex flex-col text-[#5E5955]">
             {nodes.map((node) => {
-                const isExpanded = expandedNodes.has(node.id);
+                const isExpanded = expandedNodes.has(node.idx);
                 const hasChildren = node.children && node.children.length > 0;
 
                 return (
-                    <div key={node.id}>
+                    <div key={node.idx}>
                         <CategorySelectItem
                             node={node}
                             depth={depth}
@@ -114,11 +114,11 @@ function RenderCategoryTree({
 }
 
 // 카테고리 ID로부터 계층 경로 문자열 생성
-const getCategoryPath = (nodes: ProductCategoryNode[], targetId: string, currentPath: string[] = []): string => {
+const getCategoryPath = (nodes: ProductCategoryNode[], targetId: number, currentPath: string[] = []): string => {
     for (const node of nodes) {
         // 여기서도 node.title을 사용합니다. 실제 다국어 적용 시 수정 필요.
-        const newPath = [...currentPath, node.title];
-        if (node.id === targetId) {
+        const newPath = [...currentPath, node.catename];
+        if (node.idx === targetId) {
             return newPath.join(' > ');
         }
         if (node.children) {
@@ -135,7 +135,7 @@ export default function CategorySelect({ selectedCategories, setSelectedCategori
     const { categories } = useProductCategoryStore()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     // const [selectedCategories, setSelectedCategories] = useState<SelectedCategory[]>([])
-    const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set()) // 확장된 노드 ID 목록
+    const [expandedNodes, setExpandedNodes] = useState<Set<number>>(new Set()) // 확장된 노드 ID 목록
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     // 드롭다운 외부 클릭 시 닫기
@@ -173,24 +173,24 @@ export default function CategorySelect({ selectedCategories, setSelectedCategori
 
         setSelectedCategories(prev => {
             if (isSelected) {
-                if (!prev.some(item => item.id === category.id)) {
-                    const path = getCategoryPath(categories, category.id);
+                if (!prev.some(item => item.idx === category.idx)) {
+                    const path = getCategoryPath(categories, category.idx);
                     return [...prev, { ...category, path }];
                 }
                 return prev;
             } else {
-                return prev.filter(item => item.id !== category.id);
+                return prev.filter(item => item.idx !== category.idx);
             }
         });
     };
 
     // 선택된 카테고리 칩 제거 핸들러
-    const handleRemoveCategory = (categoryId: string) => {
-        setSelectedCategories(prev => prev.filter(item => item.id !== categoryId));
+    const handleRemoveCategory = (categoryId: number) => {
+        setSelectedCategories(prev => prev.filter(item => item.idx !== categoryId));
     };
 
     // 노드 확장/축소 토글 핸들러
-    const handleToggleExpand = (nodeId: string) => {
+    const handleToggleExpand = (nodeId: number) => {
         setExpandedNodes(prev => {
             const newExpandedNodes = new Set(prev);
             if (newExpandedNodes.has(nodeId)) {
@@ -231,11 +231,11 @@ export default function CategorySelect({ selectedCategories, setSelectedCategori
             {/* 선택된 카테고리 칩 목록 */}
             <div className="flex flex-wrap gap-2">
                 {selectedCategories && selectedCategories.map(category => (
-                    <div key={category.id} className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm text-gray-700">
+                    <div key={category.idx} className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm text-gray-700">
                         <span>{category.path}</span>
                         <Button
                             type="button"
-                            onClick={() => handleRemoveCategory(category.id)}
+                            onClick={() => handleRemoveCategory(category.idx)}
                             className="ml-2 text-gray-500 hover:text-gray-700 focus:outline-none p-0"
                         >
                             <X className="w-3 h-3" />

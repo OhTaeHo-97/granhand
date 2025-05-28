@@ -10,7 +10,14 @@ export const authOptions: NextAuthOptions = {
                 passwd: { label: 'Password', type: 'password' },
             },
             async authorize(credentials) {
-                if(!credentials) {
+                // console.log('credentials:', credentials)
+
+                // if(!credentials) {
+                //     return null
+                // }
+                // credentials에 id와 passwd가 없는 경우는 세션 체크로 간주
+                if (!credentials?.id || !credentials?.passwd) {
+                    console.log('credential id, pw 없음')
                     return null
                 }
 
@@ -35,7 +42,7 @@ export const authOptions: NextAuthOptions = {
                     
                     if (backendResponse.ok && data.token) {
                         // 로그인 성공 시 사용자 정보와 토큰을 반환
-                        // console.log('data.token: ', data.token)
+                        console.log('data.token: ', data.token)
                         const user = {
                             idx: data.datas.idx,
                             id: data.datas.id,
@@ -47,7 +54,7 @@ export const authOptions: NextAuthOptions = {
                             token: data.token,
                             expireDate: data.expireDate,
                         }
-                        console.log('User object being returned: ', user)
+                        // console.log('User object being returned: ', user)
                         return user
                     }
 
@@ -110,9 +117,10 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async jwt({ token, user }) {
-            console.log('JWT Callback - Input token:', token)
-            console.log('JWT Callback - Input user:', user)
+        async jwt({ token, user, trigger }) {
+            // console.log('JWT Callback - Input token:', token)
+            // console.log('JWT Callback - Input user:', user)
+            // console.log('JWT Callback - Trigger:', trigger)
 
             if(user) {
                 const newToken = {
@@ -127,7 +135,7 @@ export const authOptions: NextAuthOptions = {
                     token: user.token,
                     expireDate: user.expireDate,
                 }
-                console.log('JWT Callback - New token:', newToken)
+                // console.log('JWT Callback - New token:', newToken)
                 return newToken
                 // token.idx = user.idx
                 // token.id = user.id
@@ -139,6 +147,16 @@ export const authOptions: NextAuthOptions = {
                 // token.token = user.token
                 // token.expireDate = user.expireDate
             }
+
+            if (token.token && token.expireDate) {
+                const expireDate = new Date(token.expireDate)
+                if (expireDate > new Date()) {
+                    console.log('JWT Callback - Existing valid token found')
+                    return token
+                }
+            }
+
+            console.log('JWT Callback - No valid token found')
             return token
         },
         // async jwt({ token, user }: { token: JWT, user: any}) {
@@ -152,42 +170,50 @@ export const authOptions: NextAuthOptions = {
         //     return token
         // },
         async session({ session, token }) {
-            console.log('Session Callback - Input session:', session)
-            console.log('Session Callback - Input token:', token)
+            // console.log('Session Callback - Input session:', session)
+            // console.log('Session Callback - Input token:', token)
 
-            const newSession = {
-                ...session,
-                user: {
-                    ...session.user,
-                    idx: token.idx,
-                    id: token.id,
-                    name: token.name,
-                    memgrade: token.memgrade,
-                    signdate: token.signdate,
-                    lastlogin: token.lastlogin,
-                    lastip: token.lastip,
-                },
-                token: token.token,
-                expireDate: token.expireDate
+            if(token.token && token.expireDate) {
+                const expireDate = new Date(token.expireDate)
+                if (expireDate > new Date()) {
+                    const newSession = {
+                        ...session,
+                        user: {
+                            ...session.user,
+                            idx: token.idx,
+                            id: token.id,
+                            name: token.name,
+                            memgrade: token.memgrade,
+                            signdate: token.signdate,
+                            lastlogin: token.lastlogin,
+                            lastip: token.lastip,
+                        },
+                        token: token.token,
+                        expireDate: token.expireDate
+                    }
+                    // console.log('Session Callback - New session:', newSession)
+                    return newSession
+                }
+    
+                // if(session.user) {
+                //     session.user.idx = token.idx
+                //     session.user.id = token.id
+                //     session.user.name = token.name
+                //     session.user.memgrade = token.memgrade
+                //     session.user.signdate = token.signdate
+                //     session.user.lastlogin = token.lastlogin
+                //     session.user.lastip = token.lastip
+                // }
+                // session.token = token.token
+                // session.expireDate = token.expireDate
+                // return {
+                //     ...session,
+                //     ...token
+                // }
             }
-            console.log('Session Callback - New session:', newSession)
-            return newSession
 
-            // if(session.user) {
-            //     session.user.idx = token.idx
-            //     session.user.id = token.id
-            //     session.user.name = token.name
-            //     session.user.memgrade = token.memgrade
-            //     session.user.signdate = token.signdate
-            //     session.user.lastlogin = token.lastlogin
-            //     session.user.lastip = token.lastip
-            // }
-            // session.token = token.token
-            // session.expireDate = token.expireDate
-            // return {
-            //     ...session,
-            //     ...token
-            // }
+            console.log('Session Callback - No valid token found')
+            return session
         }
     },
     cookies: {
@@ -202,11 +228,23 @@ export const authOptions: NextAuthOptions = {
         },
     },
     pages: {
-        signIn: '/login'
+        signIn: '/login',
+        // error: '/login'
     },
     session: {
         strategy: 'jwt'
     },
+    events: {
+        async signIn({ user }) {
+            console.log('User signed in:', user)
+        },
+        async signOut() {
+            console.log('User signed out')
+        },
+        async session({ session, token }) {
+            console.log('Session event:', { session, token })
+        }
+    }
 }
 
 const handler = NextAuth(authOptions)

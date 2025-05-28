@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 
+const URL = process.env.NEXT_PUBLIC_API_BASE_URL
+
 export async function POST(req: Request) {
     let backendResponseBody: any;
     let backendStatus: number;
 
     try {
         const frontendRequestBody = await req.json()
+        console.log(frontendRequestBody)
 
         const backendRequestBody = {
             code: frontendRequestBody.code,
@@ -22,10 +25,10 @@ export async function POST(req: Request) {
 
         console.log('request body: ', backendRequestBody)
 
-        const backendResponse = await fetch('http://192.168.0.12:8080/product/register', {
+        const backendResponse = await fetch(`${URL}/product/register`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
             body: JSON.stringify(backendRequestBody)
         })

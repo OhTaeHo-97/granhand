@@ -16,6 +16,7 @@ import { useState } from "react";
 
 export default function ChallengePage() {
     const [open, setOpen] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
 
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'challenge'])
@@ -36,7 +37,7 @@ export default function ChallengePage() {
                 </div>
 
                 <ChallengeList t={t} currentLocale={currentLocale} />
-                <Pagination totalPages={15} />
+                <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
             <ChallengeModal open={open} setOpen={setOpen} t={t} />
         </main>

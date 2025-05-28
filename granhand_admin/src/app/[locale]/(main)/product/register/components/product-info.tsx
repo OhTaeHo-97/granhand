@@ -11,7 +11,7 @@ import OptionSettings from "./option-settings";
 import RecommendProduct from "./recommend-product";
 import ShipInfo from "./ship-info";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "@/utils/api";
 import { useSession } from "next-auth/react";
 import { SelectedCategory } from "../../components/category-select";
@@ -198,15 +198,39 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
+
+    // useEffect(() => {
+    //     if (status === 'unauthenticated') {
+    //         router.push('/login')
+    //     }
+    // }, [status, router])
+
+    // if (status === 'loading') {
+    //     return <div>Loading...</div>
+    // }
+
+    // if(!session) {
+    //     return null
+    // }
 
     const fetchData = async () => {
+        console.log('--- fetchData called ---')
+        console.log('session token:', session?.token)
+
+        if(status !== 'authenticated' || !session?.token) {
+            console.log('Cannot fetch data - no valid session')
+            return
+        }
+
         const categories = productData.salesType.selectedCategories.map((category) => category.path)
         const images = productData.basicInfo.images.map((image) => image.file)
 
         try {
-            const response = await api.post('/product/register', {
-                code: new Date().toUTCString(),
+            console.log('token: ', session.token)
+            const response = await api.post('/api/product/register', {
+            // const response = await api.post('/product/register', {
+                code: new Date().toLocaleTimeString(),
                 name: productData.basicInfo.koName,
                 sprice: productData.salesInfo.koPrice,
                 dprice: productData.salesInfo.enPrice,
@@ -214,14 +238,26 @@ export default function ProductInfo({ category }: { category: "register" | "edit
                 memo: productData.basicInfo.koMemo,
                 isshow: productData.salesType.showNaver,
                 categories: categories,
-                images: images,
+                // images: images,
                 imageOrders: productData.basicInfo.imageOrders
             }, {
-                token: session?.token,
-                isFormData: true
+                token: session.token,
+                isFormData: true,
+                // params: {
+                //     code: new Date().toLocaleTimeString(),
+                //     name: productData.basicInfo.koName,
+                //     sprice: productData.salesInfo.koPrice,
+                //     dprice: productData.salesInfo.enPrice,
+                //     dan: '1',
+                //     memo: productData.basicInfo.koMemo,
+                //     isshow: productData.salesType.showNaver,
+                //     categories: categories,
+                //     // images: images,
+                //     imageOrders: productData.basicInfo.imageOrders
+                // }
             })
             
-            router.push(`${currentLocale}/product`)
+            // router.push(`${currentLocale}/product`)
         } catch (error) {
             console.error('Failed to fetch products:', error)
         }
@@ -235,7 +271,7 @@ export default function ProductInfo({ category }: { category: "register" | "edit
                 </div>
                 <div className="space-x-2">
                     <Button variant="outline" className="text-[#5E5955]" onClick={() => router.push(`${currentLocale}/product`)}>{t('cancel')}</Button>
-                    <Button className="bg-[#322A24] text-white" onClick={fetchData}>{t('save')}</Button>
+                    <Button className="bg-[#322A24] text-white" onClick={fetchData} disabled={status !== 'authenticated'}>{t('save')}</Button>
                 </div>
             </div>
 

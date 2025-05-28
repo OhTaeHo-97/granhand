@@ -29,6 +29,7 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
     const [openViewModal, setOpenViewModal] = useState(false)
     const [sortCategory, setSortCategory] = useState('newest_first')
     const [itemCnt, setItemCnt] = useState('50')
+    const [changedState, setChangedState] = useState('default')
 
     const [currentPage, setCurrentPage] = useState(1)
 
@@ -202,14 +203,15 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
             <div className="flex gap-2 mt-4">
                 <Button variant="outline" onClick={handleDuplicate}>{t('duplicate')}</Button>
                 <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
-                <Select defaultValue="default">
+                <Select defaultValue={changedState} onValueChange={setChangedState}>
                     <SelectTrigger className="w-fit">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
                         <SelectItem value="default">{t('change_status')}</SelectItem>
-                        <SelectItem value="이메일">이메일</SelectItem>
-                        <SelectItem value="전화번호">전화번호</SelectItem>
+                        <SelectItem value="on_sale">{t('on_sale')}</SelectItem>
+                        <SelectItem value="out_of_stock">{t('out_of_stock')}</SelectItem>
+                        <SelectItem value="hidden">{t('hidden')}</SelectItem>
                     </SelectContent>
                 </Select>
                 <Button variant="outline" onClick={() => setOpenCategory((prev) => !prev)}>{t('change_category')}</Button>

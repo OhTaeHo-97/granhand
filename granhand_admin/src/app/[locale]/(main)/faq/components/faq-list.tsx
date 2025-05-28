@@ -1,13 +1,16 @@
 'use client'
 
+import Pagination from "@/components/pagination"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useCurrentLocale } from "@/lib/useCurrentLocales"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export default function FaqList({ t }: { t: (key: string) => string }) {
     const router = useRouter()
     const currentLocale = useCurrentLocale()
+    const [currentPage, setCurrentPage] = useState(1)
     const handleDelete = () => {
         const confirmed = window.confirm('선택한 게시글을 삭제하시겠습니까?')
 
@@ -19,49 +22,52 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
     }
 
     return (
-        <div className="p-6 shadow-sm">
-            <div>
-                <div className="mb-4 justify-between flex items-center">
-                    <div className="text-[#5E5955] font-bold text-base">
-                        {t('faq:all')} <span className="text-[#FF3E24]">25</span>
+        <>
+            <div className="p-6 shadow-sm">
+                <div>
+                    <div className="mb-4 justify-between flex items-center">
+                        <div className="text-[#5E5955] font-bold text-base">
+                            {t('faq:all')} <span className="text-[#FF3E24]">25</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <Select defaultValue="latest_first">
+                                <SelectTrigger className="w-fit">
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent className="bg-white">
+                                    <SelectItem value="latest_first">{t('wallpaper:latest_first')}</SelectItem>
+                                    <SelectItem value="featured_first">{t('wallpaper:featured_first')}</SelectItem>
+                                    <SelectItem value="most_viewed">{t('wallpaper:most_viewed')}</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
-                    <div className="flex gap-2">
-                        <Select defaultValue="latest_first">
-                            <SelectTrigger className="w-fit">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent className="bg-white">
-                                <SelectItem value="latest_first">{t('wallpaper:latest_first')}</SelectItem>
-                                <SelectItem value="featured_first">{t('wallpaper:featured_first')}</SelectItem>
-                                <SelectItem value="most_viewed">{t('wallpaper:most_viewed')}</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </div>
-                <table className="w-full text-left border-collapse min-w-6xl w-full">
-                    <thead className="bg-[#322A2408] border-t h-20">
-                        <tr className="border-b text-[#6F6963]">
-                            <th className="p-2 text-center">No.</th>
-                            <th className="p-2 text-center">{t('faq:category')}</th>
-                            <th className="p-2 text-center">{t('faq:title')}</th>
-                            <th className="p-2 text-center">{t('edit2')}/{t('delete')}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Array.from({ length: 12 }).map((_, i) => (
-                            <tr key={i} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/faq/${i}`)}>
-                                <td className="p-2 text-center">25</td>
-                                <td className="p-2 text-center">제품문의</td>
-                                <td className="p-2 text-center">그랑핸드는 수제 향수 브랜드가 맞나요?</td>
-                                <td className="p-2 flex items-center justify-center gap-3">
-                                    <Button variant="outline">{t('faq:edit')}</Button>
-                                    <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
-                                </td>
+                    <table className="w-full text-left border-collapse min-w-6xl w-full">
+                        <thead className="bg-[#322A2408] border-t h-20">
+                            <tr className="border-b text-[#6F6963]">
+                                <th className="p-2 text-center">No.</th>
+                                <th className="p-2 text-center">{t('faq:category')}</th>
+                                <th className="p-2 text-center">{t('faq:title')}</th>
+                                <th className="p-2 text-center">{t('edit2')}/{t('delete')}</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {Array.from({ length: 12 }).map((_, i) => (
+                                <tr key={i} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/faq/${i}`)}>
+                                    <td className="p-2 text-center">25</td>
+                                    <td className="p-2 text-center">제품문의</td>
+                                    <td className="p-2 text-center">그랑핸드는 수제 향수 브랜드가 맞나요?</td>
+                                    <td className="p-2 flex items-center justify-center gap-3">
+                                        <Button variant="outline">{t('faq:edit')}</Button>
+                                        <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        </>
     )
 }

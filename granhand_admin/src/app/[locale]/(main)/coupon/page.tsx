@@ -33,8 +33,8 @@ export default async function CouponPage({ params }: { params: Promise<{ locale:
 
                 {/* 테이블 */}
                 {/* <ExchangeList t={t} /> */}
-                <CouponList t={t} />
-                <Pagination totalPages={15} />
+                <CouponList />
+                {/* <Pagination totalPages={15} /> */}
             </div>
 
             {/* <div className="flex min-h-screen text-sm text-[#1A1A1A]">

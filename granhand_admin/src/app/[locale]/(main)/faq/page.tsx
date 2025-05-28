@@ -30,7 +30,7 @@ export default function FaqPage() {
                 </div>
 
                 <FaqList t={t} />
-                <Pagination totalPages={15} />
+                {/* <Pagination totalPages={15} /> */}
             </div>
         </main>
     )

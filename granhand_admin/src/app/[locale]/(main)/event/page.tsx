@@ -1,6 +1,6 @@
-import Pagination from "@/components/pagination";
+// import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pencil } from "lucide-react";
 import { LocaleTypes } from "../../../../../utils/localization/settings";
 import { translation } from "../../../../../utils/localization/locales/server";
@@ -30,7 +30,7 @@ export default async function EventPage({ params }: { params: Promise<{ locale: 
                 </div>
 
                 <EventList />
-                <Pagination totalPages={15} />
+                {/* <Pagination totalPages={15} /> */}
             </div>
         </main>
     )

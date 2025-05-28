@@ -26,7 +26,13 @@ export default function JournalInfo({ category }: { category: string }) {
         ],
         tags: [
             'Team', 'News'
-        ]
+        ],
+        isScheduled: false,
+        scheduleDate: undefined,
+        scheduleHour: undefined,
+        scheduleMinute: undefined,
+        language: 'ko',
+        contents: 'contents'
     }
 
     const handleRegister = () => {

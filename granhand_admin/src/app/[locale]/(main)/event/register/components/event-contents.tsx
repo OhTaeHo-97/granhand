@@ -9,6 +9,19 @@ import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 import { Textarea } from "@/components/ui/textarea"
 
+export interface EventInfo {
+    id: number,
+    titleKo: string,
+    titleEn: string,
+    isScheduled: boolean,
+    scheduleDate: Date | undefined,
+    scheduleHour: number | undefined,
+    scheduleMinute: number | undefined,
+    language: string,
+    contents: string,
+    image: string
+}
+
 export default function EventContents({
     type,
     language,
@@ -20,7 +33,8 @@ export default function EventContents({
     setDate,
     setHour,
     setMinute,
-    t
+    t,
+    eventInfo
 }: {
     type: 'immediate' | 'scheduled',
     language: 'korean' | 'english',
@@ -32,7 +46,8 @@ export default function EventContents({
     setDate: (value: Date) => void,
     setHour: (value: number) => void,
     setMinute: (value: number) => void,
-    t: (key: string) => string
+    t: (key: string) => string,
+    eventInfo?: EventInfo
 }) {
     return (
         <>

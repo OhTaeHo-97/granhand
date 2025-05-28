@@ -4,11 +4,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { X } from "lucide-react";
 import { useRef, useState } from "react";
 
-interface JournalInformation {
+export interface JournalInformation {
     titleKo: string,
     titleEn: string,
+    tags: string[],
     images: string[],
-    tags: string[]
+    isScheduled: boolean,
+    scheduleDate: Date | undefined,
+    scheduleHour: number | undefined,
+    scheduleMinute: number | undefined,
+    language: string,
+    contents: string
 }
 
 export default function CreateJournalHeader({ selected, journalInfo, setSelected, t }: { selected: string[], journalInfo?: JournalInformation, setSelected: (value: string[]) => void, t: (key: string) => string }) {

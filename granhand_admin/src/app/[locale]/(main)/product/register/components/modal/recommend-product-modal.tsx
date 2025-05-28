@@ -2,10 +2,67 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import api from "@/utils/api";
 import { SearchIcon } from "lucide-react"
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function RecommendProductModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
+    const { data: session, status } = useSession()
+    const [selectedIds, setSelectedIds] = useState<number[]>([])
+
+    const handleCheckboxChange = (id: number) => {
+        setSelectedIds((prev) => {
+            if(prev.includes(id)) {
+                return prev.filter((itemId) => itemId !== id)
+            } else {
+                return [...prev, id]
+            }
+        })
+    }
+
+    const handleSelectAll = (checked: boolean) => {
+        if(checked) {
+            const allIds = Array.from({ length: 12 }).map((_, i) => i)
+            setSelectedIds(allIds)
+        } else {
+            setSelectedIds([])
+        }
+    }
+
+    const addRecommendProduct = async () => {
+        if(status !== 'authenticated' || !session?.token) {
+            console.log('Cannot fetch data - no valid session')
+            return
+        }
+        
+        try {
+            const response = await api.post('/product/goods', {}, {
+                token: session.token
+            })
+        } catch (error) {
+            console.error('Failed to fetch product goods:', error)
+        }
+    }
+
+    const removeRecommendProduct = async () => {
+        if(status !== 'authenticated' || !session?.token) {
+            console.log('Cannot fetch data - no valid session')
+            return
+        }
+
+        try {
+            selectedIds.map(async (id) => {
+                const response = await api.delete(`/product/goods/${id}`, {}, {
+                    token: session.token
+                })
+            })
+        } catch (error) {
+            console.error('Failed to fetch product goods:', error)
+        }
+    }
+
     return (
         <Dialog open={open} onOpenChange={setOpen} >
             <DialogContent className="bg-white max-w-130 min-h-80 w-full overflow-auto mx-auto min-w-6xl h-full">

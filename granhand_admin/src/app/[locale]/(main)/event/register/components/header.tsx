@@ -1,8 +1,44 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { EventInfo } from "./event-contents";
+import { useRef, useState } from "react";
+import { X } from "lucide-react";
 
-export default function CreateEventHeader({ t }: { t: (key: string) => string }) {
+interface FileItem {
+    file: File
+    previewUrl: string
+    localId: string
+}
+
+export default function CreateEventHeader({ eventInfo, t }: { eventInfo?: EventInfo, t: (key: string) => string }) {
+    const [images, setImages] = useState<FileItem[]>([])
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const filesArray = Array.from(e.target.files)
+
+            const filesWithPreview: FileItem[] = filesArray.map((file) => {
+                const localId = `${file.name}-${file.size}-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`
+                const previewUrl = URL.createObjectURL(file)
+                return {
+                    file: file,
+                    localId: localId,
+                    previewUrl: previewUrl,
+                } as FileItem
+            })
+            setImages((prevFiles) => [...prevFiles, ...filesWithPreview])
+            e.target.value = ''
+        }
+    }
+
+    const handleDelete = (index: number) => {
+        setImages((prev) => prev.filter((_, i) => i !== index))
+    }
+
     return (
         <div className="border border-gray-200 text-[#6f6963] text-sm w-full bg-white min-w-120">
             {/* <div className="grid grid-cols-[150px_2fr_150px_1fr] border-b border-gray-200 h-full min-h-20"> */}
@@ -16,9 +52,27 @@ export default function CreateEventHeader({ t }: { t: (key: string) => string })
                     </Button>
                 </div> */}
                 <div className="flex items-center gap-4 p-5">
-                    <Button className="border">
+                    <Button variant="outline" className="text-[#5E5955] !p-1" onClick={() => inputRef.current?.click()}>
                         {t('event:upload_file')}
+                        <Input
+                            ref={inputRef}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="hidden"
+                        />
                     </Button>
+                    {images.map((img, idx) => (
+                        <div key={img.localId} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded">
+                            <span>{img.file.name}</span>
+                            <Button
+                                onClick={() => handleDelete(idx)}
+                                className="text-gray-500 hover:text-black h-5 p-0"
+                            >
+                                <X size={16} />
+                            </Button>
+                        </div>
+                    ))}
                 </div>
             </div>
 

@@ -35,7 +35,7 @@ export default async function JournalListPage({ params }: { params: Promise<{ lo
                 <JournalSearchFilter />
                 {/* <JournalList t={t} /> */}
                 <JournalList />
-                <Pagination totalPages={15} />
+                {/* <Pagination totalPages={15} /> */}
             </div>
         </main>
     )

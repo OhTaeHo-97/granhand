@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Calendar, Clock } from "lucide-react";
 import CustomCalendarWithTime from "../../../push/components/calendar";
 import { format } from "date-fns";
+import { JournalInformation } from "./header";
 
 export default function JournalContents({
     type,
@@ -20,7 +21,8 @@ export default function JournalContents({
     setDate,
     setHour,
     setMinute,
-    t
+    t,
+    journalInfo
 }: {
     type: string,
     language: string,
@@ -32,7 +34,8 @@ export default function JournalContents({
     setDate: (value: Date) => void,
     setHour: (value: number) => void,
     setMinute: (value: number) => void,
-    t: (key: string) => string
+    t: (key: string) => string,
+    journalInfo?: JournalInformation
 }) {
     return (
         <>

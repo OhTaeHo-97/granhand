@@ -1,9 +1,16 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useCurrentLocale } from "@/lib/useCurrentLocales";
 import { GripVertical } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function RecommendManagePage() {
+    const router = useRouter()
+    const currentLocale = useCurrentLocale()
+
     return (
         <div className="flex-1 border">
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
@@ -12,7 +19,7 @@ export default function RecommendManagePage() {
                         <h1 className="text-2xl font-bold text-[#5E5955]">추천 순서 관리</h1>
                     </div>
                     <div className="space-x-2">
-                        <Button variant="outline" className="text-[#5E5955]">취소</Button>
+                        <Button variant="outline" className="text-[#5E5955]" onClick={() => router.push(`${currentLocale}/product`)}>취소</Button>
                         <Button variant="outline" className="bg-[#322A24] text-white">저장</Button>
                     </div>
                 </div>
