@@ -52,7 +52,8 @@ export const authOptions: NextAuthOptions = {
                             lastlogin: data.datas.lastlogin,
                             lastip: data.datas.lastip,
                             token: data.token,
-                            expireDate: data.expireDate,
+                            // expire: data.expireDate,
+                            expire: data.expire,
                         }
                         // console.log('User object being returned: ', user)
                         return user
@@ -118,8 +119,8 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async jwt({ token, user, trigger }) {
-            // console.log('JWT Callback - Input token:', token)
-            // console.log('JWT Callback - Input user:', user)
+            console.log('JWT Callback - Input token:', token)
+            console.log('JWT Callback - Input user:', user)
             // console.log('JWT Callback - Trigger:', trigger)
 
             if(user) {
@@ -133,9 +134,10 @@ export const authOptions: NextAuthOptions = {
                     lastlogin: user.lastlogin,
                     lastip: user.lastip,
                     token: user.token,
-                    expireDate: user.expireDate,
+                    expire: user.expire,
+                    // expire: user.expireDate,
                 }
-                // console.log('JWT Callback - New token:', newToken)
+                console.log('JWT Callback - New token:', newToken)
                 return newToken
                 // token.idx = user.idx
                 // token.id = user.id
@@ -148,9 +150,12 @@ export const authOptions: NextAuthOptions = {
                 // token.expireDate = user.expireDate
             }
 
-            if (token.token && token.expireDate) {
-                const expireDate = new Date(token.expireDate)
-                if (expireDate > new Date()) {
+            if (token.token && token.expire) {
+                const now = new Date()
+                const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000)
+                const expireDate = new Date(token.expire)
+                // if (expireDate > new Date()) {
+                if (expireDate > utcNow) {
                     console.log('JWT Callback - Existing valid token found')
                     return token
                 }
@@ -158,6 +163,7 @@ export const authOptions: NextAuthOptions = {
 
             console.log('JWT Callback - No valid token found')
             return token
+            // return null
         },
         // async jwt({ token, user }: { token: JWT, user: any}) {
         //     if (user) {
@@ -170,14 +176,23 @@ export const authOptions: NextAuthOptions = {
         //     return token
         // },
         async session({ session, token }) {
-            // console.log('Session Callback - Input session:', session)
-            // console.log('Session Callback - Input token:', token)
+            console.log('Session Callback - Input session:', session)
+            console.log('Session Callback - Input token:', token)
 
-            if(token.token && token.expireDate) {
-                const expireDate = new Date(token.expireDate)
-                if (expireDate > new Date()) {
+            // console.log('expire:', token.expire)
+            if(token.token && token.expire) {
+                // console.log('token.token:', token.token)
+                // const expireDate = new Date(token.expire)
+                const now = new Date()
+                const utcNow = new Date(now.getTime() + now.getTimezoneOffset() * 60000)
+                const expireDate = new Date(token.expire)
+                // if (expireDate > new Date()) {
+                if (expireDate > utcNow) {
                     const newSession = {
                         ...session,
+                        token: token.token,
+                        expire: token.expire,
+                        // expires: expireDate.toISOString(),
                         user: {
                             ...session.user,
                             idx: token.idx,
@@ -187,11 +202,9 @@ export const authOptions: NextAuthOptions = {
                             signdate: token.signdate,
                             lastlogin: token.lastlogin,
                             lastip: token.lastip,
-                        },
-                        token: token.token,
-                        expireDate: token.expireDate
+                        }
                     }
-                    // console.log('Session Callback - New session:', newSession)
+                    console.log('Session Callback - New session:', newSession)
                     return newSession
                 }
     

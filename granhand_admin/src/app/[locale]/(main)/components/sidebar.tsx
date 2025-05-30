@@ -46,7 +46,8 @@ export default function MainSidebar() {
         { title: t('banner_manage'), url: '/banner' },
         { title: t('notice_manage'), url: '/notice' },
         { title: t('fragrance_manage'), url: '/scent' },
-        { title: t('faq_manage'), url: '/faq' }
+        { title: t('faq_manage'), url: '/faq' },
+        { title: t('post_manage'), url: '/post' },
     ]
     const staticElems = [
         { title: t('overview'), url: '/statistic/overview' },

@@ -3,15 +3,21 @@ import SalesStatistics from './components/main/sales-statistics';
 import DailySummary from './components/main/daily-summary';
 import VisitorSummary from './components/main/visitor-summary';
 import PartnershipInquiries from './components/main/partnership_inquiry';
+// import { LocaleTypes } from '../../../../utils/localization/settings';
+// import { translation } from '../../../../utils/localization/locales/server';
+// import { useConfig } from '@/hooks/use-config';
+// import { useEffect } from 'react';
+// import { useSession } from 'next-auth/react';
+// import { useLocaleAsLocaleTypes } from '@/lib/useCurrentLocales';
+// import { useTranslation } from '../../../../utils/localization/client';
 import { LocaleTypes } from '../../../../utils/localization/settings';
 import { translation } from '../../../../utils/localization/locales/server';
+// import { useConfig } from '@/hooks/use-config';
 // import { getCurrentLocaleFromParams } from '@/lib/getCurrentLocaleFromParams';
 
 export default async function DashboardPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
-    // console.log('locale: ', locale)
     const { t } = await translation(locale, 'common')
-    // const currentLocale = getCurrentLocaleFromParams(locale)
 
     const stats = [
         { title: t('new_order'), count: "875", color: "text-red-500" },

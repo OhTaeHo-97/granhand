@@ -34,8 +34,8 @@ const info = {
     agree: { push: true, sms: false }
 }
 
-export default async function MemberDetailPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
-    const { locale } = await params
+export default async function MemberDetailPage({ params }: { params: Promise<{ locale: LocaleTypes, id: string }> }) {
+    const { locale, id } = await params
     const { t } = await translation(locale, ['common', 'member', 'coupon', 'order', 'point'])
     // const locale = useLocaleAsLocaleTypes()
     // const { t } = useTranslation(locale, ['common', 'member', 'coupon', 'order', 'point'])

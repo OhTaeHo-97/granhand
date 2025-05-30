@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+// import { useState } from "react"
 import { Button } from "./ui/button"
 
 export default function Pagination({ totalPages, currentPage, setCurrentPage }: { totalPages: number, currentPage: number, setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
@@ -23,7 +23,27 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }: 
     return (
         <div className="flex justify-center items-center gap-2 py-8 flex-wrap">
             {/* 처음으로 ≪ */}
-            <Button
+            { currentPage > 1 && (
+                <>
+                    <Button
+                        onClick={goToFirstPage}
+                        disabled={currentPage === 1}
+                        className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
+                    >
+                        ≪
+                    </Button>
+
+                    {/* 이전 ＜ */}
+                    <Button
+                        onClick={goToPrevGroup}
+                        disabled={currentPage === 1}
+                        className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
+                    >
+                        ＜
+                    </Button>
+                </>
+            ) }
+            {/* <Button
                 onClick={goToFirstPage}
                 disabled={currentPage === 1}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
@@ -31,14 +51,13 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }: 
                 ≪
             </Button>
 
-            {/* 이전 ＜ */}
             <Button
                 onClick={goToPrevGroup}
                 disabled={currentPage === 1}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
             >
                 ＜
-            </Button>
+            </Button> */}
 
             {/* 페이지 숫자 */}
             {pages.map((page) => (
@@ -54,8 +73,31 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }: 
                 </Button>
             ))}
 
-            {/* 다음 ＞ */}
-            <Button
+            {
+                currentPage > 1 && currentPage < totalPages && (
+                    <>
+                        {/* 다음 ＞ */}
+                        <Button
+                            onClick={goToNextGroup}
+                            disabled={currentPage === totalPages}
+                            className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
+                        >
+                            ＞
+                        </Button>
+
+                        {/* 마지막으로 ≫ */}
+                        <Button 
+                            onClick={goToLastPage}
+                            disabled={currentPage === totalPages}
+                            className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
+                        >
+                            ≫
+                        </Button>
+                    </>
+                )
+            }
+
+            {/* <Button
                 onClick={goToNextGroup}
                 disabled={currentPage === totalPages}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
@@ -63,14 +105,13 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }: 
                 ＞
             </Button>
 
-            {/* 마지막으로 ≫ */}
             <Button 
                 onClick={goToLastPage}
                 disabled={currentPage === totalPages}
                 className="text-sm text-gray-400 hover:text-black disabled:text-gray-300 min-w-[3%]"
             >
                 ≫
-            </Button>
+            </Button> */}
         </div>
     )
 }

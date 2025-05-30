@@ -6,10 +6,13 @@ import { useProductCategoryStore, ProductCategoryNode } from "@/lib/product/prod
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
+import { useSession } from "next-auth/react"
+import { useCategory } from "@/hooks/use-category"
 
 // 선택된 카테고리 정보를 담을 타입 정의
 export interface SelectedCategory extends ProductCategoryNode {
-    path: string;
+    path: string
+    catecode: string
 }
 
 // 카테고리 아이템 컴포넌트
@@ -132,11 +135,58 @@ const getCategoryPath = (nodes: ProductCategoryNode[], targetId: number, current
 
 // 메인 카테고리 선택 컴포넌트
 export default function CategorySelect({ selectedCategories, setSelectedCategories }: { selectedCategories: SelectedCategory[], setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>> }) {
-    const { categories } = useProductCategoryStore()
+    const { data: session, status } = useSession()
+    const { getCategories } = useCategory()
+    const { categories, setCategories } = useProductCategoryStore()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    // const [selectedCategories, setSelectedCategories] = useState<SelectedCategory[]>([])
     const [expandedNodes, setExpandedNodes] = useState<Set<number>>(new Set()) // 확장된 노드 ID 목록
-    const dropdownRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null)
+
+    const fetchCategoriesRecursively = async (upcate: string = ''): Promise<ProductCategoryNode[]> => {
+        if (status !== 'authenticated' || !session?.token) {
+            console.log('Cannot fetch categories - no valid session')
+            return []
+        }
+
+        try {
+            const { data, error } = await getCategories({ upcate })
+
+            if (error) {
+                console.error(`Failed to fetch categories for upcate: ${upcate}`, error)
+                return []
+            }
+
+            if (data && data.length > 0) {
+                const categoriesWithChildren: ProductCategoryNode[] = []
+                for (const category of data) {
+                    // 자신과 자식 노드를 재귀적으로 가져옴
+                    const children = await fetchCategoriesRecursively(category.catename)
+                    categoriesWithChildren.push({
+                        ...category,
+                        children: children.length > 0 ? children : undefined, // 자식이 없으면 children 속성 제거 또는 빈 배열로 설정
+                    })
+                }
+                return categoriesWithChildren
+            } else {
+                return [] // 해당 upcate에 자식이 없으면 빈 배열 반환
+            }
+
+        } catch (error) {
+            console.error(`Failed to fetch categories recursively for upcate: ${upcate}`, error)
+            return []
+        }
+    }
+
+    useEffect(() => {
+        if(status === 'authenticated') {
+            const loadCategories = async () => {
+                const allCategories = await fetchCategoriesRecursively()
+                setCategories(allCategories)
+            }
+
+            loadCategories()
+        }
+    }, [status])
 
     // 드롭다운 외부 클릭 시 닫기
     useEffect(() => {
@@ -175,7 +225,7 @@ export default function CategorySelect({ selectedCategories, setSelectedCategori
             if (isSelected) {
                 if (!prev.some(item => item.idx === category.idx)) {
                     const path = getCategoryPath(categories, category.idx);
-                    return [...prev, { ...category, path }];
+                    return [...prev, { ...category, path, catecode: category.catecode }];
                 }
                 return prev;
             } else {

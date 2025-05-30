@@ -11,6 +11,7 @@ import { useTranslation } from "../../../../../utils/localization/client";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn, useSession } from 'next-auth/react'
+import { useConfig } from "@/hooks/use-config";
 
 const loginSchema = z.object({
   id: z.string()
@@ -25,6 +26,7 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const { getConfig } = useConfig()
   const router = useRouter()
   const locale = useLocaleAsLocaleTypes()
   const { t } = useTranslation(locale, ['common', 'auth'])
@@ -38,7 +40,7 @@ export default function LoginPage() {
       id: "",
       passwd: "",
     },
-  });
+  })
 
   const { setError } = form
 
@@ -58,6 +60,19 @@ export default function LoginPage() {
         setError('passwd', { message: t('auth:invalid_credentials') })
       } else {
         console.log('Login Successful!')
+
+        try {
+          const { data, error } = await getConfig()
+          if(error) {
+            console.error('Failed to fetch config for error:', error)
+          } else if (data) {
+            localStorage.setItem('config', JSON.stringify(data))
+            document.cookie = `config=${JSON.stringify(data)}; path=/; max-age=86400; secure; samesite=strict`
+          }
+        } catch (error) {
+          console.error('Failed to fetch Config:', error)
+        }
+
         router.push('/')
       }
     } catch (error) {

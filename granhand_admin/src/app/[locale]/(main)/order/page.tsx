@@ -34,7 +34,7 @@ export default function OrderPage() {
 
                 {/* 테이블 */}
                 <OrderList orderState={orderState} category='order_management' />
-                <Pagination totalPages={15} />
+                {/* <Pagination totalPages={15} /> */}
             </div>
         </main>
     )

@@ -5,38 +5,73 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { Upload } from "lucide-react";
 import { useTranslation } from "../../../../../../utils/localization/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BulkOrderModal from "./modal/bulk-order-modal";
 import OrderListTable from "./order-list-table";
 import ExcelDownloadModal from "./modal/excel-download-modal";
 import CreateOrderModal from "./modal/create-order-modal";
 import Pagination from "@/components/pagination";
 import { useSession } from "next-auth/react";
-import api from "@/utils/api";
+// import api from "@/utils/api";
+import { Order, useOrder } from "@/hooks/use-order";
 
 export default function OrderList({ orderState, category }: { orderState?: string, category: string }) {
+    const { status } = useSession()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
     const [openBulkOrder, setOpenBulkOrder] = useState(false)
     const [openExcelDown, setOpenExcelDown] = useState(false)
     const [openCreateOrder, setOpenCreateOrder] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const { data: session, status } = useSession()
+    const [itemCnt, setItemCnt] = useState('50')
+    const [totalPage, setTotalPage] = useState(0)
+    // const { data: session, status } = useSession()
+    const { getOrders } = useOrder()
+    const [orders, setOrders] = useState<Order[]>([])
+
+    // const fetchOrders = async () => {
+    //     if(status !== 'authenticated' || !session?.token) {
+    //         console.log('Cannot fetch data - no valid session')
+    //         return
+    //     }
+
+    //     try {
+    //         const response = await api.get('/order', {
+    //             token: session.token
+    //         })
+    //     } catch (error) {
+    //         console.error('Failed to fetch orders:', error)
+    //     }
+    // }
 
     const fetchOrders = async () => {
-        if(status !== 'authenticated' || !session?.token) {
-            console.log('Cannot fetch data - no valid session')
-            return
-        }
+        const params: Record<string, any> = {}
+        params.page = currentPage
+        params.size = itemCnt
 
-        try {
-            const response = await api.get('/order', {
-                token: session.token
-            })
-        } catch (error) {
-            console.error('Failed to fetch orders:', error)
+        const { data, error } = await getOrders(params)
+
+        if(error) {
+            console.error(`Failed to fetch orders for error:`, error)
+            alert('주문을 가져오는 데에 실패하였습니다.')
+            setOrders([])
+            setTotalPage(0)
+        } else if(data) {
+            if(data.datas) {
+                setOrders(data.datas)
+                setTotalPage(data.pagination.pages)
+            } else {
+                setOrders([])
+                setTotalPage(0)
+            }
         }
     }
+
+    useEffect(() => {
+        if(status === 'authenticated') {
+            fetchOrders()
+        }
+    }, [status])
 
     return (
         <>
@@ -44,10 +79,10 @@ export default function OrderList({ orderState, category }: { orderState?: strin
                 <div>
                     <div className="mb-4 justify-between flex items-center">
                         <div className="text-[#5E5955] font-bold text-base">
-                            {t('order:list')} ({t('product:total')} <span className="text-[#4C89E4] font-bold">303 {t('product:items')}</span>)
+                            {t('order:list')} ({t('product:total')} <span className="text-[#4C89E4] font-bold">{orders.length} {t('product:items')}</span>)
                         </div>
                         <div className="flex gap-2">
-                            <Select defaultValue="50">
+                            <Select value={itemCnt} onValueChange={setItemCnt}>
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -67,13 +102,13 @@ export default function OrderList({ orderState, category }: { orderState?: strin
                             )}
                         </div>
                     </div>
-                    <OrderListTable orderState={orderState} category={category} t={t} />
+                    <OrderListTable orderState={orderState} category={category} orders={orders} setOrders={setOrders} t={t} />
                 </div>
                 <BulkOrderModal open={openBulkOrder} setOpen={setOpenBulkOrder} />
                 <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
                 <CreateOrderModal open={openCreateOrder} setOpen={setOpenCreateOrder} />
             </div>
-            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </>
     )
 }

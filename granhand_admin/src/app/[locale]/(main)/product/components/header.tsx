@@ -15,16 +15,16 @@ import { ProductCategoryNode } from "@/lib/product/product-state";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { ProductInfo } from "../page";
-import api from "@/utils/api";
-import { useSession } from "next-auth/react";
-import { string } from "zod";
+// import api from "@/utils/api";
+// import { useSession } from "next-auth/react";
+// import { string } from "zod";
 
 interface SelectedCategory extends ProductCategoryNode {
     path: string;
 }
 
-export default function ProductListHeader({ selectedCategories, setSelectedCategories, setContents }: { selectedCategories: SelectedCategory[], setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>>, setContents: React.Dispatch<React.SetStateAction<ProductInfo[]>> }) {
-    const { data: session, status } = useSession()
+export default function ProductListHeader({ selectedCategories, currentPage, itemCnt, setSelectedCategories, setContents, setTotalPage, fetchProductList }: { selectedCategories: SelectedCategory[], currentPage: number, itemCnt: string, setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>>, setContents: React.Dispatch<React.SetStateAction<ProductInfo[]>>, setTotalPage: React.Dispatch<React.SetStateAction<number>>, fetchProductList: (params: Record<string, any>) => void }) {
+    // const { data: session, status } = useSession()
     const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'push'])
@@ -50,50 +50,64 @@ export default function ProductListHeader({ selectedCategories, setSelectedCateg
         setSearchValue('')
     }
 
-    const fetchProductList = async (params: Record<string, any>) => {
-        if(status !== 'authenticated' || !session?.token) {
-            console.log('Cannot fetch data - no valid session')
-            return
-        }
+    // const fetchProductList = async (params: Record<string, any>) => {
+    //     if(status !== 'authenticated' || !session?.token) {
+    //         console.log('Cannot fetch data - no valid session')
+    //         return
+    //     }
         
-        try {
-            console.log('product list get token: ', session.token)
-            const response = await api.get('/product/list', {
-                token: session.token,
-                params: params
-            })
-            console.log('response: ', response)
-            return response.content
-        } catch (error) {
-            console.error('Failed to fetch products:', error)
-        }
-    }
+    //     try {
+    //         const param = new URLSearchParams({
+    //             page: params.page,
+    //             size: params.size
+    //         })
+
+    //         const response = await fetch(`/api/product?${param.toString()}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Authorization': `${session?.token}`
+    //             }
+    //         })
+
+    //         if(!response.ok) {
+    //             const error = await response.json()
+    //             throw new Error(error.message)
+    //         }
+
+    //         const data = await response.json()
+    //         console.log('data:', data)
+    //         return data
+    //     } catch (error) {
+    //         console.error('Failed to fetch products:', error)
+    //     }
+    // }
 
     const handleClickSearch = async () => {
-        const pathname = `${currentLocale}/product`
-        const startDateStr = startDate ? format(startDate, 'yyyy-MM-dd') : ''
-        const endDateStr = endDate ? format(endDate, 'yyyy-MM-dd') : ''
-        const queryParams = {
-            startDate: startDateStr,
-            endDate: endDateStr,
-            selectedCategories: selectedCategories.toString(),
-            saleStatus: saleStatus,
-            searchCategory: searchCategory,
-            searchValue: searchValue
-        }
+        // const pathname = `${currentLocale}/product`
+        // const startDateStr = startDate ? format(startDate, 'yyyy-MM-dd') : ''
+        // const endDateStr = endDate ? format(endDate, 'yyyy-MM-dd') : ''
+        // const queryParams = {
+        //     startDate: startDateStr,
+        //     endDate: endDateStr,
+        //     selectedCategories: selectedCategories.toString(),
+        //     saleStatus: saleStatus,
+        //     searchCategory: searchCategory,
+        //     searchValue: searchValue
+        // }
 
-        const params = new URLSearchParams(queryParams)
-        const queryString = params.toString()
+        // const params = new URLSearchParams(queryParams)
+        // const queryString = params.toString()
 
         const backendParams: Record<string, any> = {}
         if(selectedCategories.length !== 0) {
             backendParams.category = selectedCategories[0].path
         }
+        backendParams.page = currentPage
+        backendParams.size = Number(itemCnt)
         
-        const content = await fetchProductList(backendParams)
-        setContents(content)
+        fetchProductList(backendParams)
 
-        router.push(`${pathname}?${queryString}`)
+        // router.push(`${pathname}?${queryString}`)
     }
 
     return (

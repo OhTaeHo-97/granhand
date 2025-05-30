@@ -3,14 +3,75 @@
 import Pagination from "@/components/pagination"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { FAQ, FAQCate, useBoard } from "@/hooks/use-board"
 import { useCurrentLocale } from "@/lib/useCurrentLocales"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function FaqList({ t }: { t: (key: string) => string }) {
+    const { status } = useSession()
     const router = useRouter()
     const currentLocale = useCurrentLocale()
+    const [faqs, setFaqs] = useState<FAQ[]>([])
     const [currentPage, setCurrentPage] = useState(1)
+    const [sortCategory, setSortCategory] = useState('latest_first')
+    const [size, setSize] = useState(15)
+    const [totalPage, setTotalPage] = useState(0)
+    const [faqCategories, setFaqCategories] = useState<FAQCate[]>([])
+    const { getFaq, getFaqCate } = useBoard()
+    const [categoryMap, setCategoryMap] = useState<Map<number, string>>(new Map())
+
+    const fetchFaqCategories = async () => {
+        const { data, error } = await getFaqCate()
+
+        if(error) {
+            console.error('Failed to fetch orders for error:', error)
+            alert('FAQ 카테고리를 가져오는 데에 실패하였습니다.')
+            setFaqCategories([])
+            setCategoryMap(new Map())
+        } else if(data) {
+            if(data.datas) {
+                setFaqCategories(data.datas)
+                const newCategoryMap = new Map(data.datas.map((category) => [category.idx, category.catename]))
+                setCategoryMap(newCategoryMap)
+            } else {
+                setFaqCategories([])
+                setCategoryMap(new Map())
+            }
+        }
+    }
+
+    const fetchFaq = async () => {
+        const params: Record<string, any> = {}
+        params.page = currentPage
+        params.size = size
+
+        const { data, error } = await getFaq()
+
+        if(error) {
+            console.error('Failed to fetch orders for error:', error)
+            alert('FAQ를 가져오는 데에 실패하였습니다.')
+            setFaqs([])
+            setTotalPage(0)
+        } else if(data) {
+            if(data.datas) {
+                setFaqs(data.datas)
+                setTotalPage(data.pagination.pages)
+            } else {
+                setFaqs([])
+                setTotalPage(0)
+            }
+        }
+    }
+
+    useEffect(() => {
+        if(status === 'authenticated') {
+            fetchFaqCategories()
+            fetchFaq()
+        }
+    }, [status, sortCategory])
+
     const handleDelete = () => {
         const confirmed = window.confirm('선택한 게시글을 삭제하시겠습니까?')
 
@@ -30,7 +91,7 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
                             {t('faq:all')} <span className="text-[#FF3E24]">25</span>
                         </div>
                         <div className="flex gap-2">
-                            <Select defaultValue="latest_first">
+                            <Select value={sortCategory} onValueChange={setSortCategory}>
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -42,7 +103,7 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
                             </Select>
                         </div>
                     </div>
-                    <table className="w-full text-left border-collapse min-w-6xl w-full">
+                    <table className="w-full text-left border-collapse min-w-6xl">
                         <thead className="bg-[#322A2408] border-t h-20">
                             <tr className="border-b text-[#6F6963]">
                                 <th className="p-2 text-center">No.</th>
@@ -52,7 +113,18 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.from({ length: 12 }).map((_, i) => (
+                            {faqs.map((faq) => (
+                                <tr key={faq.idx} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/faq/${faq.idx}`)}>
+                                    <td className="p-2 text-center">{faq.idx}</td>
+                                    <td className="p-2 text-center">{categoryMap.get(faq.cate_idx) || 'Unknown Category'}</td>
+                                    <td className="p-2 text-center">{faq.subject}</td>
+                                    <td className="p-2 flex items-center justify-center gap-3">
+                                        <Button variant="outline">{t('faq:edit')}</Button>
+                                        <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
+                                    </td>
+                                </tr>
+                            ))}
+                            {/* {Array.from({ length: 12 }).map((_, i) => (
                                 <tr key={i} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/faq/${i}`)}>
                                     <td className="p-2 text-center">25</td>
                                     <td className="p-2 text-center">제품문의</td>
@@ -62,12 +134,12 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
                                         <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
                                     </td>
                                 </tr>
-                            ))}
+                            ))} */}
                         </tbody>
                     </table>
                 </div>
             </div>
-            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </>
     )
 }

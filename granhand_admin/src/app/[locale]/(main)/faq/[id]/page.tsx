@@ -1,7 +1,8 @@
 import FaqContents from "../components/faq-contents";
 
-export default function FaqDetailPage() {
+export default async function FaqDetailPage({ params }: { params: { id: number } }) {
+    const { id } = params
     return (
-        <FaqContents category="detail" />
+        <FaqContents category="detail" id={id} />
     )
 }

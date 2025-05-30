@@ -1,5 +1,5 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { Member } from "./member-list";
+// import { Member } from "./member-list";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import MemberPointCouponModal from "./modal/point-coupon-modal";
 import PointModalContents from "./modal/contents/point-modal-contents";
 import CouponModalContents from "./modal/contents/coupon-modal-contents";
+import { MemberInfo } from "@/hooks/use-member";
+import { format } from "date-fns";
 
 export default function MemberListTable({
     members,
@@ -23,14 +25,14 @@ export default function MemberListTable({
     setOpenCannotProcess,
     t
 }: {
-    members: Member[],
+    members: MemberInfo[],
     currentLocale: string,
     selectedIds: number[],
     openPoint: boolean,
     openCoupon: boolean,
     openCannotProcess: boolean,
     setSelectedIds: React.Dispatch<React.SetStateAction<number[]>>,
-    setMembers: React.Dispatch<React.SetStateAction<Member[]>>,
+    setMembers: React.Dispatch<React.SetStateAction<MemberInfo[]>>,
     setOpenPoint: React.Dispatch<React.SetStateAction<boolean>>,
     setOpenCoupon: React.Dispatch<React.SetStateAction<boolean>>,
     setOpenCannotProcess: React.Dispatch<React.SetStateAction<boolean>>,
@@ -44,9 +46,14 @@ export default function MemberListTable({
 
     const [openMemo, setOpenMemo] = useState(false)
 
+    const getRegDate = (date: string) => {
+        const regDate = new Date(date)
+        return format(regDate, 'yyyy-MM-dd')
+    }
+
     const handleSelectAll = (checked: boolean) => {
         if(checked) {
-            const allIds = members.map(member => member.id)
+            const allIds = members.map(member => member.idx)
             setSelectedIds(allIds)
         } else {
             setSelectedIds([])
@@ -75,7 +82,7 @@ export default function MemberListTable({
             console.log(`Saving memo for member ${memoModalMemberId}:`, selectedMemberMemo)
 
             setMembers(members.map(member =>
-                member.id === memoModalMemberId ? { ...member, memo: selectedMemberMemo } : member
+                member.idx === memoModalMemberId ? { ...member, memo: selectedMemberMemo } : member
             ))
         }
         setOpenMemo(false) // 모달 닫기
@@ -107,59 +114,68 @@ export default function MemberListTable({
                     </tr>
                 </thead>
                 <tbody>
-                    {members.map((member) => (
-                    <tr
-                        key={member.id}
-                        className="h-14 text-[#1A1A1A] hover:bg-[#322A2408] relative"
-                        onMouseEnter={() => {
-                            setHoveredMemberId(member.id)
-                        }} // 호버 시작 시 ID 저장
-                        onMouseLeave={() => setHoveredMemberId(null)} // 호버 끝날 시 ID 초기화
-                    >
-                        <td className="p-2 items-center ">
-                            <Checkbox
-                                id={`${member.id}`}
-                                className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
-                                checked={selectedIds.includes(member.id)}
-                                onCheckedChange={() => handleCheckboxChange(member.id)}
-                                onClick={(e) => e.stopPropagation()}
-                            />
-                        </td>
-                        <td className="p-2 text-center">홍길동</td>
-                        <td className="p-2 text-center underline hover:cursor-pointer" onClick={() => router.push(`${currentLocale}/member/${member.id}`)}>gidksaij@gmail.com</td>
-                        <td className="p-2 text-center">010-6545-6546</td>
-                        <td className="p-2 text-center">Gold</td>
-                        <td className="p-2 text-center">2023-11-23</td>
-                        <td className="p-2 text-center">6,340,000원</td>
-                        <td className="p-2 text-center">4,300원</td>
-                        <td className="p-2 relative">
-                            <div className="flex flex-row items-center justify-center gap-2">
-                                <Button className="border rounded px-2 h-6" onClick={(e) => {e.stopPropagation(); setOpenPoint((prev) => !prev);}}>{t('point:point')}</Button>
-                                <Button className="border rounded px-2 h-6" onClick={(e) => {e.stopPropagation(); setOpenCoupon((prev) => !prev);}}>{t('member:coupon')}</Button>
-                                <Button className="border rounded px-2 h-6" onClick={(e) => {e.stopPropagation();}}>{t('member:order')}</Button>
-                                <div className="relative">
-                                    <Button
-                                        className="border rounded px-2 h-6"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleMemoClick(member.id, member.memo)
-                                        }}
-                                    >
-                                        {t('member:note')}
-                                    </Button>
-                                    {hoveredMemberId === member.id && member.memo && (
-                                        <div className="absolute right-0 top-full mt-1 w-64 bg-[#FDFBF5] text-[#C0BCB6] p-3 text-xs rounded-md shadow-lg z-10 text-center"> {/* 스타일 조정: right-0은 부모 relative 컨테이너(메모 버튼 감싼 div) 기준 */}
-                                            {member.memo}
+                    {members.length === 0 ? (
+                        <tr>
+                            <td colSpan={10} className="h-32 text-center text-gray-500">결과가 없습니다.</td>
+                        </tr>
+                    ) : (
+                        members.map((member) => (
+                            <tr
+                                key={member.id}
+                                className="h-14 text-[#1A1A1A] hover:bg-[#322A2408] relative"
+                                onMouseEnter={() => {
+                                    setHoveredMemberId(member.idx)
+                                }} // 호버 시작 시 ID 저장
+                                onMouseLeave={() => setHoveredMemberId(null)} // 호버 끝날 시 ID 초기화
+                            >
+                                <td className="p-2 items-center ">
+                                    <Checkbox
+                                        id={`${member.id}`}
+                                        className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                                        checked={selectedIds.includes(member.idx)}
+                                        onCheckedChange={() => handleCheckboxChange(member.idx)}
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+                                </td>
+                                <td className="p-2 text-center">{member.name}</td>
+                                <td className="p-2 text-center underline hover:cursor-pointer" onClick={() => router.push(`${currentLocale}/member/${member.id}`)}>{member.id}</td>
+                                <td className="p-2 text-center">010-6545-6546</td>
+                                <td className="p-2 text-center">Gold</td>
+                                <td className="p-2 text-center">{getRegDate(member.signdate)}</td>
+                                <td className="p-2 text-center">6,340,000원</td>
+                                <td className="p-2 text-center">4,300원</td>
+                                <td className="p-2 relative">
+                                    <div className="flex flex-row items-center justify-center gap-2">
+                                        <Button className="border rounded px-2 h-6" onClick={(e) => {e.stopPropagation(); setOpenPoint((prev) => !prev);}}>{t('point:point')}</Button>
+                                        <Button className="border rounded px-2 h-6" onClick={(e) => {e.stopPropagation(); setOpenCoupon((prev) => !prev);}}>{t('member:coupon')}</Button>
+                                        <Button className="border rounded px-2 h-6" onClick={(e) => {e.stopPropagation();}}>{t('member:order')}</Button>
+                                        <div className="relative">
+                                            <Button
+                                                className="border rounded px-2 h-6"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    // handleMemoClick(member.idx, member.memo)
+                                                    handleMemoClick(member.idx, '메모')
+                                                }}
+                                            >
+                                                {t('member:note')}
+                                            </Button>
+                                            {/* {hoveredMemberId === member.idx && member.memo && ( */}
+                                            {hoveredMemberId === member.idx && (
+                                                <div className="absolute right-0 top-full mt-1 w-64 bg-[#FDFBF5] text-[#C0BCB6] p-3 text-xs rounded-md shadow-lg z-10 text-center"> {/* 스타일 조정: right-0은 부모 relative 컨테이너(메모 버튼 감싼 div) 기준 */}
+                                                    {/* {member.memo} */}
+                                                    메모
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </div>
-                            </div>
-                        </td>
-                        <td className="p-2 text-center">
-                            {member.id === 1 ? <span className="text-red-500">{t('member:withdrawn_btn')}</span> : member.id === 2 ? <span className="text-red-500">{t('member:restricted_btn')}</span> : `${t('member:active')}`}
-                        </td>
-                    </tr>
-                    ))}
+                                    </div>
+                                </td>
+                                <td className="p-2 text-center">
+                                    {member.idx === 1 ? <span className="text-red-500">{t('member:withdrawn_btn')}</span> : member.idx === 2 ? <span className="text-red-500">{t('member:restricted_btn')}</span> : `${t('member:active')}`}
+                                </td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
 

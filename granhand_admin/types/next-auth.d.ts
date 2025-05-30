@@ -17,7 +17,7 @@ declare module "next-auth" {
             lastip: string
         } & DefaultSession["user"]
         token: string // JWT 토큰을 세션에 추가
-        expireDate: string
+        expire: string
     }
 
     interface User {
@@ -29,7 +29,7 @@ declare module "next-auth" {
         lastlogin: string
         lastip: string
         token: string
-        expireDate: string
+        expire: string
     }
 }
 
@@ -44,6 +44,6 @@ declare module "next-auth/jwt" {
         lastlogin: string
         lastip: string
         token: string
-        expireDate: string
+        expire: string
     }
 }

@@ -31,7 +31,7 @@ export default function CancelPage() {
 
                 {/* 테이블 */}
                 <CancelList cancelState={cancelState} t={t} />
-                <Pagination totalPages={15} />
+                {/* <Pagination totalPages={15} /> */}
             </div>
         </main>
     )

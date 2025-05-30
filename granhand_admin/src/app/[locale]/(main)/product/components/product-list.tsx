@@ -15,10 +15,15 @@ import { useRouter } from "next/navigation";
 import OptionEditModal from "../register/components/modal/option-edit-modal";
 import SearchModal from "./search-modal";
 import { useSession } from "next-auth/react";
-import api from "@/utils/api";
+// import api from "@/utils/api";
 import { SelectedCategory } from "./category-select";
+import { ProductInfo } from "../page";
+import { ProductCategoryNode } from "@/lib/product/product-state";
+import { useCategory } from "@/hooks/use-category";
+import { format } from "date-fns";
 
-export default function ProductList({ selectedCategories}: { selectedCategories: SelectedCategory[] }) {
+export default function ProductList({ selectedCategories, currentPage, itemCnt, totalPage, contents, setCurrentPage, setItemCnt, setContents, setTotalPage, fetchProductList }: { selectedCategories: SelectedCategory[], currentPage: number, itemCnt: string, totalPage: number, contents: ProductInfo[], setCurrentPage: React.Dispatch<React.SetStateAction<number>>, setItemCnt: React.Dispatch<React.SetStateAction<string>>, setContents: React.Dispatch<React.SetStateAction<ProductInfo[]>>, setTotalPage: React.Dispatch<React.SetStateAction<number>>, fetchProductList: (params: Record<string, any>) => void }) {
+    const { status } = useSession()
     const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const currentLocale = useCurrentLocale()
@@ -28,43 +33,73 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
     const [openOptionSettings, setOpenOptionSettings] = useState(false)
     const [openViewModal, setOpenViewModal] = useState(false)
     const [sortCategory, setSortCategory] = useState('newest_first')
-    const [itemCnt, setItemCnt] = useState('50')
     const [changedState, setChangedState] = useState('default')
+    const { getCategories } = useCategory()
+    const [categories, setCategories] = useState<ProductCategoryNode[]>([])
 
-    const [currentPage, setCurrentPage] = useState(1)
-
-    const { data: session, status } = useSession()
-
-    const fetchData = async (page: number, size: number) => {
-        if(status !== 'authenticated' || !session?.token) {
-            console.log('Cannot fetch data - no valid session')
-            return
-        }
-
+    const fetchCategoriesRecursively = async (upcate: string = ''): Promise<ProductCategoryNode[]> => {
         try {
-            const params: Record<string, any> = {
-                page,
-                size
-            }
-            if(selectedCategories.length !== 0) params.category = selectedCategories[0].path
-            
-            console.log('product list: ', session.token)
+            const { data, error } = await getCategories({ upcate })
 
-            const response = await api.get('/product/list', {
-                token: session.token,
-                params
-            })
-            console.log('product list response: ', response)
+            if (error) {
+                console.error(`Failed to fetch categories for upcate: ${upcate}`, error)
+                return []
+            }
+
+            if (data && data.length > 0) {
+                const categoriesWithChildren: ProductCategoryNode[] = []
+                for (const category of data) {
+                    // 자신과 자식 노드를 재귀적으로 가져옴
+                    const children = await fetchCategoriesRecursively(category.catename)
+                    categoriesWithChildren.push({
+                        ...category,
+                        children: children.length > 0 ? children : undefined, // 자식이 없으면 children 속성 제거 또는 빈 배열로 설정
+                    })
+                }
+                return categoriesWithChildren
+            } else {
+                return [] // 해당 upcate에 자식이 없으면 빈 배열 반환
+            }
+
         } catch (error) {
-            console.error('Failed to fetch products:', error)
+            console.error(`Failed to fetch categories recursively for upcate: ${upcate}`, error)
+            return []
         }
     }
 
     useEffect(() => {
         if(status === 'authenticated') {
-            fetchData(currentPage, Number(itemCnt))
+            const fetchProducts = async () => {
+                const params: Record<string, any> = {}
+                params.page = currentPage
+                params.size = Number(itemCnt)
+    
+                fetchProductList(params)
+            }
+
+            const loadCategories = async () => {
+                const allCategories = await fetchCategoriesRecursively()
+                setCategories(allCategories)
+            }
+
+            loadCategories()
+            fetchProducts()
         }
-    }, [status, itemCnt, sortCategory, currentPage])
+    }, [status])
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const params: Record<string, any> = {}
+            params.page = currentPage
+            params.size = Number(itemCnt)
+
+            fetchProductList(params)
+        }
+        
+        if(status === 'authenticated') {
+            fetchProducts()
+        }
+    }, [itemCnt, sortCategory, currentPage])
 
     const handleDuplicate = () => {
         const confirmed = window.confirm('해당 상품을 복제하시겠습니까?')
@@ -86,35 +121,37 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
         }
     }
 
-    // useEffect(() => {
-    //     const response = await api.get('/product/list', {
-    //     })
-    // }, [currentPage])
+    const findCategoryPathByCode = (
+        nodes: ProductCategoryNode[], 
+        targetCode: string, 
+        currentPath: string[] = []
+    ): string[] | null => {
+        for (const node of nodes) {
+            const newPath = [...currentPath, node.catename];
+            
+            if (node.catecode === targetCode) {
+                return newPath;
+            }
+            
+            if (node.children) {
+                const foundPath = findCategoryPathByCode(node.children, targetCode, newPath);
+                if (foundPath) return foundPath;
+            }
+        }
+        return null;
+    }
 
-    useEffect(() => {
-        router.push(`${currentLocale}/product?sortCategory=${sortCategory}&itemCnt=${itemCnt}`)
-    }, [sortCategory, itemCnt])
+    const getCategoryPaths = (categories: string[], categoryTree: ProductCategoryNode[]): string[] => {
+        return categories.map(catecode => {
+            const path = findCategoryPathByCode(categoryTree, catecode)
+            return path ? path.join(' > ') : catecode; // 경로를 찾지 못하면 원래 catecode 반환
+        })
+    }
 
-    // const { data: session } = useSession()
-
-    // const clickPage = async (page: number) => {
-    //     const params: Record<string, any> = {
-    //         page: currentPage,
-    //         size: size
-    //     }
-
-    //     if(category) {
-    //         params.category = category
-    //     }
-
-    //     const response = await api.get('/product/list', {
-    //         token: session?.token,
-    //         isFormData: false,
-    //         params
-    //     })
-    //     console.log('product list response: ', response)
-    //     setCurrentPage(page)
-    // }
+    const getRegDate = (date: string) => {
+        const regDate = new Date(date)
+        return format(regDate, 'yyyy-MM-dd')
+    }
 
     return (
         <div className="p-6 shadow-sm">
@@ -122,7 +159,7 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
             <div>
                 <div className="mb-4 justify-between flex items-center">
                     <div className="text-[#5E5955] font-bold text-base">
-                        {t('list')} ({t('total')} <span className="text-blue-500">303</span> {t('items')})
+                        {t('list')} ({t('total')} <span className="text-blue-500">{contents.length}</span> {t('items')})
                     </div>
                     <div className="flex gap-2">
                         <Select value={sortCategory} onValueChange={setSortCategory}>
@@ -164,7 +201,44 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.from({ length: 12 }).map((_, i) => (
+                        {contents.map((product) => (
+                            <tr key={product.idx} className="border-b h-14 text-[#1A1A1A]">
+                                <td className="p-2 items-center"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
+                                <td className="p-2 text-center">{product.idx}</td>
+                                <td className="p-2 text-center">{product.code}</td>
+                                <td className="p-2 text-center">
+                                    {getCategoryPaths(product.categories, categories).map((category) => (
+                                        <div className="text-center">
+                                            {category}
+                                        </div>
+                                    ))}
+                                </td>
+                                <td className="p-2 text-center">
+                                    <div className="flex items-start gap-3">
+                                        {/* 이미지 영역 */}
+                                        <Image src={`/${product.images[0]}`} alt="이미지" width={48} height={48} className="w-12 h-12 bg-gray-100 border border-gray-300 flex items-center justify-center text-xs"/>
+
+                                        {/* 텍스트 영역 */}
+                                        <div>
+                                            <div className="font-semibold text-left">{product.name}</div>
+                                            <div className="flex items-center gap-1 text-[#C0BCB6] text-xs mt-1">
+                                                <span className="text-lg leading-none">•</span>
+                                                <span>쇼핑백</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="p-2 text-center">{product.sprice}</td>
+                                <td className="p-2 text-center min-w-20">판매 증</td>
+                                <td className="p-2 text-center">2,345</td>
+                                <td className="p-2 text-center">{getRegDate(product.regidate)}</td>
+                                <td className="p-2 flex gap-1 flex-wrap items-center justify-center text-[#5E5955]">
+                                    <Button className="border rounded px-2" onClick={() => setOpenViewModal((prev) => !prev)}>{t('view')}</Button>
+                                    <Button className="border rounded px-2" onClick={() => setOpenOptionSettings((prev) => !prev)}>{t('edit_options')}</Button>
+                                </td>
+                            </tr>
+                        ))}
+                        {/* {Array.from({ length: 12 }).map((_, i) => (
                         <tr key={i} className="border-b h-14 text-[#1A1A1A]">
                             <td className="p-2 items-center"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
                             <td className="p-2 text-center">303</td>
@@ -172,10 +246,8 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
                             <td className="p-2 text-center">그랑핸드 {">"} 퍼퓸 {">"} 멀티퍼퓸</td>
                             <td className="p-2 text-center">
                                 <div className="flex items-start gap-3">
-                                    {/* 이미지 영역 */}
                                     <Image src="/placeholder.png" alt="하이" width={48} height={48} className="w-12 h-12 bg-gray-100 border border-gray-300 flex items-center justify-center text-xs"/>
 
-                                    {/* 텍스트 영역 */}
                                     <div>
                                         <div className="font-semibold">Roland Multi Perfume</div>
                                         <div className="flex items-center gap-1 text-[#C0BCB6] text-xs mt-1">
@@ -194,7 +266,7 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
                                 <Button className="border rounded px-2" onClick={() => setOpenOptionSettings((prev) => !prev)}>{t('edit_options')}</Button>
                             </td>
                         </tr>
-                        ))}
+                        ))} */}
                     </tbody>
                 </table>
             </div>
@@ -221,7 +293,7 @@ export default function ProductList({ selectedCategories}: { selectedCategories:
             </div>
 
             {/* ------------------- 페이지네이션 ------------------- */}
-            <Pagination totalPages={10} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 
             <StockUpdateModal open={openStockUpdate} setOpen={setOpenStockUpdate} />
             <CateogrySettingsModal open={openCategory} setOpen={setOpenCategory} t={t} />

@@ -11,17 +11,20 @@ import OptionSettings from "./option-settings";
 import RecommendProduct from "./recommend-product";
 import ShipInfo from "./ship-info";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import api from "@/utils/api";
+import { useState } from "react";
+// import api from "@/utils/api";
 import { useSession } from "next-auth/react";
 import { SelectedCategory } from "../../components/category-select";
 import { ImageItem } from "./image-list";
+import { ProductForm, useProduct } from "@/hooks/use-product";
 
 export default function ProductInfo({ category }: { category: "register" | "edit" }) {
     const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'push'])
     const currentLocale = useCurrentLocale()
+    const { addProduct } = useProduct()
+    const { status } = useSession()
 
     const [productData, setProductData] = useState({
         salesType: {
@@ -198,8 +201,6 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const { data: session, status } = useSession()
-
     // useEffect(() => {
     //     if (status === 'unauthenticated') {
     //         router.push('/login')
@@ -214,52 +215,31 @@ export default function ProductInfo({ category }: { category: "register" | "edit
     //     return null
     // }
 
-    const fetchData = async () => {
-        console.log('--- fetchData called ---')
-        console.log('session token:', session?.token)
-
-        if(status !== 'authenticated' || !session?.token) {
-            console.log('Cannot fetch data - no valid session')
-            return
+    const addNewProduct = async () => {
+        const categories = productData.salesType.selectedCategories.map((category) => category.catecode)
+        const images = productData.basicInfo.images.map((image) => image.file)
+        const body: ProductForm = {
+            code: Date.now().toString(),
+            name: productData.basicInfo.koName,
+            sprice: productData.salesInfo.koPrice,
+            dprice: productData.salesInfo.enPrice,
+            dan: '1',
+            memo: productData.basicInfo.koMemo,
+            isshow: productData.salesType.showNaver,
+            images: images,
+            catecodes: categories
         }
 
-        const categories = productData.salesType.selectedCategories.map((category) => category.path)
-        const images = productData.basicInfo.images.map((image) => image.file)
+        const { data, error } = await addProduct(body)
 
-        try {
-            console.log('token: ', session.token)
-            const response = await api.post('/api/product/register', {
-            // const response = await api.post('/product/register', {
-                code: new Date().toLocaleTimeString(),
-                name: productData.basicInfo.koName,
-                sprice: productData.salesInfo.koPrice,
-                dprice: productData.salesInfo.enPrice,
-                dan: '1',
-                memo: productData.basicInfo.koMemo,
-                isshow: productData.salesType.showNaver,
-                categories: categories,
-                // images: images,
-                imageOrders: productData.basicInfo.imageOrders
-            }, {
-                token: session.token,
-                isFormData: true,
-                // params: {
-                //     code: new Date().toLocaleTimeString(),
-                //     name: productData.basicInfo.koName,
-                //     sprice: productData.salesInfo.koPrice,
-                //     dprice: productData.salesInfo.enPrice,
-                //     dan: '1',
-                //     memo: productData.basicInfo.koMemo,
-                //     isshow: productData.salesType.showNaver,
-                //     categories: categories,
-                //     // images: images,
-                //     imageOrders: productData.basicInfo.imageOrders
-                // }
-            })
-            
-            // router.push(`${currentLocale}/product`)
-        } catch (error) {
-            console.error('Failed to fetch products:', error)
+        if(error) {
+            console.error('Failed to add products for error:', error)
+            alert('상품을 등록하는 데에 실패하였습니다.')
+        } else if(data) {
+            if(data.result && data.result === 'ok') {
+                alert('상품을 등록하였습니다.')
+                router.push(`${currentLocale}/product`)
+            }
         }
     }
 
@@ -271,7 +251,7 @@ export default function ProductInfo({ category }: { category: "register" | "edit
                 </div>
                 <div className="space-x-2">
                     <Button variant="outline" className="text-[#5E5955]" onClick={() => router.push(`${currentLocale}/product`)}>{t('cancel')}</Button>
-                    <Button className="bg-[#322A24] text-white" onClick={fetchData} disabled={status !== 'authenticated'}>{t('save')}</Button>
+                    <Button className="bg-[#322A24] text-white" onClick={addNewProduct} disabled={status !== 'authenticated'}>{t('save')}</Button>
                 </div>
             </div>
 
