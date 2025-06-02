@@ -82,7 +82,7 @@ export default function ProductSidebar() {
                 <SubSidebarElem title={t('space')} elements={space} />
                 <SubSidebarElem title={t('body')} elements={body} />
                 <SubSidebarElem title={t('natural')} elements={natural} />
-                <SubSidebarElem title={t('tool')} elements={tool} />
+                <SubSidebarElem title={t('tools')} elements={tool} />
             </div>
 
             <div>

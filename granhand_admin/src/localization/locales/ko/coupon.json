@@ -50,5 +50,15 @@
     "note": "메모",
     "withdrawn": "탈퇴",
     "restricted": "불량",
-    "active": "일반"
+    "active": "일반",
+    
+    "products_for_coupon_application": "쿠폰 적용 상품 선택",
+    "coupon_application_note1": "쿠폰 적용할 생품을 체크박스로 선택하신 후 <bold>선택한 상품 추가</bold> 버튼을 눌러 반영해 주세요.",
+    "coupon_application_note2": "옵션에 포함된 재고번호(SKU) 검색 및 특정 옵션을 대상으로 쿠폰 사용 설정은 불가합니다.",
+    "search_placeholder": "상품명 또는 재고번호(SKU)로 검색",
+
+    "products_exclude_coupon_application": "쿠폰 적용 제외 상품 선택",
+    "coupon_exclude_note1": "쿠폰 적용에서 제외할 상품을 체크박스로 선택하신 후 <bold>선택한 상품 추가</bold> 버튼을 눌러 반영해 주세요.",
+    "coupon_exclude_note2": "옵션에 포함된 재고번호(SKU) 검색 및 특정 옵션을 대상으로 쿠폰 사용제외 설정은 불가합니다.",
+    "add_selected_products": "선택한 상품 추가"
 }

@@ -15,8 +15,8 @@ export default function StoreContents() {
                     {/* 첫 행: 왼쪽 큰 사진, 오른쪽 위 작은 사진 */}
                     <div className="row-span-2 relative">
                         <Image
-                            width={400}
-                            height={400}
+                            // width={400}
+                            // height={400}
                             src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
                             alt="img1"
                             fill
@@ -26,8 +26,8 @@ export default function StoreContents() {
                     </div>
                     <div className="relative h-[50%] min-h-[200px]">
                         <Image
-                            width={400}
-                            height={400}
+                            // width={400}
+                            // height={400}
                             src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
                             alt="img2"
                             fill
@@ -37,8 +37,8 @@ export default function StoreContents() {
                     {/* 두 번째 행: 오른쪽 아래 작은 사진 */}
                     <div className="relative h-[50%] min-h-[200px]">
                         <Image
-                            width={400}
-                            height={400}
+                            // width={400}
+                            // height={400}
                             src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
                             alt="img3"
                             fill
@@ -50,8 +50,8 @@ export default function StoreContents() {
                     <div className="flex flex-col gap-4">
                         <div className="relative h-[260px]">
                             <Image
-                                width={400}
-                                height={400}
+                                // width={400}
+                                // height={400}
                                 src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
                                 alt="img2"
                                 fill
@@ -60,8 +60,8 @@ export default function StoreContents() {
                         </div>
                         <div className="relative h-[260px]">
                             <Image
-                                width={400}
-                                height={400}
+                                // width={400}
+                                // height={400}
                                 src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
                                 alt="img3"
                                 fill
@@ -71,8 +71,8 @@ export default function StoreContents() {
                     </div>
                     <div className="relative h-[540px]">
                         <Image
-                            width={400}
-                            height={400}
+                            // width={400}
+                            // height={400}
                             src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
                             alt="img1"
                             fill

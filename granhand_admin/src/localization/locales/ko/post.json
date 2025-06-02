@@ -9,5 +9,6 @@
     "title": "제목",
     "content": "내용",
     "search": "검색",
-    "total_posts": "전체 게시글"
+    "total_posts": "전체 게시글",
+    "publish": "작성"
 }

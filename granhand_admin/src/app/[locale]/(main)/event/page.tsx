@@ -10,7 +10,7 @@ import EventList from "./components/event-list";
 
 export default async function EventPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
     const { locale } = await params
-    const { t } = await translation(locale, ['common', 'journal'])
+    const { t } = await translation(locale, ['common', 'event', 'journal'])
     const currentLocale = getCurrentLocaleFromParams(locale)
 
     return (

@@ -10,6 +10,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Search } from "lucide-react";
 
+interface Props<T> {
+    items: T[]
+    onItemChange: (item: T) => void
+    fechDatas: () => Promise<void>
+}
+
+// export default function OrderFilter({ items, onItemChange, fetchDatas }: Props<T>) {
+// export default function OrderFilter({ contents, fetchDatas }: { contents: any[], fetchDatas: () => Promise<void> }) {
 export default function OrderFilter() {
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
@@ -35,6 +43,10 @@ export default function OrderFilter() {
         { label: t('order:international_order'), value: 'international_order' },
         { label: t('order:engraving_order'), value: 'engraving_order' }
     ]
+
+    // const onClickSearch = () => {
+    //     fetchDatas()
+    // }
 
     return (
         <>

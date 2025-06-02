@@ -8,12 +8,17 @@ import Pagination from "@/components/pagination";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
-export default function PostList() {
+export default function PostList({ contents, currentPage, totalPage, size, setCurrentPage, setSize }: { contents: any[], currentPage: number, totalPage: number, size: string, setCurrentPage: React.Dispatch<React.SetStateAction<number>>, setSize: React.Dispatch<React.SetStateAction<string>> }) {
     const { status } = useSession()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'event', 'post'])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [totalpage, setTotalPage] = useState(0)
+    // const [currentPage, setCurrentPage] = useState(1)
+    // const [totalpage, setTotalPage] = useState(0)
+
+    const handlePosts = async () => {
+        const params: Record<string, any> = {}
+        
+    }
 
     const handleDelete = () => {
         const confirmed = window.confirm("게시한 글을 삭제하시겠습니까?")
@@ -40,7 +45,8 @@ export default function PostList() {
                             {t('event:all_event_posts')} <span className="text-[#FF3E24]">20</span>
                         </div> */}
                         <div className="text-[#5E5955] font-bold text-base">
-                            {t('post:total_posts')} <span className="text-[#FF3E24]">20</span>
+                            {/* {t('post:total_posts')} <span className="text-[#FF3E24]">20</span> */}
+                            {t('post:total_posts')} <span className="text-[#FF3E24]">{contents.length}</span>
                         </div>
                         <div className="flex gap-2">
                             <Select defaultValue="latest_first">
@@ -53,7 +59,7 @@ export default function PostList() {
                                     <SelectItem value="most_viewed">{t('event:most_viewed')}</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <Select defaultValue="50">
+                            <Select defaultValue={size} onValueChange={setSize}>
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -96,7 +102,7 @@ export default function PostList() {
                     </table>
                 </div>
             </div>
-            <Pagination totalPages={totalpage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </>
     )
 }

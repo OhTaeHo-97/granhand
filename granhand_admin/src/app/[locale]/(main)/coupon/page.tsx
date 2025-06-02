@@ -1,18 +1,47 @@
-// 'use client'
+'use client'
 
-import Pagination from "@/components/pagination"
-import { translation } from "../../../../../utils/localization/locales/server"
+// import Pagination from "@/components/pagination"
+// import { translation } from "../../../../../utils/localization/locales/server"
 import OrderFilter from "../order/components/order-filter"
 import { Button } from "@/components/ui/button"
-import { LocaleTypes } from "../../../../../utils/localization/settings"
+// import { LocaleTypes } from "../../../../../utils/localization/settings"
 import CouponList from "./components/coupon-list"
 import Link from "next/link"
-import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams"
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useTranslation } from "../../../../../utils/localization/client"
+import { useEffect, useState } from "react"
+// import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams"
 
-export default async function CouponPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
-    const { locale } = await params
-    const { t } = await translation(locale, ['common', 'coupon'])
-    const currentLocale = getCurrentLocaleFromParams(locale)
+export default async function CouponPage() {
+// export default async function CouponPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'coupon'])
+    const currentLocale = useCurrentLocale()
+
+    const [coupons, setCoupons] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPage, setTotalPage] = useState(0)
+    const [size, setSize] = useState('50')
+    
+    // const fetchCoupons = async () => {
+        
+    // }
+
+    // const { locale } = await params
+    // const { t } = await translation(locale, ['common', 'coupon'])
+    // const currentLocale = getCurrentLocaleFromParams(locale)
+
+    // useEffect(() => {
+    //     if(status === 'authenticated') {
+    //         fetchCoupons()
+    //     }
+    // }, [status])
+
+    // useEffect(() => {
+    //     if(status === 'authenticated') {
+    //         fetchCoupons()
+    //     }
+    // }, [currentPage, size])
 
     return (
         <div className="flex-1 border">
@@ -34,6 +63,7 @@ export default async function CouponPage({ params }: { params: Promise<{ locale:
                 {/* 테이블 */}
                 {/* <ExchangeList t={t} /> */}
                 <CouponList />
+                {/* <CouponList coupons={coupons} fetchCoupons={fetchCoupons} /> */}
                 {/* <Pagination totalPages={15} /> */}
             </div>
 

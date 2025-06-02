@@ -12,6 +12,7 @@ export default function CooperationDetaliPage() {
     const [open, setOpen] = useState(false)
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'coop'])
+    // const [coopContent, setCoopContent] = useState()
 
     return (
         <div className="flex-1 border">

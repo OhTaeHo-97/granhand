@@ -9,12 +9,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Search } from "lucide-react";
 
-export default function PostHeader() {
+export default function PostHeader({ category, setCategory, fetchBoards }: { category: string, setCategory: React.Dispatch<React.SetStateAction<string>>, fetchBoards: (value?: string) => Promise<void> }) {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'post'])
-    const [category, setCategory] = useState('all')
+    // const [category, setCategory] = useState('all')
     const [searchCategory, setSearchCategory] = useState('title')
     const [keyword, setKeyword] = useState('')
+
+    const onClickSearch = async () => {
+        await fetchBoards(category)
+    }
 
     // const dateFilters = [
     //     { label: t('order:order_date'), value: 'order_date' },
@@ -84,7 +88,7 @@ export default function PostHeader() {
                     <RefreshCw />
                     {t('reset')}
                 </Button>
-                <Button className="bg-[#322A24] text-white w-32">
+                <Button className="bg-[#322A24] text-white w-32" onClick={onClickSearch}>
                     <Search />
                     {t('search')}
                 </Button>

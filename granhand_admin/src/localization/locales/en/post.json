@@ -9,5 +9,6 @@
     "title": "Title",
     "content": "Content",
     "search": "Search",
-    "total_posts": "Total Posts"
+    "total_posts": "Total Posts",
+    "publish": "Publish"
 }

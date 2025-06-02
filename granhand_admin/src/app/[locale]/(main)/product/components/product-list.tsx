@@ -22,7 +22,28 @@ import { ProductCategoryNode } from "@/lib/product/product-state";
 import { useCategory } from "@/hooks/use-category";
 import { format } from "date-fns";
 
-export default function ProductList({ selectedCategories, currentPage, itemCnt, totalPage, contents, setCurrentPage, setItemCnt, setContents, setTotalPage, fetchProductList }: { selectedCategories: SelectedCategory[], currentPage: number, itemCnt: string, totalPage: number, contents: ProductInfo[], setCurrentPage: React.Dispatch<React.SetStateAction<number>>, setItemCnt: React.Dispatch<React.SetStateAction<string>>, setContents: React.Dispatch<React.SetStateAction<ProductInfo[]>>, setTotalPage: React.Dispatch<React.SetStateAction<number>>, fetchProductList: (params: Record<string, any>) => void }) {
+export default function ProductList({
+    selectedCategories,
+    currentPage,
+    itemCnt,
+    totalPage,
+    contents,
+    setCurrentPage,
+    setItemCnt,
+    setContents,
+    setTotalPage,
+    fetchProductList
+}: {
+    selectedCategories: SelectedCategory[],
+    currentPage: number,
+    itemCnt: string,
+    totalPage: number,
+    contents: ProductInfo[],
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+    setItemCnt: React.Dispatch<React.SetStateAction<string>>,
+    setContents: React.Dispatch<React.SetStateAction<ProductInfo[]>>,
+    setTotalPage: React.Dispatch<React.SetStateAction<number>>,
+    fetchProductList: (params: Record<string, any>) => void }) {
     const { status } = useSession()
     const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
@@ -201,7 +222,50 @@ export default function ProductList({ selectedCategories, currentPage, itemCnt, 
                         </tr>
                     </thead>
                     <tbody>
-                        {contents.map((product) => (
+                        {contents.length === 0 ? (
+                            <tr>
+                                <td colSpan={10} className="h-32 text-center text-gray-500">결과가 없습니다.</td>
+                            </tr>
+                        ) : (
+                            contents.map((product) => (
+                                <tr key={product.idx} className="border-b h-14 text-[#1A1A1A]">
+                                    <td className="p-2 items-center"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
+                                    <td className="p-2 text-center">{product.idx}</td>
+                                    <td className="p-2 text-center">{product.code}</td>
+                                    <td className="p-2 text-center">
+                                        {getCategoryPaths(product.categories, categories).map((category) => (
+                                            <div className="text-center">
+                                                {category}
+                                            </div>
+                                        ))}
+                                    </td>
+                                    <td className="p-2 text-center">
+                                        <div className="flex items-start gap-3">
+                                            {/* 이미지 영역 */}
+                                            <Image src={`/${product.images[0]}`} alt="이미지" width={48} height={48} className="w-12 h-12 bg-gray-100 border border-gray-300 flex items-center justify-center text-xs"/>
+    
+                                            {/* 텍스트 영역 */}
+                                            <div>
+                                                <div className="font-semibold text-left">{product.name}</div>
+                                                <div className="flex items-center gap-1 text-[#C0BCB6] text-xs mt-1">
+                                                    <span className="text-lg leading-none">•</span>
+                                                    <span>쇼핑백</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="p-2 text-center">{product.sprice}</td>
+                                    <td className="p-2 text-center min-w-20">판매 증</td>
+                                    <td className="p-2 text-center">2,345</td>
+                                    <td className="p-2 text-center">{getRegDate(product.regidate)}</td>
+                                    <td className="p-2 flex gap-1 flex-wrap items-center justify-center text-[#5E5955]">
+                                        <Button className="border rounded px-2" onClick={() => setOpenViewModal((prev) => !prev)}>{t('view')}</Button>
+                                        <Button className="border rounded px-2" onClick={() => setOpenOptionSettings((prev) => !prev)}>{t('edit_options')}</Button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                        {/* {contents.map((product) => (
                             <tr key={product.idx} className="border-b h-14 text-[#1A1A1A]">
                                 <td className="p-2 items-center"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
                                 <td className="p-2 text-center">{product.idx}</td>
@@ -215,10 +279,8 @@ export default function ProductList({ selectedCategories, currentPage, itemCnt, 
                                 </td>
                                 <td className="p-2 text-center">
                                     <div className="flex items-start gap-3">
-                                        {/* 이미지 영역 */}
                                         <Image src={`/${product.images[0]}`} alt="이미지" width={48} height={48} className="w-12 h-12 bg-gray-100 border border-gray-300 flex items-center justify-center text-xs"/>
 
-                                        {/* 텍스트 영역 */}
                                         <div>
                                             <div className="font-semibold text-left">{product.name}</div>
                                             <div className="flex items-center gap-1 text-[#C0BCB6] text-xs mt-1">
@@ -237,7 +299,7 @@ export default function ProductList({ selectedCategories, currentPage, itemCnt, 
                                     <Button className="border rounded px-2" onClick={() => setOpenOptionSettings((prev) => !prev)}>{t('edit_options')}</Button>
                                 </td>
                             </tr>
-                        ))}
+                        ))} */}
                         {/* {Array.from({ length: 12 }).map((_, i) => (
                         <tr key={i} className="border-b h-14 text-[#1A1A1A]">
                             <td className="p-2 items-center"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>

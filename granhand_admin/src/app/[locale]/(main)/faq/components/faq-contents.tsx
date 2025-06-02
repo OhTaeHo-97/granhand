@@ -127,28 +127,28 @@ export default function FaqContents({ category, id }: { category: string, id?: n
                         </div>
                         <div className="flex items-center gap-4">
                             <RadioGroup value={language} onValueChange={setLanguage} className="flex gap-2 text-sm">
-                                    <Label
-                                        className={cn(
-                                            "py-2 px-4 text-center cursor-pointer text-sm",
-                                            language === "ko"
-                                                ? "border-b-2 !border-[#5E5955] text-[#5E5955]"
-                                                : "text-[#C0BCB6]"
-                                        )}
-                                    >
-                                        <RadioGroupItem value="ko" id="korean-lang" className="hidden" />
-                                        🇰🇷 {t('journal:korean')}
-                                    </Label>
-                                    <Label
-                                        className={cn(
-                                            "py-2 px-4 text-center cursor-pointer text-sm",
-                                            language === "en"
-                                                ? "border-b-2 !border-[#5E5955] text-[#5E5955]"
-                                                : "text-[#C0BCB6]"
-                                        )}
-                                    >
-                                        <RadioGroupItem value="en" id="english-lang" className="hidden" />
-                                        🇺🇸 {t('journal:english')}
-                                    </Label>
+                                <Label
+                                    className={cn(
+                                        "py-2 px-4 text-center cursor-pointer text-sm",
+                                        language === "ko"
+                                            ? "border-b-2 !border-[#5E5955] text-[#5E5955]"
+                                            : "text-[#C0BCB6]"
+                                    )}
+                                >
+                                    <RadioGroupItem value="ko" id="korean-lang" className="hidden" />
+                                    🇰🇷 {t('journal:korean')}
+                                </Label>
+                                <Label
+                                    className={cn(
+                                        "py-2 px-4 text-center cursor-pointer text-sm",
+                                        language === "en"
+                                            ? "border-b-2 !border-[#5E5955] text-[#5E5955]"
+                                            : "text-[#C0BCB6]"
+                                    )}
+                                >
+                                    <RadioGroupItem value="en" id="english-lang" className="hidden" />
+                                    🇺🇸 {t('journal:english')}
+                                </Label>
                             </RadioGroup>
                         </div>
                     </div>

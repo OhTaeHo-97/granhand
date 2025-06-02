@@ -44,5 +44,15 @@
     "excluded_product": "Excluded Products",
     "usage_limit": "Usage Limit",
     "limited_per_member": "Limited to Use per Member",
-    "unlimited_uses": "Unlimited Uses"
+    "unlimited_uses": "Unlimited Uses",
+
+    "products_for_coupon_application": "Select Products for Coupon Application",
+    "coupon_application_note1": "Please select the products to apply the coupon using the checkboxes, then click the <bold>Add Selected Products</bold> button to apply.",
+    "coupon_application_note2": "Searching by SKU included in options or applying coupons to specific options is not supported.",
+    "search_placeholder": "Search by Product Name or SKU",
+
+    "products_exclude_coupon_application": "Select Products to Exclude from Coupon Application",
+    "coupon_exclude_note1": "Please select the products to exclude from the coupon using the checkboxes, then click the <bold>Add Selected Products</bold> button to apply.",
+    "coupon_exclude_note2": "Searching by SKU included in options or excluding specific options from coupon application is not supported.",
+    "add_selected_products": "Add Selected Products"
 }

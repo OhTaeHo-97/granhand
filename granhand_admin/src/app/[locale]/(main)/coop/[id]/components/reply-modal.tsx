@@ -6,6 +6,7 @@ import { Camera, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+// export default function ReplyModal({ sender, recipient, open, setOpen, t }: { sender: string, recipient: string, open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
 export default function ReplyModal({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
     const [images, setImages] = useState<File[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)

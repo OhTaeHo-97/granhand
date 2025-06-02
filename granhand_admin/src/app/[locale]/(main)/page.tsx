@@ -25,7 +25,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ loca
         { title: t('return_manage'), count: "1", color: "text-gray-500" },
         { title: t('exchange_manage'), count: "1", color: "text-gray-500" },
         { title: t('pending_inquiry'), count: "1", color: "text-gray-500" },
-    ];
+    ]
 
     return (
         <main className="flex-1 border text-[#5E5955]">

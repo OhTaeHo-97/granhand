@@ -72,7 +72,16 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
         }
     }, [status, sortCategory])
 
-    const handleDelete = () => {
+    const handleEdit = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
+        // e.preventDefault()
+        e.stopPropagation()
+        router.push(`${currentLocale}/faq/edit/${id}`)
+    }
+
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+        // e.preventDefault()
+        e.stopPropagation()
+
         const confirmed = window.confirm('선택한 게시글을 삭제하시겠습니까?')
 
         if(confirmed) {
@@ -113,7 +122,24 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {faqs.map((faq) => (
+                            {faqs.length === 0 ? (
+                                <tr>
+                                    <td colSpan={4} className="h-32 text-center text-gray-500">결과가 없습니다.</td>
+                                </tr>
+                            ): (
+                                faqs.map((faq) => (
+                                    <tr key={faq.idx} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/faq/${faq.idx}`)}>
+                                        <td className="p-2 text-center">{faq.idx}</td>
+                                        <td className="p-2 text-center">{categoryMap.get(faq.cate_idx) || 'Unknown Category'}</td>
+                                        <td className="p-2 text-center">{faq.subject}</td>
+                                        <td className="p-2 flex items-center justify-center gap-3">
+                                            <Button variant="outline" onClick={(e) => handleEdit(e, faq.idx)}>{t('faq:edit')}</Button>
+                                            <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                            {/* {faqs.map((faq) => (
                                 <tr key={faq.idx} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/faq/${faq.idx}`)}>
                                     <td className="p-2 text-center">{faq.idx}</td>
                                     <td className="p-2 text-center">{categoryMap.get(faq.cate_idx) || 'Unknown Category'}</td>
@@ -123,7 +149,7 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
                                         <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
                                     </td>
                                 </tr>
-                            ))}
+                            ))} */}
                             {/* {Array.from({ length: 12 }).map((_, i) => (
                                 <tr key={i} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/faq/${i}`)}>
                                     <td className="p-2 text-center">25</td>

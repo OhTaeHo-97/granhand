@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import ChallengeModal from "./challenge-modal";
 import { useState } from "react";
 
-export default function ChallengeList({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
+export default function ChallengeList({ contents, size, t, currentLocale, setSize }: { contents: any[], size: string, t: (key: string) => string, currentLocale: string, setSize: React.Dispatch<React.SetStateAction<string>> }) {
     const [open, setOpen] = useState(false)
 
     return (
@@ -16,7 +16,7 @@ export default function ChallengeList({ t, currentLocale }: { t: (key: string) =
                             {t('challenge:list')} ({t('challenge:total')} <span className="text-[#4C89E4]">30</span>{currentLocale === '' && '개'})
                         </div>
                         <div className="flex gap-2">
-                            <Select defaultValue="50">
+                            <Select defaultValue={size} onValueChange={setSize}>
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -39,6 +39,21 @@ export default function ChallengeList({ t, currentLocale }: { t: (key: string) =
                             </tr>
                         </thead>
                         <tbody>
+                            {/* {contents.length === 0 && (
+                                <tr>
+                                    <td colSpan={5} className="h-32 text-center text-gray-500">결과가 없습니다.</td>
+                                </tr>
+                            ) : (
+                                <tr key={i} className="h-14 text-[#1A1A1A]">
+                                    <td className="p-2 flex items-center justify-center gap-3"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
+                                    <td className="p-2 text-center">마음의 향기</td>
+                                    <td className="p-2 text-center">다른 사람에게 선물하기</td>
+                                    <td className="p-2 text-center">활성</td>
+                                    <td className="p-2 flex items-center justify-center gap-3">
+                                        <Button className="border rounded px-2" onClick={() => setOpen((prev) => !prev)}>{t('edit2')}</Button>
+                                    </td>
+                                </tr>
+                            )} */}
                             {Array.from({ length: 12 }).map((_, i) => (
                                 <tr key={i} className="h-14 text-[#1A1A1A]">
                                     <td className="p-2 flex items-center justify-center gap-3"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
