@@ -15,7 +15,7 @@ export default function TwoButtonModal({ open, setOpen, contents, btnText1, btnT
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="max-w-lg bg-white">
+            <DialogContent className="max-w-lg bg-[#FDFBF5]">
             <DialogHeader>
                 <DialogTitle>GRANHAND.</DialogTitle>
             </DialogHeader>

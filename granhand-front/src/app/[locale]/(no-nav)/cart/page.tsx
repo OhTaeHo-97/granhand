@@ -80,7 +80,7 @@ export default function CartPage() {
     }
 
     return (
-      <div className='container mx-auto px-6 pt-8 min-h-screen'>
+      <div className='container mx-auto px-6 pt-8 min-h-screen w-full'>
         <h2 className="text-lg font-medium text-left mb-4 pb-4">{t('cart:cart')}</h2>
         <section className="w-full py-10 mx-auto">
           {/* <h2 className="text-2xl font-semibold mb-8">{t('cart:cart')}</h2> */}
@@ -88,22 +88,22 @@ export default function CartPage() {
           <ProductTable setOpen={setOpen} products={products} selectedIds={selectedIds} setSelectedIds={setSelectedIds} onIncreaseAmount={handleChangeAmount} t={t} unit={currentLocale === '' ? '원' : ' KRW'} />
           
           <div className="mt-8 flex justify-between items-center">
-            <Button variant="outline" className="min-w-32 w-[10%]" disabled={selectedIds.length === 0} onClick={handleRemoveSelected}>{t('cart:remove')}</Button>
-            <div className="text-sm text-gray-400 text-right">
+            <Button variant="outline" className="w-[112px] h-[26px] text-[#6F6963] !border-[#E9E6E0] text-[10px] font-bold" disabled={selectedIds.length === 0} onClick={handleRemoveSelected}>{t('cart:remove')}</Button>
+            <div className="text-xs text-[#C0BCB6] text-right">
               {t('cart:delivery_info')}
               {/* 배송은 2-5일 정도 소요되며 택배사의 상황에 따라 지연될 수 있습니다. Blotter Card는 우편 발송으로 영업일 기준 5일 이상 소요됩니다. */}
             </div>
           </div>
 
-          <div className="mt-20 text-base font-medium border-b pb-3">{t('cart:total_order')} {selectedIds.length}{currentLocale === '' && '개'}</div>
+          <div className="mt-20 text-sm font-medium border-b pb-3 text-[#6F6963]">{t('cart:total_order')} {selectedIds.length}{currentLocale === '' && '개'}</div>
 
           <div className="mt-6 border-b pb-6 w-full">
-            <div className="flex justify-between items-center text-lg font-semibold w-full">
-              <div>
+            <div className="flex justify-between items-center text-lg font-bold w-full">
+              <div className="text-[#6F6963]">
                 <span>{totalPrice.toLocaleString()} KRW</span> + {totalDelivery === 0 ? t('cart:free_shipping') : `${totalDelivery} KRW`} = <span>{(totalPrice + totalDelivery).toLocaleString()} KRW</span>
               </div>
               <Link href={`${currentLocale}/payment`}>
-                <Button className="text-base px-10 py-2 text-white bg-black rounded-none min-w-32 h-11" disabled={selectedIds.length === 0}>{t('cart:purchase')} ({selectedIds.length})</Button>
+                <Button className="text-sm px-10 py-2 text-white bg-[#322A24] rounded-none w-[358px] h-[46px] disabled:bg-[#DBD7D0]" disabled={selectedIds.length === 0}>{t('cart:purchase')} ({selectedIds.length})</Button>
               </Link>
             </div>
           </div>

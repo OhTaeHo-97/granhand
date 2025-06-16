@@ -53,70 +53,82 @@ export default function ProductTable({
     }
 
     return (
-        <div className="border border-gray-200 overflow-x-auto">
-            <div className="min-w-[850px]">
-            {/* 헤더 */}
-            <div className="grid grid-cols-12 items-center px-4 py-3 border-b border-gray-200 text-sm font-medium bg-gray-50">
-                <div className="col-span-2 flex items-center gap-2">
-                <Checkbox
-                    id="select-all"
-                    checked={isAllSelected}
-                    onCheckedChange={(checked) => handleSelectAllChange(!!checked)}
-                    className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
-                />
-                <span className="text-xs text-gray-500">{t('cart:select_all')} ({selectedIds.length}/{products.length})</span>
-                </div>
-                <div className="col-span-4 text-center">{t('cart:info')}</div>
-                <div className="col-span-2 text-center">{t('cart:quantity')}</div>
-                <div className="col-span-2 text-center">{t('cart:amount')}</div>
-                <div className="col-span-2 text-center">{t('cart:shipping_info')}</div>
-            </div>
-
-            {/* 상품 */}
-            <div className="grid grid-cols-12 items-center px-4 py-6 border-b border-gray-100">
-                {products.map((product) => (
-                    <>
-                        <div key={product.id} className="col-span-2 flex justify-start h-full items-center">
-                        <div className="flex items-center">
-                            <Checkbox
-                                checked={selectedIds.includes(product.id)}
-                                onCheckedChange={(checked) => handleCheckboxChange(product.id, !!checked)}
-                                className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
-                                // defaultChecked
-                            />
-                        </div>
-                        <div className="w-25 h-full ml-2 relative">
-                            <Image src={product.image} alt={product.engName} fill className="object-contain" />
-                        </div>
-                        </div>
-
-                        <div className="col-span-4 flex items-center gap-4 space-y-2">
-                        <div className="text-sm space-y-2">
-                            <div className="font-bold">{product.engName}</div>
-                            <div className="text-gray-400 text-xs">{product.korName}</div>
-                            <div className="text-gray-400 text-xs mb-1">
-                                {product.isShoppingBag ? t('cart:bag_purchased') : t('cart:bag_not_purchased')}
-                            </div>
-                            <div className="font-bold">{product.price.toLocaleString()}{unit}</div>
-                        </div>
-                        </div>
-
-                        <div className="col-span-2 flex flex-col items-center gap-2">
-                        <div className="flex items-center gap-4 mb-2">
-                            <Button size="icon" variant="outline" className="w-5 h-5" onClick={() => onIncreaseAmount(product.id, -1)}><Minus className="w-1.5 h-1.5" /></Button>
-                            <span className="text-sm">{product.amount}</span>
-                            <Button size="icon" variant="outline" className="w-5 h-5" onClick={() => onIncreaseAmount(product.id, 1)}><Plus className="w-1.5 h-1.5" /></Button>
-                        </div>
-                        {setOpen && (
-                            <Button variant="outline" className="h-8 text-xs px-4" onClick={() => setOpen(true)}>{t('cart:options')}</Button>
+        <div className="overflow-x-auto">
+            <div className="min-w-[1120px]">
+                <table className="w-full text-center min-w-8xl overflow-auto">
+                    <thead className="bg-[#322A2408] border-t border-b border-[#E9E6E0] h-[36px]">
+                        <tr className="text-[#6F6963] text-xs font-medium">
+                            <th className="p-2 w-40 font-medium">
+                                <div className="pl-6 flex items-center justify-start gap-3">
+                                    <Checkbox
+                                        id="select-all"
+                                        checked={isAllSelected}
+                                        onCheckedChange={(checked) => handleSelectAllChange(!!checked)}
+                                        className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                                    />
+                                    <span className="text-[#6F6963]">{t('cart:select_all')} ({selectedIds.length}/{products.length})</span>
+                                </div>
+                            </th>
+                            <th className="p-2 text-center font-medium">{t('cart:info')}</th>
+                            <th className="p-2 text-center font-medium">{t('cart:quantity')}</th>
+                            <th className="p-2 text-center font-medium">{t('cart:amount')}</th>
+                            <th className="p-2 text-center font-medium">{t('cart:shipping_info')}</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-[#322A2408]">
+                        {products.length === 0 ? (
+                            <tr className="bg-[#322A2408]">
+                                <td colSpan={5} className="h-[136px] text-center text-[#C0BCB6]">장바구니가 비었습니다.</td>
+                            </tr>
+                        ) : (
+                            products.map((product) => (
+                                <tr
+                                    key={product.id}
+                                    className="h-30 text-[#1A1A1A] hover:bg-[#322A2408] relative"
+                                >
+                                    <td className="flex justify-start p-2 items-center h-30 w-20">
+                                        <div className="pl-6">
+                                        <Checkbox
+                                                id={`${product.id}`}
+                                                className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                                                checked={selectedIds.includes(product.id)}
+                                                onCheckedChange={(checked) => handleCheckboxChange(product.id, !!checked)}
+                                                onClick={(e) => e.stopPropagation()}
+                                            />
+                                        </div>
+                                    </td>
+                                    <td className="p-2">
+                                        <div className="flex justify-start items-center gap-4">
+                                            <Image src={product.image} alt={product.engName} width={100} height={97.5} className="w-[100px] h-[97.5px]" />
+                                            <div className="col-span-4 flex items-center gap-4 space-y-2 text-left">
+                                                <div className="text-xs space-y-2">
+                                                    <div className="font-bold text-[#322A24]">{product.engName}</div>
+                                                    <div className="text-[#322A244D]">{product.korName}</div>
+                                                    <div className="text-[#322A244D] mb-1">
+                                                        {product.isShoppingBag ? t('cart:bag_purchased') : t('cart:bag_not_purchased')}
+                                                    </div>
+                                                    <div className="font-bold text-[#322A24]">{product.price.toLocaleString()}{unit}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="p-2 flex flex-col items-center justify-center">
+                                        <div className="flex items-center gap-4 mb-2">
+                                            <Button size="icon" variant="outline" className="border-[#322A241A] w-[16px] h-[16px] rounded-full text-[#322A24]" onClick={() => onIncreaseAmount(product.id, -1)}><Minus className="!w-[8px] !h-[8px] text-[#5E5955]" /></Button>
+                                            <span className="text-sm">{product.amount}</span>
+                                            <Button size="icon" variant="outline" className="!border-[#322A241A] w-[16px] h-[16px] text-[#322A24] rounded-full font-semibold" onClick={() => onIncreaseAmount(product.id, 1)}><Plus className="!w-[8px] !h-[8px] text-[#5E5955]" /></Button>
+                                        </div>
+                                        {setOpen && (
+                                            <Button variant="outline" className="h-8 text-[10px] px-4 text-[#6F6963] bg-[#FDFBF5] !border-[#E9E6E0] font-bold" onClick={() => setOpen(true)}>{t('cart:options')}</Button>
+                                        )}
+                                    </td>
+                                    <td className="p-2 text-center text-sm font-bold text-[#322A24]">{product.price.toLocaleString()}{unit}</td>
+                                    <td className="p-2 text-center text-sm font-bold text-[#322A24]">{product.delivery === 0 ? `${t('cart:free_shipping')}` : `${product.delivery}${unit}`}</td>
+                                </tr>
+                            ))
                         )}
-                        </div>
-
-                        <div className="col-span-2 text-center text-sm font-bold">{product.price.toLocaleString()}{unit}</div>
-                        <div className="col-span-2 text-center text-sm font-bold">{product.delivery === 0 ? `${t('cart:free_shipping')}` : `${product.delivery}${unit}`}</div>
-                    </>
-                ))}
-            </div>
+                    </tbody>
+                </table>
             </div>
         </div>
     )

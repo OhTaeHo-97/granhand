@@ -12,25 +12,27 @@ export default function ProductInfoCard({ t, currentLocale }: { t: (key: string)
                     width={1440}
                     height={1080}
                 />
-                <div className="flex flex-col justify-center">
-                    <div className="text-xs font-bold text-gray-400">GRANHAND</div>
-                    <div className="font-semibold mt-1 leading-relaxed">Roland Multi Perfume</div>
-                    <div className="font-bold text-base mt-1">55,000{currentLocale === '' ? '원' : ' KRW'}</div>
+                <div className="flex-1 space-y-3">
+                    <div className="text-sm font-bold text-[#C0BCB6]">GRANHAND</div>
+                    <div className="space-y-1">
+                        <div className="text-sm font-semibold text-[#322A24] mt-1">Roland Multi Perfume</div>
+                        <div className="text-base text-[#322A24] font-bold mt-1">55,000{currentLocale === '' ? '원' : ' KRW'}</div>
+                    </div>
                 </div>
             </div>
 
             {/* 하단: 옵션 정보 */}
-            <div className="text-sm border-t border-dashed pt-4 space-y-1 text-gray-600">
+            <div className="text-sm border-t border-dashed pt-4 space-y-1 text-[#6F6963]">
                 <div className="flex">
-                    <span className="text-gray-400 w-24">{t('payment:option')}</span>
+                    <span className="text-[#C0BCB6] w-24">{t('payment:option')}</span>
                     <span className="ml-4">롤랑 멀티퍼퓸 200ml / 1개</span>
                 </div>
                 <div className="flex">
-                    <span className="text-gray-400 w-24">{t('payment:shopping_bag')}</span>
+                    <span className="text-[#C0BCB6] w-24">{t('payment:shopping_bag')}</span>
                     <span className="ml-4">구매 안함</span>
                 </div>
                 <div className="flex">
-                    <span className="text-gray-400 w-24">{t('payment:is_stamping')}</span>
+                    <span className="text-[#C0BCB6] w-24">{t('payment:is_stamping')}</span>
                     <span className="ml-4">N</span>
                 </div>
             </div>

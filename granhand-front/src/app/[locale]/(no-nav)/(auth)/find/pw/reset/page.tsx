@@ -3,17 +3,34 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 import BasicModal from "@/app/[locale]/components/modal";
 import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const passwordSchema = z.object({
+    pw: z.string()
+        .min(1, "비밀번호를 입력해 주세요.")
+        .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+]).{8,20}$/, '영문, 숫자, 특수문자 포함 8~20자 이내로 입력해 주세요.'),
+    confirmPw: z.string()
+})
+.refine((data) => data.pw === data.confirmPw, {
+    message: '비밀번호를 다시 확인해 주세요.',
+    path: ['confirmPw']
+})
+
+type PasswordValues = z.infer<typeof passwordSchema>
 
 export default function ResetPasswordPage() {
     // const [name, setName] = useState("");
     // const [phone, setPhone] = useState("");
     const [open, setOpen] = useState(false)
-    const router = useRouter()
+    const [pw, setPw] = useState('')
+    const [confirmPw, setConfirmPw] = useState('')
+    // const router = useRouter()
 
     // const locale = useParams()?.locale as LocaleTypes
     const locale = useLocaleAsLocaleTypes()
@@ -27,40 +44,87 @@ export default function ResetPasswordPage() {
     //     console.log("Find ID attempt:", { name, phone });
     // };
 
-    return (
-        <main className="space-y-6 container mx-auto px-6 pt-8">
-            <h2 className="text-lg font-medium text-left mb-4 border-b border-b-[#6f6963] pb-4">{t('auth:find_pw')}</h2>
-            <div className="flex items-center mb-8">
-                <Button className="w-4 h-4" onClick={() => router.back()}>
-                    <ChevronLeft className="w-4 h-4 text-gray-500 mr-3" />
-                </Button>
-                <div className="text-sm items-center text-gray-500">{t('prev')}</div>
-            </div>
+    const form = useForm<PasswordValues>({
+        resolver: zodResolver(passwordSchema),
+        defaultValues: {
+            pw: '',
+            confirmPw: ''
+        }
+    })
 
-            <div className="max-w-xl w-full mx-auto text-left min-h-screen">
+    const { setError } = form
+
+    const handleResetPw = () => {
+        const values = form.getValues()
+        const result = passwordSchema.safeParse(values)
+
+        if(!result.success) {
+            result.error.errors.forEach((err) => {
+                const field = err.path[0]
+                if(field === 'pw') {
+                    setError('pw', { message: err.message })
+                }
+                if(field === 'confirmPw') {
+                    setError('confirmPw', { message: err.message })
+                }
+            })
+            return
+        }
+
+        setOpen(true)
+    }
+
+    return (
+        <>
+            <div className="max-w-xl w-[358px] mx-auto text-left min-h-screen">
                 {/* Title */}
                 <section className="mb-12">
-                    <h1 className="text-lg font-semibold mb-2">{t('auth:reset_pw')}</h1>
-                    <p className="text-sm text-gray-600">
+                    <h1 className="text-lg font-bold mb-2 text-[#322A24] leading-[26px]">{t('auth:reset_pw')}</h1>
+                    <p className="text-sm text-[#6F6963] font-medium leading-[22px]">
                     {t('auth:korean_reset_pw1')}<br />{t('auth:korean_reset_pw2')}
                     </p>
                 </section>
 
                 {/* 인증 버튼 */}
-                <div className="mb-36 w-full space-y-2">
-                    <h2 className="text-sm mb-2">{t('auth:pw')}</h2>
-                    <Input type="password" placeholder={t('auth:new_pw_placeholder')} className="h-14"></Input>
-                    <Input type="password" placeholder={t('auth:confirm_pw_placeholder')} className="h-14"></Input>
+                <div className="mb-10 w-full space-y-2">
+                    <h2 className="text-sm mb-2 text-[#322A24] leading-[22px] font-medium">{t('auth:pw')}</h2>
+                    <Input
+                        type="password"
+                        {...form.register('pw')}
+                        placeholder={t('auth:new_pw_placeholder')}
+                        value={pw}
+                        onChange={(e) => setPw(e.target.value)}
+                        className={`w-[358px] h-[46px] !border-[#C0BCB6] placeholder:text-[#C0BCB6] text-sm leading-[22px] ${form.formState.errors.pw && '!border-[#FF3E24]'}`}
+                    />
+                    {form.formState.errors.pw && (
+                        <p className="text-[#FF3E24] text-[10px] font-medium leading-[18px]">{form.formState.errors.pw.message}</p>
+                    )}
+                    <Input
+                        type="password"
+                        {...form.register('confirmPw')}
+                        placeholder={t('auth:confirm_pw_placeholder')}
+                        value={confirmPw}
+                        onChange={(e) => setConfirmPw(e.target.value)}
+                        className={`w-[358px] h-[46px] !border-[#C0BCB6] placeholder:text-[#C0BCB6] text-sm leading-[22px] ${form.formState.errors.confirmPw && '!border-[#FF3E24]'}`}
+                    />
+                    {form.formState.errors.confirmPw && (
+                        <p className="text-[#FF3E24] text-[10px] font-medium leading-[18px]">{form.formState.errors.confirmPw.message}</p>
+                    )}
                 </div>
 
                 {/* 인증 버튼 */}
-                <div className="text-center mb-8 w-full">
-                    <Button className="bg-neutral-400 text-white h-12 text-base font-semibold w-full" onClick={() => setOpen((prev) => !prev)}>
+                <div className="text-center mb-4 w-full">
+                    <Button
+                        className="w-[358px] h-[46px] bg-[#322A24] disabled:bg-[#DBD7D0] text-[#FDFBF5] text-sm font-bold leading-[22px]"
+                        disabled={!pw || !confirmPw}
+                        // onClick={handleResetPw}
+                        onClick={form.handleSubmit(handleResetPw)}
+                    >
                     {t('auth:reset_pw')}
                     </Button>
                 </div>
             </div>
             <BasicModal open={open} setOpen={setOpen} contents="complete_reset_pw" btnText="confirm" locale={locale} nextLink={`${currentLocale}/login`} />
-        </main>
-    );
+        </>
+    )
 }

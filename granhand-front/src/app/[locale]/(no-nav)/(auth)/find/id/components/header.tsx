@@ -14,12 +14,12 @@ export default function FindIdHeader() {
 
     return (
         <>
-            <h2 className="text-lg font-medium text-left mb-4 border-b border-b-[#6f6963] pb-4">{t('auth:find_id')}</h2>
+            <h2 className="text-lg font-[500] text-left mb-4 border-b !border-b-[#E9E6E0] pb-4 text-[#6F6963]">{t('auth:find_id')}</h2>
             <div className="flex items-center mb-8">
                 <Button className="w-4 h-4" onClick={() => router.back()}>
-                    <ChevronLeft className="w-4 h-4 text-gray-500 mr-3" />
+                    <ChevronLeft className="w-4 h-4 text-[#6F6963] mr-3" />
                 </Button>
-                <div className="text-sm items-center text-gray-500">{t('prev')}</div>
+                <div className="text-sm items-center text-[#6F6963] font-[500]">{t('prev')}</div>
             </div>
         </>
     )

@@ -13,7 +13,7 @@
     "handcream": "핸드크림",
     "handwash": "핸드워시",
 
-    "guide_title": "원하시는 향을 추천해 드립니다. 아래 항목을 모두 선택해 주세요.",
+    "guide_title": "✨원하시는 향을 추천해 드립니다. 아래 항목을 모두 선택해 주세요.",
     "question1": "어떤 용도로 사용하시나요?",
     "question2": "어떤 계절에 맞는 향을 찾으세요?",
     "question3": "원하시는 계열을 선택해 주세요.",
@@ -47,5 +47,12 @@
     "sweet": "달콤한",
     "subtle": "은은한",
     "refined": "지적인",
-    "elegant": "우아한"
+    "elegant": "우아한",
+
+    "recommend": "추천순",
+    "popularity": "인기순",
+    "low_price": "낮은 가격순",
+    "high_price": "높은 가격순",
+    "asc_product": "상품명 오름차순",
+    "desc_product": "상품명 내림차순"
 }

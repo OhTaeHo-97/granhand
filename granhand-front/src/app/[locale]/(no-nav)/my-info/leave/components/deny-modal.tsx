@@ -13,17 +13,17 @@ export default function LeaveDenyModal({ open, setOpen, setHasExistedOrder, t }:
 
     return (
         <Dialog open={open} onOpenChange={changeOpen}>
-            <DialogContent className="max-w-lg bg-white">
+            <DialogContent className="max-w-lg w-[310px] h-[150px] bg-[#FDFBF5]">
             <DialogHeader>
-                <DialogTitle className="flex justify-center items-center text-2xl">{t('auth:ongoing_order')}</DialogTitle>
+                <DialogTitle className="flex justify-center items-center text-base font-bold text-[#322A24]">{t('auth:ongoing_order')}</DialogTitle>
             </DialogHeader>
-            <div className="mb-6 text-center text-gray-400">
+            <div className="text-center text-[#C0BCB6] text-xs font-medium mt-[-8]">
                 {t('auth:ongoing_order_impossible')}<br/>{t('auth:retry_directive')}
             </div>
             <DialogFooter className="w-full">
                 {/* <DialogPrimitive.Close></DialogPrimitive.Close> */}
                 <div className="w-full">
-                    <Button className="w-full border-t text-center pt-3 text-[#6F6963] text-xl font-semibold" onClick={clickConfirm}>
+                    <Button className="w-full border-t !border-[#00000014] text-center pt-3 text-[#6F6963] text-base" onClick={clickConfirm}>
                         {t('confirm')}
                     </Button>
                 </div>

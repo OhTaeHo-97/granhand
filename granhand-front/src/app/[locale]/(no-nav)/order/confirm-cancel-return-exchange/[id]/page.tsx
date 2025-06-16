@@ -22,12 +22,13 @@ export default function OrderDetailPage() {
                     <Button onClick={() => router.back()} className="m-0 p-0">
                         <ChevronLeft />
                     </Button>
-                    <h2 className={`text-lg font-medium text-left`}>취소 상세</h2>
+                    <h2 className={`text-lg font-medium text-left text-[#6F6963]`}>취소 상세</h2>
                 </div>
             </section>
-            <main className="w-full max-w-6xl mx-auto px-4 py-4 space-y-10">
+            <main className="w-[739px] max-w-6xl mx-auto px-4 py-4 space-y-10">
                 {/* 환불 정보
                 <CancelRefundInfo /> */}
+                {/* 상품 상태에 따라 선택하여 이용 */}
                 <ProductInfo t={t} />
                 <CancelDetail />
                 <RefundDetail />

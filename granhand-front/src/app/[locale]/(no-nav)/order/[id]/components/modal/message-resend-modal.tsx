@@ -4,11 +4,11 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 export default function MessageResendModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="max-w-lg bg-white">
+            <DialogContent className="max-w-lg bg-[#FDFBF5]">
             <DialogHeader>
-                <DialogTitle>GRANHAND.</DialogTitle>
+                <DialogTitle className="text-[#5E5955]">GRANHAND.</DialogTitle>
             </DialogHeader>
-            <div className="mb-6">
+            <div className="mb-6 text-[#322A24]">
                 메시지를 다시 발송했습니다.
             </div>
             <DialogFooter>

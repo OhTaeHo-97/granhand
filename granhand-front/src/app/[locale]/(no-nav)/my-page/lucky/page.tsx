@@ -22,17 +22,17 @@ export default function LuckyDrawPage() {
     }
 
     return (
-        <main className="w-full mx-auto ml-10 min-h-screen flex flex-col items-center pt-24 pb-12">
+        <main className="w-[739px] mx-auto ml-10 min-h-screen flex flex-col items-center pt-24 pb-12">
             {/* Centered text */}
             <div className="flex-2/4 flex items-center justify-center">
-                <h1 className="text-lg font-bold text-gray-900 text-center">
+                <h1 className="text-lg font-bold text-[#322A24] text-center">
                     {t('today_luck')}
                 </h1>
             </div>
 
             {/* Bottom fixed button */}
             <div className="flex-2/4 flex w-full px-4 max-w-dvh">
-                <Button className="bg-black text-white text-center w-full py-3 font-medium text-base" onClick={() => setOpen((prev) => !prev)}>
+                <Button className="bg-[#322A24] text-white text-sm text-center w-full h-[46px] py-3 font-bold disabled::bg-[#DBD7D0]" onClick={() => setOpen((prev) => !prev)}>
                     {t('lucky')}
                 </Button>
             </div>

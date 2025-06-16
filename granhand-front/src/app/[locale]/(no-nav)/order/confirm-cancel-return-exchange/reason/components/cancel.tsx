@@ -1,16 +1,27 @@
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+'use client'
 
-export default function CancelReason({ t }: { t: (key: string) => string }) {
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useState } from "react";
+import { useTranslation } from "../../../../../../../../utils/localization/client";
+
+export default function CancelReason() {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['order'])
+        
     const cancelOptions = [
         t('order:unsatisfied'),
         t('order:reorder'),
         t('order:no_apply_benefit')
-    ];
+    ]
+
+    const [content, setContent] = useState("");
 
     return (
         <div className="max-w-md space-y-6">
             <div>
-                <h2 className="text-lg font-semibold">{t('order:cancel_reason_title')}</h2>
+                <h2 className="text-base font-medium text-[#322A24]">{t('order:cancel_reason_title')}</h2>
             </div>
 
             <RadioGroup>
@@ -19,22 +30,23 @@ export default function CancelReason({ t }: { t: (key: string) => string }) {
                         <RadioGroupItem
                             value={label}
                         >
-                            <span className="text-sm text-gray-800">{label}</span>
+                            <span className="text-xs text-[#6F6963] font-bold">{label}</span>
                         </RadioGroupItem>
-                        <span className="text-sm text-gray-800">{label}</span>
+                        <span className="text-xs text-[#6F6963] font-bold">{label}</span>
                     </label>
                 ))}
             </RadioGroup>
 
-            <div className="mt-16">
-                <label className="block mb-2 text-sm font-medium text-gray-800">{t('order:cancel_reason_detail')}</label>
+            <div className="mt-10">
+                <label className="block mb-2 text-xs font-bold text-[#322A24]">{t('order:cancel_reason_detail')}</label>
                 <div className="relative">
-                <textarea
+                <Textarea
                     maxLength={100}
                     placeholder={`${t('order:cancel_reason_placeholder')}`}
-                    className="w-full h-28 border border-gray-300 rounded px-4 py-3 text-sm placeholder-gray-400 resize-none focus:outline-none focus:ring-1 focus:ring-gray-400"
+                    className="w-full h-28 border !border-[#C0BCB6] rounded px-4 py-3 text-sm placeholder-[#C0BCB6] resize-none"
+                    onChange={(e) => setContent(e.target.value)}
                 />
-                <div className="absolute bottom-2 right-3 text-xs text-gray-400">0/100</div>
+                <div className="absolute bottom-2 right-3 text-xs text-[#C0BCB6]">{content.length}/100</div>
                 </div>
             </div>
         </div>

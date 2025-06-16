@@ -40,36 +40,36 @@ export default function Header() {
         <header className="flex items-center justify-between py-4 container mx-auto px-6">
             {/* bg-[#faf6ee] */}
             {/* 왼쪽: 로고 */}
-            <Link href={currentLocale === '' ? '/' : currentLocale} className="text-2xl font-bold text-gray-800">
+            <Link href={currentLocale === '' ? '/' : currentLocale} className="text-2xl font-bold text-[#322A24]">
                 GRANHAND.
             </Link>
 
             {/* 오른쪽: 아이콘 + 로그인 */}
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-8">
                 <Link href={currentLocale === '' ? '/' : currentLocale}>
-                <Home className="w-5 h-5 text-gray-600" />
+                <Home className="w-5 h-5 text-[#5E5955]" />
                 </Link>
                 <Link href={`${currentLocale}/search`}>
-                <Search className="w-5 h-5 text-gray-600" />
+                <Search className="w-5 h-5 text-[#5E5955]" />
                 </Link>
                 <Link href={`${currentLocale}/cart`}>
-                <ShoppingBag className="w-5 h-5 text-gray-600" />
+                <ShoppingBag className="w-5 h-5 text-[#5E5955]" />
                 </Link>
                 <Link href={`${currentLocale}/my-page`}>
-                <User className="w-5 h-5 text-gray-600" />
+                <User className="w-5 h-5 text-[#5E5955]" />
                 </Link>
                 <DropdownMenu>
-                    <DropdownMenuTrigger className="text-sm flex items-center gap-1 text-gray-600">
+                    <DropdownMenuTrigger className="text-sm flex items-center gap-1 text-[#5E5955]">
                         {/* {selectedStore} <ChevronDown className="w-4 h-4" /> */}
-                        <Globe className="w-5 h-5 text-gray-600" />
+                        <Globe className="w-5 h-5 text-[#5E5955]" />
                     </DropdownMenuTrigger>
 
                     <DropdownMenuPortal>
-                        <DropdownMenuContent sideOffset={4} className="bg-white border rounded shadow-md p-1 text-sm">
+                        <DropdownMenuContent sideOffset={4} className="bg-[#FDFBF5] border rounded shadow-md p-1 text-sm text-[#322A244D]">
                             <DropdownMenuItem
                                 key='ko'
-                                className={cn("px-4 py-2 hover:bg-gray-100 cursor-pointer",
-                                    locale === 'ko' && "font-bold text-black"
+                                className={cn("text-xs font-medium px-4 py-2 hover:bg-[#322A2408] cursor-pointer",
+                                    locale === 'ko' && "font-bold text-[#322A24]"
                                 )}
                                 onSelect={() => changeLanguage('ko')}
                             >
@@ -77,8 +77,8 @@ export default function Header() {
                             </DropdownMenuItem>
                             <DropdownMenuItem
                                 key="en"
-                                className={cn("px-4 py-2 hover:bg-gray-100 cursor-pointer",
-                                    locale === "en" && "font-bold text-black"
+                                className={cn("text-xs font-medium px-4 py-2 hover:bg-[#322A2408] cursor-pointer",
+                                    locale === "en" && "font-bold text-[#322A24]"
                                 )}
                                 onSelect={() => changeLanguage("en")}
                             >
@@ -92,7 +92,7 @@ export default function Header() {
                 </Link> */}
                 <Link
                 href={`${currentLocale}/login`}
-                className="px-4 py-2 border border-[#fdfbf5] rounded text-sm text-[#322a24] hover:bg-gray-100 min-w-24 text-center justify-center items-center"
+                className="px-4 py-2 border !border-[#C0BCB6] rounded text-sm text-[#322A24] font-[700] hover:bg-[#f5f3ef] min-w-30 text-center justify-center items-center"
                 >
                     {/* border-gray-400 */}
                     {/* text-gray-800 */}

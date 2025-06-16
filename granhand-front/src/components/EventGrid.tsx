@@ -1,7 +1,21 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
+import Pagination from "./pagination";
+import SearchInput from "./searchInput";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEventHandler, useEffect, useState } from "react";
+import { useCurrentLocale } from "@/lib/useCurrentLocale";
 
-const posts = [
+interface Event {
+    id: number
+    title: string
+    date: string
+    image: string
+}
+
+const posts: Event[] = [
     {
         id: 1,
         title: "NOLL 눈에 대한 모든 것.",
@@ -50,74 +64,130 @@ const posts = [
         // category: "#Store",
         image: "/lovable-uploads/373d6254-162e-4da2-a5ef-e87c36cd99d7.png"
     }
-];
+]
 
 export default function EventGrid() {
+    const currentLocale = useCurrentLocale()
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const searchQuery = searchParams.get('q') || ''
+    
+    const [keyword, setKeyword] = useState('')
+    const [results, setResults] = useState<Event[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
+    // const [totalPage, setTotalPage] = useState(0)
+    const [totalPage] = useState(0)
+
+    const fetchSearchedResults = async (query: string) => {
+        if(!query) return []
+
+        await new Promise((resolve) => setTimeout(resolve, 500))
+
+        const lowerQuery = query.toLowerCase()
+        return posts.filter((item) =>
+            item.title.toLowerCase().includes(lowerQuery)
+        )
+    }
+
+    const handleInputChange: FormEventHandler<HTMLInputElement> = (e) => {
+        setKeyword((e.target as HTMLInputElement).value)
+    }
+
+    const handleFormSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+        e.preventDefault()
+
+        const params = new URLSearchParams(searchParams)
+        if(keyword) {
+            params.set('q', keyword)
+        } else {
+            params.delete('q')
+        }
+
+        router.replace(`${currentLocale}/event?${params.toString()}`)
+    }
+
+    useEffect(() => {
+        const fetchResults = async () => {
+            if(!searchQuery) {
+                setResults(posts)
+                return
+            }
+
+            try {
+                const data = await fetchSearchedResults(searchQuery)
+                setResults(data)
+            } catch(err) {
+                console.error(err)
+            }
+        }
+
+        fetchResults()
+    }, [searchQuery])
+    
     return (
-        // <section className="py-8">
-        // <h2 className="text-lg font-medium text-left mb-8 border-t pt-4">EVENT</h2>
-        // <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
-        //     {posts.map((post) => (
-        //     <Link
-        //         key={post.id}
-        //         href={`/journal/${post.id}`}
-        //         className="group cursor-pointer"
-        //     >
-        //         <div className="aspect-[4/3] overflow-hidden mb-4">
-        //         <Image
-        //             src={post.image}
-        //             alt={post.title}
-        //             width={225}
-        //             height={168.75}
-        //             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        //         />
-        //         </div>
-        //         <div className="space-y-2">
-        //         <h3 className="text-base font-medium group-hover:text-granhand-text transition-colors">
-        //             {post.title}
-        //         </h3>
-        //         <div className="flex items-center space-x-2 text-xs text-gray-500">
-        //             {/* <span>{post.category}</span> */}
-        //             {/* <span>·</span> */}
-        //             <span>{post.date}</span>
-        //             {/* <span>·</span> */}
-        //             {/* <span>{post.views}</span> */}
-        //         </div>
-        //         </div>
-        //     </Link>
-        //     ))}
-        // </div>
-        // </section>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
-            {posts.map((post) => (
-            <Link
-                key={post.id}
-                href={`/event/${post.id}`}
-                className="group cursor-pointer"
-            >
-                <div className="aspect-[4/3] overflow-hidden mb-4">
-                    <Image
-                        src={post.image}
-                        alt={post.title}
-                        width={225}
-                        height={168.75}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                </div>
-                <div className="space-y-2">
-                    <h3 className="text-base font-medium group-hover:text-granhand-text transition-colors">
-                        {post.title}
-                    </h3>
-                    <div className="flex items-center space-x-2 text-xs text-gray-500">
-                        {/* <span>{post.category}</span> */}
-                        {/* <span>·</span> */}
-                        <span>{post.date}</span>
-                        {/* <span>·</span> */}
-                        {/* <span>{post.views}</span> */}
+        <>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
+                {results.map((post) => (
+                    <Link
+                        key={post.id}
+                        href={`/event/${post.id}`}
+                        className="group cursor-pointer"
+                    >
+                        <div className="aspect-[4/3] overflow-hidden mb-4">
+                            <Image
+                                src={post.image}
+                                alt={post.title}
+                                width={357}
+                                height={200}
+                                className="w-[357px] h-[200px] object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <h3 className="text-base text-black font-medium group-hover:text-granhand-text transition-colors">
+                                {post.title}
+                            </h3>
+                            <div className="flex items-center space-x-2 text-xs text-[#C0BCB6] font-medium">
+                                {/* <span>{post.category}</span> */}
+                                {/* <span>·</span> */}
+                                <span>{post.date}</span>
+                                {/* <span>·</span> */}
+                                {/* <span>{post.views}</span> */}
+                            </div>
+                        </div>
+                    </Link>
+                ))}
+                {/* {posts.map((post) => (
+                <Link
+                    key={post.id}
+                    href={`/event/${post.id}`}
+                    className="group cursor-pointer"
+                >
+                    <div className="aspect-[4/3] overflow-hidden mb-4">
+                        <Image
+                            src={post.image}
+                            alt={post.title}
+                            width={225}
+                            height={168.75}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
                     </div>
-                </div>
-            </Link>
-            ))}
-        </div>
+                    <div className="space-y-2">
+                        <h3 className="text-base font-medium group-hover:text-granhand-text transition-colors">
+                            {post.title}
+                        </h3>
+                        <div className="flex items-center space-x-2 text-xs text-gray-500">
+                            <span>{post.date}</span>
+                        </div>
+                    </div>
+                </Link>
+                ))} */}
+            </div>
+            <div className='mb-20' />
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <div className='mb-14' />
+            <form onSubmit={handleFormSubmit}>
+                <SearchInput value={keyword} onChange={handleInputChange} />
+            </form>
+        </>
     )
 }

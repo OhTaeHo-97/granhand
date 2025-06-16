@@ -11,13 +11,16 @@ export default function RefundDetail() {
     const { t } = useTranslation(locale, ['order', 'payment'])
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-10">
-            <div className="bg-white rounded-md text-sm text-gray-600 space-y-2 w-full">
-                <h2 className="font-semibold text-black text-base">{t('pickup_info')}</h2>
+        <div className="grid grid-cols-[358px_357px] gap-6 mb-10">
+            <div className="bg-[#FDFBF5] rounded-md text-sm text-gray-600 space-y-2 w-full">
+                <h2 className="font-bold text-[#322A24] text-sm">{t('pickup_info')}</h2>
                 <ExchangeRefundAddress title={t('pickup_address')} info={{name: '홍길동', phone: '010-1234-5678', address: '부산광역시 부전동 서전로 8번길 현대카드'}} showEdit={false} />
-                <Button className="w-full border h-12 mt-2">{t('pickup_track')}</Button>
+                <Button className="w-full border !border-[#C0BCB6] mt-2 h-[46px] text-[#322A24] text-sm font-bold">{t('pickup_track')}</Button>
             </div>
-            <RefundInfoBox t={t} />
+            <div>
+                <h2 className="font-bold text-[#322A24] text-sm mb-5">환불 정보</h2>
+                <RefundInfoBox t={t} />
+            </div>
         </div>
     )
 }

@@ -9,6 +9,6 @@ export default function CancelDetail() {
     const { t } = useTranslation(locale, ['order', 'payment'])
     
     return (
-        <RefundInfoBox t={t} />
+        <RefundInfoBox t={t} width="w-[739px] h-[378px]" />
     )
 }

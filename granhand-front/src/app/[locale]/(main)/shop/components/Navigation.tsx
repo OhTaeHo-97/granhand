@@ -1,10 +1,12 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
 import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale"
 import { notFound, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useTranslation } from "../../../../../../utils/localization/client"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from "@/components/ui/label"
+import { cn } from "@/lib/utils"
 
 export default function ShopNavigation() {
     const [selectedStore, setSelectedStore] = useState('granhand')
@@ -22,7 +24,7 @@ export default function ShopNavigation() {
     const stores = [
         {label: t('granhand'), value: 'granhand'},
         {label: t('heyon'), value: 'heyon'},
-        {label: t('comfortable'), value: 'comfortable'}
+        {label: t('komfortabel'), value: 'komfortabel'}
     ]
 
     const categories = [
@@ -51,7 +53,7 @@ export default function ShopNavigation() {
         ]
     }
 
-    const onClickStore = (store: string) => {
+    const handleStoreChange = (store: string) => {
         setSelectedStore(store)
 
         const params = new URLSearchParams(searchParams)
@@ -62,7 +64,7 @@ export default function ShopNavigation() {
         router.push(`${currentLocale}/shop?${params.toString()}`)
     }
 
-    const onClickCategory = (category: string) => {
+    const handleCategoryChange = (category: string) => {
         setSelectedCategory(category)
 
         if(subCategories[category]) {
@@ -84,7 +86,7 @@ export default function ShopNavigation() {
         router.push(`${currentLocale}/shop?${params.toString()}`)
     }
 
-    const onClickSubCategories = (sub: string) => {
+    const handleSubCategoryChange = (sub: string) => {
         setSelectedSubCategory(sub)
 
         const params = new URLSearchParams(searchParams)
@@ -121,44 +123,60 @@ export default function ShopNavigation() {
         <nav className="w-full flex flex-col pt-4">
             <div className="w-full flex items-start justify-between">
                 <div className="flex items-center gap-4 h-10">
-                    <h2 className="text-lg font-medium text-gray-900 m-0 p-0 leading-none">SHOP</h2>
+                    <h2 className="text-lg font-medium text-[#6F6963] m-0 p-0 leading-none">SHOP</h2>
                     <div className="flex items-center text-sm text-gray-400">
-                        {stores.map(({ label, value }, index) => (
-                            <div key={value} className="flex items-center">
-                                {index !== 0 && (
-                                    <span className="mx-3 text-gray-300 select-none">|</span>
-                                )}
-                                <Button
-                                    value={value}
-                                    onClick={() => onClickStore(value)}
-                                    className={`text-sm ${
-                                        selectedStore === value
-                                            ? 'text-black semibold'
-                                            : 'text-gray-400'
-                                    } hover:text-black transition-colors min-w-[5%] h-2`}
-                                >
-                                    {label}
-                                </Button>
-                            </div>
-                        ))}
+                        <RadioGroup
+                            value={selectedStore}
+                            onValueChange={handleStoreChange}
+                            // className="flex text-sm"
+                            className="flex items-center rounded overflow-hidden gap-4"
+                        >
+                            {stores.map(({ label, value }, index) => (
+                                <div key={value}>
+                                    {index !== 0 && (
+                                        <span className="w-[1px] mr-4 text-[#C0BCB6] select-none">|</span>
+                                    )}
+                                    <Label
+                                        key={value}
+                                        className={cn(
+                                            "text-sm font-bold transition-colors min-w-[5%] hover:text-[#6F6963]",
+                                            selectedStore === value
+                                                ? "text-[#6F6963]"
+                                                : "text-[#C0BCB6]"
+                                        )}
+                                    >
+                                        <RadioGroupItem value={value} className="hidden" />
+                                        {label}
+                                    </Label>
+                                </div>
+                            ))}
+                        </RadioGroup>
                     </div>
                 </div>
                 {/* 오른쪽: 카테고리 + (서브메뉴) */}
                 <div className="flex flex-col items-start">
-                    <div className="flex items-center text-sm text-gray-400">
-                        {categories.map(({ label, value }) => (
-                            <Button
-                                key={value}
-                                onClick={() => onClickCategory(value)}
-                                className={`text-sm ${
+                    <div className="flex items-center text-sm text-gray-400 h-10">
+                        <RadioGroup
+                            value={selectedCategory}
+                            onValueChange={handleCategoryChange}
+                            // className="flex text-sm"
+                            className="flex items-center rounded overflow-hidden gap-[20px]"
+                        >
+                            {categories.map(({ label, value }) => (
+                                <Label
+                                    key={value}
+                                    className={cn(
+                                        "text-sm font-bold transition-colors min-w-5 hover:text-[#6F6963]",
                                         selectedCategory === value
-                                            ? 'text-black semibold'
-                                            : 'text-gray-400'
-                                    } hover:text-black transition-colors min-w-[5%]`}
-                            >
-                                {label}
-                            </Button>
-                        ))}
+                                            ? "text-[#6F6963]"
+                                            : "text-[#C0BCB6]"
+                                    )}
+                                >
+                                    <RadioGroupItem value={value} className="hidden" />
+                                    {label}
+                                </Label>
+                            ))}
+                        </RadioGroup>
                     </div>
                     <div
                         className="flex items-center mt-2 text-sm"
@@ -168,19 +186,27 @@ export default function ShopNavigation() {
                             visibility: subCategories[selectedCategory] ? 'visible' : 'hidden'
                         }}
                     >
-                        {subCategories[selectedCategory]?.map(({ label, value }) => (
-                            <Button
-                                key={value}
-                                onClick={() => onClickSubCategories(value)}
-                                className={`text-sm ${
-                                    selectedSubCategory === value
-                                        ? 'text-black semibold'
-                                        : 'text-gray-400'
-                                } hover:text-black transition-colors min-w-[5%]`}
-                            >
-                                {label}
-                            </Button>
-                        ))}
+                        <RadioGroup
+                            value={selectedSubCategory}
+                            onValueChange={handleSubCategoryChange}
+                            // className="flex text-sm"
+                            className="flex items-center rounded overflow-hidden gap-6"
+                        >
+                            {subCategories[selectedCategory]?.map(({ label, value }) => (
+                                <Label
+                                    key={value}
+                                    className={cn(
+                                        "text-sm font-bold transition-colors min-w-[5%] hover:text-[#6F6963]",
+                                        selectedSubCategory === value
+                                            ? "text-[#6F6963]"
+                                            : "text-[#C0BCB6]"
+                                    )}
+                                >
+                                    <RadioGroupItem value={value} className="hidden" />
+                                    {label}
+                                </Label>
+                            ))}
+                        </RadioGroup>
                     </div>
                 </div>
             </div>

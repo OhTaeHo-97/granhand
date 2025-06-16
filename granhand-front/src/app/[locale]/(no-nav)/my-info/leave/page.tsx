@@ -27,18 +27,18 @@ export default function LeavePage() {
     ]
 
     return (
-        <div className="max-w-md space-y-6 mx-auto mt-10 min-h-screen">
-            <div>
-                <h2 className="text-lg font-semibold">{t('auth:leave_reason_title')}</h2>
+        <div className="max-w-md w-[358px] space-y-6 mx-auto mt-10 min-h-screen">
+            <div className="mb-12">
+                <h2 className="font-medium text-[#322A24]">{t('auth:leave_reason_title')}</h2>
             </div>
 
             <RadioGroup onValueChange={setSelectedReason}>
                 {leaveOptions.map(({ label, value }) => (
                     <Label key={value} className="flex items-start gap-3 cursor-pointer space-y-4">
-                        <RadioGroupItem value={value}>
-                            <span className="text-sm text-gray-800">{label}</span>
+                        <RadioGroupItem value={value} className="w-[14px] h-[14px]">
+                            <span className="text-xs font-bold text-[#6F6963]">{label}</span>
                         </RadioGroupItem>
-                        <span className="text-sm text-gray-800">{label}</span>
+                        <span className="text-xs font-bold text-[#6F6963]">{label}</span>
                     </Label>
                 ))}
             </RadioGroup>
@@ -49,9 +49,9 @@ export default function LeavePage() {
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     placeholder={t('auth:leave_reason_placeholder')}
-                    className="w-full border border-gray-300 rounded p-4 text-sm text-gray-800 placeholder:text-gray-400 resize-none h-28"
+                    className="w-[358px] h-[84px] border !border-[#C0BCB6] rounded p-4 text-sm text-[#322A24] resize-none placeholder:text-[#C0BCB6]"
                     />
-                    <div className="absolute bottom-3 right-4 text-sm text-gray-400">
+                    <div className="absolute bottom-3 right-4 text-sm text-[#C0BCB6]">
                     {feedback.length}/200
                     </div>
                 </div>
@@ -59,7 +59,7 @@ export default function LeavePage() {
             
             <div className="mt-6 pb-6">
                 <div className="flex justify-center items-center text-lg font-semibold">
-                    <Button className="text-base px-10 py-2 text-white bg-black rounded-none min-w-32 h-11 w-full" onClick={() => router.push(`${currentLocale}/my-info/leave/benefit`)}>{t('auth:withdraw_btn')}</Button>
+                    <Button className="w-full text-sm font-bold px-10 py-2 text-white bg-[#322A24] rounded-none min-w-32 h-[46px]" onClick={() => router.push(`${currentLocale}/my-info/leave/benefit`)}>{t('auth:withdraw_btn')}</Button>
                     {/* <div></div>
                     <Button className="text-base px-10 py-2 text-white bg-black rounded-none min-w-32 w-[25%] h-11">탈퇴하기</Button> */}
                 </div>

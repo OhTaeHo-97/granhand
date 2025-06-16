@@ -3,7 +3,7 @@ export default function EventLayout({ children }: { children: React.ReactNode })
         <section className="container mx-auto px-6 pt-8">
             <nav className="w-full flex items-center justify-between border-t pt-4">
                 <div className="flex items-center gap-4 h-10">
-                    <h2 className="text-lg font-medium text-gray-900 m-0 p-0 leading-none">EVENT</h2>
+                    <h2 className="text-lg font-medium text-[#6F6963] m-0 p-0 leading-none">EVENT</h2>
                 </div>
             </nav>
             {children}

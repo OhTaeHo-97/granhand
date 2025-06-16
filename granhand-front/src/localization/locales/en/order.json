@@ -118,5 +118,8 @@
     "exchange_procedure1": "If there is a remaining balance to deduct, the amount will be refunded after deduction from the final payment method (in the order of card, Naver Pay, bank transfer → store credits).",
     "exchange_procedure2": "The final refund amount will be confirmed after the returned item is collected.",
     "pickup_track": "Pickup Tracking",
-    "delivery_track": "Delivery Tracking"
+    "delivery_track": "Delivery Tracking",
+    "search": "Search",
+    "exchange_product_info": "Exchange Product Information",
+    "cancel_details": "View Cancellation Details"
 }

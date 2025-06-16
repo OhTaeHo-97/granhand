@@ -4,6 +4,7 @@ import Pagination from "@/components/pagination";
 import ProductCardList from "./components/product-card-list";
 import { ChevronLeft } from "lucide-react";
 import { notFound, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 // const post = {
 //     id: 1,
@@ -14,6 +15,9 @@ import { notFound, useRouter, useSearchParams } from "next/navigation";
 // }
 
 export default function WishLatestListPage() {
+    const [currentPage, setCurrentPage] = useState(1)
+    // const [totalPage, setTotalPage] = useState(0)
+    const [totalPage] = useState(0)
     const router = useRouter()
     const searchParams = useSearchParams()
     const menu = searchParams.get('menu')
@@ -23,21 +27,22 @@ export default function WishLatestListPage() {
         <main className="container mx-auto px-6 pt-8">
             <div className="flex justify-between items-center mb-8">
                 <div className="flex items-center">
-                    <h2 className="text-2xl font-semibold">
+                    <h2 className="text-lg font-medium text-[#6F6963]">
                         {menu === 'wish' ? '관심 상품' : '최근 본 상품'}
                     </h2>
                 </div>
                 <div
-                    className="flex items-center text-xs text-gray-400 cursor-pointer"
+                    className="flex items-center text-xs text-[#6F6963] cursor-pointer"
                     onClick={() => {router.back()}}
                 >
-                    <ChevronLeft className="w-4 h-4 text-gray-500 mr-3" />
-                    <span className="text-base font-semibold">이전단계</span>
+                    <ChevronLeft className="text-[#6F6963] mr-3" size={24} />
+                    <span className="text-sm font-medium">이전단계</span>
                 </div>
             </div>
             {/* <h2 className="text-lg font-medium text-gray-900 m-0 p-0 leading-none mb-10">관심 상품</h2> */}
 
             <ProductCardList itemCount={15} />
+            {/* <ProductCardList itemCount={0} menu={menu} /> */}
 
             {/* <div className="grid grid-cols-1 md:grid-cols-5 gap-x-8 gap-y-12">
                 {Array.from({ length: 15 }).map((_, index) => (
@@ -72,7 +77,7 @@ export default function WishLatestListPage() {
                 ))}
             </div> */}
 
-            <Pagination totalPages={15} />
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </main>
     )
 }

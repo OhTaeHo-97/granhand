@@ -10,23 +10,23 @@ export default function ProductCard({ key, image, title, option, price }: { key:
             }}
             className="group cursor-pointer"
         >
-            <div className="aspect-[4/3] overflow-hidden mb-4">
+            <div className="overflow-hidden mb-4">
                 <Image
                     src={image}
                     alt={title}
                     width={205}
                     height={200}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="!w-[205px] !h-[200px] object-cover transition-transform duration-700 group-hover:scale-105"
                 />
             </div>
             <div className="space-y-2">
-                <h3 className="text-base font-medium group-hover:text-granhand-text transition-colors">
+                <h3 className="text-sm text-[#322A24] font-bold group-hover:text-granhand-text transition-colors">
                     {title}
                 </h3>
-                <div className="flex items-center space-x-2 text-xs text-gray-500">
+                <div className="flex items-center space-x-2 text-xs text-[#C0BCB6]">
                     <span>{option}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-xs">
+                <div className="flex items-center space-x-2 text-xs text-[#322A24]">
                     <span>{price} KRW</span>
                 </div>
             </div>

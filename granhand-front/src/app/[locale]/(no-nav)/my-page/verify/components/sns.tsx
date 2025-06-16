@@ -2,29 +2,33 @@
 
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "../../../../../../../utils/localization/client";
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
+import { useRouter } from "next/navigation";
 
 export default function SnsUserVerify() {
+    const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'auth')
+    const currentLocale = useCurrentLocale()
 
     return (
         <>
-            <h2 className="text-lg font-semibold mb-2">{t('verify_account')}</h2>
-            <p className="text-sm text-gray-600 mb-8">
+            <h2 className="text-lg font-bold mb-2 text-[#322A24]">{t('verify_account')}</h2>
+            <p className="text-sm font-medium text-[#6F6963] mb-8">
                 {t('verify_account_info')}
             </p>
 
             <div className="mb-6">
-                <label className="block text-sm font-semibold mb-1">{t('id')}</label>
-                <div className="h-12 px-4 flex items-center border bg-gray-100 rounded text-sm text-gray-600">
+                <label className="block text-sm font-medium mb-1 text-[#322A24]">{t('id')}</label>
+                <div className="w-[358px] h-[46px] px-4 flex items-center border !border-[#C0BCB6] bg-[#E9E6E0] rounded text-sm text-[#6F6963]">
                 gran****@****l.com
                 </div>
             </div>
 
             <Button
-                className="w-full h-12 text-sm font-semibold bg-black text-white"
+                className="w-[358px] h-[46px] text-sm font-semibold bg-[#322A24] text-white"
                 // disabled={!password}
+                onClick={() => router.push(`${currentLocale}/my-info`)}
             >
                 {t('kakao_verify')}
             </Button>

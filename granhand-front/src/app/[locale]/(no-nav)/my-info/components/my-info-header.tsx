@@ -14,9 +14,9 @@ export default function MyInfoHeader() {
     return (
         <div className="flex items-center mb-8">
             <Button className="w-4 h-4" onClick={() => router.back()}>
-                <ChevronLeft className="w-4 h-4 text-gray-500 mr-3" />
+                <ChevronLeft className="w-4 h-4 text-[#6F6963] mr-3" size={24} />
             </Button>
-            <div className="text-sm items-center text-gray-500">{t('to_prev')}</div>
+            <div className="text-sm font-medium items-center text-[#6F6963]">{t('to_prev')}</div>
         </div>
     )
 }

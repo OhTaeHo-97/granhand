@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import StandardPayment from "./standard-payment";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function PaymentMethod({ t }: { t: (key: string) => string }) {
     const [payType, setPayType] = useState('')
@@ -49,15 +50,16 @@ export default function PaymentMethod({ t }: { t: (key: string) => string }) {
 
     return (
         <section className="space-y-2">
-            <h2 className="text-base font-bold">{t('payment:method')}</h2>
+            <h2 className="text-sm font-bold text-[#322A24]">{t('payment:method')}</h2>
             <div className="space-y-2">
                 <RadioGroup value={payType} onValueChange={setPayType}>
                     <Label key={"simple"} className="flex items-start gap-3 cursor-pointer space-y-4">
                         <RadioGroupItem
                             value="simple"
+                            className="!w-[14px] !h-[14px]"
                         >
                         </RadioGroupItem>
-                        <span className="text-sm text-gray-800">{t('payment:easy_pay')}</span>
+                        <span className="text-xs font-medium text-[#6F6963]">{t('payment:easy_pay')}</span>
                     </Label>
                     <div className="relative !w-[49vw]">
                         <Button
@@ -69,12 +71,38 @@ export default function PaymentMethod({ t }: { t: (key: string) => string }) {
 
                         <div id="card-scroll-container" className="flex gap-4 overflow-x-auto pb-2 scroll-smooth mx-8">
                             {cards.map((card, index) => (
+                                // <div
+                                //     key={index}
+                                //     className={`w-[60vw] max-w-[350px] min-w-[200px] h-40 p-6 rounded ${card.bg} ${card.text} text-sm text-center flex-shrink-0`}
+                                // >
+                                //     <div className="text-lg font-semibold">{card.name}</div>
+                                //     <div className="mt-2">{card.detail}</div>
+                                // </div>
+
                                 <div
                                     key={index}
-                                    className={`w-[60vw] max-w-[350px] min-w-[200px] p-6 rounded ${card.bg} ${card.text} text-sm text-center flex-shrink-0`}
+                                    className={`w-[240px] max-w-[350px] min-w-[200px] h-[140px] p-6 rounded ${card.bg} ${card.text} text-sm flex flex-col justify-between`}
                                 >
-                                    <div className="text-lg font-semibold">{card.name}</div>
-                                    <div className="mt-2">{card.detail}</div>
+                                    {/* 상단 영역: 카드 이름 + (로고 자리) + (체크박스 자리) */}
+                                    <div className="flex justify-between items-start w-full">
+                                        {/* 카드 이름과 로고 자리 */}
+                                        <div className="flex items-center gap-2">
+                                            <div className="text-[15px] font-bold leading-none">{card.name}</div>
+                                            {/* 로고/아이콘 자리 (Placeholder) */}
+                                            {/* <div className="w-6 h-6 bg-white rounded-full opacity-30"></div> 예시 플레이스홀더 */}
+                                            {/* 실제 로고 이미지를 사용하는 경우 */}
+                                            {/* <Image src="/path/to/logo.png" alt="Card logo" width={24} height={24} /> */}
+                                        </div>
+                                        <Checkbox
+                                            id={card.name}
+                                            className="border-2 border-white"
+                                        />
+                                    </div>
+
+                                    {/* 하단 영역: 카드 상세 */}
+                                    <div className="text-xs font-normal ml-auto">
+                                        {card.detail}
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -90,42 +118,18 @@ export default function PaymentMethod({ t }: { t: (key: string) => string }) {
                     <Label key={"normal"} className="flex items-start gap-3 cursor-pointer space-y-4">
                         <RadioGroupItem
                             value="normal"
+                            className="!w-[14px] !h-[14px]"
                         >
                         </RadioGroupItem>
-                        <span className="text-sm text-gray-800">{t('payment:pay')}</span>
+                        <span className="text-xs font-medium text-[#6F6963]">{t('payment:pay')}</span>
                     </Label>
                     {payType === 'normal' && (
-                        // <RadioGroup
-                        //     value={normalMethod}
-                        //     onValueChange={setNormalMethod}
-                        //     className="grid grid-cols-2 gap-4 text-sm"
-                        // >
-                        //     {[
-                        //         { value: "card", label: t('payment:card') },
-                        //         { value: "toss", label: t('payment:toss') },
-                        //         { value: "naver", label: t('payment:naver') },
-                        //         { value: "bank", label: t('payment:bank') },
-                        //     ].map(({ value, label }) => (
-                        //         <Label
-                        //             key={value}
-                        //             className={cn(
-                        //                 "border rounded py-6 px-3 text-center cursor-pointer",
-                        //                 normalMethod === value
-                        //                     ? "!border-black font-bold"
-                        //                     : "border-gray-300 font-normal"
-                        //             )}
-                        //         >
-                        //             <RadioGroupItem value={value} className="hidden" />
-                        //             {label}
-                        //         </Label>
-                        //     ))}
-                        // </RadioGroup>
                         <StandardPayment normalMethod={normalMethod} setNormalMethod={setNormalMethod} />
                     )}
                 </RadioGroup>
             </div>
 
-            <Information bgColor="bg-gray-100" contents={[{ elem: t('payment:bank_confirm_info') }, { elem: t('payment:pay_cancel_info') }]} className="text-xs text-gray-700" />
+            <Information bgColor="bg-[#322A2408]" contents={[{ elem: t('payment:bank_confirm_info') }, { elem: t('payment:pay_cancel_info') }]} className="text-xs text-gray-700 h-[68px]" />
         </section>
     )
 }

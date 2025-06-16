@@ -1,53 +1,109 @@
+'use client'
+
 import { Checkbox } from "@/components/ui/checkbox";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import Image from "next/image";
+import { useTranslation } from "../../../../../../../utils/localization/client";
 
-export default function ProductInfoTable({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
+export default function ProductInfoTable() {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['my_page', 'cart', 'payment'])
+
     return (
-        <div className="border border-gray-200 overflow-x-auto">
-            <div className="min-w-[850px]">
-            {/* 헤더 */}
-            <div className="grid grid-cols-14 items-center px-4 py-3 border-b border-gray-200 text-sm font-medium bg-gray-50">
-                <div className="col-span-2 flex items-center gap-2">
-                <Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white" />
-                <span className="text-xs text-gray-500">{t('cart:select_all')} (0/0)</span>
-                </div>
-                <div className="col-span-4 text-center">{t('info')}</div>
-                <div className="col-span-2 text-center">{t('quantity')}</div>
-                <div className="col-span-2 text-center">{t('amount')}</div>
-                <div className="col-span-1 text-center">{t('payment:is_stamping')}</div>
-                <div className="col-span-3 text-center">{t('payment:stamping_title')}</div>
-            </div>
-
-            {/* 상품 */}
-            <div className="grid grid-cols-14 items-center px-4 py-6 border-b border-gray-100">
-                <div className="col-span-2 flex justify-start h-full items-center">
-                <div className="flex items-center">
-                    <Checkbox id="item-1" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white" defaultChecked />
-                </div>
-                <div className="w-25 h-full ml-2 relative">
-                    <Image src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png" alt="perfume" fill className="object-contain" />
-                </div>
-                </div>
-
-                <div className="col-span-4 flex items-center gap-4 space-y-2">
-                <div className="text-sm space-y-2">
-                    <div className="font-bold">Soie Signature Perfume</div>
-                    <div className="text-gray-400 text-xs">수아 시그니처 퍼퓸</div>
-                    <div className="text-gray-400 text-xs mb-1">{t('cart:bag_not_purchased')}</div>
-                    <div className="font-bold">110,000{currentLocale === '' ? '원' : ' KRW'}</div>
-                </div>
-                </div>
-
-                <div className="col-span-2 flex flex-col items-center gap-2">
-                <div className="flex items-center gap-4 mb-2">
-                    <span className="text-sm">1</span>
-                </div>
-                </div>
-
-                <div className="col-span-2 text-center text-sm font-bold">110,000{currentLocale === '' ? '원' : ' KRW'}</div>
-                <div className="col-span-1 text-center text-sm font-bold">N</div>
-                <div className="col-span-3 text-center text-sm font-bold">{t('cart:free_shipping')}</div>
-            </div>
+        <div className="overflow-x-auto">
+            <div className="min-w-[1120px]">
+                <table className="w-full text-center min-w-8xl overflow-auto">
+                    <thead className="bg-[#322A2408] border-t border-b border-[#E9E6E0] h-[36px]">
+                        <tr className="text-[#6F6963] text-xs font-medium">
+                            <th className="p-2 w-40 font-medium">
+                                <div className="pl-6 flex items-center justify-start gap-3">
+                                    <Checkbox
+                                        id="select-all"
+                                        className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                                    />
+                                    <span className="text-[#6F6963]">{t('cart:select_all')} (0/1)</span>
+                                </div>
+                            </th>
+                            <th className="p-2 text-center font-medium">{t('cart:info')}</th>
+                            <th className="p-2 text-center font-medium">{t('cart:quantity')}</th>
+                            <th className="p-2 text-center font-medium">{t('cart:amount')}</th>
+                            <th className="p-2 text-center font-medium">{t('payment:is_stamping')}</th>
+                            <th className="p-2 text-center font-medium">{t('payment:stamping_title')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* 상품 없을 때
+                        <tr className="bg-[#322A2408]">
+                            <td colSpan={5} className="h-[136px] text-center text-[#C0BCB6]">장바구니가 비었습니다.</td>
+                        </tr> */}
+                        <tr
+                            className="my-4 h-[136px] bg-[#322A2408] text-[#1A1A1A] hover:bg-[#322A2408] relative"
+                        >
+                            <td className="flex justify-start p-2 items-center h-30 w-20">
+                                <div className="pl-6">
+                                <Checkbox
+                                        className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+                                </div>
+                            </td>
+                            <td className="p-2">
+                                <div className="flex justify-start items-center gap-4">
+                                    <Image src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png" alt="perfume" width={100} height={97.5} className="w-[100px] h-[97.5px]" />
+                                    <div className="col-span-4 flex items-center gap-4 space-y-2 text-left">
+                                        <div className="text-xs space-y-2">
+                                            <div className="font-bold text-[#322A24]">Soie Signature Perfume</div>
+                                            <div className="text-[#322A244D]">수아 시그니처퍼퓸 100ml</div>
+                                            <div className="text-[#322A244D] mb-1">
+                                                쇼핑백 : 구매안함
+                                            </div>
+                                            <div className="font-bold text-[#322A24]">110,000원</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td className="p-2 flex flex-col items-center justify-center">
+                                <span className="text-sm">1</span>
+                            </td>
+                            <td className="p-2 text-center text-sm font-bold text-[#322A24]">110,000원</td>
+                            <td className="p-2 text-center text-sm font-bold text-[#322A24]">N</td>
+                            <td className="p-2 text-center text-xs text-[#6F6963]">GRANHAND ❤️</td>
+                        </tr>
+                        <tr
+                            className="my-4 h-[136px] bg-[#322A2408] text-[#1A1A1A] hover:bg-[#322A2408] relative"
+                        >
+                            <td className="flex justify-start p-2 items-center h-30 w-20">
+                                <div className="pl-6">
+                                <Checkbox
+                                        className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                                        onClick={(e) => e.stopPropagation()}
+                                    />
+                                </div>
+                            </td>
+                            <td className="p-2">
+                                <div className="flex justify-start items-center gap-4">
+                                    <Image src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png" alt="perfume" width={100} height={97.5} className="w-[100px] h-[97.5px]" />
+                                    <div className="col-span-4 flex items-center gap-4 space-y-2 text-left">
+                                        <div className="text-xs space-y-2">
+                                            <div className="font-bold text-[#322A24]">Soie Signature Perfume</div>
+                                            <div className="text-[#322A244D]">수아 시그니처퍼퓸 100ml</div>
+                                            <div className="text-[#322A244D] mb-1">
+                                                쇼핑백 : 구매안함
+                                            </div>
+                                            <div className="font-bold text-[#322A24]">110,000원</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td className="p-2 flex flex-col items-center justify-center text-center">
+                                <span className="text-sm">1</span>
+                            </td>
+                            <td className="p-2 text-center text-sm font-bold text-[#322A24]">110,000원</td>
+                            <td className="p-2 text-center text-sm font-bold text-[#322A24]">N</td>
+                            <td className="p-2 text-center text-xs text-[#6F6963]">GRANHAND ❤️</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     )

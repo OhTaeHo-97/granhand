@@ -5,6 +5,7 @@ import PointListHeader from "./point-details-header";
 import PointDetailsList from "./point-details-list";
 import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
+import Pagination from "@/components/pagination";
 
 export default function PointDetails() {
     const locale = useLocaleAsLocaleTypes()
@@ -14,6 +15,9 @@ export default function PointDetails() {
     const tabs = ["all", "earned", "used", "expired"];
 
     const [selectedState, setSelectedState] = useState('all')
+    const [currentPage, setCurrentPage] = useState(1)
+    // const [totalPage, setTotalPage] = useState(0)
+    const [totalPage] = useState(0)
 
     const onClickState = (category: string) => {
         // const params = new URLSearchParams(searchParams)
@@ -25,10 +29,13 @@ export default function PointDetails() {
     }
 
     return (
-        <section className="space-y-6 mt-16">
-            <PointListHeader tabs={tabs} selectedState={selectedState} onClickState={onClickState} t={t} />
-            {/* 포인트 내역 리스트 */}
-            <PointDetailsList selectedState={selectedState} t={t} currentLocale={currentLocale} />
-        </section>
+        <>
+            <section className="space-y-6 mt-16">
+                <PointListHeader tabs={tabs} selectedState={selectedState} onClickState={onClickState} t={t} />
+                {/* 포인트 내역 리스트 */}
+                <PointDetailsList selectedState={selectedState} t={t} currentLocale={currentLocale} />
+            </section>
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        </>
     )
 }

@@ -27,19 +27,19 @@ export default function SidebarElement({
 
     return (
         <div>
-            <div className="flex justify-between items-center cursor-pointer font-bold text-gray-700" onClick={() => toggleSection()}>{title}
-            {openSections ? <ChevronUpIcon /> : <ChevronDownIcon />}
+            <div className="flex justify-between items-center cursor-pointer text-sm font-bold text-[#5E5955]" onClick={() => toggleSection()}>{title}
+                {openSections ? <ChevronUpIcon className="w-[24px] h-[24px]" /> : <ChevronDownIcon className="w-[24px] h-[24px]" />}
             </div>
             {openSections && (
-            <ul className="mt-2 space-y-1 text-sm">
+            <ul className="mt-2 space-y-1 text-sm font-medium">
                 {
                     elements.map(({ title, url }) => (
                         <Link key={url} href={url}>
                             <li
                                 className={`px-6 py-2
                                 ${isActive(url)
-                                    ? "text-gray-700 bg-gray-100 rounded"
-                                    : "text-gray-400"
+                                    ? "text-[#6F6963] bg-[#322A2408] rounded"
+                                    : "text-[#C0BCB6]"
                                 }`}
                             >
                                 {title}

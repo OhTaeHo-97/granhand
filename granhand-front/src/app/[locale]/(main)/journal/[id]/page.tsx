@@ -13,10 +13,12 @@ export default async function JournalDetailPage({ params }: { params: Promise<{ 
             {/* 카테고리 + 제목 + 날짜 + 조회수 + 이미지 */}
             <div className="max-w-8xl md:w-1/3 md:sticky md:top-0 self-start">
                 {/* 왼쪽 텍스트 */}
-                <div className="flex-1 space-y-4">
-                    <div className="text-sm text-gray-500">#Team</div>
-                    <h1 className="text-2xl font-semibold text-black">NOLL 놀이에 대한 모든 것.</h1>
-                    <div className="text-xs text-gray-400">
+                <div className="flex-1 space-y-6">
+                    <div>
+                        <div className="text-base text-[#322A24] font-bold">#Team</div>
+                        <h1 className="text-[32px] font-medium text-[#322A24]">NOLL 놀이에 대한 모든 것.</h1>
+                    </div>
+                    <div className="text-sm font-medium text-[#C0BCB6]">
                         2023-07-08 { currentLocale === '' ? `${t('views')} 412` : `412 ${t('views')}` }
                     </div>
                 </div>
@@ -27,17 +29,17 @@ export default async function JournalDetailPage({ params }: { params: Promise<{ 
                 <Image
                     src="/lovable-uploads/42187a99-0c6a-4176-bc95-5fcd322f7c2e.png"
                     alt="NOLL 놀이에 대한 모든 것"
-                    width={600}
-                    height={600}
-                    className="w-full h-auto object-cover"
+                    width={740}
+                    height={460}
+                    className="w-[740px] h-[460px] object-cover"
                 />
                 {/* 본문 내용 */}
-                <div className="space-y-6 text-sm leading-relaxed text-gray-700 mt-16">
-                    <p>‘놀이’는 작년 크리스마스에 출시된 그랑핸드의 새로운 라인인 ‘퍼퓸 라인’의 세 가지 향 중 하나입니다. 가장 최근에 선보인 따끈한 향이에요.</p>
+                <div className="space-y-6 text-base leading-relaxed text-black mt-16">
+                    <p>‘놀’은 작년 크리스마스에 출시된 그랑핸드의 새로운 라인인 ‘퍼퓸 라인’의 세 가지 향 중 하나입니다. 가장 최근에 선보인 따끈한 향이에요.</p>
 
-                    <p>집 정리를 마칠 때쯤, 어느새 노란 햇살을 낀 새 집의 안쪽 부엌까지 이미 들어와있었어요. 선물로 받은 축축한 단계를 지나 티타임을 가지면 편했습니다. 첫잔에 대류수를 노릇노릇으로 진행되는 색을 향이나 바꾸기 보다 퍼퓸 색감이 난 듯 후끈으로 달라진다. 냉장고에 있는 레몬을 꺼내 얇게 썰어 시기 전에 첫잔이 정말 불편하다.</p>
+                    <p className="w-1/2 text-[#6F6963] text-sm font-medium">집 정리를 마칠 때쯤, 어느새 노란 햇살을 낀 새 집의 안쪽 부엌까지 이미 들어와있었어요. 선물로 받은 축축한 단계를 지나 티타임을 가지면 편했습니다. 첫잔에 대류수를 노릇노릇으로 진행되는 색을 향이나 바꾸기 보다 퍼퓸 색감이 난 듯 후끈으로 달라진다. 냉장고에 있는 레몬을 꺼내 얇게 썰어 시기 전에 첫잔이 정말 불편하다.</p>
 
-                    <p>놀이를 한마디로 표현하자면 ‘시트러스의 재해석’이라 생각해요. 일반적으로 ‘삼광’, ‘함향’, ‘가벼움’은 시트러스 계열의 향의 특징으로 떠올리지만, 놀은 레몬과 베르가못, 자몽의 싱그러움을 잃지 않으면서도 자스민과 로즈의 우아함과 차분함을 유지하고, 티트리와 유칼립투스의 쌉싸름한 그린너트를 후각에서 시간이 지날수록 매만져 마스크로 조심하게 마무리되는 거예요. 조급을 성숙화하면서도 사분할, 그렇지만 끝물없이 무겁게 다가오는 분들에게 추천드립니다.</p>
+                    <p>놀을 한마디로 표현하자면 ‘시트러스의 재해석’이라 생각해요. 일반적으로 ‘삼광’, ‘함향’, ‘가벼움’은 시트러스 계열의 향의 특징으로 떠올리지만, 놀은 레몬과 베르가못, 자몽의 싱그러움을 잃지 않으면서도 자스민과 로즈의 우아함과 차분함을 유지하고, 티트리와 유칼립투스의 쌉싸름한 그린너트를 후각에서 시간이 지날수록 매만져 마스크로 조심하게 마무리되는 거예요. 조급을 성숙화하면서도 사분할, 그렇지만 끝물없이 무겁게 다가오는 분들에게 추천드립니다.</p>
                 </div>
             </div>
         </main>

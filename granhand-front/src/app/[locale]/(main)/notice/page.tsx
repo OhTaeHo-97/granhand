@@ -1,5 +1,6 @@
 'use client'
 
+import Pagination from "@/components/pagination";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 
@@ -56,6 +57,7 @@ const notices = [
 
 export default function Notice() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const [currentPage, setCurrentPage] = useState(1)
 
     const toggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -67,30 +69,30 @@ export default function Notice() {
                 <h2 className="text-xl font-semibold">공지 사항</h2>
             </div> */}
             <section className="py-8">
-                <h2 className={`text-xl font-semibold text-left mb-8 border-t pt-4`}>공지 사항</h2>
+                <h2 className={`text-xl font-semibold text-left mb-8 border-t pt-4 text-[#6F6963]`}>공지 사항</h2>
             </section>
-            <div className="max-w-4xl">
+            <div className="max-w-4xl w-[739px]">
                 <div className="divide-y">
                     {notices.map((notice, index) => (
                         <div key={index} className="border-none">
                             <div className="flex items-center justify-between px-4 py-4 pl-0 border-none" onClick={() => toggle(index)}>
                                 {/* 날짜 + 제목 */}
                                 <div className="border-none">
-                                    <p className="text-xs text-gray-400 mb-8">{notice.date}</p>
-                                    <p className="text-base font-medium text-gray-900">
+                                    <p className="text-xs text-[#C0BCB6] mb-8">{notice.date}</p>
+                                    <p className="text-base font-medium text-[#322A24]">
                                         {notice.title}
                                     </p>
                                 </div>
                         
                                 {/* 오른쪽 화살표 */}
                                 {openIndex === index ? (
-                                    <ChevronUp className="w-4 h-4 text-gray-500" />
+                                    <ChevronUp className="w-4 h-4 text-[#C0BCB6]" />
                                 ) : (
-                                    <ChevronDown className="w-4 h-4 text-gray-500" />
+                                    <ChevronDown className="w-4 h-4 text-[#C0BCB6]" />
                                 )}
                             </div>
                             {openIndex === index && notice.content && (
-                            <div className="bg-gray-100 p-4 text-sm text-gray-600 border-none">
+                            <div className="bg-[#322A240A] p-4 text-sm text-[#6F6963] border-none">
                                 {notice.content}
                             </div>
                             )}
@@ -98,6 +100,7 @@ export default function Notice() {
                     ))}
                 </div>
             </div>
+            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </main>
     )
 }

@@ -40,7 +40,7 @@ export default function ExchangeRefundReason() {
     return (
         <div className="max-w-md space-y-6 mx-auto mt-10">
             <div>
-                <h2 className="text-lg font-semibold">{t('order:exchange_reason_title')}</h2>
+                <h2 className="font-medium text-[#322A24]">{t('order:exchange_reason_title')}</h2>
             </div>
 
             <RadioGroup>
@@ -48,38 +48,39 @@ export default function ExchangeRefundReason() {
                     <label key={index} className="flex items-start gap-3 cursor-pointer space-y-4">
                         <RadioGroupItem
                             value={label}
+                            className="w-[14px] h-[14px]"
                         >
-                            <span className="text-sm text-gray-800">{label}</span>
+                            <span className="text-xs text-[#6F6963] font-bold">{label}</span>
                         </RadioGroupItem>
-                        <span className="text-sm text-gray-800">{label}</span>
+                        <span className="text-xs text-[#6F6963] font-bold">{label}</span>
                     </label>
                 ))}
             </RadioGroup>
 
             <div className="mt-8">
-                <label className="block mb-2 text-sm font-medium text-gray-800">{t('order:exchange_details')} *</label>
+                <label className="block mb-2 text-xs font-bold text-[#322A24]">{t('order:exchange_details')} *</label>
                 <div className="relative">
                 <Textarea
                     maxLength={100}
                     placeholder={t('order:exchange_details_placeholder')}
-                    className="w-full h-28 border border-gray-300 rounded px-4 py-3 text-sm placeholder-gray-400 resize-none focus:outline-none focus:ring-1 focus:ring-gray-400"
+                    className="w-[358px] h-[103px] border !border-[#C0BCB6] rounded px-4 py-3 text-sm placeholder-[#C0BCB6] resize-none"
                     onChange={(e) => setContent(e.target.value)}
                 />
-                <div className="absolute bottom-2 right-3 text-xs text-gray-400">{content.length}/100</div>
+                <div className="absolute bottom-2 right-3 text-xs text-[#C0BCB6]">{content.length}/100</div>
                 </div>
             </div>
             
             <div className="space-y-2 mb-14">
-                <div className="text-sm text-gray-700 font-medium">{t('order:exchange_photo')} ({images.length}/3)</div>
+                <div className="text-[10px] text-[#6F6963]">{t('order:exchange_photo')} ({images.length}/3)</div>
 
                 <div className="flex gap-3">
                     {/* 업로드 버튼 */}
                     {images.length < 3 && (
                         <Button
                             onClick={() => inputRef.current?.click()}
-                            className="w-20 h-20 bg-gray-100 rounded flex items-center justify-center border border-gray-200"
+                            className="w-[66px] h-[66px] bg-[#322A2408] rounded flex items-center justify-center"
                         >
-                            <Camera className="w-3 h-3 text-gray-400" />
+                            <Camera className="w-7 h-7 text-[#C0BCB6]" />
                             <input
                             ref={inputRef}
                             type="file"
@@ -96,24 +97,25 @@ export default function ExchangeRefundReason() {
                             <Image
                             src={URL.createObjectURL(img)}
                             alt={`uploaded-${idx}`}
-                            className="object-cover w-full h-full"
-                            width={400}
-                            height={400}
+                            className="object-cover w-[66px] h-[66px]"
+                            width={66}
+                            height={66}
                             />
                             <Button
                             onClick={() => handleDelete(idx)}
-                            className="absolute -top-0 -right-0 bg-white border border-gray-300 rounded-full w-5 h-5 flex items-center justify-center text-gray-600 text-xs shadow-sm"
+                            className="absolute -top-0 -right-0 bg-white border border-gray-300 rounded-full !w-5 !h-5 flex items-center justify-center text-[#5E5955] text-xs shadow-sm !p-2"
                             >
-                            <X className="w-3 h-3" />
+                            <X className="!w-3 !h-3 text-[#5E5955]" />
                             </Button>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="text-xs text-gray-700 bg-gray-100 p-6">
-                <span className="font-semibold">{t('order:exchange_policy_title')}</span>
-                <ul className="list-disc space-y-1.5 px-6 pt-3">
+            
+            <div className="text-[10px] h-[266px] text-[#6F6963] bg-[#322A2408] p-6">
+                <span className="font-bold">{t('order:exchange_policy_title')}</span>
+                <ul className="list-disc space-y-1.5 px-6 pt-3 font-medium">
                     <li>{t('order:exchange_policy1')}</li>
                     <li>{t('order:exchange_policy2')}</li>
                     <li>{t('order:exchange_policy3')}</li>

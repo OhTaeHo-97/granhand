@@ -41,34 +41,34 @@ export default function LoseBenefitPage() {
     ];
     
     return (
-        <div className="max-w-md space-y-6 mx-auto mt-10 min-h-screen">
+        <div className="max-w-md w-[358px] space-y-6 mx-auto mt-10 min-h-screen">
             <div>
-                <h2 className="text-lg font-semibold">{t('auth:leave_benefit_title')}</h2>
+                <h2 className="font-medium text-[#322A24]">{t('auth:leave_benefit_title')}</h2>
             </div>
 
             {benefits.map((item, index) => (
                 <div
-                key={index}
-                className={`flex items-center justify-between p-4 border rounded-md shadow-sm bg-white ${
-                    item.highlighted ? "border-blue-500" : "border-transparent"
-                }`}
+                    key={index}
+                    className={`w-full h-[66px] flex items-center justify-between p-4 border rounded-md shadow-sm bg-[#FDFBF5] text-xs ${
+                        item.highlighted ? "border-blue-500" : "border-transparent"
+                    }`}
                 >
-                <div className="flex items-center gap-5">
-                    {item.icon}
-                    <div className="text-sm text-gray-500">
-                    <p className="mb-1.5">{item.label}</p>
-                    <p className="font-bold text-black">{item.value}</p>
+                    <div className="flex items-center gap-5 text-[#322A24]">
+                        {item.icon}
+                        <div className="text-[#6F6963] font-medium">
+                        <p className="mb-1.5 font-bold">{item.label}</p>
+                        <p className="font-bold text-[#322A24]">{item.value}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="text-sm font-bold text-black">{item.amount}</div>
+                    <div className="text-sm font-bold text-[#322A24]">{item.amount}</div>
                 </div>
             ))}
 
             <div className="grid grid-cols-2 gap-4 pt-6">
-                <Button variant="outline" className="h-12 text-base" onClick={() => router.push(`${currentLocale}/my-info`)}>
+                <Button variant="outline" className="w-[171px] h-[46px] text-base !border-[#C0BCB6] text-[#322A24] cursor-pointer" onClick={() => router.push(`${currentLocale}/my-info`)}>
                     {t('cancel')}
                 </Button>
-                <Button className="h-12 bg-black text-white text-base" onClick={() => router.push(`${currentLocale}/my-info/leave/notice`)}>
+                <Button className="w-[171px] h-[46px] bg-[#322A24] text-white text-base cursor-pointer" onClick={() => router.push(`${currentLocale}/my-info/leave/notice`)}>
                     {t('auth:withdraw_btn')}
                 </Button>
             </div>

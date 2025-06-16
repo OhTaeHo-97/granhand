@@ -13,7 +13,7 @@
     "handcream": "Handcream",
     "handwash": "Handwash",
 
-    "guide_title": "We'll recommend a fragrance for you. Please select all the options below.",
+    "guide_title": "✨We'll recommend a fragrance for you. Please select all the options below.",
     "question1": "What is the purpose of use?",
     "question2": "Which season are you choosing a scent for?",
     "question3": "Please select your preferred fragrance type.",
@@ -47,5 +47,12 @@
     "sweet": "Sweet",
     "subtle": "Subtle",
     "refined": "Refined",
-    "elegant": "Elegant"
+    "elegant": "Elegant",
+
+    "recommend": "Recommended",
+    "popularity": "Popularity",
+    "low_price": "Price: Low to High",
+    "high_price": "Price: High to Low",
+    "asc_product": "Name: A to Z",
+    "desc_product": "Name: Z to A"
 }

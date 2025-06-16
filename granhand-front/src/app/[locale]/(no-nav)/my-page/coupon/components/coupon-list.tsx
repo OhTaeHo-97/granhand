@@ -35,7 +35,11 @@ export default function CouponList() {
     ];
 
     return (
-        <ul className="space-y-4">
+        // 없을 때
+        // <div className="flex justify-center items-center h-[136px] text-[#C0BCB6] text-[12px]">
+        //     보유 중인 쿠폰이 없어요.
+        // </div>
+        <ul className="space-y-4 w-[739px]">
             {coupons.map((coupon, index) => (
                 <CouponElement key={index} coupon={coupon} />
             ))}

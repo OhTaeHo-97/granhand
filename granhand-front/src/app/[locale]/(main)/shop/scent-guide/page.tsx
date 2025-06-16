@@ -113,8 +113,8 @@ export default function GuidePage() {
 
     return (
         <div className="mx-auto py-12">
-            <h2 className="text-2xl font-semibold mb-4">GUIDE</h2>
-            <div className="bg-gray-50 text-center text-gray-600 py-4 mb-10 text-sm">
+            <h2 className="text-lg text-[#6F6963] font-medium mb-4">GUIDE</h2>
+            <div className="h-[60px] bg-[#322A2408] text-center text-[#6F6963] py-4 mb-10 text-sm">
                 {t('guide_title')}
             </div>
 
@@ -128,10 +128,10 @@ export default function GuidePage() {
                         <div key={q.id} className="relative flex min-h-[130px] mb-8">
                             {/* 왼쪽 체크와 점선 영역 */}
                             <div className="flex flex-col items-center mr-4">
-                                <Check className={`w-4 h-4 ${isAnswered ? 'text-gray-600' : 'text-gray-300'}`} />
+                                <Check className={`w-4 h-4 ${isAnswered ? 'text-[#6F6963]' : 'text-[#DBD7D0]'}`} />
                                 {i < questions.length - 1 && (
                                     <div className="flex-1 flex flex-col justify-center">
-                                        <MoreVertical className={`w-4 h-4 ${isAnswered ? 'text-gray-600' : 'text-gray-300'}`} />
+                                        <MoreVertical className={`w-4 h-4 ${isAnswered ? 'text-[#6F6963]' : 'text-[#DBD7D0]'}`} />
                                     </div>
                                 )}
                             </div>
@@ -139,20 +139,20 @@ export default function GuidePage() {
                             {/* 질문과 옵션 영역 */}
                             <div className="flex-1 flex flex-col justify-between ml-10">
                                 <div>
-                                    <p className="font-semibold text-sm mb-4">
+                                    <p className="font-bold text-[#6F6963] text-xs mb-4">
                                         {q.id}. {q.text}
                                     </p>
 
                                     {canShowOptions && (
-                                        <div className="flex flex-wrap gap-4 text-sm mb-4">
+                                        <div className="flex flex-wrap gap-4 text-sm mb-4 text-[#231815B2]">
                                             {dynamicOptions.map((opt) => (
                                                 <Button
                                                     key={opt.value}
                                                     onClick={() => handleSelect(q.id, opt.value)}
-                                                    className={`px-4 py-2 rounded text-gray-600 transition ${
+                                                    className={`w-[82px] h-[36px] px-[8px] py-[4px] rounded transition text-xs ${
                                                         answers[q.id] === opt.value
-                                                            ? 'border-black font-medium bg-black text-white hover:bg-gray-700'
-                                                            : 'border-gray-500 hover:bg-gray-100'
+                                                            ? 'bg-[#322A24] text-white hover:bg-[#33312e6f]'
+                                                            : 'border-[#231815B2] hover:bg-[#f5f3ef]'
                                                     }`}
                                                 >
                                                     {opt.label}
@@ -171,7 +171,7 @@ export default function GuidePage() {
             {/* 결과 확인 버튼 */}
             <div className="mt-12 text-right">
                 <Button
-                    className={`px-6 py-3 text-white rounded disabled:opacity-50 min-w-1/3 ${allAnswered ? 'bg-black' : 'bg-gray-200'}`}
+                    className={`w-[358px] h-[46px] px-6 py-3 text-white text-sm font-bold rounded disabled:opacity-50 min-w-1/3 cursor-pointer ${allAnswered ? 'bg-[#322A24]' : 'bg-[#DBD7D0]'}`}
                     disabled={questions.some((q) => !answers[q.id])}
                     onClick={() => router.push(`${currentLocale}/shop/scent-guide/result`)}
                 >

@@ -21,8 +21,10 @@
     "required": "(필수)",
     "optional": "(선택)",
     "granhand": "그랑핸드",
-    "comfortable": "콤포타블",
+    "komfortabel": "콤포타블",
     "heyon": "헤이온",
 
-    "views": "조회수"
+    "views": "조회수",
+    "will_available": "준비중입니다.",
+    "discover_scent_placeholder": "나를 위한 향을 찾아보세요."
 }

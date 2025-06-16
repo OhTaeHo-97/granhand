@@ -18,9 +18,10 @@ export default function PaymentPage() {
     return (
         <main className="container mx-auto px-6 pt-8">
             {/* <h2 className="text-lg font-medium text-gray-900 m-0 p-0 leading-none">결제하기</h2> */}
-            <h2 className="text-lg font-medium text-left mb-8 pb-4">{t('payment:checkout')}</h2>
-            <div className="grid md:grid-cols-3 gap-8 mt-10 min-h-[80vh]">
-                <div className="md:col-span-2 max-h-[calc(100vh-100px)] overflow-y-auto pr-2">
+            <h2 className="text-lg font-medium text-left mb-8 pb-4 text-[#6F6963]">{t('payment:checkout')}</h2>
+            {/* <div className="grid md:grid-cols-3 gap-8 mt-10 min-h-[80vh]"> */}
+            <div className="grid md:grid-cols-[739px_357px] gap-8 mt-10 min-h-[80vh]">
+                <div className="max-h-[calc(100vh-100px)] overflow-y-auto pr-2">
                     {/* 배송 정보 */}
                     <DeliveryList t={t} />
 
@@ -47,5 +48,5 @@ export default function PaymentPage() {
                 </div>
             </div>
         </main>
-    );
+    )
 }

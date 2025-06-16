@@ -2,10 +2,10 @@ export default function AboutCompany() {
     return (
         <section className="container mx-auto px-6">
             <section className="py-8">
-                <h2 className={`text-xl font-semibold text-left mb-8 border-t pt-4`}>회사 소개</h2>
+                <h2 className={`text-xl font-semibold text-left mb-8 border-t pt-4 text-[#6F6963]`}>회사 소개</h2>
             </section>
 
-            <div className="space-y-8 text-gray-700 text-sm leading-relaxed">
+            <div className="space-y-8 text-[#6F6963] text-sm leading-loose w-[739px]">
                 <div className="space-y-1">
                     <p>2014년 북촌의 작은 한옥에서 시작한 그랑핸드는 ‘향의 일상화’를 모토로, 편하게 즐길 수 있는 향과 제품을 연구합니다.</p>
                     <p>일상을 벗어난 특별한 하루보다는 일상 그 자체를 더 좋고 아름답게 만드는 것에 도움이 되는 존재이고 싶습니다.</p>

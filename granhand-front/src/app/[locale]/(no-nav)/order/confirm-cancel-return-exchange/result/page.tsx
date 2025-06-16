@@ -27,7 +27,7 @@ export default function ResultPage() {
             { category === 'exchange' && <ExchangeResult t={t} /> }
 
             <div className="w-full flex justify-center mt-[6%]">
-                <Button className="mt-8 px-6 py-3 border border-gray-300 rounded text-sm font-medium h-14 hover:bg-gray-200" onClick={() => router.push(`${currentLocale}/my-page/order`)}>
+                <Button className="mt-8 px-6 py-3 border !border-[#C0BCB6] rounded text-sm font-bold w-[163px] h-[46px] hover:bg-[#f5f3ef] text-[#322A24]" onClick={() => router.push(`${currentLocale}/my-page/order`)}>
                     {t('view_details')}
                 </Button>
             </div>

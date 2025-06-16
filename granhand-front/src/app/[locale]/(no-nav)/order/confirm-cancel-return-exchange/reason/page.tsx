@@ -1,17 +1,15 @@
 import RequestListHeader from "../request-list/components/header";
 import ExchangeRefundReason from "./components/exchange-refund";
-import { LocaleTypes } from "../../../../../../../utils/localization/settings";
+// import { LocaleTypes } from "../../../../../../../utils/localization/settings";
 import { notFound } from "next/navigation";
 import CancelReason from "./components/cancel";
 // import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 import NextButton from "./components/next-btn";
-import { translation } from "../../../../../../../utils/localization/locales/server";
+// import { translation } from "../../../../../../../utils/localization/locales/server";
 
-export default async function ReasonPage({ searchParams, params }: { searchParams: Promise<Record<string, string>>, params: Promise<{ locale: LocaleTypes }> }) {
-    const { locale } = await params
+export default async function ReasonPage({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
     // const category = searchParams.category
     const { category } = await searchParams
-    const { t } = await translation(locale, ['order'])
     // const currentLocale = getCurrentLocaleFromParams(locale)
     if(!category) notFound()    
 
@@ -20,7 +18,7 @@ export default async function ReasonPage({ searchParams, params }: { searchParam
             <RequestListHeader category={category} curIndex={1} showProcess={true} />
             {/* <ExchangeRefundReason /> */}
             { category === 'exchangeRefund' && <ExchangeRefundReason /> }
-            { category === 'cancel' && <CancelReason t={t} /> }
+            { category === 'cancel' && <CancelReason /> }
 
             <NextButton />
 

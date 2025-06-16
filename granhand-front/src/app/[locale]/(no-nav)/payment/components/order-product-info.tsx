@@ -26,66 +26,68 @@ export default function OrderProductInfo({ t }: { t: (key: string) => string }) 
 
     return (
         <section className="space-y-4 mb-10">
-            <h2 className="text-base font-bold">{t('payment:order_item_info')}</h2>
+            <h2 className="text-sm font-bold text-[#322A24]">{t('payment:order_item_info')}</h2>
             <div className="border shadow-md rounded-md p-6 space-y-4">
                 <div className="flex gap-4 items-start">
                     <Image
                         src="/lovable-uploads/0e43a734-02ed-47a6-9dca-cea684e053f0.png"
                         alt="product"
-                        width={100}
-                        height={100}
-                        className="rounded object-cover"
+                        width={72}
+                        height={72}
+                        className="w-[72px] h-[72px]"
                     />
-                    <div className="flex-1">
-                        <div className="text-xs font-bold text-gray-500">GRANHAND</div>
-                        <div className="text-base font-semibold mt-1">Lumberjack Multi Perfume</div>
-                        <div className="text-xl font-bold mt-1">35,000원</div>
+                    <div className="flex-1 space-y-3 text-xs">
+                        <div className="font-bold text-[#C0BCB6]">GRANHAND</div>
+                        <div className="space-y-1">
+                            <div className="font-medium text-[#322A24] mt-1">Lumberjack Multi Perfume</div>
+                            <div className="text-sm text-[#322A24] font-bold mt-1">35,000원</div>
+                        </div>
                     </div>
                 </div>
                 <hr className="my-4 border-dashed" />
-                <div className="space-y-1 text-sm">
+                <div className="space-y-1 text-xs text-[#6F6963]">
                     <div className="flex">
-                        <span className="text-gray-400 w-24">{t('payment:option')}</span>
+                        <span className="text-[#C0BCB6] w-24 leading-[20px]">{t('payment:option')}</span>
                         <span>롤랑 멀티퍼퓸 100ml / 1개</span>
                     </div>
                     <div className="flex">
-                        <span className="text-gray-400 w-24">{t('payment:shopping_bag')}</span>
+                        <span className="text-[#C0BCB6] w-24">{t('payment:shopping_bag')}</span>
                         <span>추가 구매 (+500원)</span>
                     </div>
                 </div>
-
-                <div className="pt-6">
+                <hr className="my-4 border-dashed" />
+                <div>
                     <div className="flex justify-between items-center mb-2">
-                        <h3 className="font-bold text-base">{t('payment:stamping_title')}</h3>
+                        <h3 className="font-medium text-sm text-[#322A24]">{t('payment:stamping_title')}</h3>
                         <Switch
                             checked={enabled}
                             onCheckedChange={setEnabled}
-                            className={enabled ? "bg-black" : "bg-white border"}
+                            className={enabled ? "bg-[#322A24]" : "bg-[#FDFBF5] border"}
                         />
                     </div>
                     <div className="flex items-center gap-2 relative">
                         <Input
                             type="text"
                             placeholder={`${t('payment:stamping_placeholder')}`}
-                            className="flex-1 border rounded px-3 py-3 text-sm"
+                            className="h-[46px] flex-1 border !border-[#C0BCB6] rounded px-3 py-3 text-sm text-[#322A24] placeholder:text-[#C0BCB6]"
                             ref={inputRef}
                             value={value}
                             onChange={(e) => setValue(e.target.value)}
                             disabled={!enabled}
                         />
                         <Button
-                            className="w-28 h-full text-sm bg-gray-100"
+                            className="w-[72px] h-[46px] text-sm bg-[#322A2408] text-[#6F6963]"
                             onClick={() => setShowSymbols((prev) => !prev)}
                         >
                             {t('payment:special_character')}
                         </Button>
                         {showSymbols && (
-                            <div className="absolute top-full right-0 mt-2 border rounded bg-gray-50 p-2 flex gap-2 shadow-lg z-10">
+                            <div className="absolute top-full right-0 mt-2 border rounded bg-[#D9D9D9] p-2 flex gap-2 shadow-lg z-10 w-[204px] h-[39.96px]">
                                 {symbols.map((sym, index) => (
                                     <Button
                                         key={index}
                                         onClick={() => addSymbol(sym)}
-                                        className="px-2 py-1 bg-white rounded shadow hover:bg-gray-100"
+                                        className="!w-[20px] !h-[20px] !p-0 bg-[#FDFBF5] rounded shadow hover:bg-[#322A2408] text-[10px] font-bold"
                                     >
                                         {sym}
                                     </Button>
@@ -93,8 +95,8 @@ export default function OrderProductInfo({ t }: { t: (key: string) => string }) 
                             </div>
                         )}
                     </div>
-                    <p className="text-xs text-gray-400 mt-2">
-                        {t('payment:stamping_constraint')}<br />
+                    <p className="text-[10px] text-[#6F6963] mt-2">
+                        <span className="leading-[18px]">{t('payment:stamping_constraint')}</span><br />
                         {t('payment:refund_constraint')}
                     </p>
                 </div>

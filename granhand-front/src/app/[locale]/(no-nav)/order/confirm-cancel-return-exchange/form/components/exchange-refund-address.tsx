@@ -19,16 +19,16 @@ export default function ExchangeRefundAddress({ title, info, showEdit = true }: 
     }
 
     return (
-        <div className="border p-4 mt-5">
+        <div className="border !border-[#C0BCB6] p-4 mt-5 h-[137px]">
             <div className="flex justify-between items-center">
-                <h3 className="font-semibold text-black text-base">{title}</h3>
+                <h3 className="font-bold text-[#322A24] text-sm">{title}</h3>
                 {showEdit && (
-                    <Button className="text-sm text-gray-400 p-0 h-fit" onClick={handleAddress}>
+                    <Button className="text-xs text-[#322A244D] font-bold p-0 h-fit" onClick={handleAddress}>
                         {t('edit_address')}
                     </Button>
                 )}
             </div>
-            <div className="space-y-2 mt-5 text-gray-700">
+            <div className="space-y-2 mt-5 text-[#322A24] text-xs font-medium">
                 <div>
                     {addressInfo.name}
                 </div>

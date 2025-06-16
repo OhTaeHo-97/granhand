@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { subMonths, addMonths, isSameDay, startOfMonth, endOfMonth, startOfWeek, endOfWeek, isSameMonth, format, addDays } from "date-fns";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CheckIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import { Button } from "@/components/ui/button";
 import BasicModal from "@/app/[locale]/components/modal";
+import Image from "next/image";
 
 export default function AttendancePage() {
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -58,12 +59,23 @@ export default function AttendancePage() {
                 days.push(
                 <div
                     key={day.toString()}
-                    className={`w-10 h-10 flex items-center justify-center text-sm rounded-full mx-auto relative
-                    ${isChecked ? "bg-black text-white" : isCurrentMonth ? "text-black" : "text-gray-300"}`}
+                    className={`w-[18px] h-[18px] flex items-center justify-center text-sm rounded-full mx-auto relative text-[12px]
+                    ${isChecked ? "bg-[#E34234] text-white" : isCurrentMonth ? "text-[#322A24]" : "text-[#C0BCB6]"}`}
                 >
-                    {isChecked ? "✓" : formattedDate}
+                    {isChecked ? (
+                        <Image
+                            src='/check-icon.png'
+                            alt="check icon"
+                            width={18}
+                            height={18}
+                            className="w-[18px] h-[18px]"
+                        />
+                    ) : (
+                        formattedDate
+                    )}
+                    {/* {isChecked ? <CheckIcon size={10} /> : formattedDate} */}
                     {isToday && !isChecked && (
-                    <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 text-gray-400 text-2xl">•</div>
+                    <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 text-[#322A24] text-xl">•</div>
                     )}
                 </div>
                 );
@@ -76,16 +88,16 @@ export default function AttendancePage() {
     };
 
     return (
-        <main className="w-full mx-auto space-y-6 max-w-4xl min-w-96">
-            <section className="rounded-md shadow-sm px-6 pt-6 pb-8 border-t-4 border-black">
-                <div className="max-w-1/2 min-w-80 mx-auto items-center justify-between">
+        <main className="w-[739px] mx-auto space-y-6 max-w-4xl min-w-96">
+            <section className="rounded-md shadow-sm px-6 pt-6 pb-8 border-t-4 !border-[#6F6963]">
+                <div className="max-w-1/2 w-[345px] mx-auto items-center justify-between">
                     <div className="flex justify-between items-center mb-12 px-10">
-                        <button onClick={handlePrevMonth}><ChevronLeft className="text-gray-400" /></button>
-                        <h2 className="text-lg font-bold">{format(currentMonth, "yyyy.MM")}</h2>
-                        <button onClick={handleNextMonth}><ChevronRight className="text-gray-400" /></button>
+                        <button onClick={handlePrevMonth}><ChevronLeft className="text-[#5E5955]" size={24} /></button>
+                        <h2 className="text-xl font-bold text-[#322A24]">{format(currentMonth, "yyyy.MM")}</h2>
+                        <button onClick={handleNextMonth}><ChevronRight className="text-[#5E5955]" size={24} /></button>
                     </div>
 
-                    <div className="grid grid-cols-7 gap-x-3 text-center text-sm text-gray-900 font-semibold mb-8">
+                    <div className="grid grid-cols-7 gap-x-3 text-center text-xs text-[#322A24] font-bold mb-8">
                     {"SMTWTFS".split("").map((d) => (
                         <div key={d}>{d}</div>
                     ))}
@@ -94,32 +106,44 @@ export default function AttendancePage() {
                     {renderCalendar()}
                 </div>
 
-                <div className="text-right text-sm text-gray-600 flex items-center justify-end mt-4 gap-1">
-                    <span className="text-lg">✔</span>
+                <div className="text-right text-[10px] font-medium text-[#6F6963] flex items-center justify-end mt-4 gap-1">
+                    {/* <div className="flex items-center justify-center rounded-full bg-[#E34234] text-white w-5 h-5">
+                        <CheckIcon size={16} />
+                    </div> */}
+                    <Image
+                        src='/check-icon.png'
+                        alt="check icon"
+                        width={16}
+                        height={16}
+                        className="w-[16px] h-[16px]"
+                    />
+                    {/* <span className="text-lg">✔</span> */}
                     {t('check_in_cmpl')}
                 </div>
             </section>
 
-            <section className="flex justify-between border rounded-md py-4 text-sm text-center mb-12">
+            <section className="flex justify-between rounded-md py-4 text-sm text-center mb-12 shadow-sm h-[100px]">
                 <div className="w-1/2 flex flex-col items-center justify-center">
-                    <p className="text-gray-400 mb-1">{t('total_check_in')}</p>
-                    <p className="text-lg font-bold">{checkedDays.length}{t('day')}</p>
+                    <p className="text-[#C0BCB6] mb-1 text-xs font-bold">{t('total_check_in')}</p>
+                    <p className="text-lg font-bold text-[#322A24]">{checkedDays.length}{t('day')}</p>
                 </div>
                 <div className="w-px h-10 bg-gray-200 self-center"></div>
                 <div className="w-1/2 flex flex-col items-center justify-center">
-                    <p className="text-gray-400 mb-1">{t('total_points')}</p>
-                    <p className="text-lg font-bold">{checkedDays.length * 100}</p>
+                    <p className="text-[#C0BCB6] mb-1 text-xs font-bold">{t('total_points')}</p>
+                    <p className="text-lg font-bold text-[#322A24]">{checkedDays.length * 100}</p>
                 </div>
             </section>
 
-            <div className="relative mb-2">
-                <div className="absolute left-1/2 transform -translate-x-1/2 -top-8 bg-[#E34234] text-white text-xs px-3 py-1 rounded shadow-md after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-t-[#E34234] after:border-x-transparent after:border-b-0">
-                    {t('check_in_toast')}
+            {!isCheckedToday && (
+                <div className="relative mb-2">
+                    <div className="absolute w-[160px] h-[24.5px] text-[10px] font-bold left-1/2 transform -translate-x-1/2 -top-8 bg-[#E34234] text-white text-xs px-3 py-1 rounded shadow-md after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-t-[#E34234] after:border-x-transparent after:border-b-0">
+                        {t('check_in_toast')}
+                    </div>
                 </div>
-            </div>
+            )}
             <Button
                 onClick={handleCheck}
-                className="bg-black text-white text-center w-full py-3 font-medium text-sm h-12"
+                className="bg-[#322A24] text-white text-center w-full h-[46px] py-3 font-bold text-sm disabled:bg-[#DBD7D0]"
                 disabled={isCheckedToday}
             >
                 {t('check_in')}

@@ -119,5 +119,8 @@
     "exchange_procedure2": "반품 상품 수거 완료 이후 환불 금액이 확정됩니다.",
 
     "pickup_track": "회수 조회",
-    "delivery_track": "배송 조회"
+    "delivery_track": "배송 조회",
+    "search": "조회하기",
+    "exchange_product_info": "교환 상품 정보",
+    "cancel_details": "취소 상세 보기"
 }

@@ -7,15 +7,15 @@ import Navigation from '@/components/Navigation'
 //     return [{ locale: 'ko' }, { locale: 'en' }]
 // }
 
-export default function TestLayout({ children }: { children: React.ReactNode }) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
     return (
-        <>
+        <div className='w-[1120px] mx-auto min-h-screen'>
             <Header />
-            <div className="min-h-screen bg-white">
+            <div>
                 <Navigation />
                 {children}
             </div>
             <Footer />
-        </>
+        </div>
     )
 }

@@ -19,7 +19,7 @@ export default function NextButton() {
 
             <div className="mt-6 border-b pb-6">
                 <div className="flex justify-end items-center text-lg font-semibold">
-                    <Button className="text-base px-10 py-2 text-white bg-black rounded-none h-11 min-w-32 w-[25%]" onClick={() => router.push(`${currentLocale}/order/confirm-cancel-return-exchange/form?${queryString}`)}>{t('next')}</Button>
+                    <Button className="text-base px-10 py-2 text-white bg-[#322A24] rounded-none min-w-32 w-[358px] h-[46px]" onClick={() => router.push(`${currentLocale}/order/confirm-cancel-return-exchange/form?${queryString}`)}>{t('next')}</Button>
                 </div>
             </div>
         </>

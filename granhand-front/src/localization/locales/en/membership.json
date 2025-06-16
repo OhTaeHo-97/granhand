@@ -1,6 +1,7 @@
 {
     "title": "Membership Tear Guide",
     "my_membership": "My Membership Tier",
+    "my_membership_info": "Your current membership level is <black>{{level}}</black>.",
     "benefit": "Tier Benefit",
     "criteria": "Criteria",
     "benefits": "Benefits",

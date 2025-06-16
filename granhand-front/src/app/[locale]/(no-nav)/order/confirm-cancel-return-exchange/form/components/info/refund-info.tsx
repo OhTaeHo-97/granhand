@@ -9,7 +9,7 @@ export default function RefundInformation() {
     const { t } = useTranslation(locale, 'order')
     
     return (
-        <Information bgColor = "bg-gray-200" title = {t('refund_method_info')} contents={[
+        <Information bgColor = "bg-[#322A2408]" title = {t('refund_method_info')} contents={[
             {
                 elem: t('credit_check'),
                 sub: [t('credit_check_info')]

@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useLocaleAsLocaleTypes, useCurrentLocale } from "@/lib/useCurrentLocale";
 import { cn } from "@/lib/utils";
@@ -8,6 +7,8 @@ import { ChevronDown } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 export default function NavigationBar() {
     const router = useRouter()
@@ -18,14 +19,15 @@ export default function NavigationBar() {
     const { t } = useTranslation(locale, ['common', 'awards'])
     const currentLocale = useCurrentLocale()
 
-    const awards = [{label: t('awards:film'), value: 'awards:film'}, {label: t('awards:sketching'), value: 'awards:sketching'}, {label: t('awards:literary'), value: 'awards:literary'}]
+    const awards = [{label: t('awards:film'), value: 'film'}, {label: t('awards:sketching'), value: 'sketching'}, {label: t('awards:literary'), value: 'literary'}]
+    // const awards = [{label: t('awards:film'), value: 'awards:film'}, {label: t('awards:sketching'), value: 'awards:sketching'}, {label: t('awards:literary'), value: 'awards:literary'}]
     // const awards = [t('awards:film'), t('awards:sketching'), t('awards:literary')]
     const categories = [{label: t('awards:event'), value: ''}, {label: t('awards:entry'), value: 'entry'}, {label: t('awards:winning'), value: 'winning'}]
 
-    const [selectedMenu, setSelectedMenu] = useState(t('awards:film'))
+    const [selectedMenu, setSelectedMenu] = useState(t('film'))
     const [selectedCategory, setSelectedCategory] = useState('')
 
-    const onSelectMenu = (menu: string) => {
+    const handleSelectedMenuChange = (menu: string) => {
         const param = new URLSearchParams(params)
         param.set('menu', menu)
         console.log('menu: ', menu)
@@ -35,7 +37,7 @@ export default function NavigationBar() {
         router.push(`${currentLocale}/awards${pathname}?${param.toString()}`)
     }
 
-    const onSelectCategory = (category: string) => {
+    const handleSelectedCategoryChange = (category: string) => {
         setSelectedCategory(category)
         const param = new URLSearchParams(params)
         param.set('menu', selectedMenu)
@@ -64,23 +66,23 @@ export default function NavigationBar() {
         <nav className="w-full flex items-center justify-between border-t pt-4 min-w-fit">
             {/* 왼쪽: AWARDS + 드롭다운 */}
             <div className="flex items-center gap-4 h-10">
-                <h2 className="text-lg font-medium text-gray-900 m-0 p-0 leading-none">AWARDS</h2>
+                <h2 className="text-lg font-medium text-[#6F6963] m-0 p-0 leading-none">AWARDS</h2>
 
                 <div className="relative">
                     <DropdownMenu>
-                        <DropdownMenuTrigger className="text-sm flex items-center gap-1 text-gray-600 min-w-fit">
-                            {t(selectedMenu)} <ChevronDown className="w-4 h-4" />
+                        <DropdownMenuTrigger className="text-xs flex items-center gap-1 text-[#6F6963] font-bold min-w-fit">
+                            {t(`awards:${selectedMenu}`)} <ChevronDown className="w-4 h-4" />
                         </DropdownMenuTrigger>
 
                         <DropdownMenuPortal>
-                            <DropdownMenuContent sideOffset={4} className="bg-white border rounded shadow-md p-1 text-sm">
+                            <DropdownMenuContent sideOffset={4} className="bg-[#FDFBF5] border rounded shadow-md p-1 text-sm">
                                 {awards.map(({ label, value }) => (
                                     <DropdownMenuItem
                                         key={value}
-                                        className={cn("px-4 py-2 hover:bg-gray-100 cursor-pointer min-w-fit",
-                                            value === selectedMenu && "font-bold text-black"
+                                        className={cn("text-xs font-medium px-4 py-2 hover:bg-[#322A2408] cursor-pointer min-w-fit text-[#322A244D]",
+                                            value === selectedMenu && "font-bold text-[#6F6963]"
                                         )}
-                                        onSelect={() => onSelectMenu(value)}
+                                        onSelect={() => handleSelectedMenuChange(value)}
                                     >
                                         {label}
                                     </DropdownMenuItem>
@@ -93,10 +95,31 @@ export default function NavigationBar() {
 
             {/* 오른쪽: 서브메뉴 */}
             <div className="flex items-center text-sm text-gray-400">
-                {categories.map(({ label, value }) => (
+                <RadioGroup
+                    value={selectedCategory}
+                    onValueChange={handleSelectedCategoryChange}
+                    // className="flex text-sm"
+                    className="flex rounded overflow-hidden gap-[24px]"
+                >
+                    {categories.map(({ label, value }) => (
+                        <Label
+                            key={value}
+                            className={cn(
+                                "text-sm font-bold transition-colors min-w-[5%] hover:text-[#322A24]",
+                                selectedCategory === value
+                                    ? "text-[#322A24]"
+                                    : "text-[#322A244D]"
+                            )}
+                        >
+                            <RadioGroupItem value={value} className="hidden" />
+                            {label}
+                        </Label>
+                    ))}
+                </RadioGroup>
+                {/* {categories.map(({ label, value }) => (
                     <Button
                         key={value}
-                        onClick={() => onSelectCategory(value)}
+                        onClick={() => handleSelectedCategoryChange(value)}
                         className={`text-sm ${
                             selectedCategory === value
                                 ? 'text-black semibold'
@@ -105,7 +128,7 @@ export default function NavigationBar() {
                     >
                         {label}
                     </Button>
-                ))}
+                ))} */}
             </div>
         </nav>
     )

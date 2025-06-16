@@ -25,7 +25,7 @@ export default async function RequestListPage({ searchParams, params }: { search
                 <h2 className="text-2xl font-semibold">구매 확정</h2>
             </div> */}
             <RequestListHeader category={category} curIndex={0} showProcess={true} />
-            <ProductInfoTable t={t} currentLocale={currentLocale} />
+            <ProductInfoTable />
             {/* <OrderConfirmRequestList /> */}
             { category === 'confirm' && <OrderConfirmRequestList /> }
             { category === 'cancel' && <OrderCancelRequestList /> }

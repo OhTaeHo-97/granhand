@@ -48,22 +48,22 @@ export default function GiftMessage({ t }: { t: (key: string) => string }) {
 
     return (
         <section className="space-y-2 mb-10">
-            <h2 className="text-base font-bold">{t('payment:gift_message')}</h2>
+            <h2 className="text-sm font-bold text-[#322A24]">{t('payment:gift_message')}</h2>
             <div className="space-y-2">
                 <div className="relative mt-6">
                     <Button
                         onClick={scrollLeft}
                         className="absolute top-1/2 -translate-y-1/2 left-0 z-10 bg-transparent rounded-full p-1 border-none"
                     >
-                        <ChevronLeft className="w-5 h-5 text-gray-600" />
+                        <ChevronLeft className="!w-[24px] !h-[24px] text-[#5E5955]" />
                     </Button>
 
-                    <div id="gift-card-scroll-container" className="flex gap-4 overflow-x-auto pb-2 scroll-smooth mx-8">
+                    <div className="flex gap-4 overflow-x-auto pb-2 scroll-smooth mx-8">
                         {cards.map((card, index) => (
                             <div key={index}>
                                 <div
                                     key={index}
-                                    className={`min-w-[300px] p-6 rounded ${card.bg} ${card.text} text-sm text-center flex-shrink-0`}
+                                    className={`min-w-[342px] h-[180px] p-6 rounded ${card.text} text-sm text-center flex-shrink-0`}
                                 >
                                     <GiftCard />
                                 </div>
@@ -86,7 +86,7 @@ export default function GiftMessage({ t }: { t: (key: string) => string }) {
                         onClick={scrollRight}
                         className="absolute top-1/2 -translate-y-1/2 right-0 z-10 bg-transparent p-1"
                     >
-                        <ChevronRight className="w-5 h-5 text-gray-600" />
+                        <ChevronRight className="!w-[24px] !h-[24px] text-[#5E5955]" />
                     </Button>
                 </div>
             </div>

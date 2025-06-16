@@ -1,6 +1,7 @@
 {
     "title": "등급 안내",
     "my_membership": "나의 멤버십 등급",
+    "my_membership_info": "현재 등급은 <black>{{level}}</black>입니다.",
     "benefit": "등급 혜택 안내",
     "criteria": "기준",
     "benefits": "혜택",

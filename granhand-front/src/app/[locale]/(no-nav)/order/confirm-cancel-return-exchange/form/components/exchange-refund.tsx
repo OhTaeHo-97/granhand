@@ -42,16 +42,16 @@ export default function ExchangeRefundForm() {
 
     return (
         <>
-            <div className="w-full max-w-4xl mx-auto mb-20">
-                <div className="rounded-lg space-y-4 bg-white mb-10">
-                    <h2 className="text-base font-bold text-gray-700">{t('exchange_refund_item_info')}</h2>
-                    <div className="border rounded-md p-6 space-y-6 bg-white">
+            <div className="max-w-4xl mx-auto mb-20 w-[739px]">
+                <div className="rounded-lg space-y-4 bg-[#FDFBF5] mb-10">
+                    <h2 className="text-sm font-bold text-[#322A24]">{t('exchange_refund_item_info')}</h2>
+                    <div className="border rounded-md p-6 space-y-6 bg-[#FDFBF5]">
                         <ProductInfoCard t={t} currentLocale={currentLocale} />
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 mb-10 gap-16">
-                    <div className="bg-white rounded-md text-sm text-gray-600 space-y-2 w-full">
-                        <h2 className="font-semibold text-black text-base">{t('exchange_refund_selection')}</h2>
+                <div className="grid grid-cols-[342px_342px] mb-10 gap-16">
+                    <div className="bg-[#FDFBF5] rounded-md text-sm text-gray-600 space-y-2 w-full">
+                        <h2 className="font-bold text-[#322A24] text-sm">{t('exchange_refund_selection')}</h2>
                         <RadioGroup
                             className="p-4 pl-12"
                             onValueChange={setCategory}
@@ -61,10 +61,11 @@ export default function ExchangeRefundForm() {
                                 <Label key={value} className="flex items-start gap-3 cursor-pointer space-y-6">
                                     <RadioGroupItem
                                         value={value}
+                                        className="w-[14px] h-[14px]"
                                     >
-                                        <span className="text-sm text-gray-800">{label}</span>
+                                        <span className="text-xs font-bold text-[#6F6963]">{label}</span>
                                     </RadioGroupItem>
-                                    <span className="text-sm text-gray-800">{label}</span>
+                                    <span className="text-xs font-bold text-[#6F6963]">{label}</span>
                                 </Label>
                             ))}
                         </RadioGroup>
@@ -75,8 +76,8 @@ export default function ExchangeRefundForm() {
                 {category === 'exchange' && <ExchangeForm />}
                 {category === 'refund' && <RefundForm />}
             </div>
-            <div className="py-6 border-t border-b flex justify-end">
-                <Button className="bg-black text-white rounded-none font-bold p-6 w-1/4 min-w-50" onClick={() => router.push(nextLink())}>
+            <div className="py-6 border-t border-b flex justify-end w-[739px] mx-auto">
+                <Button className="bg-[#322A24] text-white rounded-none font-bold p-6 w-[358px] h-[46px] min-w-50" onClick={() => router.push(nextLink())}>
                     {t('submit')}
                 </Button>
             </div>

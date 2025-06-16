@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function PaymentInfoCheck({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
     const router = useRouter()
@@ -26,20 +27,20 @@ export default function PaymentInfoCheck({ t, currentLocale }: { t: (key: string
         // Right: 결제 요약
         <aside className="space-y-6">
             <PaymentInfo t={t} />
-            <div className="flex justify-between text-sm font-semibold">
-                <span>{t('payment:earned_points')}</span>
-                <span className="font-bold">+700</span>
+            <div className="flex justify-between text-sm font-bold text-[#111111]">
+                <span className="text-[#322A24]">{t('payment:earned_points')}</span>
+                <span>+700</span>
             </div>
-            <div className="bg-gray-100 p-3 text-xs text-gray-600 h-20 rounded flex items-center">
-                <div className="flex items-center gap-5">
-                    <div className="w-5 h-5 flex items-center justify-center rounded-full border border-gray-300 text-gray-400 text-xs">!</div>
-                    {t('payment:points_info')}
+            <div className="bg-[#322A2408] p-[16px] text-xs text-[#6F6963] h-[56px] rounded flex items-center">
+                <div className="flex items-center gap-3">
+                    <div className="w-[16px] h-[16px] flex items-center justify-center rounded-full border !border-[#322A241A] text-[#C0BCB6] text-[10px] bg-[#FDFBF5]">!</div>
+                    <span className="text-[#6F6963] text-[10px] font-medium">{t('payment:points_info')}</span>
                 </div>
             </div>
-            <div className="flex justify-end font-semibold text-black items-center">
-                <span className="text-sm mr-3">{t('payment:total')}</span><span className="text-bold text-xl">25,500원</span>
+            <div className="flex justify-end font-bold text-[#322A24] items-center">
+                <span className="text-xs mr-3">{t('payment:total')}</span><span className="text-lg">25,500원</span>
             </div>
-            <div className="space-y-4 text-sm border-t pt-4 mb-20">
+            <div className="space-y-4 text-xs border-t pt-4 mb-20 text-[#6F6963]">
                 <Label className="flex items-center gap-4">
                     <Checkbox
                         // className="accent-black w-4 h-4"
@@ -60,7 +61,7 @@ export default function PaymentInfoCheck({ t, currentLocale }: { t: (key: string
                             }
                         }}
                     />
-                    <span className="font-bold text-gray-700">{t('payment:all_agree')}</span>
+                    <span className="font-bold text-xs">{t('payment:all_agree')}</span>
                 </Label>
                 <hr className="border-dashed" />
                 <Label className="flex items-center gap-4">
@@ -71,9 +72,11 @@ export default function PaymentInfoCheck({ t, currentLocale }: { t: (key: string
                             checked={agree1}
                             onCheckedChange={handleChange(setAgree1)}
                         />
-                        <span className="text-gray-700">{t('required')} <strong>{t('payment:collection')}</strong></span>
+                        <span className="text-xs">{t('required')} <strong className="text-xs">{t('payment:collection')}</strong></span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-gray-500" />
+                    <Link href={`${currentLocale}/terms`} target="_blank" rel="noopener noreferrer">
+                        <ChevronRight className="w-4 h-4 text-gray-500" />
+                    </Link>
                 </Label>
                 <Label className="flex items-center gap-4">
                     <div className="flex items-center gap-4">
@@ -83,9 +86,11 @@ export default function PaymentInfoCheck({ t, currentLocale }: { t: (key: string
                             checked={agree2}
                             onCheckedChange={handleChange(setAgree2)}
                         />
-                        <span className="text-gray-700">{t('required')} <strong>{t('payment:provision')}</strong></span>
+                        <span className="text-xs">{t('required')} <strong className="text-xs">{t('payment:provision')}</strong></span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-gray-500" />
+                    <Link href={`${currentLocale}/terms/privacy`} target="_blank" rel="noopener noreferrer">
+                        <ChevronRight className="w-4 h-4 text-gray-500" />
+                    </Link>
                 </Label>
 
                 <Label className="flex items-center gap-4">
@@ -96,12 +101,12 @@ export default function PaymentInfoCheck({ t, currentLocale }: { t: (key: string
                             checked={agree3}
                             onCheckedChange={handleChange(setAgree3)}
                         />
-                        <span className="text-gray-700">{t('required')} <strong>{t('payment:terms')}</strong></span>
+                        <span className="text-xs">{t('required')} <strong className="text-xs">{t('payment:terms')}</strong></span>
                     </div>
                     <ChevronRight className="w-4 h-4 text-gray-500" />
                 </Label>
             </div>
-            <Button className="w-full bg-black text-white py-3 rounded-none" disabled={!isAllChecked} onClick={() => router.push(`${currentLocale}/payment/result`)}>{t('payment:checkout')}</Button>
+            <Button className="w-full h-[46px] bg-[#322A24] text-white py-3 rounded-none text-sm font-bold" disabled={!isAllChecked} onClick={() => router.push(`${currentLocale}/payment/result`)}>{t('payment:checkout')}</Button>
         </aside>
     )
 }

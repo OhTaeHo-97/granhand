@@ -1,7 +1,7 @@
 'use client'
 
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeftIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "../../../../../../../../utils/localization/client";
 
@@ -33,19 +33,21 @@ export default function RequestListHeader({ category, curIndex, showProcess }: {
 
     return (
         <div className="flex justify-between">
-            <div className="flex items-center mb-8">
-                <ChevronLeft className="text-base text-gray-500 mr-3" onClick={() => router.back()} />
-                <h2 className="text-2xl font-semibold">
+            <section className="flex items-center mb-8">
+                <div className="flex gap-4 items-center">
+                    <ChevronLeftIcon size={24} className="text-[#6F6963]" onClick={() => router.back()} />
+                    <h2 className={`text-lg font-medium text-left text-[#6F6963]`}>
                     {category === 'confirm' && t('my_page:confirm_purchase')}
                     {category === 'cancel' && t('my_page:order_cancel')}
                     {(category === 'exchangeRefund' || category === 'exchange' || category === 'refund') && t('my_page:exchange_return')}
-                </h2>
-            </div>
+                    </h2>
+                </div>
+            </section>
             {
                 curMenu && showProcess && (
-                    <div className="text-xs text-gray-400">
+                    <div className="text-xs font-medium text-[#C0BCB6]">
                         {curMenu.map((menu, index) => (
-                            <span key={index} className={`${index === curIndex && 'text-[#5f5b56] text-semibold'}`}>
+                            <span key={index} className={`${index === curIndex && 'text-[#6F6963]'}`}>
                                 {menu} { index !== cancelMenu.length - 1 ? " > " : "" }
                             </span>
                         ))}

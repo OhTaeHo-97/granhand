@@ -11,8 +11,8 @@ export default async function MyPageLayout({ children, params }: { children: Rea
     
     return (
         <div className="container mx-auto px-6 pt-8">
-            <MyPageTitle t={t} />
-            <div className="flex w-full min-h-screen bg-white text-gray-900">
+            <MyPageTitle />
+            <div className="flex w-full min-h-screen text-gray-900">
                 <MyPageSidebar t={t} currentLocale={currentLocale} />
                 {children}
             </div>

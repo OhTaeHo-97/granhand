@@ -10,5 +10,11 @@
     "confirm": "Confirm",
     "cancel_order": "Cancel Order",
     "close": "Close",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+
+    "link_copy": "Link copied successfully.",
+    "add_cart": "The item has been added to your cart. Would you like to view your cart?",
+
+    "resent_msg": "The message has been resent.",
+    "cannot_send_since_cancel": "The gift has been canceled, so the message cannot be sent."
 }

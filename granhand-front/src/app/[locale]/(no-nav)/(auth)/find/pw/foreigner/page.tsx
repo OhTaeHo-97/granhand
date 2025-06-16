@@ -2,76 +2,179 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft } from "lucide-react";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale";
 import { useRouter } from "next/navigation";
-// import { useState } from "react";
+import { useTranslation } from "../../../../../../../../utils/localization/client";
+import { useEffect, useRef, useState } from "react";
+import { Label } from "@/components/ui/label";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const verifySchema = z.object({
+    phone: z.string()
+        .min(1, "휴대폰 번호를 입력해 주세요.")
+        .regex(
+            /^\+\d+ \d+ \d{3} \d{4}$/,
+            {
+                message: "휴대폰 번호는 +국가코드 지역코드 번호-1 번호-2 형식이어야 합니다 (예: +1 10 123 4567)"
+            }
+        ),
+    verify: z.string()
+})
+
+type VerifyValues = z.infer<typeof verifySchema>
 
 export default function ForeignFindPw() {
 // export default function ForeignFindPw({ onNext }: { onNext: () => void }) {
     const router = useRouter()
-    // const [name, setName] = useState("");
-    // const [phone, setPhone] = useState("");
-    // const [validatation, setValidation] = useState("")
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'auth'])
+    const currentLocale = useCurrentLocale()
+    const [phone, setPhone] = useState('')
+    const [validNumber, setValidNumber] = useState('')
+    const [timer, setTimer] = useState(0)
+    const timerRef = useRef<NodeJS.Timeout | null>(null)
 
-    // const handleSubmit = (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     console.log("Find ID attempt:", { name, phone });
-    //     onNext();
-    // };
+    const form = useForm<VerifyValues>({
+        resolver: zodResolver(verifySchema),
+        defaultValues: {
+            phone: '',
+            verify: ''
+        }
+    })
+
+    const { setError } = form
+
+    const handlePhoneVerification = () => {
+        const values = form.getValues()
+        const result = verifySchema.safeParse(values)
+
+        if(!result.success) {
+            result.error.errors.forEach((err) => {
+                const field = err.path[0]
+                if(field === 'phone') {
+                    setError('phone', { message: err.message })
+                }
+            })
+            return
+        }
+
+        startTimer()
+    }
+
+    const handleVerifyConfirm = () => {
+        const values = form.getValues()
+        const result = verifySchema.safeParse(values)
+
+        if(!result.success) {
+            result.error.errors.forEach((err) => {
+                const field = err.path[0]
+                if(field === 'phone') {
+                    setError('phone', { message: err.message })
+                }
+                if(field === 'verify') {
+                    setError('verify', { message: err.message })
+                }
+            })
+            return
+        }
+
+        router.push(`${currentLocale}/find/pw/reset`)
+    }
+
+    const startTimer = () => {
+        setTimer(180)
+        if(timerRef.current) clearInterval(timerRef.current)
+        
+        timerRef.current = setInterval(() => {
+            setTimer((prev) => {
+                if(prev <= 1) {
+                    clearInterval(timerRef.current!)
+                    return 0
+                }
+                return prev - 1
+            })
+        }, 1000)
+    }
+
+    // const handleClickValidReq = () => {
+    //     startTimer()
+    // }
+
+    useEffect(() => {
+        return () => {
+            if(timerRef.current) clearInterval(timerRef.current)
+        }
+    }, [])
+
+    const formatTime = (sec: number) => {
+        const m = String(Math.floor(sec / 60)).padStart(2, '0')
+        const s = String(sec % 60).padStart(2, '0')
+        return `${m}:${s}`
+    }
 
     return (
-        <main className="space-y-6 container mx-auto px-6 pt-8">
-            <h2 className="text-lg font-medium text-left mb-4 border-b border-b-[#6f6963] pb-4">비밀번호 찾기</h2>
-            <div className="flex items-center mb-8">
-                <Button className="w-4 h-4" onClick={() => router.back()}>
-                    <ChevronLeft className="w-4 h-4 text-gray-500 mr-3" />
-                </Button>
-                <div className="text-sm items-center text-gray-500">이전단계</div>
-            </div>
+        <div className="max-w-xl w-[358px] mx-auto text-left min-h-screen">
+            {/* Title */}
+            <section className="mb-10">
+                <h1 className="text-base font-medium mb-2 text-[#322A24]">{t('auth:verify_phone')}</h1>
+            </section>
 
-            <div className="max-w-xl w-full mx-auto text-left min-h-screen">
-                {/* Title */}
-                <section className="mb-10">
-                    <h1 className="text-lg font-semibold mb-2">휴대폰 인증을 해주세요.</h1>
-                    {/* <p className="text-sm text-gray-600">
-                    휴대폰 본인인증을 통해 아이디(이메일)를 확인합니다.
-                    </p> */}
-                </section>
-
-                {/* 인증 버튼 */}
-                <div className="text-left mb-8 w-full">
-                    {/* <Button className="bg-[#2b2119] text-white h-12 text-base font-semibold w-full">
-                    휴대폰 인증
-                    </Button> */}
-                    <div className="mb-4">
-                        <label className="block mb-2 font-semibold text-sm">휴대폰 번호</label>
-                        <div className="flex gap-2">
-                        <Input
-                            type="tel"
-                            placeholder="+1 10 123 4567"
-                            className="flex-1 h-14"
-                        />
-                        <Button className="bg-neutral-300 text-white font-bold px-4 h-14 min-w-30">인증요청</Button>
+            {/* 인증 버튼 */}
+            <div className="text-left mb-8 w-full">
+                <div className="mb-4">
+                    <Label className="block mb-2 text-sm font-medium leading-[22px] text-[#322A24]">{t('auth:phone')}</Label>
+                    <div className='flex gap-2 w-fullitems-start'>
+                        <div className='flex-grow'>
+                            <Input
+                                type="text"
+                                placeholder='+1 10 123 4567'
+                                {...form.register('phone')}
+                                value={phone}
+                                className={`w-[257px] h-[46px] border !border-[#C0BCB6] rounded text-[#7B736A] text-sm placeholder-[#C2BDB6] ${form.formState.errors.phone && '!border-[#FF3E24]'}`}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
+                            {form.formState.errors.phone && (
+                                <p className="text-[#FF3E24] text-[10px] font-medium leading-[18px]">{form.formState.errors.phone.message}</p>
+                            )}
                         </div>
+                        <Button
+                            className="h-[46px] w-[88px] px-[18px] py-[12px] bg-[#302c26] text-sm text-[#FDFBF5] font-bold rounded cursor-pointer leading-[22px] disabled:bg-[#DBD7D0] flex-shrink-0"
+                            disabled={!phone.trim()}
+                            onClick={handlePhoneVerification}
+                        >
+                            {t('auth:request_ver')}
+                        </Button>
                     </div>
-
-                    <div className="mb-10">
-                        <label className="block mb-2 font-semibold text-sm">인증번호</label>
-                        <Input
-                            type="text"
-                            placeholder="ex) 000000"
-                            className="h-14"
-                        />
-                    </div>
-
-                    <Button className="w-full bg-neutral-400 text-white cursor-not-allowed h-16 font-bold text-base" disabled>
-                        다음
-                    </Button>
                 </div>
 
-                {/* 안내 메시지 */}
-                {/* <Information bgColor="bg-gray-200" contents={[ {elem: 'SNS 계정으로 가입하신 회원님은 아이디 찾기가 불가능합니다.'}, {elem: '가입하신 계정이 기억나지 않을 경우 hello@granhand.com으로 문의 하시기 바랍니다.'} ]} /> */}
+                <div className="mb-10">
+                    <Label className="block mb-2 font-medium text-sm text-[#322A24]">{t('auth:verification')}</Label>
+                    <div className="relative">
+                        <Input
+                            type="text"
+                            placeholder='ex) 000000'
+                            {...form.register('verify')}
+                            value={validNumber}
+                            className={`w-[357px] h-[46px] border !border-[#C0BCB6] rounded text-[#7B736A] px-[16px] py-[12px] text-sm placeholder-[#C2BDB6] ${form.formState.errors.verify && '!border-[#FF3E24]'}`}
+                            onChange={(e) => setValidNumber(e.target.value)}
+                        />
+                        {timer > 0 && (
+                            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#FF3E24] text-sm font-semibold">
+                                {formatTime(timer)}
+                            </span>
+                        )}
+                    </div>
+                    {form.formState.errors.verify && (
+                        <p className="text-[#FF3E24] text-[10px] font-medium leading-[18px]">{form.formState.errors.verify.message}</p>
+                    )}
+                </div>
+
+                <Button className="w-[358px] h-[46px] bg-[#322A24] text-[#FDFBF5] cursor-pointer font-bold text-sm disabled:bg-[#DBD7D0] leading-[22px]" disabled={!validNumber || !phone} onClick={handleVerifyConfirm}>
+                    {t('next')}
+                </Button>
             </div>
-        </main>
+        </div>
     )
 }

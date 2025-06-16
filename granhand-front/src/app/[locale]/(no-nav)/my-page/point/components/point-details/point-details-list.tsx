@@ -58,10 +58,16 @@ export default function PointDetailsList({
     }, [selectedState])
 
     return (
-        <ul className="space-y-4">
-            {pointDetails.map((point) => (
-                <PointDetailsElement key={point.id} elem={point} t={t} currentLocale={currentLocale} />
-            ))}
+        <ul className="space-y-4 w-full">
+            {pointDetails.length === 0 ? (
+                <div className="w-full h-[136px] bg-[#322A2408] text-[#C0BCB6] flex items-center text-xs justify-center">
+                    포인트 내역이 없어요.
+                </div>
+            ) : (
+                pointDetails.map((point) => (
+                    <PointDetailsElement key={point.id} elem={point} t={t} currentLocale={currentLocale} />
+                ))
+            )}
         </ul>
     )
 }

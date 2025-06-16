@@ -21,8 +21,10 @@
     "required": "(Required)",
     "optional": "(Optional)",
     "granhand": "Granhand",
-    "comfortable": "Comfortable",
+    "komfortabel": "Komfortabel",
     "heyon": "Heyon",
 
-    "views": "views"
+    "views": "views",
+    "will_available": "Content will be available soon.",
+    "discover_scent_placeholder": "Discover your perfect scent."
 }
