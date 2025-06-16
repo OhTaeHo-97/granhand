@@ -40,9 +40,11 @@
     "member_list": "회원 목록",
     "app_push": "앱 푸시",
     "naver_cloud": "네이버 클라우드",
+
+    "product_manage": "상품 관리",
+    "category_manage": "카테고리 관리",
     
     "shopping_manage": "쇼핑 관리",
-    "product_manage": "상품 관리",
     "all_orders": "전체 주문 목록",
     "order_manage": "주문 관리",
     "ship_settings": "배송 설정",
@@ -84,5 +86,20 @@
     "no_search_result": "검색 결과가 없습니다.",
 
     "granhand": "그랑핸드",
-    "komfortabel": "콤포타블"
+    "komfortabel": "콤포타블",
+
+    "excel_down": "엑셀 다운로드",
+    "no_results": "결과가 없습니다.",
+    "order_date": "주문 일자",
+    "file_format": "파일 양식",
+    "select_file_format": "파일 양식 선택",
+    "domestic_format": "국내 양식",
+    "international_format": "해외 양식",
+    "select_category": "분류 선택",
+
+    "language": "언어",
+    "korean": "한국어",
+    "english": "영어",
+    "note": "관리자 메모",
+    "only_admin_note": "관리자만 볼 수 있는 메모입니다."
 }

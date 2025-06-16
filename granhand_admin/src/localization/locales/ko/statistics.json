@@ -36,5 +36,12 @@
     "inquiries": "문의",
     "point_granted": "적립금 지급",
     "point_used": "적립금 사용",
-    "people": "명"
+    "people": "명",
+
+    "today": "오늘",
+    "yesterday": "어제",
+    "search_category_placeholder": "카테고리 또는 상품코드를 검색해 보세요.",
+    "daily": "일별",
+    "monthly": "월별",
+    "yearly": "연도별"
 }

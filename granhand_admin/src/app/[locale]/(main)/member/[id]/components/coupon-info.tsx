@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import MemberPointCouponModal from "../../components/modal/point-coupon-modal";
+import CouponModalContents from "../../components/modal/contents/coupon-modal-contents";
 
 export default function CouponInformation({ t }: { t: (key: string) => string }) {
+    const [openCoupon, setOpenCoupon] = useState(false)
+    
     return (
         <div className="flex justify-between items-center border border-gray-200 p-4 text-sm mb-5">
             {/* 왼쪽 쿠폰 정보 */}
@@ -19,9 +24,11 @@ export default function CouponInformation({ t }: { t: (key: string) => string })
             </div>
 
             {/* 오른쪽 버튼 */}
-            <Button variant="outline" className="h-8 px-3 py-1 text-sm border-gray-300">
+            <Button variant="outline" className="h-8 px-3 py-1 text-sm border-gray-300" onClick={() => setOpenCoupon((prev) => !prev)}>
                 {t('coupon:instant_issue')}
             </Button>
+
+            <MemberPointCouponModal open={openCoupon} setOpen={setOpenCoupon} title={t('member:issue_coupon_title')} contents={<CouponModalContents t={t} />} btnText={t('coupon:issue_coupon')} confirmFn={() => setOpenCoupon(false)} />
         </div>
     )
 }

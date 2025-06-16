@@ -1,14 +1,8 @@
 'use client'
 
-// import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pencil } from "lucide-react";
-// import { LocaleTypes } from "../../../../../utils/localization/settings";
-// import { translation } from "../../../../../utils/localization/locales/server";
-// import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 import Link from "next/link";
-// import EventList from "./components/event-list";
 import PostHeader from "./components/post-header";
 import PostList from "./components/post-list";
 import { useEffect, useState } from "react";
@@ -16,7 +10,12 @@ import { useBoard } from "@/hooks/use-board";
 import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
 import { useSession } from "next-auth/react";
-// import Pagination from "@/components/pagination";
+import { useSearchParams } from "next/navigation";
+
+export interface PostCategory {
+    id: string
+    name: string
+}
 
 export default function PostPage() {
     const { status } = useSession()
@@ -24,14 +23,18 @@ export default function PostPage() {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'post'])
     const currentLocale = useCurrentLocale()
-    // const { locale } = await params
-    // const { t } = await translation(locale, ['common', 'post'])
-    // const currentLocale = getCurrentLocaleFromParams(locale)
     const [currentPage, setCurrentPage] = useState(1)
     const [totalPage, setTotalPage] = useState(0)
     const [size, setSize] = useState('50')
+    const [categories, setCategories] = useState<PostCategory[]>([])
     const [category, setCategory] = useState('all')
-    const [contents, setContents] = useState([])
+    // const [contents, setContents] = useState([])
+    const [, setContents] = useState([])
+    const searchParams = useSearchParams()
+
+    const searchCategory = searchParams.get('category')
+    const searchFilter = searchParams.get('filter')
+    const searchKeyword = searchParams.get('q')
 
     const fetchBoardConfig = async () => {
         const { data, error } = await getBoardConfig()
@@ -40,13 +43,20 @@ export default function PostPage() {
             console.error('Failed to fetch board config for error:', error)
             alert('게시판 정보를 가져오는 데에 실패하였습니다.')
             setContents([])
+            setCategories([])
             setTotalPage(0)
             setCurrentPage(1)
         } else if(data) {
+            console.log('data:', data)
             if(data.datas) {
-                // TODO: 성공 후 처리
+                setCategories(data.datas.map((item) => ({
+                    id: item.board_id,
+                    name: item.board_name
+                })))
+                setCategory(data.datas[0].board_id)
             } else {
                 setContents([])
+                setCategories([])
                 setTotalPage(0)
                 setCurrentPage(1)
             }
@@ -54,7 +64,7 @@ export default function PostPage() {
     }
 
     const fetchBoards = async (category?: string) => {
-        const params: Record<string, any> = {}
+        const params: Record<string, string | number> = {}
         params.page = currentPage
         params.size = Number(size)
         params.boardid = category ? category : 'all'
@@ -83,10 +93,16 @@ export default function PostPage() {
 
     useEffect(() => {
         if(status === 'authenticated') {
-            // fetchBoardConfig()
+            fetchBoardConfig()
             fetchBoards(category)
         }
     }, [status, size, currentPage])
+
+    useEffect(() => {
+        if(status === 'authenticated') {
+            fetchBoards(searchCategory ? searchCategory : 'all')
+        }
+    }, [searchCategory, searchFilter, searchKeyword])
 
     return (
         <main className="flex-1 border">
@@ -104,11 +120,10 @@ export default function PostPage() {
                     </div>
                 </div>
 
-                <PostHeader category={category} setCategory={setCategory} fetchBoards={fetchBoards} />
+                <PostHeader category={category} categories={categories} setCategory={setCategory} fetchBoardConfig={fetchBoardConfig} />
 
-                <PostList contents={contents} currentPage={currentPage} totalPage={totalPage} size={size} setCurrentPage={setCurrentPage} setSize={setSize} />
-                {/* <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
-                {/* <Pagination totalPages={15} /> */}
+                {/* <PostList contents={contents} currentPage={currentPage} totalPage={totalPage} size={size} setCurrentPage={setCurrentPage} setSize={setSize} /> */}
+                <PostList currentPage={currentPage} totalPage={totalPage} size={size} setCurrentPage={setCurrentPage} setSize={setSize} />
             </div>
         </main>
     )

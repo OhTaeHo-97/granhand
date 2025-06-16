@@ -11,12 +11,15 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useState } from "react"
 import SelectProductModal from "./modal/select-product-modal"
 import { UsageInfoType } from "../page"
+import { Trans } from "react-i18next"
 
 export default function UsageInfo({
+    currentLocale,
     usageInfo,
     setUsageInfo,
     t
 }: {
+    currentLocale: string,
     usageInfo: UsageInfoType,
     setUsageInfo: React.Dispatch<React.SetStateAction<UsageInfoType>>,
     t: (key: string) => string
@@ -137,7 +140,7 @@ export default function UsageInfo({
                         <div className="flex items-center gap-1 ml-4 min-w-30">
                             {/* <input type="checkbox" disabled className="accent-gray-400" />
                             <span>기간 제한 없음</span> */}
-                            <Label><Checkbox id="no_limit_period" checked={usageInfo.isNoLimit === 'Y'} onCheckedChange={(checked) => handleCheckedChange('isNoLimit', checked)} className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white mr-2" />기간 제한 없음</Label>
+                            <Label><Checkbox id="no_limit_period" checked={usageInfo.isNoLimit === 'Y'} onCheckedChange={(checked) => handleCheckedChange('isNoLimit', checked)} className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white mr-2" />{t('coupon:no_time_limit')}</Label>
                         </div>
                     </div>
                 </div>
@@ -147,7 +150,7 @@ export default function UsageInfo({
                         <Label className="font-semibold">{t('coupon:discount_amount')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5 w-full">
-                        <Input type="number" value={usageInfo.discountAmount} onChange={(e) => handleValueChage('discountAmount', e.target.value)} placeholder={t('coupon:enter_amount')} className="w-28"/>원
+                        <Input type="number" value={usageInfo.discountAmount} onChange={(e) => handleValueChage('discountAmount', e.target.value)} placeholder={t('coupon:enter_amount')} className="w-28"/> {currentLocale === '' ? '원' : 'KRW'}
                     </div>
                 </div>
 
@@ -165,7 +168,7 @@ export default function UsageInfo({
                                 <SelectItem value="limited">{t('coupon:enter_amount')}</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Input type="number" value={usageInfo.minAmount} onChange={(e) => handleValueChage('minAmount', e.target.value)} placeholder={t('coupon:enter_amount')} className="w-28"/>원
+                        <Input type="number" value={usageInfo.minAmount} onChange={(e) => handleValueChage('minAmount', e.target.value)} placeholder={t('coupon:enter_amount')} className="w-28"/> {currentLocale === '' ? '원' : 'KRW'}
                     </div>
                 </div>
 
@@ -208,9 +211,16 @@ export default function UsageInfo({
                         <Label className="font-semibold">{t('coupon:usage_limit')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5 w-full">
-                        동일 회원이 최대 <Input type="number" value={usageInfo.useCount} onChange={(e) => handleValueChage('useCount', e.target.value)} placeholder="1" className="w-16" />회 까지 사용 가능
+                        <Trans
+                            i18nKey={'coupon:limited_per_member'}
+                            components={{
+                                input: (
+                                    <Input type="number" value={usageInfo.useCount} onChange={(e) => handleValueChage('useCount', e.target.value)} placeholder="1" className="w-16" />
+                                )
+                            }}
+                        />
                         <Label>
-                        <Checkbox id="has_usage_limit" checked={usageInfo.hasUsageLimit === 'Y'} onCheckedChange={(checked) => handleCheckedChange('hasUsageLimit', checked)} className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white mr-2"/>회수 제한 없음
+                        <Checkbox id="has_usage_limit" checked={usageInfo.hasUsageLimit === 'Y'} onCheckedChange={(checked) => handleCheckedChange('hasUsageLimit', checked)} className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white mr-2"/>{t('coupon:unlimited_uses')}
                         </Label>
                     </div>
                 </div>

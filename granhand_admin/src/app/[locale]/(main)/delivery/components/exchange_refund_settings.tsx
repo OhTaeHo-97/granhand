@@ -1,7 +1,18 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ExchangeRefundInformation } from "../page";
 
-export default function ExchangeRefundSettings({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
+export default function ExchangeRefundSettings({ contents, setContents, t, currentLocale }: { contents: ExchangeRefundInformation, setContents: React.Dispatch<React.SetStateAction<ExchangeRefundInformation>>, t: (key: string) => string, currentLocale: string }) {
+    const handleContentsChange = <K extends keyof ExchangeRefundInformation>(
+        key: K,
+        value: ExchangeRefundInformation[K]
+    ) => {
+        setContents((prev) => ({
+            ...prev,
+            [key]: value
+        }))
+    }
+
     return (
         <section className="text-[#5E5955]">
             <h2 className="font-bold text-xl text-[#5E5955]">{t('exchange_setting')}</h2>
@@ -13,7 +24,7 @@ export default function ExchangeRefundSettings({ t, currentLocale }: { t: (key: 
                     <div className="flex items-center gap-4 p-5">
                         <div className="flex items-center gap-4">
                             <div className="relative w-64">
-                                <Input defaultValue="3,000" className="pr-10" />
+                                <Input type="number" value={contents.oneWayFee} onChange={(e) => handleContentsChange('oneWayFee', Number(e.target.value))} className="pr-10 appearance-none" />
                                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">{currentLocale === '' ? '원' : 'KRW'}</span>
                             </div>
                         </div>
@@ -26,7 +37,7 @@ export default function ExchangeRefundSettings({ t, currentLocale }: { t: (key: 
                     <div className="flex items-center gap-4 p-5">
                         <div className="flex items-center gap-4">
                             <div className="relative w-64">
-                                <Input defaultValue="6,000" className="pr-10" />
+                                <Input type="number" value={contents.roundTripFee} onChange={(e) => handleContentsChange('roundTripFee', Number(e.target.value))} className="pr-10" />
                                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">{currentLocale === '' ? '원' : 'KRW'}</span>
                             </div>
                         </div>

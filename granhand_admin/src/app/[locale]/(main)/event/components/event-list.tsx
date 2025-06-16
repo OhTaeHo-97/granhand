@@ -8,9 +8,13 @@ import Pagination from "@/components/pagination";
 import { useState } from "react";
 
 export default function EventList() {
+    // const { status } = useSession()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'event'])
     const [currentPage, setCurrentPage] = useState(1)
+    // const [totalPage, setTotalPage] = useState(0)
+    // const [size, setSize] = useState('50')
+    // const [sortCategory, setSortCategory] = useState('latest_first')
 
     const handleDelete = () => {
         const confirmed = window.confirm("게시한 글을 삭제하시겠습니까?")
@@ -22,6 +26,16 @@ export default function EventList() {
         }
     }
 
+    // useEffect(() => {
+    //     if(status === 'authenticated') {
+    //         fetchEvents()
+    //     }
+    // }, [status])
+
+    // useEffect(() => {
+    //     fetchEvents()
+    // }, [size, sortCategory])
+
     return (
         <>
             <div className="p-6 shadow-sm">
@@ -31,6 +45,7 @@ export default function EventList() {
                             {t('event:all_event_posts')} <span className="text-[#FF3E24]">20</span>
                         </div>
                         <div className="flex gap-2">
+                            {/* <Select value={sortCategory} onValueChange={setSortCategory}> */}
                             <Select defaultValue="latest_first">
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
@@ -41,6 +56,7 @@ export default function EventList() {
                                     <SelectItem value="most_viewed">{t('event:most_viewed')}</SelectItem>
                                 </SelectContent>
                             </Select>
+                            {/* <Select value={size} onValueChange={setSize}> */}
                             <Select defaultValue="50">
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
@@ -82,6 +98,7 @@ export default function EventList() {
                     </table>
                 </div>
             </div>
+            {/* <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
             <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </>
     )

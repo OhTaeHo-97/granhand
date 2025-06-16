@@ -6,10 +6,9 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
-import { RefreshCw, RefreshCwIcon, Search, SearchIcon } from "lucide-react";
+import { RefreshCw, Search } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "../../../../../../utils/localization/client";
-import MembershipLevelSelect from "../../components/membership-level";
 import { useRouter } from "next/navigation";
 
 export default function MemberHeader() {
@@ -97,7 +96,7 @@ export default function MemberHeader() {
                             type="text"
                             placeholder={t('member:personal_info_placeholder')}
                             className="border rounded px-2 py-1 flex-1 min-w-[200px] h-8"
-                            defaultValue={infoInput}
+                            value={infoInput}
                             onChange={(e) => setInfoInput(e.target.value)}
                         />
                     </div>

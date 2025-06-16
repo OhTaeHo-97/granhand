@@ -11,7 +11,7 @@ export default function PointHistory({ t, currentLocale, itemCnt }: { t: (key: s
         </thead>
         <tbody>
             {Array.from({ length: itemCnt }).map((_, i) => (
-                <tr className="border-b h-15 text-[#111111]">
+                <tr key={i} className="border-b h-15 text-[#111111]">
                     <td className="p-2 border">2023-11-23 09:16</td>
                     <td className="p-2 border">구매확정 적립</td>
                     <td className="p-2 border text-blue-400">721{currentLocale === '' ? '원' : ' KRW'}</td>

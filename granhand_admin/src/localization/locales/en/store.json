@@ -14,5 +14,7 @@
     "category": "Category",
     "sub_category": "Subcategory",
     "detail_category": "Detail Category",
-    "attachment": "Attachment"
+    "attachment": "Attachment",
+    "store_category_setting": "Store Category Settings",
+    "add_store": "Add Store"
 }

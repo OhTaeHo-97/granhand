@@ -49,7 +49,7 @@ export default function MemberPointInfo() {
             </div>
             <PointHistory t={t} currentLocale={currentLocale} itemCnt={3} />
 
-            <MemberDetailEachListModal open={open} setOpen={setOpen} title="포인트 내역" contents={<PointHistory t={t} currentLocale={currentLocale} itemCnt={15} />} />
+            <MemberDetailEachListModal open={open} setOpen={setOpen} title={t('point:point_history')} contents={<PointHistory t={t} currentLocale={currentLocale} itemCnt={15} />} />
         </section>
     )
 }

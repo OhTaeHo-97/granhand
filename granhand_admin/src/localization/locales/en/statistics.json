@@ -36,5 +36,12 @@
     "inquiries": "Inquiries",
     "point_granted": "Point Granted",
     "point_used": "Points Used",
-    "people": "people"
+    "people": "people",
+
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "search_category_placeholder": "Search by category or product code.",
+    "daily": "Daily",
+    "monthly": "Monthly",
+    "yearly": "Yearly"
 }

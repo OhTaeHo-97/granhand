@@ -11,6 +11,8 @@ import { useRef, useState } from "react";
 export default function GallaryUpload({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
     const [images, setImages] = useState<File[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)
+    const [category, setCategory] = useState('')
+    const [subCategory, setSubCategory] = useState('')
     
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +38,7 @@ export default function GallaryUpload({ open, setOpen, t }: { open: boolean, set
                                 <Label className="font-semibold">{t('store:category')}</Label>
                             </div>
                             <div className="flex items-center gap-4 p-5">
-                                <Select>
+                                <Select value={category} onValueChange={setCategory}>
                                     <SelectTrigger className="w-fit">
                                         <SelectValue placeholder={t('store:sub_category')} className="text-[#322A24] data-[placeholder]:text-[#C0BCB6]" />
                                     </SelectTrigger>
@@ -45,7 +47,7 @@ export default function GallaryUpload({ open, setOpen, t }: { open: boolean, set
                                         <SelectItem value="komfortabel">콤포타블</SelectItem>
                                     </SelectContent>
                                 </Select>
-                                <Select>
+                                <Select value={subCategory} onValueChange={setSubCategory}>
                                     <SelectTrigger className="w-fit">
                                         <SelectValue placeholder={t('store:detail_category')} className="text-[#322A24] data-[placeholder]:text-[#C0BCB6]" />
                                     </SelectTrigger>
@@ -101,7 +103,7 @@ export default function GallaryUpload({ open, setOpen, t }: { open: boolean, set
                 <DialogFooter>
                     <div className="flex justify-center gap-4">
                         <Button variant="outline" className="w-1/6 text-[#322A24] hover:bg-[#322A2408] p-6 min-w-fit" onClick={() => setOpen(false)}>{t('cancel')}</Button>
-                        <Button className="w-1/6 bg-[#322A24] text-white hover:bg-[#322A2408] p-6 min-w-fit" onClick={() => setOpen(false)}>{t('store:upload')}</Button>
+                        <Button className="w-1/6 bg-[#322A24] text-white hover:bg-[#C0BCB6] p-6 min-w-fit" onClick={() => setOpen(false)} disabled={!category || !subCategory || images.length === 0}>{t('store:upload')}</Button>
                     </div>
                 </DialogFooter>
             </DialogContent>

@@ -35,6 +35,7 @@
     "issue_some_coupon": "장 발급(1회 10,000장 / 1일 20회까지 발급 가능)",
     "usage_info": "사용 정보",
     "valid_period": "사용 기간",
+    "no_time_limit": "기간 제한 없음",
     "minimum_amount": "최소 주문금액",
     "no_limit": "제한 없음",
     "enter_amount": "금액 입력",
@@ -43,7 +44,7 @@
     "specific_product": "지정 상품",
     "excluded_product": "제외 상품",
     "usage_limit": "사용 횟수",
-    "limited_per_member": "동일 회원이 최대 1회까지 사용 가능",
+    "limited_per_member": "동일 회원이 최대 <input/>회까지 사용 가능",
     "unlimited_uses": "회수 제한 없음",
 
     "orders": "주문",

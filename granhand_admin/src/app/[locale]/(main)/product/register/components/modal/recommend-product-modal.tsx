@@ -2,66 +2,66 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import api from "@/utils/api";
+// import api from "@/utils/api";
 import { SearchIcon } from "lucide-react"
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+// import { useState } from "react";
 
 export default function RecommendProductModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
-    const { data: session, status } = useSession()
-    const [selectedIds, setSelectedIds] = useState<number[]>([])
+    // const { data: session, status } = useSession()
+    // const [selectedIds, setSelectedIds] = useState<number[]>([])
 
-    const handleCheckboxChange = (id: number) => {
-        setSelectedIds((prev) => {
-            if(prev.includes(id)) {
-                return prev.filter((itemId) => itemId !== id)
-            } else {
-                return [...prev, id]
-            }
-        })
-    }
+    // const handleCheckboxChange = (id: number) => {
+    //     setSelectedIds((prev) => {
+    //         if(prev.includes(id)) {
+    //             return prev.filter((itemId) => itemId !== id)
+    //         } else {
+    //             return [...prev, id]
+    //         }
+    //     })
+    // }
 
-    const handleSelectAll = (checked: boolean) => {
-        if(checked) {
-            const allIds = Array.from({ length: 12 }).map((_, i) => i)
-            setSelectedIds(allIds)
-        } else {
-            setSelectedIds([])
-        }
-    }
+    // const handleSelectAll = (checked: boolean) => {
+    //     if(checked) {
+    //         const allIds = Array.from({ length: 12 }).map((_, i) => i)
+    //         setSelectedIds(allIds)
+    //     } else {
+    //         setSelectedIds([])
+    //     }
+    // }
 
-    const addRecommendProduct = async () => {
-        if(status !== 'authenticated' || !session?.token) {
-            console.log('Cannot fetch data - no valid session')
-            return
-        }
+    // const addRecommendProduct = async () => {
+    //     if(status !== 'authenticated' || !session?.token) {
+    //         console.log('Cannot fetch data - no valid session')
+    //         return
+    //     }
         
-        try {
-            const response = await api.post('/product/goods', {}, {
-                token: session.token
-            })
-        } catch (error) {
-            console.error('Failed to fetch product goods:', error)
-        }
-    }
+    //     try {
+    //         const response = await api.post('/product/goods', {}, {
+    //             token: session.token
+    //         })
+    //     } catch (error) {
+    //         console.error('Failed to fetch product goods:', error)
+    //     }
+    // }
 
-    const removeRecommendProduct = async () => {
-        if(status !== 'authenticated' || !session?.token) {
-            console.log('Cannot fetch data - no valid session')
-            return
-        }
+    // const removeRecommendProduct = async () => {
+    //     if(status !== 'authenticated' || !session?.token) {
+    //         console.log('Cannot fetch data - no valid session')
+    //         return
+    //     }
 
-        try {
-            selectedIds.map(async (id) => {
-                const response = await api.delete(`/product/goods/${id}`, {}, {
-                    token: session.token
-                })
-            })
-        } catch (error) {
-            console.error('Failed to fetch product goods:', error)
-        }
-    }
+    //     try {
+    //         selectedIds.map(async (id) => {
+    //             const response = await api.delete(`/product/goods/${id}`, {}, {
+    //                 token: session.token
+    //             })
+    //         })
+    //     } catch (error) {
+    //         console.error('Failed to fetch product goods:', error)
+    //     }
+    // }
 
     return (
         <Dialog open={open} onOpenChange={setOpen} >
@@ -154,8 +154,8 @@ export default function RecommendProductModal({ open, setOpen }: { open: boolean
                 </div>
             </div>
             <DialogFooter className="!flex !items-center !justify-center">
-                <Button variant="outline" className="text-[#322A24] w-1/6">취소</Button>
-                <Button className="bg-[#322A24] text-white rounded px-6 py-1 flex items-center gap-1 w-1/6">저장</Button>
+                <Button variant="outline" className="text-[#322A24] w-1/6" onClick={() => setOpen(false)}>취소</Button>
+                <Button className="bg-[#322A24] text-white rounded px-6 py-1 flex items-center gap-1 w-1/6" onClick={() => setOpen(false)}>저장</Button>
             </DialogFooter>
             </DialogContent>
         </Dialog>

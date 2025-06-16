@@ -6,7 +6,6 @@ import { Calendar, Clock } from "lucide-react"
 import CustomCalendarWithTime from "../../../push/components/calendar"
 import { Input } from "@/components/ui/input"
 import { format } from "date-fns"
-import { cn } from "@/lib/utils"
 import { Textarea } from "@/components/ui/textarea"
 import { Board } from "@/hooks/use-board"
 
@@ -35,13 +34,6 @@ export default function PostContents({
     setMinute: (value: number) => void,
     t: (key: string) => string,
 }) {
-    const handleChangeLanguage = (value: string) => {
-        setBoardContents((prev) => ({
-            ...prev,
-            language: value
-        }))
-    }
-
     const handleChangeMemo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setBoardContents((prev) => ({
             ...prev,
@@ -127,37 +119,6 @@ export default function PostContents({
                             </div>
                         </div>
                     )}
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <RadioGroup value={boardContents.language} onValueChange={handleChangeLanguage} className="flex gap-2 text-sm">
-                            <Label
-                                key="korean"
-                                htmlFor="korean-lang"
-                                className={cn(
-                                    "py-2 px-4 text-center cursor-pointer text-sm",
-                                    boardContents.language === "ko"
-                                        ? "border-b-2 !border-[#5E5955] text-[#5E5955]"
-                                        : "text-[#C0BCB6]"
-                                )}
-                            >
-                                <RadioGroupItem value="ko" id="korean-lang" className="hidden" />
-                                🇰🇷 {t('event:korean')}
-                            </Label>
-                            <Label
-                                key="english"
-                                htmlFor="english-lang"
-                                className={cn(
-                                    "py-2 px-4 text-center cursor-pointer text-sm",
-                                    boardContents.language === "en"
-                                        ? "border-b-2 !border-[#5E5955] text-[#5E5955]"
-                                        : "text-[#C0BCB6]"
-                                )}
-                            >
-                                <RadioGroupItem value="en" id="english-lang" className="hidden" />
-                                🇺🇸 {t('event:english')}
-                            </Label>
-                    </RadioGroup>
                 </div>
             </div>
             <div className="mt-10">

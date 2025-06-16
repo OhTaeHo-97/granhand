@@ -14,5 +14,8 @@
     "category": "카테고리",
     "sub_category": "중분류",
     "detail_category": "소분류",
-    "attachment": "첨부파일"
+    "attachment": "첨부파일",
+
+    "store_category_setting": "스토어 카테고리 설정",
+    "add_store": "스토어 추가"
 }

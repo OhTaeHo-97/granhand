@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GripVertical } from "lucide-react";
+import { GripVertical, X } from "lucide-react";
 import {
     DndContext,
     closestCenter,
@@ -27,14 +27,16 @@ function SortableItem({
     setActiveId,
     onTitleChange,
     isSelected,
-    onSelectChange
+    onSelectChange,
+    t
 }: {
     node: JournalTagNode,
     activeId: string | null,
     setActiveId: (id: string | null) => void,
     onTitleChange: (id: string, newTitle: string) => void,
     isSelected: boolean,
-    onSelectChange: (id: string, checked: boolean) => void
+    onSelectChange: (id: string, checked: boolean) => void,
+    t: (key: string) => string
 }) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: node.id,
@@ -63,7 +65,7 @@ function SortableItem({
             />
             <Input
                 type="text"
-                placeholder="태그명 입력"
+                placeholder={t('journal:tag_name_placeholder')}
                 value={node.title}
                 onChange={(e) => onTitleChange(node.id, e.target.value)}
                 className="flex-grow text-[#231815B2] focus:outline-none bg-transparent"
@@ -72,7 +74,7 @@ function SortableItem({
     );
 }
 
-export default function TagSettingsModal({ open, setOpen }: { open: boolean; setOpen: (value: boolean) => void }) {
+export default function TagSettingsModal({ open, setOpen, t }: { open: boolean; setOpen: (value: boolean) => void, t: (key: string) => string }) {
     const { tags, setTags } = useJournalTagStore()
     const [items, setItems] = useState<JournalTagNode[]>(tags)
     const [activeId, setActiveId] = useState<string | null>(null)
@@ -186,13 +188,18 @@ export default function TagSettingsModal({ open, setOpen }: { open: boolean; set
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="p-10 bg-white rounded-lg w-[500px] max-h-[80vh] flex flex-col">
                 <div className="p-6">
-                    <h1 className="text-2xl font-bold text-[#5E5955]">태그 관리</h1>
+                    <div className="flex items-center justify-between">
+                        <h1 className="text-2xl font-bold text-[#5E5955]">{t('journal:tag_manage')}</h1>
+                        <Button onClick={() => setOpen(false)}>
+                            <X size={16} />
+                        </Button>
+                    </div>
                 </div>
                 
                 <div className="p-6 flex-1 overflow-y-auto">
                     <div className="flex gap-4 mb-6">
-                        <Button className="!px-2 !py-1 border rounded hover:bg-gray-50" onClick={handleAddTag}>태그 추가</Button>
-                        <Button className="!px-2 !py-1 border rounded hover:bg-gray-50" onClick={handleDeleteSelected}>선택 삭제</Button>
+                        <Button className="!px-2 !py-1 border rounded hover:bg-gray-50" onClick={handleAddTag}>{t('journal:add_tag')}</Button>
+                        <Button className="!px-2 !py-1 border rounded hover:bg-gray-50" onClick={handleDeleteSelected}>{t('journal:delete_selected')}</Button>
                     </div>
                     
                     <div className="border rounded-lg overflow-hidden">
@@ -212,6 +219,7 @@ export default function TagSettingsModal({ open, setOpen }: { open: boolean; set
                                         onTitleChange={handleItemTitleChange}
                                         isSelected={selectedIds.has(item.id)}
                                         onSelectChange={handleSelectChange}
+                                        t={t}
                                     />
                                 ))}
                             </SortableContext>
@@ -221,7 +229,7 @@ export default function TagSettingsModal({ open, setOpen }: { open: boolean; set
                                         <GripVertical className="w-4 h-4 text-gray-400 mr-2" />
                                         <Input
                                             type="text"
-                                            placeholder="태그명 입력"
+                                            placeholder={t('journal:tag_name_placeholder')}
                                             value={items.find(item => item.id === activeId)?.title || ''}
                                             className="flex-grow border-none focus:outline-none bg-transparent"
                                             disabled
@@ -233,18 +241,18 @@ export default function TagSettingsModal({ open, setOpen }: { open: boolean; set
                     </div>
                 </div>
 
-                <div className="p-6 border-t flex justify-end gap-4">
+                <div className="p-6 border-t flex justify-center gap-4">
                     <Button 
-                        className="px-4 py-2 text-gray-500 hover:bg-gray-50 rounded"
+                        className="px-4 py-2 border text-[#322A24] hover:bg-gray-50 rounded cursor-pointer"
                         onClick={() => setOpen(false)}
                     >
-                        취소
+                        {t('cancel')}
                     </Button>
                     <Button 
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        className="px-4 py-2 bg-[#322A24] hover:bg-[#322A24AA] text-white rounded cursor-pointer"
                         onClick={handleSave}
                     >
-                        확인
+                        {t('save')}
                     </Button>
                 </div>
             </div>

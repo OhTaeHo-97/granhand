@@ -12,13 +12,13 @@ import { useSession } from "next-auth/react";
 // import api from "@/utils/api";
 import MemberListTable from "./member-list-table";
 import { MemberInfo, useMember } from "@/hooks/use-member";
-import { useConfig } from "@/hooks/use-config";
+import ExcelDownloadModal from "../../order/components/modal/excel-download-modal";
 
 export default function MemberList() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, ['common', 'member' ,'point', 'coupon'])
+    const { t } = useTranslation(locale, ['common', 'member' ,'point', 'coupon', 'push'])
     const currentLocale = useCurrentLocale()
     const { getMembers } = useMember()
 
@@ -37,6 +37,7 @@ export default function MemberList() {
     const [openCannotProcess, setOpenCannotProcess] = useState(false)
     const [openPoint, setOpenPoint] = useState(false)
     const [openCoupon, setOpenCoupon] = useState(false)
+    const [openExcelDown, setOpenExcelDown] = useState(false)
     const [currentPage, setCurrentPage] = useState(initialCurrentPage)
     const [totalPage, setTotalPage] = useState(1)
     const [hydrated, setHydrated] = useState(false)
@@ -56,7 +57,7 @@ export default function MemberList() {
     }
 
     const fetchMembers = async () => {
-        const params: Record<string, any> = {}
+        const params: Record<string, number | string> = {}
         params.page = currentPage
         params.size = rowCount
 
@@ -85,11 +86,12 @@ export default function MemberList() {
         }
 
         if(hydrated) {
-            // const newSearchParams = new URLSearchParams(searchParams.toString())
-            // newSearchParams.set('sortCategory', sortCategory)
-            // newSearchParams.set('rowCount', rowCount.toString())
-            // newSearchParams.set('currentPage', currentPage.toString())
-            router.push(`${currentLocale}/member?sortCategory=${sortCategory}&rowCount=${rowCount}&currentPage=${currentPage}`)
+            const newSearchParams = new URLSearchParams(searchParams)
+            newSearchParams.set('sortCategory', sortCategory)
+            newSearchParams.set('rowCount', rowCount.toString())
+            newSearchParams.set('currentPage', currentPage.toString())
+            // sortCategory=${sortCategory}&rowCount=${rowCount}&currentPage=${currentPage}
+            router.push(`${currentLocale}/member?${newSearchParams.toString()}`)
         }
     }, [status, sortCategory, rowCount, currentPage])
 
@@ -123,7 +125,7 @@ export default function MemberList() {
                                 <SelectItem value="500">500</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Button className="border">엑셀 다운로드</Button>
+                        <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>{t('excel_down')}</Button>
                     </div>
                 </div>
                 <MemberListTable members={members} selectedIds={selectedIds} openPoint={openPoint} openCoupon={openCoupon} openCannotProcess={openCannotProcess} currentLocale={currentLocale} setSelectedIds={setSelectedIds} setMembers={setMembers} setOpenPoint={setOpenPoint} setOpenCoupon={setOpenCoupon} setOpenCannotProcess={setOpenCannotProcess} t={t} />
@@ -142,6 +144,7 @@ export default function MemberList() {
             <MemberModal open={openUnmarkRestricted} setOpen={setOpenUnmarkRestricted} contents={<span className="text-2xl font-bold">{t('member:unmark_restricted_title')}</span>} isTwoBtn={true} btnText1={t('save')} btnText2={t('cancel')} confirmFn={() => setOpenUnmarkRestricted(false)} />
             {/* 삭제모달 */}
             <MemberModal open={openDeleteMember} setOpen={setOpenDeleteMember} contents={<span className="text-2xl font-bold">{t('member:delete_member_title')}</span>} isTwoBtn={true} btnText1={t('save')} btnText2={t('cancel')} confirmFn={() => setOpenDeleteMember(false)} />
+            <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
         </div>
     )
 }

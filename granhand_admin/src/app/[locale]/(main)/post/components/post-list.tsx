@@ -2,23 +2,27 @@
 
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import Pagination from "@/components/pagination";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+// import { useEffect, useState } from "react";
+// import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-export default function PostList({ contents, currentPage, totalPage, size, setCurrentPage, setSize }: { contents: any[], currentPage: number, totalPage: number, size: string, setCurrentPage: React.Dispatch<React.SetStateAction<number>>, setSize: React.Dispatch<React.SetStateAction<string>> }) {
-    const { status } = useSession()
+export default function PostList({ currentPage, totalPage, size, setCurrentPage, setSize }: { currentPage: number, totalPage: number, size: string, setCurrentPage: React.Dispatch<React.SetStateAction<number>>, setSize: React.Dispatch<React.SetStateAction<string>> }) {
+// export default function PostList({ contents, currentPage, totalPage, size, setCurrentPage, setSize }: { contents: any[], currentPage: number, totalPage: number, size: string, setCurrentPage: React.Dispatch<React.SetStateAction<number>>, setSize: React.Dispatch<React.SetStateAction<string>> }) {
+    const router = useRouter()
+    // const { status } = useSession()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'event', 'post'])
+    const currentLocale = useCurrentLocale()
     // const [currentPage, setCurrentPage] = useState(1)
     // const [totalpage, setTotalPage] = useState(0)
 
-    const handlePosts = async () => {
-        const params: Record<string, any> = {}
+    // const handlePosts = async () => {
+    //     const params: Record<string, any> = {}
         
-    }
+    // }
 
     const handleDelete = () => {
         const confirmed = window.confirm("게시한 글을 삭제하시겠습니까?")
@@ -30,11 +34,11 @@ export default function PostList({ contents, currentPage, totalPage, size, setCu
         }
     }
 
-    useEffect(() => {
-        if(status === 'authenticated') {
-            // 데이터 fetch
-        }
-    }, [status, currentPage])
+    // useEffect(() => {
+    //     if(status === 'authenticated') {
+    //         // 데이터 fetch
+    //     }
+    // }, [status, currentPage])
 
     return (
         <>
@@ -45,8 +49,8 @@ export default function PostList({ contents, currentPage, totalPage, size, setCu
                             {t('event:all_event_posts')} <span className="text-[#FF3E24]">20</span>
                         </div> */}
                         <div className="text-[#5E5955] font-bold text-base">
-                            {/* {t('post:total_posts')} <span className="text-[#FF3E24]">20</span> */}
-                            {t('post:total_posts')} <span className="text-[#FF3E24]">{contents.length}</span>
+                            {t('post:total_posts')} <span className="text-[#FF3E24]">20</span>
+                            {/* {t('post:total_posts')} <span className="text-[#FF3E24]">{contents.length}</span> */}
                         </div>
                         <div className="flex gap-2">
                             <Select defaultValue="latest_first">
@@ -93,7 +97,7 @@ export default function PostList({ contents, currentPage, totalPage, size, setCu
                                     </td>
                                     <td className="p-2 text-center">584</td>
                                     <td className="p-2 flex items-center justify-center gap-3">
-                                        <Button className="border rounded px-2">{t('edit2')}</Button>
+                                        <Button className="border rounded px-2" onClick={() => router.push(`${currentLocale}/post/${i + 1}/edit`)}>{t('edit2')}</Button>
                                         <Button className="border rounded px-2" onClick={handleDelete}>{t('delete')}</Button>
                                     </td>
                                 </tr>

@@ -31,5 +31,23 @@
     "schedule_status": "예약 상태",
     "manage": "관리",
     "edit_schedule": "예약 수정",
-    "cancel_repeat": "반복 취소"
+    "cancel_repeat": "반복 취소",
+
+    "repeat": "반복 여부",
+    "repeat_interval": "반복 주기",
+    "end_date": "종료 일정",
+    "interval": "주기",
+    "day": "요일",
+    "time": "시간",
+    "daily": "매일",
+    "weekly": "매주",
+    "monthly": "매월",
+    "yearly": "매년",
+    "mon": "월",
+    "tue": "화",
+    "wed": "수",
+    "thu": "목",
+    "fri": "금",
+    "sat": "토",
+    "sun": "일"
 }

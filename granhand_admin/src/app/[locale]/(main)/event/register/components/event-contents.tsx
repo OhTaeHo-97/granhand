@@ -2,12 +2,14 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Calendar, Clock } from "lucide-react"
+import { Calendar, Clock, ImageUpIcon } from "lucide-react"
 import CustomCalendarWithTime from "../../../push/components/calendar"
 import { Input } from "@/components/ui/input"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
-import { Textarea } from "@/components/ui/textarea"
+import dynamic from "next/dynamic"
+
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false })
 
 export interface EventInfo {
     id: number,
@@ -28,27 +30,58 @@ export default function EventContents({
     date,
     hour,
     minute,
+    contents,
     setType,
     setLanguage,
     setDate,
     setHour,
     setMinute,
+    setContents,
     t,
-    eventInfo
+    // eventInfo
 }: {
     type: 'immediate' | 'scheduled',
     language: 'korean' | 'english',
     date: Date | undefined,
     hour: number,
     minute: number,
+    contents: string,
     setType: (value: 'immediate' | 'scheduled') => void,
     setLanguage: (value: 'korean' | 'english') => void,
     setDate: (value: Date) => void,
     setHour: (value: number) => void,
     setMinute: (value: number) => void,
+    setContents: React.Dispatch<React.SetStateAction<string>>,
     t: (key: string) => string,
-    eventInfo?: EventInfo
+    // eventInfo?: EventInfo
 }) {
+    const handleImageUpload = async () => {
+        const input = document.createElement('input')
+        input.type = 'file'
+        input.accept = 'image/*'
+
+        input.onchange = async () => {
+            const file = input.files?.[0]
+            if(file) {
+                // 서버 업로드
+                // const formData = new FormData()
+                // formData.append('file', file)
+                // const res = await fetch('url', {
+                //     method: 'POST',
+                //     body: formData
+                // })
+                // const { url } = await res.json()
+
+                // 업로드한 이미지 url 서버로부터 수신 및 마크다운 언어로 변경
+                // const imageMarkdown = `![image](${url})`
+                // 마크다운 언어로 작성하여 이미지 보여주기
+                // setValue((prev) => (prev || '') + `\n${imageMarkdown}`)
+            }
+        }
+
+        input.click()
+    }
+
     return (
         <>
             <div className="flex items-end border-b mt-10">
@@ -159,7 +192,25 @@ export default function EventContents({
                 </div>
             </div>
             <div className="mt-10">
-                <Textarea className="resize-none min-h-screen" placeholder={t('event:enter_content')} />
+                <div data-color-mode="light" className="w-full">
+                    {/* 커스텀 툴바 */}
+                    <div className="flex items-center px-2 py-1 gap-2 text-sm rounded-t-md w-full">
+                        <Button
+                            onClick={handleImageUpload}
+                            className="!p-0 !m-0 hover:underline"
+                        >
+                            <ImageUpIcon size={16} /> Upload Image
+                        </Button>
+                    </div>
+                    {/* 마크다운 에디터 */}
+                    <MDEditor
+                        value={contents}
+                        onChange={(val) => setContents(val || "")}
+                        preview="live"
+                        className="w-full min-h-96"
+                    />
+                </div>
+                {/* <Textarea className="resize-none min-h-screen" placeholder={t('event:enter_content')} /> */}
             </div>
         </>
     )

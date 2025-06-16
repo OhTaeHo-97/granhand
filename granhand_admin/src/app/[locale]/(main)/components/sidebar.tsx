@@ -22,29 +22,36 @@ export default function MainSidebar() {
     const memberManage = [
         { title: t('member_list'), url: '/member' },
         { title: t('app_push'), url: '/push' },
-        { title: t('naver_cloud'), url: '/' },
+        { title: t('naver_cloud'), url: '/cloud' },
     ]
 
-    const shoppingElems = [
+    const productElems = [
         { title: t('product_manage'), url: '/product' },
+        { title: t('category_manage'), url: '/product/category' }
+    ]
+
+    const orderElems = [
         { title: t('all_orders'), url: '/order/all' },
         { title: t('order_manage'), url: '/order' },
         { title: t('cancel_manage'), url: '/order/cancel' },
         { title: t('exchange_manage'), url: '/order/exchange' },
         { title: t('return_manage'), url: '/order/refund' },
         { title: t('ship_settings'), url: '/delivery' },
+    ]
+
+    const shoppingElems = [
         { title: t('point_manage'), url: '/point' },
         { title: t('coupon_manage'), url: '/coupon' }
     ]
     const contentsElems = [
         { title: t('journal_manage'), url: '/journal' },
-        { title: t('event_manage'), url: '/event' },
+        // { title: t('event_manage'), url: '/event' },
         { title: t('challenge_manage'), url: '/challenge' },
         { title: t('wallpaper_manage'), url: '/wallpaper' },
         { title: t('partnership_manage'), url: '/coop' },
         { title: t('store_manage'), url: '/store' },
         { title: t('banner_manage'), url: '/banner' },
-        { title: t('notice_manage'), url: '/notice' },
+        // { title: t('notice_manage'), url: '/notice' },
         { title: t('fragrance_manage'), url: '/scent' },
         { title: t('faq_manage'), url: '/faq' },
         { title: t('post_manage'), url: '/post' },
@@ -114,7 +121,8 @@ export default function MainSidebar() {
             </div>
             {/* 마이페이지 섹션 */}
             <SidebarElement title={{ title: t('member_manage'), url: '/member' }} elements={memberManage} />
-            {/* 나의 쿠폰함 섹션 */}
+            <SidebarElement title={{ title: t('product_manage'), url: '/product' }} elements={productElems} />
+            <SidebarElement title={{ title: t('order_manage'), url: '/order/all' }} elements={orderElems} />
             <SidebarElement title={{ title: t('shopping_manage'), url: '/product' }} elements={shoppingElems} />
             {/* 회원 정보 섹션 */}
             <SidebarElement title={{ title: t('content_manage'), url: '/journal' }} elements={contentsElems} />

@@ -1,0 +1,20 @@
+{
+    "banner_manage": "배너 관리",
+    "top_banner": "상단 배너",
+    "fixed": "고정",
+    "event_banner": "이벤트 배너",
+    "my_page_banner": "마이페이지 배너",
+    "popup_banner": "팝업 배너",
+    "attach_file": "첨부파일 등록",
+    "preview": "미리보기",
+    "link": "링크",
+    "enter_link": "링크 입력",
+    "image": "이미지",
+    "time": "시각 (시작 - 종료)",
+    "upload": "업로드",
+    "select": "선택",
+    "journal": "저널",
+    "event": "이벤트",
+    "product": "상품",
+    "list": "목록"
+}

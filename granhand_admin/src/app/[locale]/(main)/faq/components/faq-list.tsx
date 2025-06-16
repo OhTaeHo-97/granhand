@@ -16,9 +16,9 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
     const [faqs, setFaqs] = useState<FAQ[]>([])
     const [currentPage, setCurrentPage] = useState(1)
     const [sortCategory, setSortCategory] = useState('latest_first')
-    const [size, setSize] = useState(15)
     const [totalPage, setTotalPage] = useState(0)
-    const [faqCategories, setFaqCategories] = useState<FAQCate[]>([])
+    // const [faqCategories, setFaqCategories] = useState<FAQCate[]>([])
+    const [, setFaqCategories] = useState<FAQCate[]>([])
     const { getFaq, getFaqCate } = useBoard()
     const [categoryMap, setCategoryMap] = useState<Map<number, string>>(new Map())
 
@@ -43,9 +43,9 @@ export default function FaqList({ t }: { t: (key: string) => string }) {
     }
 
     const fetchFaq = async () => {
-        const params: Record<string, any> = {}
+        const params: Record<string, number | string> = {}
         params.page = currentPage
-        params.size = size
+        params.size = 15
 
         const { data, error } = await getFaq()
 

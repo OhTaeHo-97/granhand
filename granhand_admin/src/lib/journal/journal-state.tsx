@@ -35,8 +35,8 @@ export const useJournalTagStore = create<JournalTagState, [["zustand/persist", J
                 title: "Essay"
             },
             {
-                id: "Film",
-                title: "film"
+                id: "film",
+                title: "Film"
             }
         ],
         setTags: (tag) => set({ tags: tag }),

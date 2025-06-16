@@ -22,7 +22,11 @@ interface SalesTypeProps {
         showKakao: string,
         exposureName: string
     }
-    onChange: (field: string, value: any) => void
+    onChange: (
+        field: keyof SalesTypeProps['data'],
+        value: SalesTypeProps['data'][keyof SalesTypeProps['data']]
+    ) => void
+    // onChange: (field: string, value: any) => void
 }
 
 export default function SalesType({
@@ -116,7 +120,7 @@ export default function SalesType({
                             </Label>
                         </RadioGroup>
                         {data.applySalePeriod === 'apply' && (
-                            <PeriodElement startDate={data.startDate} endDate={data.endDate} quickRange={data.quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} quickRanges={quickRanges} t={t}  />
+                            <PeriodElement needTime={false} startDate={data.startDate} endDate={data.endDate} quickRange={data.quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} quickRanges={quickRanges} t={t}  />
                         )}
                     </div>
                 </div>

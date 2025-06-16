@@ -2,10 +2,11 @@
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 // import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
-import { useState } from "react";
+// import { useState } from "react";
 // import { useTranslation } from "../../../../../../utils/localization/client";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Status {
     label: string,
@@ -13,15 +14,27 @@ interface Status {
     value: string
 }
 
-export default function OrderStatus({ orderState, setOrderState, statusList }: { orderState?: string, setOrderState?: (value: string) => void, statusList: Status[] }) {
+export default function OrderStatus({ orderState, setOrderState, statusList, link }: { orderState: string, setOrderState: (value: string) => void, statusList: Status[], link: string }) {
     // const [orderState, setOrderState] = useState('all')
     // const locale = useLocaleAsLocaleTypes()
     // const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const router = useRouter()
+    const searchParams = useSearchParams()
+
+    const handleOrderStateChange = (state: string) => {
+        setOrderState(state)
+
+        const params = new URLSearchParams(searchParams)
+        params.set('state', state)
+        
+        router.push(`${link}?${params.toString()}`)
+    }
 
     return (
         <RadioGroup
             value={orderState}
-            onValueChange={setOrderState}
+            // onValueChange={setOrderState}
+            onValueChange={(state: string) => handleOrderStateChange(state)}
             className="flex gap-6 text-[#322A24]"
         >
             {statusList.map((item) => (

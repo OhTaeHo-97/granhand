@@ -15,8 +15,23 @@ export default function CouponInfo({ couponInfo, setCouponInfo, t }: { couponInf
     return (
         <section className="text-[#5E5955]">
             <h2 className="font-bold text-xl text-[#5E5955]">{t('coupon:coupon_info')}</h2>
-
             <div className="border border-gray-200 text-[#231815B2] text-sm w-full bg-white mt-4 mb-7 min-w-178">
+                <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
+                    <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
+                        <Label className="font-semibold">{t('language')}</Label>
+                    </div>
+                    <div className="flex items-center gap-4 p-5 w-full">
+                        <Select value={couponInfo.language} onValueChange={(value: 'ko' | 'en') => handleCouponInfoChange('language', value)}>
+                            <SelectTrigger className="w-fit">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white">
+                                <SelectItem value="ko">{t('korean')}</SelectItem>
+                                <SelectItem value="en">{t('english')}</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
                 <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
                     <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                         <Label className="font-semibold">{t('coupon:coupon_name')}</Label>

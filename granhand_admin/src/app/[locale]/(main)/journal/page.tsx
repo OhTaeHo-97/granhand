@@ -1,20 +1,37 @@
-import Pagination from "@/components/pagination";
+'use client'
+
+// import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 // import { Checkbox } from "@/components/ui/checkbox";
 // import { Label } from "@/components/ui/label";
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
-import { LocaleTypes } from "../../../../../utils/localization/settings";
-import { translation } from "../../../../../utils/localization/locales/server";
-import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
+// import { LocaleTypes } from "../../../../../utils/localization/settings";
+// import { translation } from "../../../../../utils/localization/locales/server";
+// import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
 import JournalSearchFilter from "./components/search-filter";
 import JournalList from "./components/journal-list";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useTranslation } from "../../../../../utils/localization/client";
+import { useState } from "react";
 
-export default async function JournalListPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
-    const { locale } = await params
-    const { t } = await translation(locale, ['common', 'journal'])
-    const currentLocale = getCurrentLocaleFromParams(locale)
+// export default async function JournalListPage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+export default function JournalListPage() {
+    // const { locale } = await params
+    // const { t } = await translation(locale, ['common', 'journal'])
+    // const currentLocale = getCurrentLocaleFromParams(locale)
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'journal'])
+    const currentLocale = useCurrentLocale()
+    const [currentPage, setCurrentPage] = useState(1)
+    // const [totalPage, setTotalPage] = useState(0)
+    const [totalPage,] = useState(0)
+    const [size, setSize] = useState('50')
+
+    const fetchJournals = (params?: Record<string, boolean | string | number>) => {
+        console.log(params)
+    }
 
     return (
         <main className="flex-1 border">
@@ -32,9 +49,9 @@ export default async function JournalListPage({ params }: { params: Promise<{ lo
                     </div>
                 </div>
 
-                <JournalSearchFilter />
+                <JournalSearchFilter fetchJournals={fetchJournals} />
                 {/* <JournalList t={t} /> */}
-                <JournalList />
+                <JournalList currentPage={currentPage} totalPage={totalPage} size={size} setCurrentPage={setCurrentPage} setSize={setSize} fetchJournals={fetchJournals} />
                 {/* <Pagination totalPages={15} /> */}
             </div>
         </main>

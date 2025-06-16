@@ -20,7 +20,7 @@ export default function MemberOrderInfo({ itemCnt }: { itemCnt: number }) {
             </div>
             <OrderInfo t={t} itemCnt={3} />
             
-            <MemberDetailEachListModal open={open} setOpen={setOpen} title="주문 정보" contents={<OrderInfo t={t} itemCnt={15} />} />
+            <MemberDetailEachListModal open={open} setOpen={setOpen} title={t('order:order_info')} contents={<OrderInfo t={t} itemCnt={itemCnt} />} />
         </section>
     )
 }

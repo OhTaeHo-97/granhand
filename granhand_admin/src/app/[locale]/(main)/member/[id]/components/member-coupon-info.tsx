@@ -23,7 +23,7 @@ export default function MemberCouponInfo() {
             </div>
             <CouponHistory t={t} itemCnt={3} />
 
-            <MemberDetailEachListModal open={open} setOpen={setOpen} title="쿠폰 내역" contents={<CouponHistory t={t} itemCnt={15} />} />
+            <MemberDetailEachListModal open={open} setOpen={setOpen} title={t('coupon:coupon_history')} contents={<CouponHistory t={t} itemCnt={15} />} />
         </section>
     )
 }

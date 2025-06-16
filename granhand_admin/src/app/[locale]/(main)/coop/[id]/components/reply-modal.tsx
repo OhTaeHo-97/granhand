@@ -1,21 +1,50 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Camera, X } from "lucide-react";
+import { Camera, ImageUpIcon, X } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false })
 
 // export default function ReplyModal({ sender, recipient, open, setOpen, t }: { sender: string, recipient: string, open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
 export default function ReplyModal({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
     const [images, setImages] = useState<File[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const [content, setContent] = useState("")
+    const [contents, setContents] = useState('')
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) {
             setImages((prev) => [...prev, e.target.files![0]])
         }
+    }
+
+    const handleImageUpload = async () => {
+        const input = document.createElement('input')
+        input.type = 'file'
+        input.accept = 'image/*'
+
+        input.onchange = async () => {
+            const file = input.files?.[0]
+            if(file) {
+                // 서버 업로드
+                // const formData = new FormData()
+                // formData.append('file', file)
+                // const res = await fetch('url', {
+                //     method: 'POST',
+                //     body: formData
+                // })
+                // const { url } = await res.json()
+
+                // 업로드한 이미지 url 서버로부터 수신 및 마크다운 언어로 변경
+                // const imageMarkdown = `![image](${url})`
+                // 마크다운 언어로 작성하여 이미지 보여주기
+                // setValue((prev) => (prev || '') + `\n${imageMarkdown}`)
+            }
+        }
+
+        input.click()
     }
 
     const handleDelete = (index: number) => {
@@ -94,7 +123,25 @@ export default function ReplyModal({ open, setOpen, t }: { open: boolean, setOpe
                     </section>
                     <section className="mt-8">
                         <h2 className="font-bold text-xl text-[#5E5955]">{t('coop:content')}</h2>
-                        <Textarea className="resize-none min-h-80 mt-4 w-full" onChange={(e) => setContent(e.target.value)} />
+                        <div data-color-mode="light" className="w-full">
+                            {/* 커스텀 툴바 */}
+                            <div className="flex items-center px-2 py-1 gap-2 text-sm rounded-t-md w-full">
+                                <Button
+                                    onClick={handleImageUpload}
+                                    className="!p-0 !m-0 hover:underline"
+                                >
+                                    <ImageUpIcon size={16} /> Upload Image
+                                </Button>
+                            </div>
+                            {/* 마크다운 에디터 */}
+                            <MDEditor
+                                value={contents}
+                                onChange={(val) => setContents(val || "")}
+                                preview="live"
+                                className="w-full min-h-96"
+                            />
+                        </div>
+                        {/* <Textarea className="resize-none min-h-80 mt-4 w-full" onChange={(e) => setContent(e.target.value)} /> */}
                     </section>
                     <section>
                         <h2 className="font-bold text-xl text-[#5E5955]">{t('coop:image')}</h2>

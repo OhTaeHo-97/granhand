@@ -16,7 +16,7 @@ import {
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { buildCategoryTree, ProductCategoryNode, useProductCategoryStore } from "@/lib/product/product-state"
+import { ProductCategoryNode, useProductCategoryStore } from "@/lib/product/product-state"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -134,7 +134,8 @@ export default function CategorySettingModal({ open, setOpen, t }: { open: boole
     // const [tree, setTree] = useState<ProductCategoryNode[]>(categories)
     const [tree, setTree] = useState<ProductCategoryNode[]>([])
     const [activeId, setActiveId] = useState<number | null>(null)
-    const [activeCategory, setActiveCategory] = useState<string | null>(null)
+    // const [activeCategory, setActiveCategory] = useState<string | null>(null)
+    const [, setActiveCategory] = useState<string | null>(null)
     const [selectedCategory, setSelectedCategory] = useState<ProductCategoryNode | null>(null)
     const [isAddingMode, setIsAddingMode] = useState(false)
     const [form, setForm] = useState<Omit<ProductCategoryNode, "idx" | "children">>({
@@ -147,10 +148,10 @@ export default function CategorySettingModal({ open, setOpen, t }: { open: boole
 
     const activeParentId = useRef<number | null>(null)
     // const [isAddingCategory, setIsAddingCategory] = useState(false)
-    const [newCategoryName, setNewCategoryName] = useState('')
     // const [newCategoryParentId, setNewCategoryParentId] = useState<number | null>(null)
     // const inputRef = useRef<HTMLInputElement>(null)
     // const [newCategoryOpen, setNewCategoryOpen] = useState(false)
+    // const [newCategoryName, setNewCategoryName] = useState('')
 
     const sensors = useSensors(useSensor(PointerSensor))
 
@@ -271,6 +272,7 @@ export default function CategorySettingModal({ open, setOpen, t }: { open: boole
         try {
             const categoriesToUpdate: { idx: number; orders: number }[] = []
             const collectOrders = (nodes: ProductCategoryNode[], parentId: number | null = null) => {
+                console.log(parentId)
                 nodes.forEach((node, index) => {
                     categoriesToUpdate.push({
                         idx: node.idx,
@@ -311,7 +313,7 @@ export default function CategorySettingModal({ open, setOpen, t }: { open: boole
                 // console.log('params:', category)
                 // console.log('form', form)
     
-                const { data, error } = await addCategory(category)
+                const { error } = await addCategory(category)
     
                 // console.log('data:', data)
                 // console.log('error:', error)
@@ -349,7 +351,7 @@ export default function CategorySettingModal({ open, setOpen, t }: { open: boole
     // 드래그 시작 시 부모 기억
     function handleDragStart(event: DragStartEvent) {
         const { active } = event
-        const { parent } = findNodeAndParent(tree, active.id as number)
+        // const { parent } = findNodeAndParent(tree, active.id as number)
         let parentId: number | null = null;
         const findParentRecursive = (nodes: ProductCategoryNode[], targetId: number, currentParentId: number | null) => {
             for (const n of nodes) {
@@ -410,97 +412,97 @@ export default function CategorySettingModal({ open, setOpen, t }: { open: boole
     //     setOpen(false)
     // }
 
-    const fetchCategories = async (upcate?: string) => {
-        if (status !== 'authenticated' || !session?.token) {
-            console.log('Cannot create category - no valid session')
-            return
-        }
+    // const fetchCategories = async (upcate?: string) => {
+    //     if (status !== 'authenticated' || !session?.token) {
+    //         console.log('Cannot create category - no valid session')
+    //         return
+    //     }
 
-        try {
-            const params = new URLSearchParams({
-                upcate: upcate ? upcate : ''
-            })
+    //     try {
+    //         // const params = new URLSearchParams({
+    //         //     upcate: upcate ? upcate : ''
+    //         // })
 
-            const { data, error } = await getCategories({
-                upcate: ''
-            })
+    //         const { data, error } = await getCategories({
+    //             upcate: ''
+    //         })
 
-            if(error) {
-                alert('카테고리 가져오기 실패')
-            }
-            if(data) {
-                alert('카테고리 가져오기 성공')
-                console.log(data)
-                const categories = buildCategoryTree(data)
-                setCategories(categories)
-            }
+    //         if(error) {
+    //             alert('카테고리 가져오기 실패')
+    //         }
+    //         if(data) {
+    //             alert('카테고리 가져오기 성공')
+    //             console.log(data)
+    //             const categories = buildCategoryTree(data)
+    //             setCategories(categories)
+    //         }
 
-            // if(error) {
-            //     alert('카테고리 가져오기 실패')
-            // } else {
-            //     setCategories(data)
-            // }
-
-
-            // const categories = await getCategories({
-            //     upcate: ''
-            // })
-
-            // const response = await fetch(`/api/product/category?${params.toString()}`, {
-            //     // token: session.token
-            //     method: 'GET',
-            //     headers: {
-            //         'Authorization': `${session.token}`
-            //     }
-            // })
-
-            // if(!response.ok) {
-            //     const error = await response.json()
-            //     throw new Error(error.message)
-            // }
-
-            // const data = await response.json()
-            // console.log('data:', data)
-            // return data
+    //         // if(error) {
+    //         //     alert('카테고리 가져오기 실패')
+    //         // } else {
+    //         //     setCategories(data)
+    //         // }
 
 
-            // if (response.data) {
-            //     setCategories(response.data)
-            // }
-        } catch (error) {
-            console.error('Failed to create category:', error)
-        }
-    }
+    //         // const categories = await getCategories({
+    //         //     upcate: ''
+    //         // })
 
-    const handleUpdateCategory = async () => {
-        if (!newCategoryName.trim()) return
+    //         // const response = await fetch(`/api/product/category?${params.toString()}`, {
+    //         //     // token: session.token
+    //         //     method: 'GET',
+    //         //     headers: {
+    //         //         'Authorization': `${session.token}`
+    //         //     }
+    //         // })
 
-        if (!selectedCategory || status !== 'authenticated' || !session?.token) {
-            console.log('Cannot create category - no valid session')
-            return
-        }
+    //         // if(!response.ok) {
+    //         //     const error = await response.json()
+    //         //     throw new Error(error.message)
+    //         // }
 
-        try {
-            const response = await api.put(`/product/cate/${selectedCategory.idx}`, {
-                catename: newCategoryName.trim(),
-                catecode: newCategoryName.trim(),
-                upcate: selectedCategory?.catename || '',
-                isshow: 'Y',
-                orders: 1
-            }, {
-                token: session.token
-            })
+    //         // const data = await response.json()
+    //         // console.log('data:', data)
+    //         // return data
 
-            // 카테고리 목록 새로고침
-            await fetchCategories()
+
+    //         // if (response.data) {
+    //         //     setCategories(response.data)
+    //         // }
+    //     } catch (error) {
+    //         console.error('Failed to create category:', error)
+    //     }
+    // }
+
+    // const handleUpdateCategory = async () => {
+    //     if (!newCategoryName.trim()) return
+
+    //     if (!selectedCategory || status !== 'authenticated' || !session?.token) {
+    //         console.log('Cannot create category - no valid session')
+    //         return
+    //     }
+
+    //     try {
+    //         const response = await api.put(`/product/cate/${selectedCategory.idx}`, {
+    //             catename: newCategoryName.trim(),
+    //             catecode: newCategoryName.trim(),
+    //             upcate: selectedCategory?.catename || '',
+    //             isshow: 'Y',
+    //             orders: 1
+    //         }, {
+    //             token: session.token
+    //         })
+
+    //         // 카테고리 목록 새로고침
+    //         await fetchCategories()
             
-            setNewCategoryName('')
-            // setNewCategoryParentId(null)
-            // setNewCategoryOpen(false)
-        } catch (error) {
-            console.error('Failed to create category:', error)
-        }
-    }
+    //         setNewCategoryName('')
+    //         // setNewCategoryParentId(null)
+    //         // setNewCategoryOpen(false)
+    //     } catch (error) {
+    //         console.error('Failed to create category:', error)
+    //     }
+    // }
 
     const handleDeleteCategory = async () => {
         if (!activeId) return

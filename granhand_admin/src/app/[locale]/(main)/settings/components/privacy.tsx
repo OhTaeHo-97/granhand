@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import TermModal from "./modal/term-modal";
 
-export default function PrivacySettings() {
+export default function PrivacySettings({ t }: { t: (key: string) => string }) {
     const [openEdit, setOpenEdit] = useState(false)
 
     return (
@@ -10,9 +10,9 @@ export default function PrivacySettings() {
             <table className="w-full text-left border-collapse min-w-6xl border-t border-b">
                 <thead className="bg-[#322A2408] border-t h-12">
                     <tr className="border-b text-[#6F6963]">
-                        <th className="p-2 text-center">일자</th>
-                        <th className="p-2 text-center">버전</th>
-                        <th className="p-2 text-center">관리</th>
+                        <th className="p-2 text-center">{t('settings:date')}</th>
+                        <th className="p-2 text-center">{t('settings:version')}</th>
+                        <th className="p-2 text-center">{t('settings:manage')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,8 +21,8 @@ export default function PrivacySettings() {
                         <td className="p-2 text-center">2024-07-10 (수)</td>
                         <td className="p-2 text-center">V 2.1</td>
                         <td className="p-2 text-center gap-3 flex items-center justify-center">
-                            <Button className="border bg-white" onClick={() => setOpenEdit((prev) => !prev)}>편집</Button>
-                            <Button className="border bg-white">삭제</Button>
+                            <Button className="border bg-white" onClick={() => setOpenEdit((prev) => !prev)}>{t('settings:edit')}</Button>
+                            <Button className="border bg-white">{t('delete')}</Button>
                         </td>
                     </tr>
                     ))}

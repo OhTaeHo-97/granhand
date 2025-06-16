@@ -4,8 +4,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Smartphone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import ExchangeReasonModal from "./modal/exchange-reason-modal"
+import AdminNotesModal from "../../components/modal/admin-notes-modal"
+import { TFunction } from "i18next"
 
-export default function ExchangeListTable({ exchangeState, t }: { exchangeState: string, t: (key: string) => string }) {
+export default function ExchangeListTable({ exchangeState, t }: { exchangeState: string, t: TFunction }) {
     const [openExchangeReason, setOpenExchangeReason] = useState(false)
     const [openAdminNotes, setOpenAdminNotes] = useState(false)
 
@@ -47,7 +49,7 @@ export default function ExchangeListTable({ exchangeState, t }: { exchangeState:
                             <td className="p-2 border">
                                 <div className="font-semibold text-black">홍길동 / 010-1234-5678</div>
                                 <div className="text-gray-400 text-xs">honghong@gmail.com</div>
-                                <Button className="bg-white border">관리자 메모</Button>
+                                <Button className="bg-white border" onClick={() => setOpenAdminNotes(true)}>{t('note')}</Button>
                             </td>
                             <td className="p-2 border">
                                 <div className="space-y-1 text-sm">
@@ -101,8 +103,8 @@ export default function ExchangeListTable({ exchangeState, t }: { exchangeState:
                 </tbody>
             </table>
             <ExchangeReasonModal open={openExchangeReason} setOpen={setOpenExchangeReason} t={t} />
-            {/* <AdminNotesModal open={openAdminNotes} setOpen={setOpenAdminNotes} />
-            <OrderDetailModal open={openOrderDetail} setOpen={setOpenOrderDetail} /> */}
+            <AdminNotesModal open={openAdminNotes} setOpen={setOpenAdminNotes} t={t} />
+            {/* <OrderDetailModal open={openOrderDetail} setOpen={setOpenOrderDetail} /> */}
         </div>
     )
 }

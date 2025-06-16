@@ -51,7 +51,8 @@ const products = [
     },
 ]
 
-export default function SelectProductModal({ title, open, notes, setOpen, confirmFn }: { title: string, open: boolean, notes: string[], setOpen: React.Dispatch<React.SetStateAction<boolean>>, confirmFn?: () => Promise<void> }) {
+// export default function SelectProductModal({ title, open, notes, setOpen, confirmFn }: { title: string, open: boolean, notes: string[], setOpen: React.Dispatch<React.SetStateAction<boolean>>, confirmFn?: () => Promise<void> }) {
+export default function SelectProductModal({ title, open, notes, setOpen }: { title: string, open: boolean, notes: string[], setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'coupon'])
     const [search, setSearch] = useState('')

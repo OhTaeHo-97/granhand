@@ -120,5 +120,35 @@
     "ship_info": "Shipping Information",
     "product_weight": "Product Weight (kg)",
     "number_only": "Numbers Only",
-    "set_ship_country": "Set Shipping Countries"
+    "set_ship_country": "Set Shipping Countries",
+
+    "template_list": "Template List",
+    "title": "Title",
+    "template_details": "Template Details",
+
+    "stock_target": "Stock Target",
+    "enter_manually": "Enter Manually",
+    "unlimited": "Unlimited",
+
+    "add_change": "Add Change History",
+    "modified_date": "Modified Date",
+    "type": "Type",
+    "classification": "Category",
+
+    "temporary_out_of_stock": "Out of Stock",
+    "unavailable": "Unavailable",
+    "enter_email_placeholder": "Enter ID (Email)",
+    "member_all": "Member Grade - All",
+    "add_product": "Add Product",
+    "delete_product": "Delete Selected Products",
+    "category2": "Category",
+    "registration_method": "Registration Method",
+    "mutual_registration": "Mutual Registration",
+    "one_way_registration": "One-way Registration",
+
+    "add_category": "Add Category",
+    "category_details": "Category Details",
+    "category_name": "Category Name",
+    "store_display_settings": "Store Display Settings",
+    "visibility_settings": "Visibility Settings"
 }

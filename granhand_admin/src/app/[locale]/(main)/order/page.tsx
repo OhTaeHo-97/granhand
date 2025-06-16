@@ -1,17 +1,21 @@
 'use client'
 
-import Pagination from "@/components/pagination"
 import OrderStatus from "./components/order-status"
 import OrderFilter from "./components/order-filter"
 import OrderList from "./components/order-list"
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
-import { useState } from "react"
+import { useEffect, useState } from "react"
+// import { Order, useOrder } from "@/hooks/use-order";
 
 export default function OrderPage() {
     const [orderState, setOrderState] = useState('all')
+    // const [contents, setContents] = useState([])
+    // const { getOrders } = useOrder()
+    // const [orders, setOrders] = useState<Order[]>([])
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const currentLocale = useCurrentLocale()
     const statusList = [
         { label: t('order:all'), count: 205, value: "all" },
         { label: t('order:awaiting_payment'), count: 2, value: "awaiting_payment" },
@@ -23,12 +27,16 @@ export default function OrderPage() {
         { label: t('order:confirm_purchase'), count: 1, value: "confirm_purchase" }
     ]
 
+    useEffect(() => {
+        
+    }, [])
+
     return (
         <main className="flex-1 border">
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
                 <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:order_management')}</h1>
                 {/* 상품 상태 */ }
-                <OrderStatus orderState={orderState} setOrderState={setOrderState} statusList={statusList} />
+                <OrderStatus orderState={orderState} setOrderState={setOrderState} statusList={statusList} link={`${currentLocale}/order`} />
                 {/* 검색 */}
                 <OrderFilter />
 

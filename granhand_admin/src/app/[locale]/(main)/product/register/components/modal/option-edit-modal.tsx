@@ -6,8 +6,8 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 // import { GripVertical } from "lucide-react";
 import { useState } from "react";
 import OptionEditTable from "./option-edit-table";
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
-import { useTranslation } from "../../../../../../../../utils/localization/client";
+// import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+// import { useTranslation } from "../../../../../../../../utils/localization/client";
 
 export type OptionEditType = {
     id: number
@@ -19,9 +19,9 @@ export type OptionEditType = {
     status: string
 }
 
-export default function OptionEditModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
-    const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, ['common', 'product'])
+export default function OptionEditModal({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
+    // const locale = useLocaleAsLocaleTypes()
+    // const { t } = useTranslation(locale, ['common', 'product'])
 
     const [optionSections, setOptionSections] = useState<{ id:number; title: string; options:OptionEditType[] }[]>([
         { id: 1, title: "용량", options: [{
@@ -66,7 +66,7 @@ export default function OptionEditModal({ open, setOpen }: { open: boolean, setO
         <Dialog open={open} onOpenChange={setOpen} >
             <DialogContent className="bg-white max-w-130 min-h-80 w-full overflow-auto mx-auto min-w-7xl h-full">
             <DialogHeader>
-                <DialogTitle className="p-10"><span className="font-bold text-2xl text-[#111111]">옵션 수정</span></DialogTitle>
+                <DialogTitle className="p-10"><span className="font-bold text-2xl text-[#111111]">{t('product:edit_options')}</span></DialogTitle>
             </DialogHeader>
             <div className="text-[#111111] py-4">
                 <div className="items-center gap-4 p-5">
@@ -195,8 +195,8 @@ export default function OptionEditModal({ open, setOpen }: { open: boolean, setO
                 </div>
             </div>
             <DialogFooter className="!flex !items-center !justify-center">
-                <Button variant="outline" className="text-[#322A24] w-1/6" onClick={() => setOpen(false)}>취소</Button>
-                <Button className="bg-[#322A24] text-white rounded px-6 py-1 flex items-center gap-1 w-1/6" onClick={() => setOpen(false)}>저장</Button>
+                <Button variant="outline" className="text-[#322A24] w-1/6" onClick={() => setOpen(false)}>{t('cancel')}</Button>
+                <Button className="bg-[#322A24] text-white rounded px-6 py-1 flex items-center gap-1 w-1/6" onClick={() => setOpen(false)}>{t('save')}</Button>
             </DialogFooter>
             </DialogContent>
         </Dialog>

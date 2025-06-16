@@ -1,17 +1,18 @@
-'use client'
-
-import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
-import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { Pencil } from "lucide-react";
-import { useTranslation } from "../../../../../utils/localization/client";
 import Link from "next/link";
 import NoticeList from "./components/notice-list";
+import { LocaleTypes } from "../../../../../utils/localization/settings";
+import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams";
+import { translation } from "../../../../../utils/localization/locales/server";
 
-export default function NoticePage() {
-    const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, ['common', 'notice', 'wallpaper'])
-    const currentLocale = useCurrentLocale()
+export default async function NoticePage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+    const { locale } = await params
+    const { t } = await translation(locale, ['common', 'notice', 'wallpaper'])
+    const currentLocale = getCurrentLocaleFromParams(locale)
+    // const locale = useLocaleAsLocaleTypes()
+    // const { t } = useTranslation(locale, ['common', 'notice', 'wallpaper'])
+    // const currentLocale = useCurrentLocale()
         
     return (
         <main className="flex-1 border">
@@ -29,8 +30,7 @@ export default function NoticePage() {
                     </div>
                 </div>
 
-                <NoticeList t={t} />
-                <Pagination totalPages={15} />
+                <NoticeList />
             </div>
         </main>
         // <main className="flex-1 border p-12">

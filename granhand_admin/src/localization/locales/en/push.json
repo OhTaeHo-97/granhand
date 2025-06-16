@@ -31,5 +31,23 @@
     "schedule_status": "Schedule Status",
     "manage": "Manage",
     "edit_schedule": "Edit Schedule",
-    "cancel_repeat": "Cancel Repeat"
+    "cancel_repeat": "Cancel Repeat",
+
+    "repeat": "Repeat",
+    "repeat_interval": "Repeat Interval",
+    "end_date": "End Date",
+    "interval": "Interval",
+    "day": "Day",
+    "time": "Time",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sun": "Sun"
 }

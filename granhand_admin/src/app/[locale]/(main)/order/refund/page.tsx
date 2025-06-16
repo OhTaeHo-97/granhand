@@ -4,14 +4,16 @@ import Pagination from "@/components/pagination"
 import OrderStatus from "../components/order-status"
 import OrderFilter from "../components/order-filter"
 import RefundList from "./components/refund-list"
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
 import { useTranslation } from "../../../../../../utils/localization/client"
 import { useState } from "react"
 
 export default function RefundPage() {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const currentLocale = useCurrentLocale()
     const [refundState, setRefundState] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
 
     const statusList = [
         { label: t('order:return_requested'), count: 105, value: "return_requested" },
@@ -26,13 +28,13 @@ export default function RefundPage() {
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
                 <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:return_manage')}</h1>
                 {/* 상품 상태 */ }
-                <OrderStatus orderState={refundState} setOrderState={setRefundState} statusList={statusList} />
+                <OrderStatus orderState={refundState} setOrderState={setRefundState} statusList={statusList} link={`${currentLocale}/order/refund`} />
                 {/* 검색 */}
                 <OrderFilter />
 
                 {/* 테이블 */}
                 <RefundList refundState={refundState} t={t} />
-                <Pagination totalPages={15} />
+                <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
         </main>
     )

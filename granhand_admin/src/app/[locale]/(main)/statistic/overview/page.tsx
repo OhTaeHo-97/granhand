@@ -32,27 +32,27 @@ const data = [
 //     { name: '금', value: 40 }
 // ]
 
-const dateProgress = [
-    { date: "오늘", value: 13, total: 100 },
-    { date: "어제", value: 94, total: 100 },
-    { date: "2024-07-01", value: 94, total: 100 },
-    { date: "2024-06-30", value: 94, total: 100 },
-    { date: "2024-06-29", value: 94, total: 100 },
-    { date: "2024-06-28", value: 94, total: 100 },
-]
-
-const trafficProgress = [
-    { date: "오늘", value: 3.74, size: "38.3G" },
-    { date: "어제", value: 1.43, size: "14.92G" },
-    { date: "2024-07-01", value: 3.74, size: "38.3G" },
-    { date: "2024-06-30", value: 3.74, size: "38.3G" },
-    { date: "2024-06-29", value: 3.74, size: "38.3G" },
-    { date: "2024-06-28", value: 3.74, size: "38.3G" },
-]
-
 export default function StatisticsOverview() {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'statistics')
+
+    const dateProgress = [
+        { date: t('today'), value: 13, total: 100 },
+        { date: t('yesterday'), value: 94, total: 100 },
+        { date: "2024-07-01", value: 94, total: 100 },
+        { date: "2024-06-30", value: 94, total: 100 },
+        { date: "2024-06-29", value: 94, total: 100 },
+        { date: "2024-06-28", value: 94, total: 100 },
+    ]
+    
+    const trafficProgress = [
+        { date: t('today'), value: 3.74, size: "38.3G" },
+        { date: t('yesterday'), value: 1.43, size: "14.92G" },
+        { date: "2024-07-01", value: 3.74, size: "38.3G" },
+        { date: "2024-06-30", value: 3.74, size: "38.3G" },
+        { date: "2024-06-29", value: 3.74, size: "38.3G" },
+        { date: "2024-06-28", value: 3.74, size: "38.3G" },
+    ]
 
     return (
         <main className="flex-1 border">
@@ -63,7 +63,7 @@ export default function StatisticsOverview() {
                         <div className="shadow-sm p-4 bg-white w-full">
                             <h2 className="text-[#5E5955] font-bold text-base mb-2">{t('visitor_statistics')}</h2>   
                             <div className="p-6 border bg-white">
-                                <div className="font-semibold mb-4">방문자 & 페이지뷰</div>
+                                <div className="font-semibold mb-4">{t('visitors')} & {t('page_views')}</div>
                                 <ResponsiveContainer width="100%" height={300}>
                                     <AreaChart data={data}>
                                         <defs>
@@ -94,7 +94,7 @@ export default function StatisticsOverview() {
                                 </BarChart>
                             </ResponsiveContainer> */}
                             <div className="p-6 border bg-white">
-                                <div className="font-semibold mb-4">방문자 & 페이지뷰</div>
+                                <div className="font-semibold mb-4">{t('visitors')} & {t('page_views')}</div>
                                 <ResponsiveContainer width="100%" height={300}>
                                     <AreaChart data={data}>
                                         <defs>

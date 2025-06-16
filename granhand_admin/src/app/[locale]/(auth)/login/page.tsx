@@ -15,12 +15,12 @@ import { useConfig } from "@/hooks/use-config";
 
 const loginSchema = z.object({
   id: z.string()
-    .min(1, "아이디를 입력해주세요."),
-    // .email("올바른 이메일 형식을 입력해주세요."),
+    .min(1, "아이디를 입력해주세요.")
+    .email("올바른 이메일 형식을 입력해주세요."),
   passwd: z.string()
     .min(1, "비밀번호를 입력해주세요.")
-    // .min(8, "비밀번호를 8자리 이상 입력해주세요.")
-    // .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+]).{8,}$/, '비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상입니다.'),
+    .min(8, "비밀번호를 8자리 이상 입력해주세요.")
+    .regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+]).{8,}$/, '비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상입니다.'),
 });
 
 type LoginValues = z.infer<typeof loginSchema>;

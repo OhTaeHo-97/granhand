@@ -5,9 +5,9 @@ export default function DenyExchangeModalContents({ t }: { t: (key: string) => s
     return (
         <>
             <div className="p-4">
-                <ul className="text-[#6F6963]">
-                    <li>교환 거부 처리 전 구매자에게 먼저 불가 사유를 안내하고, 거부 처리를 진행해 주세요.</li>
-                    <li>교환 거부 사유는 구매자에게 전달되며, 일반 주문으로 전환됩니다.</li>
+                <ul className="text-[#6F6963] list-disc">
+                    <li>{t('order:process_exchange_rejection_info1')}</li>
+                    <li>{t('order:process_exchange_rejection_info2')}</li>
                 </ul>
             </div>
             <div className="text-[#6f6963] text-sm w-full min-w-120 mt-6">
@@ -48,11 +48,11 @@ export default function DenyExchangeModalContents({ t }: { t: (key: string) => s
                 <div className="rounded-md mt-6 space-y-3">
                     <div className="grid grid-cols-[110px_1fr] h-full m-0">
                         <div className="flex justify-start p-2">
-                            <Label className="font-bold">교환 거부 사유*</Label>
+                            <Label className="font-bold">{t('order:reason_exchange_reject')}*</Label>
                         </div>
                         <div className="px-5 py-2 w-full">
                             <div className="flex items-center gap-2">
-                                <Textarea placeholder="상세 사유 입력" className="resize-none h-40 w-full" />
+                                <Textarea placeholder={t('order:enter_detail_reason')} className="resize-none h-40 w-full" />
                             </div>
                         </div>
                     </div>

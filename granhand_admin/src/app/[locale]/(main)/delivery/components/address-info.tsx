@@ -1,8 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { AddressInformation } from "../page";
 
-export default function AddressInfo({ t }: { t: (key: string) => string }) {
+export default function AddressInfo({ contents, setContents, t }: { contents: AddressInformation, setContents: React.Dispatch<React.SetStateAction<AddressInformation>>, t: (key: string) => string }) {
+    const handleContentsChange = <K extends keyof AddressInformation>(
+        key: K,
+        value: AddressInformation[K]
+    ) => {
+        setContents((prev) => ({
+            ...prev,
+            [key]: value
+        }))
+    }
+
     return (
         <section className="text-[#5E5955]">
             <h2 className="font-bold text-xl text-[#5E5955]">{t('ship_return_address')}</h2>
@@ -12,7 +23,7 @@ export default function AddressInfo({ t }: { t: (key: string) => string }) {
                         <Label className="font-semibold">{t('address_name')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5 w-full">
-                        <Input defaultValue="짐풀" className="w-1/2" />
+                        <Input type="text" value={contents.addressName} onChange={(e) => handleContentsChange('addressName', e.target.value)} className="w-1/2" />
                     </div>
                 </div>
 
@@ -22,10 +33,10 @@ export default function AddressInfo({ t }: { t: (key: string) => string }) {
                     </div>
                     <div className="flex flex-col gap-6 p-5">
                         <div className="flex items-center gap-3">
-                            <Input defaultValue="10910" className="w-25" />
+                            <Input type="text" value={contents.fromPostal} onChange={(e) => handleContentsChange('fromPostal', e.target.value)} className="w-25" />
                             <Button className="border h-8">{t('search_postal_code')}</Button>
                         </div>
-                        <Input defaultValue="경기 파주시 하우고개길 458-1 (상지석동) 짐폴" />
+                        <Input type="text" value={contents.fromAddress} onChange={(e) => handleContentsChange('fromAddress', e.target.value)} />
                     </div>
                 </div>
                 <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
@@ -34,10 +45,10 @@ export default function AddressInfo({ t }: { t: (key: string) => string }) {
                     </div>
                     <div className="flex flex-col gap-6 p-5">
                         <div className="flex items-center gap-3">
-                            <Input defaultValue="10910" className="w-25" />
+                            <Input type="text" value={contents.toPostal} onChange={(e) => handleContentsChange('toPostal', e.target.value)} className="w-25" />
                             <Button className="border h-8">{t('search_postal_code')}</Button>
                         </div>
-                        <Input defaultValue="경기 파주시 하우고개길 458-1 (상지석동) 짐폴" />
+                        <Input type="text" value={contents.toAddress} onChange={(e) => handleContentsChange('toAddress', e.target.value)} />
                     </div>
                 </div>
                 <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
@@ -47,7 +58,7 @@ export default function AddressInfo({ t }: { t: (key: string) => string }) {
                     <div className="flex items-center gap-4 p-5">
                         <div className="flex items-center gap-4">
                             <div className="relative w-64">
-                                <Input defaultValue="02-333-6525" className="pr-10" />
+                                <Input type="text" value={contents.primaryNumber} onChange={(e) => handleContentsChange('primaryNumber', e.target.value)} className="pr-10" />
                             </div>
                         </div>
                     </div>

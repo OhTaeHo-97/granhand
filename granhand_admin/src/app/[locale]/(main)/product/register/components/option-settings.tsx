@@ -6,32 +6,42 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 // import { GripVertical } from "lucide-react";
-import { useState } from "react";
-import OptionEditModal from "./modal/option-edit-modal";
+// import { useState } from "react";
+// import OptionEditModal from "./modal/option-edit-modal";
 import OptionTable from "./option-table";
 
 interface OptionSettings {
     data: {
         useStamping: string,
         useBtnOption: string,
-        btnOptionSections: { id: number, title: string, options: OptionType[] }[],
+        btnOptionSections: OptionSections[],
         useDropOption: string,
-        dropOptionSections: { id: number, title: string, options: OptionType[] }[]
+        dropOptionSections: OptionSections[]
     },
-    onChange: (field: string, value: any) => void
+    // onChange: (field: keyof OptionSettings['data'], value: string | OptionSections[]) => void
+    onChange: (
+        field: keyof OptionSettings['data'],
+        value: Exclude<OptionSettings['data'][keyof OptionSettings['data']], undefined>
+    ) => void
 }
 
-export type OptionType = {
+interface OptionSections {
+    id: number
+    title: string
+    options: OptionType[]
+}
+
+type OptionType = {
     id: number
     optionValue: string
     price: number
     inventoryId: string
-    quantity: number
+    quantity: string
     status: string
 }
 
 export default function OptionSettings({ data, onChange, t }: OptionSettings & { t: (key: string) => string }) {
-    const [openOptionEditModal, setOpenOptionEditModal] = useState(false)
+    // const [openOptionEditModal, setOpenOptionEditModal] = useState(false)
 
     const setBtnOptionSections: React.Dispatch<React.SetStateAction<{ id: number, title: string, options: OptionType[] }[]>> = (value) => {
         if (typeof value === 'function') {
@@ -105,7 +115,7 @@ export default function OptionSettings({ data, onChange, t }: OptionSettings & {
 
                 {data.useDropOption !== 'N' && <OptionTable title={t('product:drop_option')} sections={data.dropOptionSections} setSections={setDropOptionSections} t={t} />}
             </div>
-            <OptionEditModal open={openOptionEditModal} setOpen={setOpenOptionEditModal} />
+            {/* <OptionEditModal open={openOptionEditModal} setOpen={setOpenOptionEditModal} t={t} /> */}
         </section>
     )
 }

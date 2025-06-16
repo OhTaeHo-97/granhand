@@ -9,11 +9,14 @@ import ProcessExchangeModalContents from "./modal/process-exchange-modal";
 import ProcessRefundModalContents from "./modal/process-refund-modal";
 import EditTrackingNumberModal from "./modal/edit-tracking-number-modal";
 import CancelOrderModalContents from "./modal/cancel-order-modal";
+import { TFunction } from "i18next";
 
-export default function OrderStateBtn({ orderState, setOpenEditEngraving, t }: { orderState?: string, setOpenEditEngraving: (value: boolean) => void, t: (key: string) => string }) {
+export default function OrderStateBtn({ orderState, setOpenEditEngraving, t }: { orderState?: string, setOpenEditEngraving: (value: boolean) => void, t: TFunction }) {
     const [openConfirmPayment, setOpenConfirmPayment] = useState(false)
     const [openPrepareShip, setOpenPrepareShip] = useState(false)
     const [openShipped, setOpenShipped] = useState(false)
+    const [openAwaitPayment, setOpenAwaitPayment] = useState(false)
+    const [openForceComplete, setOpenForceComplete] = useState(false)
     const [openDelayShip, setOpenDelayShip] = useState(false)
     const [openEditTracking, setOpenEditTracking] = useState(false)
     const [openProcessExchange, setOpenProcessExchange] = useState(false)
@@ -35,8 +38,8 @@ export default function OrderStateBtn({ orderState, setOpenEditEngraving, t }: {
                     <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenShipped((prev) => !prev)}>{t('order:mark_as_shipped')}</Button>
                     <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenDelayShip((prev) => !prev)}>{t('order:delay_shipment')}</Button>
                     <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenCancelOrder((prev) => !prev)}>{t('order:cancel_order')}</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer">{t('order:await_payment')}</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer">{t('order:force_complete')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenAwaitPayment((prev) => !prev)}>{t('order:await_payment')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenForceComplete((prev) => !prev)}>{t('order:force_complete')}</Button>
                     <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenEditEngraving(true)}>{t('order:edit_engraving')}</Button>
                 </div>
             )}
@@ -69,14 +72,16 @@ export default function OrderStateBtn({ orderState, setOpenEditEngraving, t }: {
                 </div>
             )}
             
-            <OrderBaseModal open={openConfirmPayment} setOpen={setOpenConfirmPayment} title="입금 확인 처리" contents={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} />
-            <OrderBaseModal open={openPrepareShip} setOpen={setOpenPrepareShip} title="배송 준비 처리" contents={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} />
-            <OrderBaseModal open={openShipped} setOpen={setOpenShipped} title="배송 중 처리" contents={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} />
-            <DelayShipmentModal open={openDelayShip} setOpen={setOpenDelayShip} />
-            <EditOrProcessOrderModal title="운송장 정보 수정" contentsTxt={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} contents={<EditTrackingNumberModal t={t} />} open={openEditTracking} setOpen={setOpenEditTracking} />
-            <EditOrProcessOrderModal title="교환 처리" contentsTxt={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} contents={<ProcessExchangeModalContents t={t} />} open={openProcessExchange} setOpen={setOpenProcessExchange} />
-            <EditOrProcessOrderModal title="반품 처리" contentsTxt={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} contents={<ProcessRefundModalContents t={t} />} open={openProcessRefund} setOpen={setOpenProcessRefund} />
-            <EditOrProcessOrderModal title="주문 취소 처리" contentsTxt={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} contents={<CancelOrderModalContents t={t} />} open={openCancelOrder} setOpen={setOpenCancelOrder} />
+            <OrderBaseModal open={openConfirmPayment} setOpen={setOpenConfirmPayment} title={t('order:confirm_payment')} contents={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} />
+            <OrderBaseModal open={openPrepareShip} setOpen={setOpenPrepareShip} title={t('order:prepare_shipment')} contents={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} />
+            <OrderBaseModal open={openShipped} setOpen={setOpenShipped} title={t('order:mark_as_shipped')} contents={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} />
+            <OrderBaseModal open={openAwaitPayment} setOpen={setOpenAwaitPayment} title={t('order:await_payment')} contents={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} />
+            <OrderBaseModal open={openForceComplete} setOpen={setOpenForceComplete} title={t('order:force_complete')} contents={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} />
+            <DelayShipmentModal open={openDelayShip} setOpen={setOpenDelayShip} t={t} />
+            <EditOrProcessOrderModal title={t('order:edit_tracking')} contentsTxt={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} contents={<EditTrackingNumberModal t={t} />} open={openEditTracking} setOpen={setOpenEditTracking} />
+            <EditOrProcessOrderModal title={t('order:process_exchange')} contentsTxt={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} contents={<ProcessExchangeModalContents t={t} />} open={openProcessExchange} setOpen={setOpenProcessExchange} />
+            <EditOrProcessOrderModal title={t('order:process_return')} contentsTxt={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} contents={<ProcessRefundModalContents t={t} />} open={openProcessRefund} setOpen={setOpenProcessRefund} />
+            <EditOrProcessOrderModal title={t('order:cancel_order')} contentsTxt={`${t('order:process_order_confirm_msg1', { count: 1, total: 10 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} contents={<CancelOrderModalContents t={t} />} open={openCancelOrder} setOpen={setOpenCancelOrder} />
         </>
     )
 }

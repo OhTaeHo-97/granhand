@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Smartphone } from "lucide-react";
 import RefundListTable from "./refund-list-table";
 import { useState } from "react";
 import ExcelDownloadModal from "../../components/modal/excel-download-modal";
+import { TFunction } from "i18next";
 
-export default function RefundList({ refundState, t }: { refundState: string, t: (key: string) => string }) {
+export default function RefundList({ refundState, t }: { refundState: string, t: TFunction }) {
     const [openExcelDown, setOpenExcelDown] = useState(false)
 
     return (
@@ -27,12 +26,12 @@ export default function RefundList({ refundState, t }: { refundState: string, t:
                                 <SelectItem value="500">500</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>엑셀 다운로드</Button>
+                        <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>{t('excel_down')}</Button>
                     </div>
                 </div>
                 <RefundListTable refundState={refundState} t={t} />
             </div>
-            <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
+            <ExcelDownloadModal isOrder={true} open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
         </div>
     )
 }

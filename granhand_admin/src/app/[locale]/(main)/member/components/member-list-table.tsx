@@ -71,9 +71,9 @@ export default function MemberListTable({
     }
 
     const handleMemoClick = (memberId: number, memoContent: string | undefined) => {
-        setMemoModalMemberId(memberId); // 클릭된 회원의 ID 저장
-        setSelectedMemberMemo(memoContent); // 클릭된 회원의 메모 저장
-        setOpenMemo(true); // 메모 모달 열기
+        setMemoModalMemberId(memberId)
+        setSelectedMemberMemo(memoContent)
+        setOpenMemo(true)
     }
 
     const handleSaveMemo = () => {
@@ -85,9 +85,9 @@ export default function MemberListTable({
                 member.idx === memoModalMemberId ? { ...member, memo: selectedMemberMemo } : member
             ))
         }
-        setOpenMemo(false) // 모달 닫기
-        setMemoModalMemberId(null) // 상태 초기화
-        setSelectedMemberMemo(undefined) // 상태 초기화
+        setOpenMemo(false)
+        setMemoModalMemberId(null)
+        setSelectedMemberMemo(undefined)
     }
 
     const handleCloseMemoModal = () => {
@@ -116,7 +116,7 @@ export default function MemberListTable({
                 <tbody>
                     {members.length === 0 ? (
                         <tr>
-                            <td colSpan={10} className="h-32 text-center text-gray-500">결과가 없습니다.</td>
+                            <td colSpan={10} className="h-32 text-center text-gray-500">{t('no_results')}</td>
                         </tr>
                     ) : (
                         members.map((member) => (
@@ -125,8 +125,8 @@ export default function MemberListTable({
                                 className="h-14 text-[#1A1A1A] hover:bg-[#322A2408] relative"
                                 onMouseEnter={() => {
                                     setHoveredMemberId(member.idx)
-                                }} // 호버 시작 시 ID 저장
-                                onMouseLeave={() => setHoveredMemberId(null)} // 호버 끝날 시 ID 초기화
+                                }}
+                                onMouseLeave={() => setHoveredMemberId(null)}
                             >
                                 <td className="p-2 items-center ">
                                     <Checkbox
@@ -164,7 +164,7 @@ export default function MemberListTable({
                                             {hoveredMemberId === member.idx && (
                                                 <div className="absolute right-0 top-full mt-1 w-64 bg-[#FDFBF5] text-[#C0BCB6] p-3 text-xs rounded-md shadow-lg z-10 text-center"> {/* 스타일 조정: right-0은 부모 relative 컨테이너(메모 버튼 감싼 div) 기준 */}
                                                     {/* {member.memo} */}
-                                                    메모
+                                                    {t('member:note')}
                                                 </div>
                                             )}
                                         </div>

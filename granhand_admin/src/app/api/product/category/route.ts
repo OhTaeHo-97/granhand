@@ -1,7 +1,7 @@
 import api, { ApiError } from "@/utils/api"
 import { NextResponse } from "next/server"
 
-const URL = process.env.NEXT_PUBLIC_API_BASE_URL
+// const URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 export async function POST(req: Request) {
     const token = req.headers.get('authorization')

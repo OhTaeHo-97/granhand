@@ -1,6 +1,5 @@
 // 'use client'
 
-import Pagination from "@/components/pagination"
 import { LocaleTypes } from "../../../../../utils/localization/settings"
 import { translation } from "../../../../../utils/localization/locales/server"
 import OrderFilter from "../order/components/order-filter"
@@ -19,8 +18,7 @@ export default async function PointPage({ params }: { params: Promise<{ locale: 
 
                 {/* 테이블 */}
                 {/* <ExchangeList t={t} /> */}
-                <PointList t={t} />
-                <Pagination totalPages={15} />
+                <PointList />
             </div>
         </main>
     )

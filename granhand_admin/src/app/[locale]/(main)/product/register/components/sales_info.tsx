@@ -26,7 +26,11 @@ interface SalesInfoProps {
         showDomestic: string,
         showAbroad: string
     }
-    onChange: (field: string, value: any) => void
+    onChange: (
+        field: keyof SalesInfoProps['data'],
+        value: Exclude<SalesInfoProps['data'][keyof SalesInfoProps['data']], undefined>
+    ) => void
+    // onChange: (field: string, value: any) => void
 }
 
 export default function SalesInfo({ data, onChange, t }: SalesInfoProps & { t: (key: string) => string }) {
@@ -141,17 +145,17 @@ export default function SalesInfo({ data, onChange, t }: SalesInfoProps & { t: (
                                     <RadioGroupItem value="specific_members" /> {t('product:specific_members')}
                                 </Label>
                                 {data.targetMember === 'specific_members' && (
-                                    <Input type="text" placeholder="아이디(이메일) 입력" value={inputValue} onChange={handleInputChange} onKeyPress={handleInputKeyPress} className="w-40" />
+                                    <Input type="text" placeholder={t('product:enter_email_placeholder')} value={inputValue} onChange={handleInputChange} onKeyPress={handleInputKeyPress} className="w-40" />
                                 )}
                                 <Label className="flex items-center gap-2 min-w-30">
                                     <RadioGroupItem value="member_by_tier" /> {t('product:member_by_tier')}
                                 </Label>
                                 <Select defaultValue={data.grade} onValueChange={(value) => onChange('grade', value)} disabled={data.targetMember !== 'member_by_tier'}>
                                     <SelectTrigger className="border rounded px-2 py-1 gap-1 w-full h-auto flex items-center max-w-52">
-                                    <SelectValue placeholder="회원 등급 - 전체" />
+                                    <SelectValue placeholder={t('product:member_all')} />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white border rounded shadow-md">
-                                        <SelectItem value="all" className="px-3 py-2 /cursor-pointer">회원 등급 - 전체</SelectItem>
+                                        <SelectItem value="all" className="px-3 py-2 /cursor-pointer">{t('product:member_all')}</SelectItem>
                                         <SelectItem value="vip" className="px-3 py-2 cursor-pointer">VIP</SelectItem>
                                         <SelectItem value="gold" className="px-3 py-2 cursor-pointer">Gold</SelectItem>
                                         <SelectItem value="silver" className="px-3 py-2 cursor-pointer">Silver</SelectItem>

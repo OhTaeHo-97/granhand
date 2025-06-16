@@ -24,6 +24,8 @@ export default function PushListPage() {
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
     const [message, setMessage] = useState('')
     const [openScheduleSend, setOpenScheduleSend] = useState(false)
+    const [selectedIds, setSelectedIds] = useState<number[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
 
     const handleCancelRepeated = () => {
         const confirmed = window.confirm('반복 예약을 취소하시겠습니까?')
@@ -59,6 +61,25 @@ export default function PushListPage() {
         router.push(`${pathname}?${queryString}`)
     }
 
+    const handleSelectAll = (checked: boolean) => {
+        if(checked) {
+            const allIds = [...Array(12).keys()].map(i => i + 1)
+            setSelectedIds(allIds)
+        } else {
+            setSelectedIds([])
+        }
+    }
+
+    const handleCheckboxChange = (id: number) => {
+        setSelectedIds((prev) => {
+            if(prev.includes(id)) {
+                return prev.filter((itemId) => itemId !== id)
+            } else {
+                return [...prev, id]
+            }
+        })
+    }
+
     return (
         <>
             {/* 발송 타입 */}
@@ -68,7 +89,7 @@ export default function PushListPage() {
                         <Label className="font-semibold">{t('push:period')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <PeriodElement startDate={startDate} endDate={endDate} quickRange={quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} t={t} />
+                        <PeriodElement needTime={false} startDate={startDate} endDate={endDate} quickRange={quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} t={t} />
                     </div>
                 </div>
 
@@ -78,7 +99,7 @@ export default function PushListPage() {
                         <Label className="font-semibold">{t('push:message_content')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Input type="text" defaultValue={message} onChange={(e) => setMessage(e.target.value)} placeholder={t('search')} />
+                        <Input type="text" value={message} onChange={(e) => setMessage(e.target.value)} placeholder={t('search')} />
                     </div>
                 </div>
             </div>
@@ -100,7 +121,9 @@ export default function PushListPage() {
             <table className="w-full text-left border-collapse min-w-6xl">
             <thead className="bg-[#322A2408] border-t">
                 <tr className="border-b text-[#6F6963]">
-                <th className="p-2 items-center"></th>
+                <th className="p-2 items-center">
+                    <Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white" onCheckedChange={(checked) => handleSelectAll(!!checked)}/>
+                </th>
                 <th className="p-2 text-center">{t('push:send_date')}</th>
                 <th className="p-2 text-center">{t('push:status')}</th>
                 <th className="p-2 text-center">{t('push:title')}</th>
@@ -114,7 +137,7 @@ export default function PushListPage() {
             <tbody>
                 {Array.from({ length: 12 }).map((_, i) => (
                 <tr key={i} className="border-b h-14 text-[#111111]">
-                    <td className="p-2 items-center"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
+                    <td className="p-2 items-center"><Checkbox id={`push-${i + 1}`} className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white" checked={selectedIds.includes(i + 1)} onCheckedChange={() => handleCheckboxChange(i + 1)} /></td>
                     <td className="p-2 text-center">2023.12.24 10:00</td>
                     <td className="p-2 text-center">반복 예약</td>
                     <td className="p-2 text-center">재입고 알림</td>
@@ -131,7 +154,7 @@ export default function PushListPage() {
             </tbody>
             </table>
             </div>
-            <Pagination totalPages={15} />
+            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             <ScheduleSendModal open={openScheduleSend} setOpen={setOpenScheduleSend} />
         </>
     )

@@ -6,7 +6,7 @@ export default function PendingReturnModalContents({ t }: { t: (key: string) => 
         <>
             <div className="p-4">
                 <ul className="list-disc text-[#6F6963]">
-                    <li>반품 보류된 주문은 추후 보류 사유가 해결되면 반품 보류 해제하셔야 합니다.</li>
+                    <li>{t('order:process_return_hold_info')}</li>
                 </ul>
             </div>
             <div className="text-[#6f6963] text-sm w-full min-w-120 mt-6">
@@ -47,7 +47,7 @@ export default function PendingReturnModalContents({ t }: { t: (key: string) => 
                 <div className="rounded-md mt-6 space-y-3">
                     <div className="grid grid-cols-[110px_1fr] h-full m-0">
                         <div className="flex justify-start p-2">
-                            <Label className="font-bold">반품 보류 사유*</Label>
+                            <Label className="font-bold">{t('order:reason_return_hold')}*</Label>
                         </div>
                         <div className="px-5 py-2 w-full">
                             <div className="flex items-center gap-2">

@@ -3,15 +3,15 @@
 import OrderStatus from "../components/order-status"
 import OrderFilter from "../components/order-filter"
 import CancelList from "./components/cancel-list"
-import Pagination from "@/components/pagination"
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
 import { useTranslation } from "../../../../../../utils/localization/client"
 import { useState } from "react"
 
 export default function CancelPage() {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
-    const [cancelState, setCancelState] = useState('')
+    const currentLocale = useCurrentLocale()
+    const [cancelState, setCancelState] = useState('all')
 
     const statusList = [
         { label: t('order:all'), count: 105, value: "all" },
@@ -25,7 +25,7 @@ export default function CancelPage() {
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
                 <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:cancel_manage')}</h1>
                 {/* 상품 상태 */ }
-                <OrderStatus orderState={cancelState} setOrderState={setCancelState} statusList={statusList} />
+                <OrderStatus orderState={cancelState} setOrderState={setCancelState} statusList={statusList} link={`${currentLocale}/order/cancel`} />
                 {/* 검색 */}
                 <OrderFilter />
 

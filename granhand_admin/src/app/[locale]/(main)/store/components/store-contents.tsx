@@ -7,8 +7,9 @@ import GallaryUpload from "./gallary-upload";
 import { useState } from "react";
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import Pagination from "@/components/pagination";
 
-export default function StoreContents() {
+export default function StoreContents({ currentPage, totalPage, setCurrentPage }: { currentPage: number, totalPage: number, setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
     const [open, setOpen] = useState(false)
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'store'])
@@ -40,6 +41,7 @@ export default function StoreContents() {
                     ))}
                 </div>
             </div>
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             <GallaryUpload open={open} setOpen={setOpen} t={t} />
         </div>
     )

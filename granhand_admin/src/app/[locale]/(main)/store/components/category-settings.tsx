@@ -152,7 +152,8 @@ export default function StoreCategorySettings({ open, setOpen, t }: { open: bool
     const [activeId, setActiveId] = useState<string | null>(null)
     const activeParentId = useRef<string | null>(null)
     const [images, setImages] = useState<File[]>([])
-    const inputRef = useRef<HTMLInputElement | null>(null)
+    const [language, setLanguage] = useState<'ko' | 'en'>('ko')
+    // const inputRef = useRef<HTMLInputElement | null>(null)
     
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) {
@@ -199,7 +200,7 @@ export default function StoreCategorySettings({ open, setOpen, t }: { open: bool
     // 드래그 시작 시 부모 기억
     function handleDragStart(event: DragStartEvent) {
         const { active } = event
-        const { parent } = findNodeAndParent(tree, active.id as string)
+        // const { parent } = findNodeAndParent(tree, active.id as string)
         let parentId: string | null = null;
         const findParentRecursive = (nodes: StoreCategoryNode[], targetId: string, currentParentId: string | null) => {
             for (const n of nodes) {
@@ -273,10 +274,10 @@ export default function StoreCategorySettings({ open, setOpen, t }: { open: bool
                 <div className="flex flex-row w-full h-full">
                     {/* 왼쪽: 트리 드래그&드롭 */}
                     <div className="w-80 p-8 overflow-y-auto">
-                        <h1 className="text-2xl font-bold text-[#5E5955] mb-6">스토어 카테고리 설정</h1>
+                        <h1 className="text-2xl font-bold text-[#5E5955] mb-6">{t('store:store_category_setting')}</h1>
                         <div className="flex gap-4 mb-10">
-                            <Button variant="outline" className="bg-white !w-fit !h-fit">스토어 추가</Button>
-                            <Button variant="outline" className="bg-white !w-fit !h-fit">삭제</Button>
+                            <Button variant="outline" className="bg-white !w-fit !h-fit">{t('store:add_store')}</Button>
+                            <Button variant="outline" className="bg-white !w-fit !h-fit">{t('delete')}</Button>
                         </div>
                         {/* 최상위 RenderTree를 감싸는 div에 border 추가 */}
                         <div className="border border-gray-200 rounded-lg p-4">
@@ -302,7 +303,7 @@ export default function StoreCategorySettings({ open, setOpen, t }: { open: bool
                         </div>
                     </div>
                     {/* 오른쪽: 상세 폼 ... */}
-                    <EditEachCategory images={images} handleFileChange={handleFileChange} handleDelete={handleDelete} handleSave={handleSave} setOpen={setOpen} t={t} />
+                    <EditEachCategory images={images} language={language} handleFileChange={handleFileChange} handleDelete={handleDelete} handleSave={handleSave} setLanguage={setLanguage} setOpen={setOpen} t={t} />
                 </div>
             </div>
         </div>

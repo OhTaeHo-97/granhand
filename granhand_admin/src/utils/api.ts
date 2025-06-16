@@ -174,9 +174,9 @@
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || ''
 
-const DEFAULT_HEADERS = {
-    'Content-Type': 'application/json'
-}
+// const DEFAULT_HEADERS = {
+//     'Content-Type': 'application/json'
+// }
 
 interface RequestOptions extends RequestInit {
     headers?: Record<string, string>
@@ -263,7 +263,7 @@ async function request<T>(
 
         const queryString = searchParams.toString()
         if(queryString) {
-            const separator = url.includes('?') ? '&' : '?'
+            // const separator = url.includes('?') ? '&' : '?'
         }
     }
 

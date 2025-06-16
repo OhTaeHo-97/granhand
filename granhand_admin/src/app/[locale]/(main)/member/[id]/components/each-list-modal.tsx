@@ -1,11 +1,10 @@
 import Pagination from "@/components/pagination";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SearchIcon } from "lucide-react";
+import { useState } from "react";
 
 export default function MemberDetailEachListModal({ open, setOpen, title, contents }: { open: boolean, setOpen: (value: boolean) => void, title: string, contents: React.ReactNode }) {
+    const [currentPage, setCurrentPage] = useState(1)
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="max-w-[90vw] max-h-[90vh] w-full h-full bg-white">
@@ -17,7 +16,7 @@ export default function MemberDetailEachListModal({ open, setOpen, title, conten
                     <div className="mt-8 mb-6 text-center text-[#111111] overflow-auto">
                         {contents}
 
-                        <Pagination totalPages={15} />
+                        <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                     </div>
                 </div>
             </DialogContent>

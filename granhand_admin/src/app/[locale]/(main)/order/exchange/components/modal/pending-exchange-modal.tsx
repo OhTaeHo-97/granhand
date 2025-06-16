@@ -5,8 +5,8 @@ export default function PendingExchangeModalContents({ t }: { t: (key: string) =
     return (
         <>
             <div className="p-4">
-                <ul className="text-[#6F6963]">
-                    <li>교환 보류된 주문은 추후 보류 사유가 해결되면 교환 보류 해제하셔야 합니다.</li>
+                <ul className="text-[#6F6963] list-disc">
+                    <li>{t('order:process_exchange_hold_info1')}</li>
                 </ul>
             </div>
             <div className="text-[#6f6963] text-sm w-full min-w-120 mt-6">
@@ -47,11 +47,11 @@ export default function PendingExchangeModalContents({ t }: { t: (key: string) =
                 <div className="rounded-md mt-6 space-y-3">
                     <div className="grid grid-cols-[110px_1fr] h-full m-0">
                         <div className="flex justify-start p-2">
-                            <Label className="font-bold">교환 보류 사유*</Label>
+                            <Label className="font-bold">{t('order:reason_exchange_hold')}*</Label>
                         </div>
                         <div className="px-5 py-2 w-full">
                             <div className="flex items-center gap-2">
-                                <Textarea placeholder="상세 사유 입력" className="resize-none h-40 w-full" />
+                                <Textarea placeholder={t('order:enter_detail_reason')} className="resize-none h-40 w-full" />
                             </div>
                         </div>
                     </div>

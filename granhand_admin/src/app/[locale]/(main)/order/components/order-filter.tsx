@@ -9,21 +9,29 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Search } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-interface Props<T> {
-    items: T[]
-    onItemChange: (item: T) => void
-    fechDatas: () => Promise<void>
-}
+// interface Props<T> {
+//     items: T[]
+//     onItemChange: (item: T) => void
+//     fechDatas: () => Promise<void>
+// }
 
 // export default function OrderFilter({ items, onItemChange, fetchDatas }: Props<T>) {
 // export default function OrderFilter({ contents, fetchDatas }: { contents: any[], fetchDatas: () => Promise<void> }) {
 export default function OrderFilter() {
+    const [periodCategory, setPeriodCategory] = useState('order_date')
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
     const [quickRange, setQuickRange] = useState('')
+    const [filterCategory, setFilterCategory] = useState('all')
+    const [keyword, setKeyword] = useState('')
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    // const currentLocale = useCurrentLocale()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const router = useRouter()
 
     const dateFilters = [
         { label: t('order:order_date'), value: 'order_date' },
@@ -44,6 +52,30 @@ export default function OrderFilter() {
         { label: t('order:engraving_order'), value: 'engraving_order' }
     ]
 
+    const handleInitiate = () => {
+        setPeriodCategory('order_date')
+        setStartDate(new Date())
+        setEndDate(new Date())
+        setQuickRange('')
+        setFilterCategory('all')
+        setKeyword('')
+    }
+
+    const handleSearch = () => {
+        const params = new URLSearchParams(searchParams)
+        params.set('searchPeriod', periodCategory)
+        if(startDate) {
+            params.set('startDate', `${startDate.getFullYear()}.${String(startDate.getMonth() + 1).padStart(2, '0')}.${String(startDate.getDate()).padStart(2, '0')}`)
+        }
+        if(endDate) {
+            params.set('endDate', `${endDate.getFullYear()}.${String(endDate.getMonth() + 1).padStart(2, '0')}.${String(endDate.getDate()).padStart(2, '0')}`)
+        }
+        params.set('filter', filterCategory)
+        params.set('q', keyword)
+
+        router.push(`${pathname}?${params.toString()}`)
+    }
+
     // const onClickSearch = () => {
     //     fetchDatas()
     // }
@@ -56,7 +88,7 @@ export default function OrderFilter() {
                         <Label className="font-semibold">{t('order:search_period')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Select defaultValue="order_date">
+                        <Select value={periodCategory} onValueChange={setPeriodCategory}>
                             <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-34">
                                 <SelectValue placeholder="주문일" />
                             </SelectTrigger>
@@ -74,7 +106,7 @@ export default function OrderFilter() {
                         <Label className="font-semibold">{t('order:filters')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                    <Select defaultValue="all">
+                    <Select value={filterCategory} onValueChange={setFilterCategory}>
                         <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-34">
                         <SelectValue placeholder="전체" />
                         </SelectTrigger>
@@ -86,18 +118,20 @@ export default function OrderFilter() {
                     </Select>
                     <Input
                         type="text"
-                        placeholder="검색."
+                        placeholder={t('search')}
+                        value={keyword}
+                        onChange={(e) => setKeyword(e.target.value)}
                         className="border rounded px-2 py-1 flex-1 min-w-[200px] h-10"
                     />
                     </div>
                 </div>
             </div>
             <div className="flex mx-auto justify-center items-center w-full gap-10 mt-10 mb-10">
-                <Button className="bg-white text-[#322A24] border w-32">
+                <Button className="bg-white text-[#322A24] border w-32" onClick={handleInitiate}>
                     <RefreshCw />
                     {t('reset')}
                 </Button>
-                <Button className="bg-[#322A24] text-white w-32">
+                <Button className="bg-[#322A24] text-white w-32" onClick={handleSearch}>
                     <Search />
                     {t('search')}
                 </Button>

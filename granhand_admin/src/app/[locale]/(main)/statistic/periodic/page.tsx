@@ -5,16 +5,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { RefreshCw } from "lucide-react";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import ExcelDownloadModal from "../../order/components/modal/excel-download-modal";
+import { useState } from "react";
 
 export default function PeriodicStatisticPage() {
     const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, 'statistics')
+    const { t } = useTranslation(locale, ['common', 'statistics', 'push'])
     const currentLocale = useCurrentLocale()
+    const [openExcelDown, setOpenExcelDown] = useState(false)
 
     return (
         <main className="flex-1 border">
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
-                <h1 className="text-2xl font-bold text-[#5E5955]">{t('analysis_by_period')}</h1>
+                <h1 className="text-2xl font-bold text-[#5E5955]">{t('statistics:analysis_by_period')}</h1>
                 <div className="mt-10">
                     <div className="flex justify-between">
                         <div className="flex gap-2 w-full">
@@ -44,23 +47,23 @@ export default function PeriodicStatisticPage() {
                             </Select>
                         </div>
                         <div className="flex gap-2">
-                            <Button variant="outline" className="text-[#5E5955]"><RefreshCw className="w-4 h-4" />{t('refresh')}</Button>
-                            <Button variant="outline" className="text-[#5E5955]">엑셀 다운로드</Button>
+                            <Button variant="outline" className="text-[#5E5955]"><RefreshCw className="w-4 h-4" />{t('statistics:refresh')}</Button>
+                            <Button variant="outline" className="text-[#5E5955]" onClick={() => setOpenExcelDown((prev) => !prev)}>{t('excel_down')}</Button>
                         </div>
                     </div>
                     
                     <table className="w-full text-center border-collapse min-w-6xl mt-8 text-[#6F6963]">
                         <thead className="bg-[#322A2408] border-t h-12">
                             <tr className="border-b">
-                                <th className="p-2 text-center">{t('date')}</th>
-                                <th className="p-2 text-center">{t('number_of_orders')}</th>
-                                <th className="p-2 text-center">{t('revenue_amount')}</th>
-                                <th className="p-2 text-center">{t('page_views')}</th>
-                                <th className="p-2 text-center">{t('visitors')}</th>
-                                <th className="p-2 text-center">{t('sign-ups')}</th>
-                                <th className="p-2 text-center">{t('inquiries')}</th>
-                                <th className="p-2 text-center">{t('point_granted')}</th>
-                                <th className="p-2 text-center">{t('dapoint_usedte')}</th>
+                                <th className="p-2 text-center">{t('statistics:date')}</th>
+                                <th className="p-2 text-center">{t('statistics:number_of_orders')}</th>
+                                <th className="p-2 text-center">{t('statistics:revenue_amount')}</th>
+                                <th className="p-2 text-center">{t('statistics:page_views')}</th>
+                                <th className="p-2 text-center">{t('statistics:visitors')}</th>
+                                <th className="p-2 text-center">{t('statistics:sign-ups')}</th>
+                                <th className="p-2 text-center">{t('statistics:inquiries')}</th>
+                                <th className="p-2 text-center">{t('statistics:point_granted')}</th>
+                                <th className="p-2 text-center">{t('statistics:point_used')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,8 +73,8 @@ export default function PeriodicStatisticPage() {
                                 <td className="p-2 text-center">390</td>
                                 <td className="p-2 text-center">16,073,499{currentLocale === '' ? '원' : 'KRW'}</td>
                                 <td className="p-2 text-center">20,400</td>
-                                <td className="p-2 text-center">3,547 {t('people')}</td>
-                                <td className="p-2 text-center">94 {t('people')}</td>
+                                <td className="p-2 text-center">3,547 {t('statistics:people')}</td>
+                                <td className="p-2 text-center">94 {t('statistics:people')}</td>
                                 <td className="p-2 text-center">10</td>
                                 <td className="p-2 text-center">0{currentLocale === '' ? '원' : 'KRW'}</td>
                                 <td className="p-2 text-center">0{currentLocale === '' ? '원' : 'KRW'}</td>
@@ -81,6 +84,7 @@ export default function PeriodicStatisticPage() {
                     </table>
                 </div>
             </div>
+            <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
         </main>
     )
 }

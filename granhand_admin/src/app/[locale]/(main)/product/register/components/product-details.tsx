@@ -1,25 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronUp, Plus } from "lucide-react";
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+// import { cn } from "@/lib/utils";
+import { ChevronDown, ChevronUp, ImageUpIcon } from "lucide-react";
 // import Image from "next/image";
 import { useState } from "react";
 import ImageList, { ImageItem } from "./image-list";
+import dynamic from "next/dynamic";
 
 interface ProductDetailsProps {
+    language: string,
     data: {
         details: string,
         images: ImageItem[]
     },
-    onChange: (field: string, value: any) => void
+    onChange: (
+        field: keyof ProductDetailsProps['data'],
+        value: Exclude<ProductDetailsProps['data'][keyof ProductDetailsProps['data']], undefined>
+    ) => void
+    // onChange: (field: keyof ProductDetailsProps['data'], value: string | ImageItem[]) => void
 }
 
-export default function ProductDetails({ data, onChange, t }: ProductDetailsProps & { t: (key: string) => string }) {
-    const [language, setLanguage] = useState('korean')
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false })
+
+export default function ProductDetails({ language, data, onChange, t }: ProductDetailsProps & { t: (key: string) => string }) {
+    // const [language, setLanguage] = useState('korean')
     // const [images, setImages] = useState<ImageItem[]>([])
     const [editingImageId, setEditingImageId] = useState<string | null>(null)
+    const [value, setValue] = useState<string>('')
 
     const setImages: React.Dispatch<React.SetStateAction<ImageItem[]>> = (value) => {
         if (typeof value === 'function') {
@@ -29,13 +37,43 @@ export default function ProductDetails({ data, onChange, t }: ProductDetailsProp
         }
     }
 
+    console.log('language:', language)
+
+    const handleImageUpload = async () => {
+        const input = document.createElement('input')
+        input.type = 'file'
+        input.accept = 'image/*'
+
+        input.onchange = async () => {
+            const file = input.files?.[0]
+            if(file) {
+                // 서버 업로드
+                // const formData = new FormData()
+                // formData.append('file', file)
+                // const res = await fetch('url', {
+                //     method: 'POST',
+                //     body: formData
+                // })
+                // const { url } = await res.json()
+
+                // 업로드한 이미지 url 서버로부터 수신 및 마크다운 언어로 변경
+                // const imageMarkdown = `![image](${url})`
+                // 마크다운 언어로 작성하여 이미지 보여주기
+                // setValue((prev) => (prev || '') + `\n${imageMarkdown}`)
+            }
+        }
+
+        input.click()
+    }
+    
+
     return (
         <section className="mb-8">
             <div className="flex items-end border-b mt-10">
                 <div className="flex items-end gap-6 flex-grow">
-                    <h2 className="font-bold text-xl text-[#5E5955] mr-6 pb-8">{t('product:product_details')}</h2>
+                    <h2 className="font-bold text-xl text-[#5E5955] mr-6 pb-4">{t('product:product_details')}</h2>
                 </div>
-                <div className="flex items-center gap-4">
+                {/* <div className="flex items-center gap-4">
                     <RadioGroup value={language} onValueChange={setLanguage} className="flex gap-2 text-sm">
                             <Label
                                 key="korean"
@@ -64,7 +102,7 @@ export default function ProductDetails({ data, onChange, t }: ProductDetailsProp
                                 🇺🇸 {t('journal:english')}
                             </Label>
                     </RadioGroup>
-                </div>
+                </div> */}
             </div>
             {/* <h2 className="font-bold text-xl text-[#5E5955]">{t('product:product_details')}</h2> */}
 
@@ -74,7 +112,26 @@ export default function ProductDetails({ data, onChange, t }: ProductDetailsProp
                         <Label className="font-semibold">{t('product:detailed_description')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <Textarea className="resize-none" value={data.details} onChange={(e) => onChange('details', e.target.value)} />
+                        <div data-color-mode="light" className="w-full">
+                            {/* 커스텀 툴바 */}
+                            <div className="flex items-center px-2 py-1 gap-2 text-sm rounded-t-md w-full">
+                                <Button
+                                    onClick={handleImageUpload}
+                                    className="!p-0 !m-0 hover:underline"
+                                >
+                                    <ImageUpIcon size={16} /> Upload Image
+                                </Button>
+                            </div>
+                            {/* 마크다운 에디터 */}
+                            <MDEditor
+                                value={value}
+                                onChange={(val) => setValue(val || "")}
+                                preview="live"
+                                className="w-full"
+                            />
+                        </div>
+                        {/* <MDEditor value={value} onChange={(value) => setValue(value || '')} preview="live" className="w-full" /> */}
+                        {/* <Textarea className="resize-none" value={data.details} onChange={(e) => onChange('details', e.target.value)} /> */}
                     </div>
                 </div>
 

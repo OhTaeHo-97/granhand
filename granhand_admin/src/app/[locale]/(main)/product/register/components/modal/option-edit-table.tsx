@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { OptionEditType } from "./option-edit-modal";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -144,22 +143,22 @@ export default function OptionEditTable<T extends OptionEditType>({
                     {/* 옵션명 입력 */}
                     <div className="flex items-center justify-between gap-2 border p-6">
                         <div className="flex items-center gap-4">
-                            <Label className="w-20 text-[#6F6963]">옵션명</Label>
+                            <Label className="w-20 text-[#6F6963]">{t('product:option_name')}</Label>
                             <Input defaultValue={section.title} className="w-64" onChange={(e) => handleTitleChange(section.id, e.target.value)} />
                         </div>
-                        <Button variant="outline" onClick={() => handleAddBtnOption(section.id)}>입력 필드 추가</Button>
+                        <Button variant="outline" onClick={() => handleAddBtnOption(section.id)}>{t('product:add_input')}</Button>
                     </div>
 
                     <table className="w-full text-left border-collapse min-w-6xl">
                         <thead className="bg-[#322A2408] border-t h-20">
                             <tr className="border-b text-[#6F6963]">
                                 <th className="p-2 items-center"><GripVertical className="w-4 h-4" /></th>
-                                <th className="p-2 text-center">옵션값</th>
-                                <th className="p-2 text-center">옵션 가격</th>
-                                <th className="p-2 text-center">재고 번호</th>
-                                <th className="p-2 text-center">수량</th>
-                                <th className="p-2 text-center">상태</th>
-                                <th className="p-2 text-center">삭제</th>
+                                <th className="p-2 text-center">{t('product:option_value')}</th>
+                                <th className="p-2 text-center">{t('product:option_price')}</th>
+                                <th className="p-2 text-center">{t('product:inventory_id')}</th>
+                                <th className="p-2 text-center">{t('product:quantity')}</th>
+                                <th className="p-2 text-center">{t('product:status')}</th>
+                                <th className="p-2 text-center">{t('delete')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -176,8 +175,8 @@ export default function OptionEditTable<T extends OptionEditType>({
                                                     <SelectValue />
                                                 </SelectTrigger>
                                                 <SelectContent className="bg-white">
-                                                    <SelectItem value="manually">직접 입력</SelectItem>
-                                                    <SelectItem value="infinite">무제한</SelectItem>
+                                                    <SelectItem value="manually">{t('product:enter_manually')}</SelectItem>
+                                                    <SelectItem value="infinite">{t('product:unlimited')}</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                             <Input type="number" defaultValue={option.quantity} className="w-full" onChange={(e) => handleQuantityChange(section.id, option.id, e.target.value)} />
@@ -189,13 +188,13 @@ export default function OptionEditTable<T extends OptionEditType>({
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent className="bg-white">
-                                                <SelectItem value="on_sale">판매중</SelectItem>
-                                                <SelectItem value="out_of_stock">품절</SelectItem>
-                                                <SelectItem value="hidden">숨김</SelectItem>
+                                                <SelectItem value="on_sale">{t('product:on_sale')}</SelectItem>
+                                                <SelectItem value="out_of_stock">{t('product:out_of_stock')}</SelectItem>
+                                                <SelectItem value="hidden">{t('product:hidden')}</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </td>
-                                    <td className="p-2 flex gap-1 flex-wrap items-center justify-center"><Button variant="outline" onClick={() => handleDeleteOption(section.id, option.id)}>삭제</Button></td>
+                                    <td className="p-2 flex gap-1 flex-wrap items-center justify-center"><Button variant="outline" onClick={() => handleDeleteOption(section.id, option.id)}>{t('delete')}</Button></td>
                                 </tr>
                             ))}
                         </tbody>

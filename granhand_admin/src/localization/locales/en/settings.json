@@ -1,0 +1,20 @@
+{
+    "settings": "Settings",
+    "search_filter": "Search Filter",
+    "set_pw": "Set Password",
+    "change_pw": "Change Password",
+    "date": "Date",
+    "version": "Version",
+    "manage": "Manage",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "marketing": "Marketing",
+    "edit": "Edit",
+    "change_admin_pw": "Change Admin Password",
+    "current_pw": "Current Password",
+    "enter_current_pw": "Enter Current Password",
+    "enter_new_pw": "Enter New Password",
+    "enter_new_pw2": "Enter New Password",
+    "confirm_new_pw": "Confirm New Password",
+    "pw_condition": "Must be at least 8 characters and include uppercase, lowercase, numbers, and special characters."
+}

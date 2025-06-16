@@ -5,7 +5,7 @@ import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale
 import { useTranslation } from "../../../../../../utils/localization/client";
 import { useRouter } from "next/navigation";
 import Pagination from "@/components/pagination";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function CoopList() {
     const router = useRouter()
@@ -13,8 +13,8 @@ export default function CoopList() {
     const { t } = useTranslation(locale, ['common', 'coop', 'event'])
     const currentLocale = useCurrentLocale()
     const [currentPage, setCurrentPage] = useState(1)
-    const [totalPage, setTotalPage] = useState(0)
-    const [contents, setContents] = useState([])
+    // const [totalPage, setTotalPage] = useState(0)
+    // const [contents, setContents] = useState([])
     const [sortCategory, setSortCategory] = useState('latest_first')
 
     // const fetchCoop = () => {

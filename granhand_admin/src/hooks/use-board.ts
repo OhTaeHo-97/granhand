@@ -1,4 +1,3 @@
-import { number } from "zod"
 import { Pagination, useApi } from "./use-api"
 
 export interface FAQ {

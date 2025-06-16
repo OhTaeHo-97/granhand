@@ -24,5 +24,10 @@
     "korean": "Korean",
     "english": "English",
     "cancel": "Cancel",
-    "publish": "Publish"
+    "publish": "Publish",
+
+    "add_tag": "Add Tag",
+    "delete_selected": "Delete Selected",
+    "tag_name_placeholder": "Enter Tag Name",
+    "edit_journal": "Edit Journal"
 }

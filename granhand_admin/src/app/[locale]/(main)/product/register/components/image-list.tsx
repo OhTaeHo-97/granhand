@@ -42,14 +42,21 @@ export default function ImageList({
 
         setImages(prevImages => prevImages.filter(item => item.id !== id))
 
-        if((setImageOrders && deletedOrder) &&
-            setImageOrders((prevOrders) => 
-                prevOrders
-                    .filter((_, index) => index !== deletedIndex) // 삭제된 순서 제거
-                    .map(order => order > deletedOrder ? order - 1 : order) // 큰 순서들을 1씩 감소
-            )
-        )
-        setImageOrders(prevOrders => prevOrders.filter((_, index) => index !== deletedIndex))
+        // if((setImageOrders && deletedOrder) &&
+        //     setImageOrders((prevOrders) => 
+        //         prevOrders
+        //             .filter((_, index) => index !== deletedIndex) // 삭제된 순서 제거
+        //             .map(order => order > deletedOrder ? order - 1 : order) // 큰 순서들을 1씩 감소
+        //     )
+        // )
+        // setImageOrders(prevOrders => prevOrders.filter((_, index) => index !== deletedIndex))
+        if (setImageOrders && deletedOrder !== undefined) {
+            setImageOrders((prevOrders) => {
+                const newOrders = prevOrders.filter((_, index) => index !== deletedIndex); // 삭제된 순서 제거
+                // 삭제된 순서보다 큰 순서들을 1씩 감소
+                return newOrders.map(order => order > deletedOrder ? order - 1 : order);
+            });
+        }
 
         if(editingImageId === id) {
             setEditingImageId(null)
@@ -100,10 +107,16 @@ export default function ImageList({
                 file: file,
             }
             setImages(prevImages => [...prevImages, newImageItem])
-            {setImageOrders && setImageOrders(prevOrders => {
-                const maxOrder = prevOrders.length > 0 ? Math.max(...prevOrders) : 0;
-                return [...prevOrders, maxOrder + 1];
-            })}
+            if(setImageOrders) {
+                setImageOrders(prevOrders => {
+                    const maxOrder = prevOrders.length > 0 ? Math.max(...prevOrders) : 0;
+                    return [...prevOrders, maxOrder + 1];
+                })
+            }
+            // {setImageOrders && setImageOrders(prevOrders => {
+            //     const maxOrder = prevOrders.length > 0 ? Math.max(...prevOrders) : 0;
+            //     return [...prevOrders, maxOrder + 1];
+            // })}
 
             // setImageOrders(prevOrders => [...prevOrders, prevOrders.length])
         }
@@ -127,7 +140,7 @@ export default function ImageList({
                 onChange={handleFileChange}
                 className="hidden"
             />
-            {images.map((img, index) => (
+            {images.map((img) => (
                 <div key={img.id} className="flex flex-col items-center gap-2">
                     <div className="w-40 h-40 relative border">
                         <Image

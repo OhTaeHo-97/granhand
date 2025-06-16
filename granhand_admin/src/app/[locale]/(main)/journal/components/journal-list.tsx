@@ -7,15 +7,16 @@ import { Pin } from "lucide-react";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import { useRouter } from "next/navigation";
 import Pagination from "@/components/pagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // export default function JournalList({ t }: { t: (key: string) => string }) {
-export default function JournalList() {
+export default function JournalList({ currentPage, totalPage, size, setCurrentPage, setSize, fetchJournals }: { currentPage: number, totalPage: number, size: string, setCurrentPage: React.Dispatch<React.SetStateAction<number>>, setSize: React.Dispatch<React.SetStateAction<string>>, fetchJournals: (params?: Record<string, any>) => void }) {
     const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const currentLocale = useCurrentLocale()
     const { t } = useTranslation(locale, ['common', 'journal'])
-    const [currentPage, setCurrentPage] = useState(1)
+    const [sortCategory, setSortCategory] = useState('latest_first')
+    // const [currentPage, setCurrentPage] = useState(1)
 
     const handleDelete = () => {
         const confirmed = window.confirm("게시한 글을 삭제하시겠습니까?")
@@ -27,6 +28,10 @@ export default function JournalList() {
         }
     }
 
+    useEffect(() => {
+        fetchJournals()
+    }, [size, sortCategory])
+
     return (
         <>
             <div className="p-6 shadow-sm">
@@ -36,7 +41,8 @@ export default function JournalList() {
                             {t('journal:all_journal_post')} <span className="text-[#FF3E24]">121</span>
                         </div>
                         <div className="flex gap-2">
-                            <Select defaultValue="latest_first">
+                            <Select value={sortCategory} onValueChange={setSortCategory}>
+                            {/* <Select defaultValue="latest_first"> */}
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -46,7 +52,8 @@ export default function JournalList() {
                                     <SelectItem value="most_viewed">{t('journal:most_viewed')}</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <Select defaultValue="50">
+                            <Select value={size} onValueChange={setSize}>
+                            {/* <Select defaultValue="50"> */}
                                 <SelectTrigger className="w-fit">
                                     <SelectValue />
                                 </SelectTrigger>
@@ -87,7 +94,8 @@ export default function JournalList() {
                     </table>
                 </div>
             </div>
-            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            {/* <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </>
     )
 }

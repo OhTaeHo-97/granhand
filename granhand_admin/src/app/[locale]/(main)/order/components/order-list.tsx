@@ -29,23 +29,8 @@ export default function OrderList({ orderState, category }: { orderState?: strin
     const { getOrders } = useOrder()
     const [orders, setOrders] = useState<Order[]>([])
 
-    // const fetchOrders = async () => {
-    //     if(status !== 'authenticated' || !session?.token) {
-    //         console.log('Cannot fetch data - no valid session')
-    //         return
-    //     }
-
-    //     try {
-    //         const response = await api.get('/order', {
-    //             token: session.token
-    //         })
-    //     } catch (error) {
-    //         console.error('Failed to fetch orders:', error)
-    //     }
-    // }
-
     const fetchOrders = async () => {
-        const params: Record<string, any> = {}
+        const params: Record<string, string | number> = {}
         params.page = currentPage
         params.size = itemCnt
 
@@ -92,21 +77,22 @@ export default function OrderList({ orderState, category }: { orderState?: strin
                                     <SelectItem value="500">500</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>엑셀 다운로드</Button>
+                            <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>{t('excel_down')}</Button>
                             {category === 'order_management' && (
                                 <>
                                 <Button className="border" onClick={() => setOpenBulkOrder((prev) => !prev)}><Upload />{t('order:bulk_order')}</Button>
-                                <Button className="border">{t('order:admin_order')}</Button>
+                                <Button className="border" onClick={() => setOpenCreateOrder((prev) => !prev)}>{t('order:admin_order')}</Button>
                                 <Button className="bg-[#322A24] text-white" onClick={() => setOpenCreateOrder((prev) => !prev)}>{t('order:create_order')}</Button>
                                 </>
                             )}
                         </div>
                     </div>
-                    <OrderListTable orderState={orderState} category={category} orders={orders} setOrders={setOrders} t={t} />
+                    {/* <OrderListTable orderState={orderState} category={category} orders={orders} setOrders={setOrders} t={t} /> */}
+                    <OrderListTable orderState={orderState} category={category} orders={orders} t={t} />
                 </div>
-                <BulkOrderModal open={openBulkOrder} setOpen={setOpenBulkOrder} />
-                <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
-                <CreateOrderModal open={openCreateOrder} setOpen={setOpenCreateOrder} />
+                <BulkOrderModal open={openBulkOrder} setOpen={setOpenBulkOrder} t={t} />
+                <ExcelDownloadModal isOrder={true} open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
+                <CreateOrderModal open={openCreateOrder} setOpen={setOpenCreateOrder} t={t} />
             </div>
             <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </>

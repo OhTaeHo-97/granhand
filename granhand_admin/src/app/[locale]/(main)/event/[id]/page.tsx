@@ -6,13 +6,18 @@ import EventContents from "../register/components/event-contents";
 import { useState } from "react";
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import { FileItem } from "../../banner/components/modal/register-attachment";
 
 export default function EditEventPage() {
+    const [images, setImages] = useState<FileItem[]>([])
+    const [koTitle, setKoTitle] = useState('')
+    const [enTitle, setEnTitle] = useState('')
     const [type, setType] = useState<'immediate' | 'scheduled'>('immediate')
     const [language, setLanguage] = useState<'korean' | 'english'>('korean')
     const [date, setDate] = useState(new Date())
     const [hour, setHour] = useState(new Date().getHours())
     const [minute, setMinute] = useState(new Date().getMinutes())
+    const [contents, setContents] = useState('')
 
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'event'])
@@ -44,8 +49,8 @@ export default function EditEventPage() {
                 </div>
             </div>
             <div className="mt-7 p-12">
-                <CreateEventHeader t={t} />
-                <EventContents type={type} language={language} date={date} hour={hour} minute={minute} setType={setType} setLanguage={setLanguage} setDate={setDate} setHour={setHour} setMinute={setMinute} t={t} />
+                <CreateEventHeader images={images} koTitle={koTitle} enTitle={enTitle} setImages={setImages} setKoTitle={setKoTitle} setEnTitle={setEnTitle} t={t} />
+                <EventContents type={type} language={language} date={date} hour={hour} minute={minute} contents={contents} setType={setType} setLanguage={setLanguage} setDate={setDate} setHour={setHour} setMinute={setMinute} setContents={setContents} t={t} />
             </div>
         </main>
     )

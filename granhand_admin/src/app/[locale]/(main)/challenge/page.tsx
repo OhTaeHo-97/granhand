@@ -1,6 +1,5 @@
 'use client'
 
-import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 // import { Checkbox } from "@/components/ui/checkbox";
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -12,22 +11,18 @@ import ChallengeList from "./components/challenge-list";
 import ChallengeModal from "./components/challenge-modal";
 import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ChallengePage() {
     const [open, setOpen] = useState(false)
-    const [currentPage, setCurrentPage] = useState(1)
-    const [totalPage, setTotalPage] = useState(0)
-    const [contents, setContents] = useState([])
-    const [size, setSize] = useState('50')
 
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'challenge'])
     const currentLocale = useCurrentLocale()
 
-    const fetchChallenges = () => {
+    // const fetchChallenges = () => {
 
-    }
+    // }
 
     // useEffect(() => {
     //     if(status === 'authenticated') {
@@ -53,9 +48,9 @@ export default function ChallengePage() {
                     </div>
                 </div>
 
-                <ChallengeList contents={contents} size={size} t={t} currentLocale={currentLocale} setSize={setSize} />
+                <ChallengeList t={t} currentLocale={currentLocale} />
                 {/* <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
-                <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                {/* <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
             </div>
             <ChallengeModal open={open} setOpen={setOpen} t={t} />
         </main>

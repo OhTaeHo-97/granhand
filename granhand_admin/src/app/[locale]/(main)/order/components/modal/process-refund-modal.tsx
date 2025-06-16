@@ -11,7 +11,7 @@ export default function ProcessRefundModalContents({ t }: { t: (key: string) => 
                         <th className="p-2 flex justify-center items-center h-full"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></th>
                         <th className="p-2 text-center border">{t('order:order_number')}</th>
                         <th className="p-2 text-center border">{t('order:ordered_items')}</th>
-                        <th className="p-2 text-center border">반품 사유</th>
+                        <th className="p-2 text-center border">{t('order:return_reason')}</th>
                         <th className="p-2 text-center border">{t('order:track_info')}</th>
                     </tr>
                 </thead>
@@ -37,15 +37,15 @@ export default function ProcessRefundModalContents({ t }: { t: (key: string) => 
                         <td className="p-2 text-center border">
                             <Select>
                                 <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="반품 사유 선택" />
+                                    <SelectValue placeholder={t('order:return_reason_placeholder')} />
                                 </SelectTrigger>
                                 <SelectContent className="bg-white">
-                                    <SelectItem value="none">반품 사유 선택</SelectItem>
-                                    <SelectItem value="change_mind">단순 변심</SelectItem>
-                                    <SelectItem value="change_option">옵션 변경</SelectItem>
-                                    <SelectItem value="broke">상품 불량/파손</SelectItem>
-                                    <SelectItem value="missing">상품 불량/누락</SelectItem>
-                                    <SelectItem value="misdelivery">오배송</SelectItem>
+                                    <SelectItem value="none">{t('order:return_reason_placeholder')}</SelectItem>
+                                    <SelectItem value="change_mind">{t('order:changed_mind')}</SelectItem>
+                                    <SelectItem value="change_option">{t('order:option_change')}</SelectItem>
+                                    <SelectItem value="broke">{t('order:product_damage')}</SelectItem>
+                                    <SelectItem value="missing">{t('order:product_missing')}</SelectItem>
+                                    <SelectItem value="misdelivery">{t('order:wrong_delivery')}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </td>

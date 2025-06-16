@@ -15,7 +15,7 @@ export default function CouponHistory({ t, itemCnt }: { t: (key: string) => stri
             </thead>
             <tbody>
                 {Array.from({ length: itemCnt }).map((_, i) => (
-                    <tr className="border-b h-15 text-[#111111]">
+                    <tr key={i} className="border-b h-15 text-[#111111]">
                         <td className="p-2">150932G28DDF3494</td>
                         <td className="p-2">콤포타블 음료 교환권</td>
                         <td className="p-2

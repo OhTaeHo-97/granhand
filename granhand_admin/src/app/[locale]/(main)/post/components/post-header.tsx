@@ -2,42 +2,39 @@
 
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Search } from "lucide-react";
+import { PostCategory } from "../page";
+import { useRouter, useSearchParams } from "next/navigation";
 
-export default function PostHeader({ category, setCategory, fetchBoards }: { category: string, setCategory: React.Dispatch<React.SetStateAction<string>>, fetchBoards: (value?: string) => Promise<void> }) {
+export default function PostHeader({ category, categories, setCategory }: { category: string, categories: PostCategory[], setCategory: React.Dispatch<React.SetStateAction<string>>, fetchBoardConfig: () => Promise<void> }) {
+    const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'post'])
+    const currentLocale = useCurrentLocale()
     // const [category, setCategory] = useState('all')
     const [searchCategory, setSearchCategory] = useState('title')
     const [keyword, setKeyword] = useState('')
+    const searchParams = useSearchParams()
 
-    const onClickSearch = async () => {
-        await fetchBoards(category)
+    const initialize = () => {
+        setCategory(categories.length !== 0 ? categories[0].id : '')
+        setSearchCategory('title')
+        setKeyword('')
     }
 
-    // const dateFilters = [
-    //     { label: t('order:order_date'), value: 'order_date' },
-    //     { label: t('order:ship_date'), value: 'ship_date' },
-    //     { label: t('order:delivery_complete_date'), value: 'delivery_complete_date' }
-    // ]
+    const onClickSearch = async () => {
+        const params = new URLSearchParams(searchParams)
+        params.set('category', category)
+        params.set('filter', searchCategory)
+        params.set('q', keyword)
 
-    // const filterCategories = [
-    //     { label: t('order:all'), value: 'all' },
-    //     { label: t('order:buyer_name'), value: 'buyer_name' },
-    //     { label: t('order:buyer_contact'), value: 'buyer_contact' },
-    //     { label: t('order:buyer_id'), value: 'buyer_id' },
-    //     { label: t('order:recipient_name'), value: 'recipient_name' },
-    //     { label: t('order:order_number'), value: 'order_number' },
-    //     { label: t('product:product_code'), value: 'product_code' },
-    //     { label: t('order:domestic_order'), value: 'domestic_order' },
-    //     { label: t('order:international_order'), value: 'international_order' },
-    //     { label: t('order:engraving_order'), value: 'engraving_order' }
-    // ]
+        router.push(`${currentLocale}/post?${params.toString()}`)
+    }
 
     return (
         <>
@@ -49,12 +46,12 @@ export default function PostHeader({ category, setCategory, fetchBoards }: { cat
                     <div className="flex items-center gap-4 p-5">
                         <Select value={category} onValueChange={setCategory}>
                             <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-34">
-                                <SelectValue placeholder={t('post:all')} />
+                                <SelectValue />
                             </SelectTrigger>
                             <SelectContent className="bg-white border rounded shadow-md">
-                                <SelectItem value="all" className="px-3 py-2 cursor-pointer">{t('post:all')}</SelectItem>
-                                <SelectItem value="event" className="px-3 py-2 cursor-pointer">{t('post:event')}</SelectItem>
-                                <SelectItem value="notice" className="px-3 py-2 cursor-pointer">{t('post:notice')}</SelectItem>
+                                {categories.map((postCategory) => (
+                                    <SelectItem key={postCategory.id} value={`${postCategory.id}`} className="px-3 py-2 cursor-pointer">{postCategory.name}</SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                     </div>
@@ -84,7 +81,7 @@ export default function PostHeader({ category, setCategory, fetchBoards }: { cat
                 </div>
             </div>
             <div className="flex mx-auto justify-center items-center w-full gap-10 mt-10 mb-10">
-                <Button className="bg-white text-[#322A24] border w-32">
+                <Button className="bg-white text-[#322A24] border w-32" onClick={initialize}>
                     <RefreshCw />
                     {t('reset')}
                 </Button>

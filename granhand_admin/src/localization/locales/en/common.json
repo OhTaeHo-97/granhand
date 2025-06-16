@@ -40,9 +40,11 @@
     "member_list": "Member List",
     "app_push": "App Push",
     "naver_cloud": "Naver Cloud",
+
+    "product_manage": "Product Management",
+    "category_manage": "Category Management",
     
     "shopping_manage": "Shopping Management",
-    "product_manage": "Product Management",
     "all_orders": "All Orders",
     "order_manage": "Order Management",
     "ship_settings": "Shipping Settings",
@@ -84,5 +86,20 @@
     "no_search_result": "No search results found.",
 
     "granhand": "Granhand",
-    "komfortabel": "Komfortabel"
+    "komfortabel": "Komfortabel",
+
+    "excel_down": "Download Excel",
+    "no_results": "No results found",
+    "order_date": "Order Date",
+    "file_format": "File Format",
+    "select_file_format": "Select File Format",
+    "domestic_format": "Domestic Format",
+    "international_format": "International Format",
+    "select_category": "Select Category",
+
+    "language": "Language",
+    "korean": "Korean",
+    "english": "English",
+    "note": "Admin Note",
+    "only_admin_note": "This note is visible to administrators only."
 }

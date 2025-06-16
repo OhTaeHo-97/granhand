@@ -74,7 +74,7 @@ export default function Pagination({ totalPages, currentPage, setCurrentPage }: 
             ))}
 
             {
-                currentPage > 1 && currentPage < totalPages && (
+                totalPages > 1 && currentPage < totalPages && (
                     <>
                         {/* 다음 ＞ */}
                         <Button

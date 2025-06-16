@@ -1,7 +1,19 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useTranslation } from "../../../../../../utils/localization/client"
+import { useState } from "react"
+import Pagination from "@/components/pagination"
 
-export default function NoticeList({ t }: { t: (key: string) => string }) {
+export default function NoticeList() {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'notice', 'wallpaper'])
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPage] = useState(0)
+        
     const handleDelete = () => {
         const confirmed = window.confirm('선택한 게시글을 삭제하시겠습니까?')
 
@@ -58,6 +70,7 @@ export default function NoticeList({ t }: { t: (key: string) => string }) {
                     </tbody>
                 </table>
             </div>
+            <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
     )
 }

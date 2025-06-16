@@ -3,8 +3,9 @@ import RefundStateBtn from "./refund-state-btn";
 import { Smartphone } from "lucide-react";
 import { useState } from "react";
 import ReturnReasonModal from "./modal/return-reason-modal";
+import { TFunction } from "i18next";
 
-export default function RefundListTable({ refundState, t }: { refundState: string, t: (key: string) => string }) {
+export default function RefundListTable({ refundState, t }: { refundState: string, t: TFunction }) {
     const [openRefundReason, setOpenRefundReason] = useState(false)
 
     return (

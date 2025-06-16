@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useTranslation } from "../../../../../../../utils/localization/client";
 
 export default function OrderBaseModal({ open, title, contents, setOpen }: { open: boolean, title: string, contents: string, setOpen: (value: boolean) => void }) {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, 'common')
+
     return (
         <Dialog open={open} onOpenChange={setOpen} >
             <DialogContent className="max-w-lg bg-white min-w-150 min-h-80">
@@ -13,8 +18,8 @@ export default function OrderBaseModal({ open, title, contents, setOpen }: { ope
                 {contents}
             </div>
             <DialogFooter className="!flex !items-center">
-                <Button className="w-1/6 bg-transparent text-[#C0BCB6] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>취소</Button>
-                <Button className="w-1/6 text-[#2854f3] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>확인</Button>
+                <Button className="w-1/6 bg-transparent text-[#C0BCB6] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>{t('cancel')}</Button>
+                <Button className="w-1/6 text-[#2854f3] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>{t('confirm')}</Button>
             </DialogFooter>
             </DialogContent>
         </Dialog>

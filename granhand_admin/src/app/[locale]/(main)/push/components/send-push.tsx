@@ -22,6 +22,7 @@ export default function PushSendPage() {
     const [typeModalOpen, setTypeModalOpen] = useState(false)
     const [selectedType, setSelectedType] = useState('immediate_send')
     const [selectedTarget, setSelectedTarget] = useState('all_member')
+    const [level, setLevel] = useState('')
     const [images, setImages] = useState<File[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -82,7 +83,7 @@ export default function PushSendPage() {
                                 <RadioGroupItem value="members_level" /> {t('members_level')}
                             </Label>
                         </RadioGroup>
-                        <MembershipLevelSelect />
+                        <MembershipLevelSelect level={level} setLevel={setLevel} disabled={selectedTarget !== 'members_level'} />
                     </div>
                 </div>
             </div>
@@ -178,7 +179,7 @@ export default function PushSendPage() {
             {/* 버튼 */}
             <div className="flex justify-center pt-4 mt-8">
                 <Button className="bg-[#322A24] text-white h-10 w-40" onClick={() => {
-                    const confirmed = window.confirm('알림을 보내시겠습니까?')
+                    window.confirm('알림을 보내시겠습니까?')
                 }}>{t('send_push')}</Button>
             </div>
             <TargetModal open={targetModalOpen} setOpen={setTargetModalOpen} />

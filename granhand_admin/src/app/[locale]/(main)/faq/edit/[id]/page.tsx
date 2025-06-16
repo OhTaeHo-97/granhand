@@ -1,7 +1,7 @@
 import FaqContents from "../../components/faq-contents";
 
-export default function EditFaqPage({ params }: { params: { id: number } }) {
-    const { id } = params
+export default async function EditFaqPage({ params }: { params: Promise<{ id: number }> }) {
+    const { id } = await params
 
     return (
         <FaqContents category="edit" id={id} />

@@ -24,5 +24,10 @@
     "korean": "한국어",
     "english": "영어",
     "cancel": "취소",
-    "publish": "작성"
+    "publish": "작성",
+
+    "add_tag": "태그 추가",
+    "delete_selected": "선택 삭제",
+    "tag_name_placeholder": "태그명 입력",
+    "edit_journal": "게시물 수정"
 }

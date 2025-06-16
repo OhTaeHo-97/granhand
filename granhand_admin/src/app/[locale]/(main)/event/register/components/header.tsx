@@ -3,18 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { EventInfo } from "./event-contents";
-import { useRef, useState } from "react";
+// import { EventInfo } from "./event-contents";
+import { useRef } from "react";
 import { X } from "lucide-react";
+import { FileItem } from "../../../banner/components/modal/register-attachment";
 
-interface FileItem {
-    file: File
-    previewUrl: string
-    localId: string
-}
-
-export default function CreateEventHeader({ eventInfo, t }: { eventInfo?: EventInfo, t: (key: string) => string }) {
-    const [images, setImages] = useState<FileItem[]>([])
+// export default function CreateEventHeader({ eventInfo, images, koTitle, enTitle, setImages, setKoTitle, setEnTitle, t }: { eventInfo?: EventInfo, images: FileItem[], koTitle: string, enTitle: string, setImages: React.Dispatch<React.SetStateAction<FileItem[]>>, setKoTitle: React.Dispatch<React.SetStateAction<string>>, setEnTitle: React.Dispatch<React.SetStateAction<string>>, t: (key: string) => string }) {
+export default function CreateEventHeader({ images, koTitle, enTitle, setImages, setKoTitle, setEnTitle, t }: { images: FileItem[], koTitle: string, enTitle: string, setImages: React.Dispatch<React.SetStateAction<FileItem[]>>, setKoTitle: React.Dispatch<React.SetStateAction<string>>, setEnTitle: React.Dispatch<React.SetStateAction<string>>, t: (key: string) => string }) {
+    // const [images, setImages] = useState<FileItem[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,10 +117,10 @@ export default function CreateEventHeader({ eventInfo, t }: { eventInfo?: EventI
                 </div>
                 <div className="grid divide-y divide-gray-200">
                     <div className="p-5">
-                        <Input placeholder={t('event:korean_title_placeholder')} />
+                        <Input value={koTitle} onChange={(e) => setKoTitle(e.target.value)} placeholder={t('event:korean_title_placeholder')} />
                     </div>
                     <div className="p-5">
-                        <Input placeholder={t('event:english_title_placeholder')} />
+                        <Input value={enTitle} onChange={(e) => setEnTitle(e.target.value)} placeholder={t('event:english_title_placeholder')} />
                     </div>
                 </div>
             </div>

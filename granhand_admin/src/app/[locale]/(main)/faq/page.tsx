@@ -5,7 +5,6 @@ import { useTranslation } from "../../../../../utils/localization/client"
 import { Pencil } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import Pagination from "@/components/pagination"
 import FaqList from "./components/faq-list"
 
 export default function FaqPage() {

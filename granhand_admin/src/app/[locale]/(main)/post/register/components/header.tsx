@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { X } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Board } from "@/hooks/use-board";
+import { PostCategory } from "../../page";
 
 interface FileItem {
     file: File
@@ -14,7 +15,7 @@ interface FileItem {
     localId: string
 }
 
-export default function CreatePostHeader({ category, boardContents, setCategory, setBoardContents, t }: { category: string, boardContents: Board, setCategory: React.Dispatch<React.SetStateAction<string>>, setBoardContents: React.Dispatch<React.SetStateAction<Board>>, t: (key: string) => string }) {
+export default function CreatePostHeader({ categories, boardContents, setBoardContents, t }: { categories: PostCategory[], boardContents: Board, setBoardContents: React.Dispatch<React.SetStateAction<Board>>, t: (key: string) => string }) {
     const [images, setImages] = useState<FileItem[]>([])
     const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -22,6 +23,13 @@ export default function CreatePostHeader({ category, boardContents, setCategory,
         setBoardContents((prev) => ({
             ...prev,
             boardid: category
+        }))
+    }
+
+    const handleChangeLanguage = (language: 'ko' | 'en') => {
+        setBoardContents((prev) => ({
+            ...prev,
+            language: language
         }))
     }
 
@@ -56,18 +64,33 @@ export default function CreatePostHeader({ category, boardContents, setCategory,
 
     return (
         <div className="border border-gray-200 text-[#6f6963] text-sm w-full bg-white min-w-120">
-            <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
+            <div className="grid grid-cols-[150px_1fr_150px_1fr] border-b border-gray-200 h-full">
                 <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
-                    <Label className="font-semibold">카테고리</Label>
+                    <Label className="font-semibold">{t('post:category')}</Label>
                 </div>
                 <div className="flex items-center gap-4 p-5">
-                    <Select defaultValue={boardContents.boardid} onValueChange={handleChangeCategory}>
+                    <Select value={boardContents.boardid} onValueChange={handleChangeCategory}>
                         <SelectTrigger className="w-fit">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-white">
-                            <SelectItem value="notice">공지사항</SelectItem>
-                            <SelectItem value="event">이벤트</SelectItem>
+                            {categories.map((category) => (
+                                <SelectItem key={category.id} value={`${category.id}`}>{category.name}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div className="bg-[#322A2408] border-l border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
+                    <Label className="font-semibold">{t('language')}</Label>
+                </div>
+                <div className="flex items-center gap-4 p-5">
+                    <Select value={boardContents.language} onValueChange={(language: 'ko' | 'en') => handleChangeLanguage(language)}>
+                        <SelectTrigger className="w-fit">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white">
+                            <SelectItem value="ko">{t('korean')}</SelectItem>
+                            <SelectItem value="en">{t('english')}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -77,11 +100,6 @@ export default function CreatePostHeader({ category, boardContents, setCategory,
                     <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                         <Label className="font-semibold">{t('event:cover_image')}</Label>
                     </div>
-                    {/* <div className="flex items-center p-5 h-full text-[#5E5955]">
-                        <Button className="border">
-                            {t('journal:upload_file')}
-                        </Button>
-                    </div> */}
                     <div className="flex items-center gap-4 p-5">
                         <Button variant="outline" className="text-[#5E5955] !p-1" onClick={() => inputRef.current?.click()}>
                             {t('event:upload_file')}
@@ -107,57 +125,12 @@ export default function CreatePostHeader({ category, boardContents, setCategory,
                     </div>
                 </div>
             )}
-
-                {/* <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 border-b h-full text-[#6F6963]">
-                    {t('journal:tag')}
-                </div>
-                <div className="flex gap-2 items-center p-5 h-full text-[#111111]">
-                    <Select onValueChange={handleSelect}>
-                        <SelectTrigger className="w-32 h-8 border-gray-300 data-[placeholder]:text-[#5E5955]">
-                            <SelectValue placeholder={t('journal:tag_palceholder')} />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white">
-                            {OPTIONS.map((option) => (
-                                <SelectItem key={option} value={option}>
-                                    {option}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <div className="flex gap-2 flex-wrap">
-                        {selected.map((item) => (
-                            <div key={item} className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded">
-                                <span className="text-gray-700">{item}</span>
-                                <Button
-                                    onClick={() => handleRemove(item)}
-                                    className="text-gray-500 hover:text-black h-5 p-0"
-                                >
-                                    <X size={16} />
-                                </Button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="border-r border-gray-200 flex items-center justify-center p-2 border-l bg-[#322A2408] border-b h-full text-[#6F6963]">
-                    {t('journal:cover_image')}
-                </div>
-                <div className="flex items-center p-5 h-full text-[#5E5955]">
-                    <Button className="border">
-                        {t('journal:upload_file')}
-                    </Button>
-                </div> */}
-            {/* </div> */}
             <div className="grid grid-cols-[150px_1fr]">
                 <div className="bg-[#322A2408] p-3 font-semibold border-r border-gray-300 flex items-center justify-center text-[#6F6963]">
                     {t('event:title')}
                 </div>
-                <div className="grid divide-y divide-gray-200">
-                    <div className="p-5">
-                        <Input value={boardContents.subject} onChange={handleChangeTitle} placeholder={t('event:korean_title_placeholder')} />
-                    </div>
-                    <div className="p-5">
-                        <Input placeholder={t('event:english_title_placeholder')} />
-                    </div>
+                <div className="flex items-center gap-4 p-5">
+                    <Input value={boardContents.subject} onChange={handleChangeTitle} placeholder={t('event:korean_title_placeholder')} />
                 </div>
             </div>
         </div>

@@ -8,6 +8,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { useSession } from "next-auth/react"
 import { useCategory } from "@/hooks/use-category"
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useTranslation } from "../../../../../../utils/localization/client"
 
 // 선택된 카테고리 정보를 담을 타입 정의
 export interface SelectedCategory extends ProductCategoryNode {
@@ -135,6 +137,8 @@ const getCategoryPath = (nodes: ProductCategoryNode[], targetId: number, current
 
 // 메인 카테고리 선택 컴포넌트
 export default function CategorySelect({ selectedCategories, setSelectedCategories }: { selectedCategories: SelectedCategory[], setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>> }) {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, 'common')
     const { data: session, status } = useSession()
     const { getCategories } = useCategory()
     const { categories, setCategories } = useProductCategoryStore()
@@ -261,7 +265,7 @@ export default function CategorySelect({ selectedCategories, setSelectedCategori
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     className="flex justify-between items-center gap-2 px-4 py-2 border rounded min-w-[150px] h-auto"
                 >
-                    <span>분류 선택</span>
+                    <span>{t('select_category')}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`} />
                 </Button>
                 {isDropdownOpen && (

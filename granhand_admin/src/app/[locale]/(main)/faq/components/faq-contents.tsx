@@ -10,8 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FAQCate, useBoard } from "@/hooks/use-board"
-import { cn } from "@/lib/utils"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+// import { cn } from "@/lib/utils"
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useSession } from "next-auth/react"
 
 export default function FaqContents({ category, id }: { category: string, id?: number }) {
@@ -45,6 +45,8 @@ export default function FaqContents({ category, id }: { category: string, id?: n
             }
         }
     }
+
+    console.log('id:', id)
 
     // const addNewFaq = async () => {
     //     // body 만들기
@@ -82,7 +84,8 @@ export default function FaqContents({ category, id }: { category: string, id?: n
                 memo: faqContents
             }
     
-            const { data, error } = await addFaq(faq)
+            // const { data, error } = await addFaq(faq)
+            const { error } = await addFaq(faq)
     
             if(error) {
                 alert('FAQ 등록을 실패하였습니다.')
@@ -115,17 +118,17 @@ export default function FaqContents({ category, id }: { category: string, id?: n
                 </div>
             </div>
 
-            <div className="mx-auto px-6 py-8 space-y-12">
+            <div className="mx-auto px-6 space-y-12">
                 <div className="shadow-sm p-8">
-                    <div className="flex items-end border-b">
-                        <div className="flex items-end gap-6 flex-grow">
-                            <h2 className="font-bold text-xl text-[#5E5955] mr-6 pb-8">
-                                {category === 'create' && t('faq:create_faq')}
-                                {category === 'detail' && t('faq:view_details')}
-                                {category === 'edit' && t('faq:edit_faq')}
-                            </h2>
-                        </div>
-                        <div className="flex items-center gap-4">
+                    {/* <div className="flex items-end border-b"> */}
+                    <div className="flex items-end gap-6 flex-grow">
+                        <h2 className="font-bold text-xl text-[#5E5955] mr-6 pb-8">
+                            {category === 'create' && t('faq:create_faq')}
+                            {category === 'detail' && t('faq:view_details')}
+                            {category === 'edit' && t('faq:edit_faq')}
+                        </h2>
+                    </div>
+                        {/* <div className="flex items-center gap-4">
                             <RadioGroup value={language} onValueChange={setLanguage} className="flex gap-2 text-sm">
                                 <Label
                                     className={cn(
@@ -150,11 +153,27 @@ export default function FaqContents({ category, id }: { category: string, id?: n
                                     🇺🇸 {t('journal:english')}
                                 </Label>
                             </RadioGroup>
-                        </div>
-                    </div>
+                        </div> */}
+                    {/* </div> */}
 
                     <div className="border-l border-r border-gray-200 text-[#231815B2] text-sm w-full bg-white mt-4 mb-7 min-w-178">
                         <div className="mt-6 border-t">
+                            <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
+                                <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
+                                    <Label className="font-semibold">{t('language')}</Label>
+                                </div>
+                                <div className="flex items-center gap-4 p-5">
+                                    <Select value={language} onValueChange={(value: 'ko' | 'en') => setLanguage(value)}>
+                                        <SelectTrigger className="w-fit">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-white">
+                                            <SelectItem value="ko">{t('korean')}</SelectItem>
+                                            <SelectItem value="en">{t('english')}</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                            </div>
                             <div className="grid grid-cols-[150px_2fr_150px_1fr] border-b border-gray-200 h-full">
                                 <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                                     <Label className="font-semibold">{t('faq:title')}</Label>
@@ -185,11 +204,8 @@ export default function FaqContents({ category, id }: { category: string, id?: n
                                             </SelectTrigger>
                                             <SelectContent className="bg-white">
                                                 {faqCategories.map((category) => (
-                                                    <SelectItem value={category.idx.toString()}>{category.catename}</SelectItem>
+                                                    <SelectItem key={category.idx} value={category.idx.toString()}>{category.catename}</SelectItem>
                                                 ))}
-                                                {/* <SelectItem value="latest_first">{t('wallpaper:latest_first')}</SelectItem>
-                                                <SelectItem value="featured_first">{t('wallpaper:featured_first')}</SelectItem>
-                                                <SelectItem value="most_viewed">{t('wallpaper:most_viewed')}</SelectItem> */}
                                             </SelectContent>
                                         </Select>
                                     )}

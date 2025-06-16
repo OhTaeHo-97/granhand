@@ -1,6 +1,5 @@
-'use client'
+// 'use client'
 
-import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import Link from "next/link";
@@ -30,8 +29,7 @@ export default async function WallPaperPage({ params }: { params: Promise<{ loca
                     </div>
                 </div>
 
-                <WallpaperList t={t} />
-                <Pagination totalPages={15} />
+                <WallpaperList />
             </div>
         </main>
         // <main className="flex-1 border p-12">

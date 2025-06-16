@@ -9,8 +9,9 @@ import DenyReturnModalContents from "./modal/deny-return-modal";
 import PendingReturnModalContents from "./modal/pending-return-modal";
 import CancelPendingReturnModalContents from "./modal/cancel-pending-modal";
 import ReturnCompleteModalContents from "./modal/return-complete-modal";
+import { TFunction } from "i18next";
 
-export default function RefundStateBtn({ refundState, t }: { refundState?: string, t: (key: string) => string }) {
+export default function RefundStateBtn({ refundState, t }: { refundState?: string, t: TFunction }) {
     const [openReturnPickup, setOpenReturnPickup] = useState(false)
     const [openDenyReturn, setOpenDenyReturn] = useState(false)
     const [openPendingReturn, setPendingReturn] = useState(false)
@@ -22,37 +23,37 @@ export default function RefundStateBtn({ refundState, t }: { refundState?: strin
         <>
             {refundState === 'return_requested' && (
                 <div className="flex gap-3 mb-5">
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenReturnPickup((prev) => !prev)}>반품 수거 접수</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenDenyReturn((prev) => !prev)}>반품 거부</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setPendingReturn((prev) => !prev)}>반품 보류</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenReturnComplete((prev) => !prev)}>반품 완료 처리</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenReturnPickup((prev) => !prev)}>{t('order:register_return_pickup')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenDenyReturn((prev) => !prev)}>{t('order:reject_return')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setPendingReturn((prev) => !prev)}>{t('order:return_hold')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenReturnComplete((prev) => !prev)}>{t('order:process_mark_return_cmpl')}</Button>
                 </div>
             )}
             {refundState === 'return_hold' && (
                 <div className="flex gap-3 mb-5">
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenCancelPending((prev) => !prev)}>반품 보류 해제</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenCancelPending((prev) => !prev)}>{t('order:release_return_hold')}</Button>
                 </div>
             )}
             {refundState === 'return_pickup' && (
                 <div className="flex gap-3 mb-5">
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenPickupComplete((prev) => !prev)}>반품 수거 완료</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenDenyReturn((prev) => !prev)}>반품 거부</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenPickupComplete((prev) => !prev)}>{t('order:return_pickup_cmpl')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenDenyReturn((prev) => !prev)}>{t('order:reject_return')}</Button>
                 </div>
             )}
             {refundState === 'return_pickup_cmpl' && (
                 <div className="flex gap-3 mb-5">
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenReturnComplete((prev) => !prev)}>반품 완료 처리</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenDenyReturn((prev) => !prev)}>반품 거부</Button>
-                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setPendingReturn((prev) => !prev)}>반품 보류</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenReturnComplete((prev) => !prev)}>{t('order:process_mark_return_cmpl')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setOpenDenyReturn((prev) => !prev)}>{t('order:reject_return')}</Button>
+                    <Button variant="outline" className="text-[#5E5955] p-1 hover:cursor-pointer" onClick={() => setPendingReturn((prev) => !prev)}>{t('order:return_hold')}</Button>
                 </div>
             )}
             
-            <EditOrProcessOrderModal open={openReturnPickup} title="반품 수거 접수 처리" contentsTxt={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} contents={<ReturnPickupModalContents t={t} />} setOpen={setOpenReturnPickup} />
-            <EditOrProcessOrderModal open={openDenyReturn} title="반품 거부 처리" contentsTxt="선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다." contents={<DenyReturnModalContents t={t} />} setOpen={setOpenDenyReturn} />
-            <EditOrProcessOrderModal open={openPendingReturn} title="반품 보류 처리" contentsTxt="선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다." contents={<PendingReturnModalContents t={t} />} setOpen={setPendingReturn} />
-            <EditOrProcessOrderModal open={openCancelPending} width="w-150" title="반품 보류 해제 처리" contentsTxt={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} contents={<CancelPendingReturnModalContents />} setOpen={setOpenCancelPending} />
-            <OrderBaseModal open={openPickupComplete} title="반품 수거 완료 처리" contents={`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`} setOpen={setOpenPickupComplete} />
-            <EditOrProcessOrderModal open={openReturnComplete} title="반품 완료 처리" contentsTxt="선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다." contents={<ReturnCompleteModalContents t={t} />} setOpen={setOpenReturnComplete} />
+            <EditOrProcessOrderModal open={openReturnPickup} title={t('order:process_return_pickup')} contentsTxt={`${t('order:process_order_confirm_msg1', { total: 10, count: 1 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} contents={<ReturnPickupModalContents t={t} />} setOpen={setOpenReturnPickup} />
+            <EditOrProcessOrderModal open={openDenyReturn} title={t('order:process_return_reject')} contentsTxt={t('order:process_order_confirm_msg1', { total: 10, count: 1 })} contents={<DenyReturnModalContents t={t} />} setOpen={setOpenDenyReturn} />
+            <EditOrProcessOrderModal open={openPendingReturn} title={t('order:process_return_hold')} contentsTxt={t('order:process_order_confirm_msg1', { total: 10, count: 1 })} contents={<PendingReturnModalContents t={t} />} setOpen={setPendingReturn} />
+            <EditOrProcessOrderModal open={openCancelPending} width="w-150" title={t('order:process_release_return_hold')} contentsTxt={`${t('order:process_order_confirm_msg1', { total: 10, count: 1 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} contents={<CancelPendingReturnModalContents t={t} />} setOpen={setOpenCancelPending} />
+            <OrderBaseModal open={openPickupComplete} title={t('order:process_mark_return_pickup_cmpl')} contents={`${t('order:process_order_confirm_msg1', { total: 10, count: 1 })}\n${t('order:process_order_confirm_msg2', { count: 1 })}`} setOpen={setOpenPickupComplete} />
+            <EditOrProcessOrderModal open={openReturnComplete} title={t('order:process_mark_return_cmpl')} contentsTxt={t('order:process_order_confirm_msg1', { total: 10, count: 1 })} contents={<ReturnCompleteModalContents t={t} />} setOpen={setOpenReturnComplete} />
         </>
     )
 }

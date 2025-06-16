@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../utils/localization/client";
 
-export default function MembershipLevelSelect() {
+export default function MembershipLevelSelect({ disabled, level, setLevel }: { disabled: boolean, level: string, setLevel: React.Dispatch<React.SetStateAction<string>> }) {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'member'])
 
@@ -18,7 +18,7 @@ export default function MembershipLevelSelect() {
     ]
 
     return (
-        <Select defaultValue="all_membership">
+        <Select value={level} onValueChange={setLevel} disabled={disabled}>
             <SelectTrigger className="border rounded px-2 py-1 flex items-center gap-1 w-40 h-8">
             <SelectValue placeholder={t('member:all_membership')} />
             </SelectTrigger>

@@ -1,17 +1,22 @@
-'use client'
-
-import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
-import { useTranslation } from "../../../../../utils/localization/client"
+// import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+// import { useTranslation } from "../../../../../utils/localization/client"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Pencil } from "lucide-react"
 import ScentList from "./components/scent-list"
-import Pagination from "@/components/pagination"
+// import Pagination from "@/components/pagination"
+import { LocaleTypes } from "../../../../../utils/localization/settings"
+import { translation } from "../../../../../utils/localization/locales/server"
+import { getCurrentLocaleFromParams } from "@/lib/getCurrentLocaleFromParams"
 
-export default function ScentNotePage() {
-    const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, ['common', 'scent', 'wallpaper'])
-    const currentLocale = useCurrentLocale()
+export default async function ScentNotePage({ params }: { params: Promise<{ locale: LocaleTypes }> }) {
+    const { locale } = await params
+    const { t } = await translation(locale, ['common', 'scent', 'wallpaper'])
+    const currentLocale = getCurrentLocaleFromParams(locale)
+
+    // const locale = useLocaleAsLocaleTypes()
+    // const { t } = useTranslation(locale, ['common', 'scent', 'wallpaper'])
+    // const currentLocale = useCurrentLocale()
     return (
         <main className="flex-1 border">
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
@@ -28,8 +33,7 @@ export default function ScentNotePage() {
                     </div>
                 </div>
 
-                <ScentList t={t} />
-                <Pagination totalPages={15} />
+                <ScentList />
             </div>
         </main>
     )

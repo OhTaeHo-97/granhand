@@ -17,7 +17,7 @@ const addressInfoSchema = z.object({
 
 type AddressValues = z.infer<typeof addressInfoSchema>;
 
-export default function EditAddressModal({ open, setOpen }: { open: boolean, setOpen: (value: boolean) => void }) {
+export default function EditAddressModal({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
     const form = useForm<AddressValues>({
         resolver: zodResolver(addressInfoSchema),
         defaultValues: {
@@ -36,18 +36,18 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="bg-white max-w-150 min-h-80 w-full overflow-auto mx-auto">
                 <DialogHeader>
-                    <DialogTitle><span className="font-bold text-2xl text-[#111111]">배송지 정보 수정</span></DialogTitle>
+                    <DialogTitle><span className="font-bold text-2xl text-[#111111]">{t('order:edit_ship_info')}</span></DialogTitle>
                 </DialogHeader>
                 <div className="text-[#111111]">
                     <div className="space-y-6 mt-8">
                         <div className="text-[#6f6963] text-sm w-full min-w-120">
                             <div className="grid grid-cols-[100px_1fr] h-full">
                                 <div className="flex items-center justify-center p-2 text-[#6F6963]">
-                                    <Label className="font-semibold">수령인</Label>
+                                    <Label className="font-semibold">{t('order:recipient')}</Label>
                                 </div>
                                 <div className="px-5 py-4 w-full">
                                     <div className="flex items-center gap-4">
-                                        <Input placeholder="수령인 입력" defaultValue="홍길동" {...form.register('recipient')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
+                                        <Input placeholder={t('order:recipient_placeholder')} defaultValue="홍길동" {...form.register('recipient')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
                                     </div>
                                     {form.formState.errors.recipient && (
                                         <p className="text-[#FF3E24]">{form.formState.errors.recipient.message}</p>
@@ -56,11 +56,11 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                             </div>
                             <div className="grid grid-cols-[100px_1fr] h-full">
                                 <div className="flex items-center justify-center p-2 text-[#6F6963]">
-                                    <Label className="font-semibold">연락처</Label>
+                                    <Label className="font-semibold">{t('order:contact_number')}</Label>
                                 </div>
                                 <div className="px-5 py-4 w-full">
                                     <div className="flex items-center gap-4">
-                                        <Input placeholder="연락처 입력" defaultValue="01099991111" {...form.register('contact')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
+                                        <Input placeholder={t('order:contact_number_placeholder')} defaultValue="01099991111" {...form.register('contact')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
                                     </div>
                                     {form.formState.errors.contact && (
                                         <p className="text-[#FF3E24]">{form.formState.errors.contact.message}</p>
@@ -70,12 +70,12 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                             <div>
                                 <div className="grid grid-cols-[100px_1fr] h-full">
                                     <div className="flex items-center justify-center p-2 text-[#6F6963]">
-                                        <Label className="font-semibold">배송지</Label>
+                                        <Label className="font-semibold">{t('order:ship_address')}</Label>
                                     </div>
                                     <div className="px-5 py-4 w-full">
                                         <div className="flex items-center gap-4">
-                                            <Input placeholder="우편번호 검색" defaultValue="00100" {...form.register('postalCode')} className={`w-[1/2] ${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
-                                            <Button variant="outline" className="p-1">우편번호</Button>
+                                            <Input placeholder={t('order:search_postal')} defaultValue="00100" {...form.register('postalCode')} className={`w-[1/2] ${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
+                                            <Button variant="outline" className="p-1">{t('order:postal')}</Button>
                                         </div>
                                         {form.formState.errors.postalCode && (
                                             <p className="text-[#FF3E24]">{form.formState.errors.postalCode.message}</p>
@@ -86,7 +86,7 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                                     <div className="flex items-center justify-center p-2 text-[#6F6963]"></div>
                                     <div className="px-5 py-4 w-full">
                                         <div className="flex items-center gap-4">
-                                            <Input placeholder="주소" defaultValue="서울시 종로구 8" {...form.register('address')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
+                                            <Input placeholder={t('order:address')} defaultValue="서울시 종로구 8" {...form.register('address')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
                                         </div>
                                         {form.formState.errors.address && (
                                             <p className="text-[#FF3E24]">{form.formState.errors.address.message}</p>
@@ -97,7 +97,7 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                                     <div className="flex items-center justify-center p-2 text-[#6F6963]"></div>
                                     <div className="px-5 py-4 w-full">
                                         <div className="flex items-center gap-4">
-                                            <Input placeholder="상세주소 입력" defaultValue="1층 101호" {...form.register('detailAddress')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
+                                            <Input placeholder={t('order:detail_address_placeholder')} defaultValue="1층 101호" {...form.register('detailAddress')} className={`${form.formState.errors.recipient && '!border-[#FF3E24]'}`} />
                                         </div>
                                         {form.formState.errors.detailAddress && (
                                             <p className="text-[#FF3E24]">{form.formState.errors.detailAddress.message}</p>
@@ -107,11 +107,11 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                             </div>
                             <div className="grid grid-cols-[100px_1fr] h-full">
                                 <div className="flex items-center justify-center p-2 text-[#6F6963]">
-                                    <Label className="font-semibold">배송 요청사항</Label>
+                                    <Label className="font-semibold">{t('order:delivery_request')}</Label>
                                 </div>
                                 <div className="px-5 py-4 w-full">
                                     <div className="flex items-center gap-4">
-                                        <Input placeholder="배송 요청사항 입력" {...form.register('deliveryRequest')} className={`${form.formState.errors.deliveryRequest && '!border-[#FF3E24]'}`} />
+                                        <Input placeholder={t('order:enter_delivery_request')} {...form.register('deliveryRequest')} className={`${form.formState.errors.deliveryRequest && '!border-[#FF3E24]'}`} />
                                     </div>
                                     {form.formState.errors.deliveryRequest && (
                                         <p className="text-[#FF3E24]">{form.formState.errors.deliveryRequest.message}</p>
@@ -122,22 +122,22 @@ export default function EditAddressModal({ open, setOpen }: { open: boolean, set
                     </div>
                 </div>
                 <DialogFooter className="!flex !items-center">
-                    <Button className="w-1/6 bg-transparent text-[#C0BCB6] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>취소</Button>
+                    <Button className="w-1/6 bg-transparent text-[#C0BCB6] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>{t('cancel')}</Button>
                     <Button className="w-1/6 text-[#2854f3] hover:bg-[#322A2408]" onClick={() => {
                         const values = form.getValues()
                         const result = addressInfoSchema.safeParse(values)
 
                         if(!result.success) {
                             result.error.errors.forEach((err) => {
-                                const field = err.path[0];
-                                setError(field as any, { message: err.message });
+                                const field = err.path[0] as keyof AddressValues;
+                                setError(field, { message: err.message });
                             })
                             return
                         }
 
                         window.alert('배송지 정보가 수정되었습니다.')
                         setOpen(false)
-                    }}>저장</Button>
+                    }}>{t('save')}</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

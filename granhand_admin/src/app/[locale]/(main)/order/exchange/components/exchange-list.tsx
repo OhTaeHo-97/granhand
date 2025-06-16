@@ -3,9 +3,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import ExchangeListTable from "./exchange-list-table";
 import { useState } from "react";
 import ExcelDownloadModal from "../../components/modal/excel-download-modal";
+import Pagination from "@/components/pagination";
+import { TFunction } from "i18next";
 
-export default function ExchangeList({ exchangeState, t }: { exchangeState: string, t: (key: string) => string }) {
+export default function ExchangeList({ exchangeState, t }: { exchangeState: string, t: TFunction }) {
     const [openExcelDown, setOpenExcelDown] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
 
     return (
         <div className="p-6 shadow-sm">
@@ -25,12 +28,13 @@ export default function ExchangeList({ exchangeState, t }: { exchangeState: stri
                                 <SelectItem value="500">500</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>엑셀 다운로드</Button>
+                        <Button className="border" onClick={() => setOpenExcelDown((prev) => !prev)}>{t('excel_down')}</Button>
                     </div>
                 </div>
                 <ExchangeListTable exchangeState={exchangeState} t={t} />
-                <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
+                <ExcelDownloadModal isOrder={true} open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
             </div>
+            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
     )
 }

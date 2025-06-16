@@ -29,8 +29,9 @@ export default function TermModal({ title, contents, open, setOpen }: { title: s
 
         if(!result.success) {
             result.error.errors.forEach((err) => {
-                const field = err.path[0]
-                setError(field as any, { message: err.message })
+                // const field = err.path[0]
+                const field = err.path[0] as keyof TermValues
+                setError(field, { message: err.message })
             })
             return
         }

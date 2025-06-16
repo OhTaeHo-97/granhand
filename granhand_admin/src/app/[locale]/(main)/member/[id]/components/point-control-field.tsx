@@ -20,7 +20,7 @@ export default function PointControlField({ t }: { t: (key: string) => string })
         </thead>
         <tbody>
             <tr className="border-b h-15">
-                <td className="p-2 border h-full align-middle flex items-center justify-center">
+                <td className="p-2 h-15 align-middle flex items-center justify-center">
                     <Select defaultValue="give">
                         <SelectTrigger className="border rounded px-2 py-1 gap-1 w-full h-auto flex items-center max-w-52">
                         <SelectValue placeholder={t('point:grant_points')} />

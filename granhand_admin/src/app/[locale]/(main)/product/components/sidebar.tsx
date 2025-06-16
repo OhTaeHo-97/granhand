@@ -11,7 +11,7 @@ import SubSidebarElem from "../../components/sub-sidebar/sub-sidebar-elem";
 import { useSession } from "next-auth/react";
 
 export default function ProductSidebar() {
-    const { data: session, status } = useSession()
+    const { data: session } = useSession()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, 'product')
     const [open, setOpen] = useState(false)

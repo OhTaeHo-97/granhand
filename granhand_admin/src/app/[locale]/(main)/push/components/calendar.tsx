@@ -13,11 +13,13 @@ const TIMES = [
 export default function CustomCalendarWithTime({ 
     initialDate,
     initialTime,
+    needTime=true,
     onCancel,
     onSave,
 }: {
     initialDate?: Date;
     initialTime?: string;
+    needTime?: boolean,
     onCancel?: () => void;
     onSave?: (date: Date, time: string) => void;
 }) {
@@ -146,19 +148,21 @@ export default function CustomCalendarWithTime({
             </div>
 
             {/* 시간 선택 */}
-            <div className="mt-8 mb-4">
-                <Label className="block mb-2 text-base font-semibold text-gray-700">시간 선택</Label>
-                <Select defaultValue={initialTime} onValueChange={(value) => setSelectedTime(value)}>
-                    <SelectTrigger className="w-full border rounded px-4 py-3 text-base focus:outline-none">
-                    <SelectValue placeholder="" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white border rounded shadow-md">
-                        {TIMES.map((time) => (
-                            <SelectItem key={time} value={time} className="px-3 py-2 /cursor-pointer">{time}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
+            {needTime && (
+                <div className="mt-8 mb-4">
+                    <Label className="block mb-2 text-base font-semibold text-gray-700">시간 선택</Label>
+                    <Select defaultValue={initialTime} onValueChange={(value) => setSelectedTime(value)}>
+                        <SelectTrigger className="w-full border rounded px-4 py-3 text-base focus:outline-none">
+                        <SelectValue placeholder="" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white border rounded shadow-md">
+                            {TIMES.map((time) => (
+                                <SelectItem key={time} value={time} className="px-3 py-2 /cursor-pointer">{time}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+            )}
 
             {/* 하단 버튼 */}
             <div className="flex gap-4 mt-6">

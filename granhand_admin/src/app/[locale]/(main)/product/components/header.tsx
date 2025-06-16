@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import PeriodElement from "../../components/period";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -12,9 +12,8 @@ import { RefreshCw, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import CategorySelect from "./category-select";
 import { ProductCategoryNode } from "@/lib/product/product-state";
-import { format } from "date-fns";
-import { useRouter } from "next/navigation";
-import { ProductInfo } from "../page";
+// import { useRouter } from "next/navigation";
+// import { ProductInfo } from "../page";
 // import api from "@/utils/api";
 // import { useSession } from "next-auth/react";
 // import { string } from "zod";
@@ -23,12 +22,12 @@ interface SelectedCategory extends ProductCategoryNode {
     path: string;
 }
 
-export default function ProductListHeader({ selectedCategories, currentPage, itemCnt, setSelectedCategories, setContents, setTotalPage, fetchProductList }: { selectedCategories: SelectedCategory[], currentPage: number, itemCnt: string, setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>>, setContents: React.Dispatch<React.SetStateAction<ProductInfo[]>>, setTotalPage: React.Dispatch<React.SetStateAction<number>>, fetchProductList: (params: Record<string, any>) => void }) {
+export default function ProductListHeader({ selectedCategories, currentPage, itemCnt, setSelectedCategories, fetchProductList }: { selectedCategories: SelectedCategory[], currentPage: number, itemCnt: string, setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>>, fetchProductList: (params: Record<string, string | number | boolean | undefined | null>) => void }) {
+// export default function ProductListHeader({ selectedCategories, currentPage, itemCnt, setSelectedCategories, setContents, setTotalPage, fetchProductList }: { selectedCategories: SelectedCategory[], currentPage: number, itemCnt: string, setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategory[]>>, setContents: React.Dispatch<React.SetStateAction<ProductInfo[]>>, setTotalPage: React.Dispatch<React.SetStateAction<number>>, fetchProductList: (params: Record<string, string | number | boolean | undefined | null>) => void }) {
     // const { data: session, status } = useSession()
-    const router = useRouter()
+    // const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'push'])
-    const currentLocale = useCurrentLocale()
     const [quickRange, setQuickRange] = useState('')
     const [startDate, setStartDate] = useState<Date | undefined>(new Date())
     const [endDate, setEndDate] = useState<Date | undefined>(new Date())
@@ -98,7 +97,7 @@ export default function ProductListHeader({ selectedCategories, currentPage, ite
         // const params = new URLSearchParams(queryParams)
         // const queryString = params.toString()
 
-        const backendParams: Record<string, any> = {}
+        const backendParams: Record<string, string | number | boolean | undefined | null> = {}
         if(selectedCategories.length !== 0) {
             backendParams.category = selectedCategories[0].path
         }
@@ -111,14 +110,14 @@ export default function ProductListHeader({ selectedCategories, currentPage, ite
     }
 
     return (
-        <div className="p-6 shadow-sm space-y-4 mb-12">
+        <>
             <div className="border border-gray-200 text-[#231815B2] text-sm w-full bg-white">
                 <div className="grid grid-cols-[150px_1fr] border-b border-gray-200 h-full">
                     <div className="bg-[#322A2408] border-r border-gray-200 flex items-center justify-center p-2 text-[#6F6963]">
                         <Label className="font-semibold">{t('product:date_registered')}</Label>
                     </div>
                     <div className="flex items-center gap-4 p-5">
-                        <PeriodElement startDate={startDate} endDate={endDate} quickRange={quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} t={t} />
+                        <PeriodElement needTime={false} startDate={startDate} endDate={endDate} quickRange={quickRange} setStartDate={setStartDate} setEndDate={setEndDate} setQuickRange={setQuickRange} t={t} />
                     </div>
                 </div>
 
@@ -171,7 +170,7 @@ export default function ProductListHeader({ selectedCategories, currentPage, ite
                     </Select>
                     <Input
                         type="text"
-                        defaultValue={searchValue}
+                        value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                         placeholder={t('search')}
                         className="border rounded px-2 py-1 flex-1 min-w-[200px] h-8"
@@ -190,6 +189,6 @@ export default function ProductListHeader({ selectedCategories, currentPage, ite
                     {t('search')}
                 </Button>
             </div>
-        </div>
+        </>
     )
 }

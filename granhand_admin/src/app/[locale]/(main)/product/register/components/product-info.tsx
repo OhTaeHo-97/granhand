@@ -18,15 +18,114 @@ import { SelectedCategory } from "../../components/category-select";
 import { ImageItem } from "./image-list";
 import { ProductForm, useProduct } from "@/hooks/use-product";
 
-export default function ProductInfo({ category }: { category: "register" | "edit" }) {
+export interface ProductInformation {
+    salesType: SalesType,
+    basicInfo: BasicInfo,
+    salesInfo: SalesInfo,
+    productDetails: ProductDetails,
+    optionSettings: OptionSettings,
+    recommendProduct: RecommendProduct,
+    shipInfo: ShipInfo
+}
+
+export interface SalesType {
+    displayType: string,
+    selectedCategories: SelectedCategory[],
+    applySalePeriod: string,
+    startDate: Date,
+    endDate: Date,
+    quickRange: string,
+    showNaver: string,
+    showKakao: string,
+    exposureName: string
+}
+
+export interface BasicInfo {
+    language: string,
+    koName: string,
+    enName: string,
+    koMemo: string,
+    enMemo: string,
+    images: ImageItem[],
+    imageOrders: number[]
+}
+
+export interface SalesInfo {
+    koPrice: number,
+    includeTax: string,
+    enPrice: number,
+    coupon: string,
+    point: string,
+    restrictedReward: string,
+    targetMember: string,
+    emails: string[],
+    grade: string,
+    minOrderCount: number,
+    hasLimitCount: string,
+    maxOrderCount: number,
+    showDomestic: string,
+    showAbroad: string
+}
+
+export interface ProductDetails {
+    details: string,
+    images: ImageItem[]
+}
+
+export interface OptionSettings {
+    useStamping: string,
+    useBtnOption: string,
+    btnOptionSections: OptionSections[],
+    useDropOption: string,
+    dropOptionSections: OptionSections[]
+}
+
+export interface OptionSections {
+    id: number
+    title: string
+    options: OptionType[]
+}
+
+export type OptionType = {
+    id: number
+    optionValue: string
+    price: number
+    inventoryId: string
+    quantity: string
+    status: string
+}
+
+export interface RecommendProduct {
+    useRecommend: string,
+    products: RecommendProductInfo[]
+}
+
+export type RecommendProductInfo = {
+    id: number
+    name: string
+    price: number
+    category: string
+    status: string
+    registerType: string
+}
+
+export interface ShipInfo {
+    deliveryLocation: string,
+    productWeight: number,
+    deliveryCountries: string[]
+}
+
+export default function ProductInfo({ data }: { data?: ProductInformation }) {
+// export default function ProductInfo({ category }: { category: "register" | "edit" }) {
     const router = useRouter()
     const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, ['common', 'product', 'push'])
+    const { t } = useTranslation(locale, ['common', 'product', 'push', 'journal'])
     const currentLocale = useCurrentLocale()
     const { addProduct } = useProduct()
     const { status } = useSession()
 
-    const [productData, setProductData] = useState({
+    // const [language, setLanguage] = useState<'ko' | 'en'>('ko')
+    const [productData, setProductData] = useState<ProductInformation>(data ? data : {
         salesType: {
             displayType: 'all',
             selectedCategories: [] as SelectedCategory[],
@@ -39,6 +138,7 @@ export default function ProductInfo({ category }: { category: "register" | "edit
             exposureName: ''
         },
         basicInfo: {
+            language: 'ko',
             koName: '',
             enName: '',
             koMemo: '',
@@ -69,69 +169,23 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         optionSettings: {
             useStamping: 'N',
             useBtnOption: 'N',
-            btnOptionSections: [
-                { id: 1, title: "용량", options: [{
-                    id: 1,
-                    optionValue: '100ml',
-                    price: 35000,
-                    inventoryId: 'MP1000_NO',
-                    quantity: 85,
-                    status: 'on_sale'
-                },
-                {
-                    id: 2,
-                    optionValue: '150ml',
-                    price: 35000,
-                    inventoryId: 'MP1000_NO',
-                    quantity: 85,
-                    status: 'on_sale'
-                }] }
-            ],
+            btnOptionSections: [],
             useDropOption: 'N',
-            dropOptionSections: [
-                { id: 1, title: "용량", options: [{
-                    id: 1,
-                    optionValue: '100ml',
-                    price: 35000,
-                    inventoryId: 'MP1000_MO',
-                    quantity: 85,
-                    status: 'on_sale'
-                },
-                {
-                    id: 2,
-                    optionValue: '150ml',
-                    price: 35000,
-                    inventoryId: 'MP1000_MO',
-                    quantity: 85,
-                    status: 'on_sale'
-                }] }
-            ]
+            dropOptionSections: []
         },
         recommendProduct: {
             useRecommend: 'N',
-            products: [{
-                id: 1,
-                name: 'Multi Perfume & Sachet Set',
-                price: 53000,
-                category: '멀티퍼퓸 외 2',
-                status: 'on_sale',
-                registerType: 'normal'
-            }, {
-                id: 2,
-                name: 'Susie Salmon Candle',
-                price: 40000,
-                category: '캔들',
-                status: 'on_sale',
-                registerType: 'normal'
-            }]
+            products: []
         },
         shipInfo: {
+            deliveryLocation: 'ko',
             productWeight: 0,
             deliveryCountries: []
         }
     })
 
-    const handleSalesTypeChange = (field: string, value: any) => {
+    const handleSalesTypeChange = (field: keyof typeof productData.salesType, value: typeof productData.salesType[keyof typeof productData.salesType] | undefined) => {
+    // const handleSalesTypeChange = (field: string, value: any) => {
         setProductData(prev => ({
             ...prev,
             salesType: {
@@ -141,7 +195,16 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const handleBasicInfoChange = (field: string, value: any) => {
+    // const handleBasicInfoChange = (field: keyof typeof productData.basicInfo, value: typeof productData.basicInfo[keyof typeof productData.basicInfo]) => {
+    // const handleBasicInfoChange = (
+    //     field: keyof typeof productData.basicInfo,
+    //     value: typeof productData.basicInfo[keyof typeof productData.basicInfo]
+    // ) => {
+    const handleBasicInfoChange = (
+        field: keyof typeof productData.basicInfo,
+        value: string | ImageItem[] | number[]
+    ) => {
+    // const handleBasicInfoChange = (field: string, value: any) => {
         setProductData(prev => ({
             ...prev,
             basicInfo: {
@@ -151,7 +214,12 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const handleSalesInfoChange = (field: string, value: any) => {
+    const handleSalesInfoChange = (
+        field: keyof typeof productData.salesInfo,
+        value: string | number | string[]
+    ) => {
+    // const handleSalesInfoChange = (field: keyof typeof productData.salesInfo, value: typeof productData.salesInfo[keyof typeof productData.salesInfo]) => {
+    // const handleSalesInfoChange = (field: string, value: any) => {
         setProductData(prev => ({
             ...prev,
             salesInfo: {
@@ -161,7 +229,12 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const handleProductDetailsChange = (field: string, value: any) => {
+    // const handleProductDetailsChange = (field: keyof typeof productData.productDetails, value: typeof productData.productDetails[keyof typeof productData.productDetails]) => {
+    const handleProductDetailsChange = (
+        field: keyof typeof productData.productDetails,
+        value: string | ImageItem[]
+    ) => {
+    // const handleProductDetailsChange = (field: string, value: any) => {
         setProductData(prev => ({
             ...prev,
             productDetails: {
@@ -171,7 +244,8 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const handleOptionSettingsChange = (field: string, value: any) => {
+    const handleOptionSettingsChange = (field: keyof typeof productData.optionSettings, value: typeof productData.optionSettings[keyof typeof productData.optionSettings]) => {
+    // const handleOptionSettingsChange = (field: string, value: any) => {
         setProductData(prev => ({
             ...prev,
             optionSettings: {
@@ -181,7 +255,8 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const handleRecommendProductChange = (field: string, value: any) => {
+    const handleRecommendProductChange = (field: keyof typeof productData.recommendProduct, value: typeof productData.recommendProduct[keyof typeof productData.recommendProduct]) => {
+    // const handleRecommendProductChange = (field: string, value: any) => {
         setProductData(prev => ({
             ...prev,
             recommendProduct: {
@@ -191,7 +266,12 @@ export default function ProductInfo({ category }: { category: "register" | "edit
         }))
     }
 
-    const handleShipInfoChange = (field: string, value: any) => {
+    const handleShipInfoChange = (
+        field: keyof typeof productData.shipInfo,
+        value: string | number | string[]
+    ) => {
+    // const handleShipInfoChange = (field: keyof typeof productData.shipInfo, value: typeof productData.shipInfo[keyof typeof productData.shipInfo]) => {
+    // const handleShipInfoChange = (field: string, value: any) => {
         setProductData(prev => ({
             ...prev,
             shipInfo: {
@@ -260,7 +340,7 @@ export default function ProductInfo({ category }: { category: "register" | "edit
                     <SalesType data={productData.salesType} onChange={handleSalesTypeChange} t={t} />
                     <BasicInfo data={productData.basicInfo} onChange={handleBasicInfoChange} t={t} />
                     <SalesInfo data={productData.salesInfo} onChange={handleSalesInfoChange} t={t} />
-                    <ProductDetails data={productData.productDetails} onChange={handleProductDetailsChange} t={t} />
+                    <ProductDetails language={productData.basicInfo.language} data={productData.productDetails} onChange={handleProductDetailsChange} t={t} />
                     <OptionSettings data={productData.optionSettings} onChange={handleOptionSettingsChange} t={t}  />
                     <RecommendProduct data={productData.recommendProduct} onChange={handleRecommendProductChange} t={t} />
                     <ShipInfo t={t} data={productData.shipInfo} onChange={handleShipInfoChange} />

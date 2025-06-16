@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { useEffect } from "react"
 
 export default function PeriodElement({
+    needTime=true,
     startDate,
     endDate,
     quickRange,
@@ -18,6 +19,7 @@ export default function PeriodElement({
     setQuickRange,
     t
 }: {
+    needTime?: boolean,
     startDate: Date | undefined,
     endDate: Date | undefined,
     quickRange: string,
@@ -35,6 +37,49 @@ export default function PeriodElement({
     ]
     const usedQuickRanges = quickRanges ?? defaultQuickRanges
 
+    // useEffect(() => {
+    //     const today = new Date()
+    //     let calculatedStartDate: Date
+    //     let calculatedEndDate: Date
+
+    //     switch (quickRange) {
+    //         case 'today':
+    //             calculatedStartDate = startOfDay(today)
+    //             calculatedEndDate = endOfDay(today)
+    //             break
+    //         case 'last_3_days':
+    //             calculatedStartDate = startOfDay(subDays(today, 2))
+    //             calculatedEndDate = endOfDay(today)
+    //             break
+    //         case 'last_5_days':
+    //             calculatedStartDate = startOfDay(subDays(today, 4))
+    //             calculatedEndDate = endOfDay(today)
+    //             break
+    //         case 'last_7_days':
+    //             calculatedStartDate = startOfDay(subDays(today, 6))
+    //             calculatedEndDate = endOfDay(today)
+    //             break
+    //         case 'last_15_days':
+    //             calculatedStartDate = startOfDay(subDays(today, 14))
+    //             calculatedEndDate = endOfDay(today)
+    //             break
+    //         case 'last_30_days':
+    //             calculatedStartDate = startOfDay(subDays(today, 29))
+    //             calculatedEndDate = endOfDay(today)
+    //             break
+    //         case 'last_1_month':
+    //             calculatedStartDate = startOfDay(subMonths(today, 1))
+    //             calculatedEndDate = endOfDay(today)
+    //             break
+    //         default:
+    //             return
+    //     }
+
+    //     if (calculatedStartDate && calculatedEndDate) {
+    //         setStartDate(calculatedStartDate)
+    //         setEndDate(calculatedEndDate)
+    //     }
+    // }, [quickRange, setStartDate, setEndDate])
     useEffect(() => {
         const today = new Date()
         let calculatedStartDate: Date
@@ -77,7 +122,7 @@ export default function PeriodElement({
             setStartDate(calculatedStartDate)
             setEndDate(calculatedEndDate)
         }
-    }, [quickRange, setStartDate, setEndDate])
+    }, [quickRange])
 
     return (
         <>
@@ -116,7 +161,7 @@ export default function PeriodElement({
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 bg-white">
-                        <CustomCalendarWithTime initialDate={startDate} initialTime="12:00" onCancel={() => alert('취소')} onSave={(date, time) => {
+                        <CustomCalendarWithTime needTime={needTime} initialDate={startDate} initialTime="12:00" onCancel={() => alert('취소')} onSave={(date, time) => {
                             setStartDate(date)
                             alert(`${startDate?.toLocaleDateString()} ${time}`)
                         }} />
@@ -134,7 +179,7 @@ export default function PeriodElement({
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0 bg-white">
                         {/* <Calendar mode="single" selected={endDate} onSelect={setEndDate}></Calendar> */}
-                        <CustomCalendarWithTime initialDate={endDate} initialTime="12:00" onCancel={() => alert('취소')} onSave={(date, time) => {
+                        <CustomCalendarWithTime needTime={needTime} initialDate={endDate} initialTime="12:00" onCancel={() => alert('취소')} onSave={(date, time) => {
                             setEndDate(date)
                             alert(`${endDate?.toLocaleDateString()} ${time}`)
                         }} />

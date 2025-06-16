@@ -5,16 +5,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
 import { useTranslation } from "../../../../../../utils/localization/client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Pagination from "@/components/pagination";
+import ExcelDownloadModal from "../../order/components/modal/excel-download-modal";
 
 // export default function CouponList({ coupons }: { coupons: [] }) {
 export default function CouponList() {
     const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, ['common', 'coupon'])
+    const { t } = useTranslation(locale, ['common', 'coupon', 'push'])
     const [currentPage, setCurrentPage] = useState(1)
-    const [totalPage, setTotalPage] = useState(0)
+    // const [totalPage, setTotalPage] = useState(0)
     const [size, setSize] = useState('50')
+    const [openExcelDown, setOpenExcelDown] = useState(false)
 
     return (
         <>
@@ -35,7 +37,7 @@ export default function CouponList() {
                                     <SelectItem value="500">500</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <Button className="border">엑셀 다운로드</Button>
+                            <Button className="border" onClick={() => setOpenExcelDown(true)}>{t('excel_down')}</Button>
                         </div>
                     </div>
                     <table className="w-full text-left border-collapse min-w-6xl">
@@ -83,7 +85,9 @@ export default function CouponList() {
                                     <td className="p-2 text-center">2024-01-31 11:59</td>
                                     <td className="p-2 text-center">제한 없음</td>
                                     <td className="p-2 text-center">
-                                        <Button className="border rounded px-2 text-[#5E5955]">{t('delete')}</Button>
+                                        <Button className="border rounded px-2 text-[#5E5955]" onClick={() => {
+                                            window.confirm('해당 쿠폰을 삭제하시겠습니까?')
+                                        }}>{t('delete')}</Button>
                                     </td>
                                 </tr>
                             ))}
@@ -93,6 +97,7 @@ export default function CouponList() {
             </div>
             {/* <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
             <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
         </>
     )
 }

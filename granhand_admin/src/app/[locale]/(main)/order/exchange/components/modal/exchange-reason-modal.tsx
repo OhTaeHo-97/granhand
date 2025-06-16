@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ImageIcon } from "lucide-react";
 import Link from "next/link";
 
+// export default function ExchangeReasonModal({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
 export default function ExchangeReasonModal({ open, setOpen, t }: { open: boolean, setOpen: (value: boolean) => void, t: (key: string) => string }) {
     const imageUrls = [
         { name: "img10392493", url: "/placeholder/img10392493.jpg" },
@@ -16,13 +17,13 @@ export default function ExchangeReasonModal({ open, setOpen, t }: { open: boolea
         <Dialog open={open} onOpenChange={setOpen} >
             <DialogContent className="max-w-300 bg-white min-w-150 max-h-150 min-h-80 overflow-auto">
             <DialogHeader>
-                <DialogTitle className="font-bold text-2xl text-[#111111]">취소 거부 처리</DialogTitle>
+                <DialogTitle className="font-bold text-2xl text-[#111111]">{t('order:exchange_reason_detail')}</DialogTitle>
             </DialogHeader>
             <div className="mb-6 text-[#111111] whitespace-pre-line">
                 <div className="rounded-md p-6 space-y-3">
                     <div className="grid grid-cols-[100px_1fr] h-full m-0">
                         <div className="flex items-center justify-start p-2">
-                            <Label>교환 사유</Label>
+                            <Label>{t('order:exchange_reason')}</Label>
                         </div>
                         <div className="px-5 py-2 w-full">
                             <div className="flex items-center gap-2">
@@ -33,7 +34,7 @@ export default function ExchangeReasonModal({ open, setOpen, t }: { open: boolea
 
                     <div className="grid grid-cols-[100px_1fr] h-full m-0">
                         <div className="flex items-center justify-start p-2">
-                            <Label>상세 설명</Label>
+                            <Label>{t('order:detail_description')}</Label>
                         </div>
                         <div className="px-5 py-2 w-full">
                             <div className="flex items-center gap-2">
@@ -59,8 +60,8 @@ export default function ExchangeReasonModal({ open, setOpen, t }: { open: boolea
                 </div>
             </div>
             <DialogFooter className="!flex !items-center">
-                <Button className="w-1/6 bg-transparent text-[#C0BCB6] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>취소</Button>
-                <Button className="w-1/6 text-[#2854f3] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>확인</Button>
+                <Button className="w-1/6 bg-transparent text-[#C0BCB6] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>{t('cancel')}</Button>
+                <Button className="w-1/6 text-[#2854f3] hover:bg-[#322A2408]" onClick={() => setOpen(false)}>{t('confirm')}</Button>
             </DialogFooter>
             </DialogContent>
         </Dialog>

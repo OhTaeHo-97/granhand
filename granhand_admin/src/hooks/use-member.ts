@@ -52,7 +52,7 @@ export interface MemberPointsApiResponse {
 
 export interface ApiResponse<T> {
     data: T | null
-    error: any
+    error: unknown
 }
 
 export const useMember = () => {

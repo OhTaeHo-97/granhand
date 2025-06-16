@@ -19,5 +19,6 @@
     "schedule_for_later": "예약 발행",
     "enter_content": "내용을 입력하세요.",
     "cancel": "취소",
-    "publish": "작성"
+    "publish": "작성",
+    "save_change": "수정 완료"
 }

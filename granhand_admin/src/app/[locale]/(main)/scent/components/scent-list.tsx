@@ -1,8 +1,29 @@
+'use client'
+
+import Pagination from "@/components/pagination"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useTranslation } from "../../../../../../utils/localization/client"
+import { MouseEvent, useState } from "react"
+import { useRouter } from "next/navigation"
 
-export default function ScentList({ t }: { t: (key: string) => string }) {
-    const handleDelete = () => {
+export default function ScentList() {
+    const router = useRouter()
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'scent', 'wallpaper'])
+    const currentLocale = useCurrentLocale()
+
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const handleEdit = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+        e.stopPropagation()
+        router.push(`${currentLocale}/scent/${id}/edit`)
+    }
+
+    const handleDelete = (e: MouseEvent<HTMLButtonElement>, id: number) => {
+        e.stopPropagation()
+        console.log(id)
         const confirmed = window.confirm('선택한 게시글을 삭제하시겠습니까?')
 
         if(confirmed) {
@@ -32,7 +53,7 @@ export default function ScentList({ t }: { t: (key: string) => string }) {
                         </Select>
                     </div>
                 </div>
-                <table className="w-full text-left border-collapse min-w-6xl w-full">
+                <table className="w-full text-left border-collapse min-w-6xl">
                     <thead className="bg-[#322A2408] border-t h-20">
                         <tr className="border-b text-[#6F6963]">
                             <th className="p-2 text-center">No.</th>
@@ -42,18 +63,19 @@ export default function ScentList({ t }: { t: (key: string) => string }) {
                     </thead>
                     <tbody>
                         {Array.from({ length: 12 }).map((_, i) => (
-                            <tr key={i} className="h-14 text-[#1A1A1A]">
+                            <tr key={i} className="h-14 text-[#1A1A1A] hover:bg-[#322A2408]" onClick={() => router.push(`${currentLocale}/scent/${i + 1}`)}>
                                 <td className="p-2 text-center">25</td>
                                 <td className="p-2 text-center">Marne. 마르네</td>
                                 <td className="p-2 flex items-center justify-center gap-3">
-                                    <Button variant="outline">{t('scent:edit')}</Button>
-                                    <Button variant="outline" onClick={handleDelete}>{t('delete')}</Button>
+                                    <Button variant="outline" onClick={(e) => handleEdit(e, i + 1)}>{t('scent:edit')}</Button>
+                                    <Button variant="outline" onClick={(e) => handleDelete(e, i + 1)}>{t('delete')}</Button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
     )
 }

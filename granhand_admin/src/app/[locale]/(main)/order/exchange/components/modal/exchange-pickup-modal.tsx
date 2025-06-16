@@ -1,8 +1,11 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+// import { useState } from "react";
 
 export default function ExchangePickupModalContents({ t }: { t: (key: string) => string }) {
+    // const [selectedIds, setSelectedIds] = useState<number[]>([])
+
     return (
         // <div className="mb-6 text-[#111111] whitespace-pre-line">
         //     {`선택하신 n건의 주문 중 처리 가능한 주문은 1건입니다.\n1건에 대해 처리하시겠습니까?`}

@@ -3,9 +3,33 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ChallengeModal from "./challenge-modal";
 import { useState } from "react";
+import Pagination from "@/components/pagination";
 
-export default function ChallengeList({ contents, size, t, currentLocale, setSize }: { contents: any[], size: string, t: (key: string) => string, currentLocale: string, setSize: React.Dispatch<React.SetStateAction<string>> }) {
+export default function ChallengeList({ t, currentLocale }: { t: (key: string) => string, currentLocale: string }) {
     const [open, setOpen] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    // const [totalPage, setTotalPage] = useState(0)
+    const [selectedChallenges, setSelectedChallenges] = useState<number[]>([])
+    const [size, setSize] = useState('50')
+
+    const handleSelectAll = (checked: boolean) => {
+        if(checked) {
+            const allIds = Array.from({ length: 12 }, (_, i) => i + 1)
+            setSelectedChallenges(allIds)
+        } else {
+            setSelectedChallenges([])
+        }
+    }
+
+    const handleCheckboxChange = (id: number) => {
+        setSelectedChallenges((prev) => {
+            if(prev.includes(id)) {
+                return prev.filter((itemId) => itemId !== id)
+            } else {
+                return [...prev, id]
+            }
+        })
+    }
 
     return (
         <>
@@ -31,7 +55,9 @@ export default function ChallengeList({ contents, size, t, currentLocale, setSiz
                     <table className="w-full text-left border-collapse min-w-6xl">
                         <thead className="bg-[#322A2408] border-t h-20">
                             <tr className="border-b text-[#6F6963]">
-                                <th className="p-2 text-center"></th>
+                                <th className="p-2 text-center">
+                                    <Checkbox id="all-selected" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white" onCheckedChange={handleSelectAll} />
+                                </th>
                                 <th className="p-2 text-center">{t('challenge:challenge_name')}</th>
                                 <th className="p-2 text-center">{t('challenge:description')}</th>
                                 <th className="p-2 text-center">{t('challenge:status')}</th>
@@ -56,7 +82,14 @@ export default function ChallengeList({ contents, size, t, currentLocale, setSiz
                             )} */}
                             {Array.from({ length: 12 }).map((_, i) => (
                                 <tr key={i} className="h-14 text-[#1A1A1A]">
-                                    <td className="p-2 flex items-center justify-center gap-3"><Checkbox id="select-all" className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"/></td>
+                                    <td className="p-2 flex items-center justify-center gap-3">
+                                        <Checkbox
+                                            id={i.toString()}
+                                            className="data-[state=checked]:bg-gray-600 data-[state=checked]:text-white"
+                                            checked={selectedChallenges.includes(i + 1)}
+                                            onCheckedChange={() => handleCheckboxChange(i + 1)}
+                                        />
+                                    </td>
                                     <td className="p-2 text-center">마음의 향기</td>
                                     <td className="p-2 text-center">다른 사람에게 선물하기</td>
                                     <td className="p-2 text-center">활성</td>
@@ -68,17 +101,19 @@ export default function ChallengeList({ contents, size, t, currentLocale, setSiz
                         </tbody>
                     </table>
                 </div>
-            </div>
-            <div className="flex justify-end">
-                <Select>
-                    <SelectTrigger className="w-40">
-                        <SelectValue placeholder="상태 변경" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white">
-                        <SelectItem value="active">{t('challenge:active')}</SelectItem>
-                        <SelectItem value="inactive">{t('challenge:inactive')}</SelectItem>
-                    </SelectContent>
-                </Select>
+                <div className="flex justify-end mt-10">
+                    <Select>
+                        <SelectTrigger className="w-40">
+                            <SelectValue placeholder={t('challenge:change_status')} />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white">
+                            <SelectItem value="active">{t('challenge:active')}</SelectItem>
+                            <SelectItem value="inactive">{t('challenge:inactive')}</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                {/* <Pagination totalPages={totalPage} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
+                <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </div>
             <ChallengeModal open={open} setOpen={setOpen} challengeInfo={{ title: '마음의 향기', description: '다른 사람에게 선물하기', status: 'active' }} t={t} />
         </>

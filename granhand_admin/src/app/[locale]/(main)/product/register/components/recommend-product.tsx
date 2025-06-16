@@ -15,10 +15,14 @@ interface RecommendProductProps {
         useRecommend: string,
         products: RecommendProductInfo[]
     },
-    onChange: (field: string, value: any) => void
+    onChange: (
+        field: keyof RecommendProductProps['data'],
+        value: Exclude<RecommendProductProps['data'][keyof RecommendProductProps['data']], undefined>
+    ) => void
+    // onChange: (field: string, value: any) => void
 }
 
-export type RecommendProductInfo = {
+type RecommendProductInfo = {
     id: number
     name: string
     price: number
@@ -56,7 +60,7 @@ export default function RecommendProduct({ data, onChange, t }: RecommendProduct
                     </div>
                 </div>
                 {data.useRecommend === 'Y' && (
-                    <RecommendProductTable options={data.products} setOptions={setProducts} />
+                    <RecommendProductTable options={data.products} setOptions={setProducts} t={t} />
                     // <div className="p-10">
                     //     <div className="flex gap-4 mb-4">
                     //         <Button variant="outline" className="p-1" onClick={() => setOpenRecommendAdd((prev) => !prev)}>상품 추가</Button>

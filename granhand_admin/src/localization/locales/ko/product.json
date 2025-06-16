@@ -125,5 +125,35 @@
     "japan": "일본",
     "hongkong": "홍콩",
     "china": "중국",
-    "australia_italy": "오스트레일리아/이탈리아"
+    "australia_italy": "오스트레일리아/이탈리아",
+
+    "template_list": "템플릿 목록",
+    "title": "제목",
+    "template_details": "템플릿 상세",
+
+    "stock_target": "재고 변경 대상",
+    "enter_manually": "직접 입력",
+    "unlimited": "무제한",
+
+    "add_change": "변경 이력 추가",
+    "modified_date": "수정일",
+    "type": "유형",
+    "classification": "구분",
+
+    "temporary_out_of_stock": "일시품절",
+    "unavailable": "판매중지",
+    "enter_email_placeholder": "아이디(이메일) 입력",
+    "member_all": "회원 등급 - 전체",
+    "add_product": "상품 추가",
+    "delete_product": "선택 상품 삭제",
+    "category2": "분류",
+    "registration_method": "등록 방식",
+    "mutual_registration": "상호 등록",
+    "one_way_registration": "일방 등록",
+
+    "add_category": "카테고리 추가",
+    "category_details": "카테고리 상세",
+    "category_name": "카테고리명",
+    "store_display_settings": "쇼핑몰 표시 설정",
+    "visibility_settings": "노출 설정"
 }

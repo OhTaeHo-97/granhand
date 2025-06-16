@@ -8,6 +8,12 @@ import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocale
 import { useState } from "react";
 import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useTranslation } from "../../../../../../utils/localization/client";
+import ExcelDownloadModal from "../../order/components/modal/excel-download-modal";
+import { ArrowRightIcon, CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { enUS, ko } from "date-fns/locale";
+import SetDateModal from "./components/set-date-modal";
 
 const data = [
     { date: '7월 14일', pageview: 19000, visitor: 3000 },
@@ -21,65 +27,142 @@ const data = [
 
 export default function SalePage() {
     const locale = useLocaleAsLocaleTypes()
-    const { t } = useTranslation(locale, 'statistics')
+    const { t } = useTranslation(locale, ['common', 'statistics', 'push'])
     const currentLocale = useCurrentLocale()
     const [category, setCategory] = useState('period')
+    const [openExcelDown, setOpenExcelDown] = useState(false)
+    const [startDate, setStartDate] = useState<Date | undefined>(new Date())
+    const [endDate, setEndDate] = useState<Date | undefined>(new Date())
+    const [openSelectDateModal, setOpenSelecteDateModal] = useState(false)
 
     return (
         <main className="flex-1 border">
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
-                <h1 className="text-2xl font-bold text-[#5E5955]">{t('revenue')}</h1>
+                <h1 className="text-2xl font-bold text-[#5E5955]">{t('statistics:revenue')}</h1>
                 {/* <h1 className="text-2xl font-bold">매출</h1> */}
                 <div>
                     <span className="text-[#5E5955] text-base">
-                        {currentLocale === '' ? `2024-07-10 09:00:00 ${t('as_of')}` : `${t('as_of')} 2024-07-10 09:00:00`}
+                        {currentLocale === '' ? `2024-07-10 09:00:00 ${t('statistics:as_of')}` : `${t('statistics:as_of')} 2024-07-10 09:00:00`}
                     </span>
                 </div>
 
                 <div className="mt-8">
-                    {/* 탭 */}
-                    <Tabs value={category} onValueChange={setCategory}>
-                    {/* bg-transparent border-b border-gray-200 */}
-                        <TabsList className="text-[#C0BCB6]">
-                        <TabsTrigger value="period" className={category === 'period' ? 'text-[#322A24] border-b border-[#322A24] shadow-none' : ''}>{t('by_period')}</TabsTrigger>
-                        <TabsTrigger value="product" className={category === 'product' ? 'text-[#322A24] border-b border-[#322A24] shadow-none' : ''}>{t('by_product')}</TabsTrigger>
-                        <TabsTrigger value="channel" className={category === 'channel' ? 'text-[#322A24] border-b border-[#322A24] shadow-none' : ''}>{t('by_channel')}</TabsTrigger>
-                        </TabsList>
-                    </Tabs>
+                    <div className="flex justify-between items-center">
+                        {/* 탭 */}
+                        <Tabs value={category} onValueChange={setCategory}>
+                        {/* bg-transparent border-b border-gray-200 */}
+                            <TabsList className="text-[#C0BCB6]">
+                            <TabsTrigger value="period" className={category === 'period' ? 'text-[#322A24] border-b border-[#322A24] shadow-none' : ''}>{t('statistics:by_period')}</TabsTrigger>
+                            <TabsTrigger value="product" className={category === 'product' ? 'text-[#322A24] border-b border-[#322A24] shadow-none' : ''}>{t('statistics:by_product')}</TabsTrigger>
+                            <TabsTrigger value="channel" className={category === 'channel' ? 'text-[#322A24] border-b border-[#322A24] shadow-none' : ''}>{t('statistics:by_channel')}</TabsTrigger>
+                            </TabsList>
+                        </Tabs>
+
+                        <Button
+                            id="date"
+                            variant={"outline"}
+                            className={cn(
+                                "w-[300px] justify-start text-left font-normal"
+                            )}
+                            onClick={() => setOpenSelecteDateModal((prev) => !prev)}
+                        >
+                            <div className="flex items-center">
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {startDate && format(startDate, "yy.MM.dd (eee)", { locale: currentLocale === '' ? ko : enUS })}
+                                <ArrowRightIcon size={16} />
+                                {endDate && format(endDate, "yy.MM.dd (eee)", { locale: currentLocale === '' ? ko : enUS })}
+                            </div>
+                            {/* {format(dateRange.from, "yy.MM.dd (eee)", { locale: ko })}
+                            {" → "}
+                            {format(dateRange.to, "yy.MM.dd (eee)", { locale: ko })}
+                            {dateRange?.from ? (
+                                dateRange.to ? (
+                                    <>
+                                        {format(dateRange.from, "yy.MM.dd (eee)", { locale: ko })}
+                                        {" → "}
+                                        {format(dateRange.to, "yy.MM.dd (eee)", { locale: ko })}
+                                    </>
+                                ) : (
+                                    format(dateRange.from, "yy.MM.dd (eee)", { locale: ko })
+                                )
+                            ) : (
+                                <span>날짜 선택</span>
+                            )} */}
+                        </Button>
+
+                        {/* <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    id="date"
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-[300px] justify-start text-left font-normal",
+                                        !dateRange && "text-muted-foreground"
+                                    )}
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {dateRange?.from ? (
+                                        dateRange.to ? (
+                                            <>
+                                                {format(dateRange.from, "yy.MM.dd (eee)", { locale: ko })}
+                                                {" → "}
+                                                {format(dateRange.to, "yy.MM.dd (eee)", { locale: ko })}
+                                            </>
+                                        ) : (
+                                            format(dateRange.from, "yy.MM.dd (eee)", { locale: ko })
+                                        )
+                                    ) : (
+                                        <span>날짜 선택</span>
+                                    )}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="end">
+                                <Calendar
+                                    initialFocus
+                                    mode="range"
+                                    defaultMonth={dateRange?.from}
+                                    selected={dateRange}
+                                    onSelect={setDateRange}
+                                    numberOfMonths={2}
+                                    locale={ko}
+                                />
+                            </PopoverContent>
+                        </Popover> */}
+                    </div>
 
                     { /* 요약 */ }
-                    <h2 className="text-[#5E5955] font-bold text-base mt-12 mb-4">{t('summary')}</h2>
+                    <h2 className="text-[#5E5955] font-bold text-base mt-12 mb-4">{t('statistics:summary')}</h2>
                     <div className="w-full grid grid-cols-2 gap-5 mt-6">
                         <div className="bg-[#322A2408] w-full p-6">
                             <div className="">
-                                <h3 className="text-[#5E5955] font-bold text-sm">{t('total_revenue')}</h3>
+                                <h3 className="text-[#5E5955] font-bold text-sm">{t('statistics:total_revenue')}</h3>
                                 <span className="text-[#5E5955] font-bold text-base">82,719,497 {currentLocale === '' ? '원' : 'KRW'}</span>
                             </div>
                         </div>
                         <div className="bg-[#322A2408] w-full p-6">
                         <div className="">
-                                <h2 className="text-[#5E5955] font-bold text-sm">{t('total_orders')}</h2>
-                                <span className="text-[#5E5955] font-bold text-base">2,115 {t('orders')}</span>
+                                <h2 className="text-[#5E5955] font-bold text-sm">{t('statistics:total_orders')}</h2>
+                                <span className="text-[#5E5955] font-bold text-base">2,115 {t('statistics:orders')}</span>
                             </div>
                         </div>
                     </div>
 
                     {/* 차트 데이터 */}
                     <div className="flex justify-between items-center mt-16">
-                        <h2 className="text-[#5E5955] font-bold text-base mb-4">{t('chart_data')}</h2>
+                        <h2 className="text-[#5E5955] font-bold text-base mb-4">{t('statistics:chart_data')}</h2>
                         <div className="flex gap-2">
-                            <Input type="text" placeholder="카테고리 또는 상품코드를 검색해 보세요." />
-                            <Select defaultValue="아이디">
+                            <Input type="text" placeholder={t('statistics:search_category_placeholder')} className="min-w-100" />
+                            <Select defaultValue="daily">
                                 <SelectTrigger className="">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent className="bg-white">
-                                    <SelectItem value="아이디">아이디</SelectItem>
-                                    <SelectItem value="이메일">이메일</SelectItem>
-                                    <SelectItem value="전화번호">전화번호</SelectItem>
+                                    <SelectItem value="daily">{t('statistics:daily')}</SelectItem>
+                                    <SelectItem value="monthly">{t('statistics:monthly')}</SelectItem>
+                                    <SelectItem value="yearly">{t('statistics:yearly')}</SelectItem>
                                 </SelectContent>
                             </Select>
-                            <Button className="bg-white border text-black">엑셀 다운로드</Button>
+                            <Button className="bg-white border text-black" onClick={() => setOpenExcelDown((prev) => !prev)}>{t('excel_down')}</Button>
                         </div>
                     </div>
                     <div className="w-full">
@@ -102,34 +185,34 @@ export default function SalePage() {
                     </div>
 
                     <div className="mt-6">
-                        <h2 className="text-[#5E5955] font-bold text-base mt-12 mb-4">{t('average')}</h2>
+                        <h2 className="text-[#5E5955] font-bold text-base mt-12 mb-4">{t('statistics:average')}</h2>
                     </div>
                     <table className="w-full text-center border-collapse min-w-6xl border overflow-auto">
                         <thead className="bg-[#322A2408] border-t h-10">
                             <tr className="border-b text-[#6F6963]">
-                                <th className="p-2 items-center border">{t('revenue')}</th>
-                                <th className="p-2 items-center border">{t('order_count')}</th>
-                                <th className="p-2 items-center border">{t('item_count')}</th>
-                                <th className="p-2 text-center border">{t('product_amount')}</th>
-                                <th className="p-2 text-center border">{t('shipping_fee')}</th>
-                                <th className="p-2 text-center border">{t('discount_amount')}</th>
-                                <th className="p-2 text-center">{t('payment_amount')}</th>
-                                <th className="p-2 text-center">{t('refund_amount')}</th>
+                                <th className="p-2 items-center border">{t('statistics:revenue')}</th>
+                                <th className="p-2 items-center border">{t('statistics:order_count')}</th>
+                                <th className="p-2 items-center border">{t('statistics:item_count')}</th>
+                                <th className="p-2 text-center border">{t('statistics:product_amount')}</th>
+                                <th className="p-2 text-center border">{t('statistics:shipping_fee')}</th>
+                                <th className="p-2 text-center border">{t('statistics:discount_amount')}</th>
+                                <th className="p-2 text-center">{t('statistics:payment_amount')}</th>
+                                <th className="p-2 text-center">{t('statistics:refund_amount')}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr key={1} className="border-b h-14 text-[#1A1A1A]">
                                 <td className="p-2 items-center border">11,817,071{currentLocale === '' ? '원' : 'KRW'}</td>
-                                <td className="p-2 text-center border">302{t('orders')}</td>
-                                <td className="p-2 text-center border">509{t('orders')}</td>
+                                <td className="p-2 text-center border">302{t('statistics:orders')}</td>
+                                <td className="p-2 text-center border">509{t('statistics:orders')}</td>
                                 <td className="p-2 text-center border">
-                                    12,347,857원
+                                    12,347,857 {currentLocale === '' ? '원' : 'KRW'}
                                 </td>
                                 <td className="p-2 text-center border">
-                                    384,429원
+                                    384,429 {currentLocale === '' ? '원' : 'KRW'}
                                 </td>
                                 <td className="p-2 text-center border">
-                                    434,572원
+                                    434,572 {currentLocale === '' ? '원' : 'KRW'}
                                 </td>
                                 <td className="p-2 text-center border">12,297,714{currentLocale === '' ? '원' : 'KRW'}</td>
                                 <td className="p-2 text-center border">480,643{currentLocale === '' ? '원' : 'KRW'}</td>
@@ -143,22 +226,22 @@ export default function SalePage() {
                     <table className="w-full text-center border-collapse min-w-6xl border overflow-auto">
                         <thead className="bg-[#322A2408] border-t h-10">
                             <tr className="border-b text-[#6F6963]">
-                                <th className="p-2 items-center border">{t('date')}</th>
-                                <th className="p-2 items-center border">{t('order_count')}</th>
-                                <th className="p-2 items-center border">{t('item_count')}</th>
-                                <th className="p-2 text-center border">{t('product_amount')}</th>
-                                <th className="p-2 text-center border">{t('shipping_fee')}</th>
-                                <th className="p-2 text-center border">{t('discount_amount')}</th>
-                                <th className="p-2 text-center">{t('payment_amount')}</th>
-                                <th className="p-2 text-center">{t('refund_amount')}</th>
-                                <th className="p-2 items-center border">{t('revenue')}</th>
+                                <th className="p-2 items-center border">{t('statistics:date')}</th>
+                                <th className="p-2 items-center border">{t('statistics:order_count')}</th>
+                                <th className="p-2 items-center border">{t('statistics:item_count')}</th>
+                                <th className="p-2 text-center border">{t('statistics:product_amount')}</th>
+                                <th className="p-2 text-center border">{t('statistics:shipping_fee')}</th>
+                                <th className="p-2 text-center border">{t('statistics:discount_amount')}</th>
+                                <th className="p-2 text-center">{t('statistics:payment_amount')}</th>
+                                <th className="p-2 text-center">{t('statistics:refund_amount')}</th>
+                                <th className="p-2 items-center border">{t('statistics:revenue')}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr key="total" className="border-b h-14 text-[#1A1A1A]">
-                                <td className="p-2 items-center border">{t('total')}</td>
-                                <td className="p-2 text-center border">2,115{t('orders')}</td>
-                                <td className="p-2 text-center border">3,561{t('orders')}</td>
+                                <td className="p-2 items-center border">{t('statistics:total')}</td>
+                                <td className="p-2 text-center border">2,115{t('statistics:orders')}</td>
+                                <td className="p-2 text-center border">3,561{t('statistics:orders')}</td>
                                 <td className="p-2 text-center border">86,435,000{currentLocale === '' ? '원' : 'KRW'}</td>
                                 <td className="p-2 text-center border">2,691,000{currentLocale === '' ? '원' : 'KRW'}</td>
                                 <td className="p-2 text-center border">3,042,003{currentLocale === '' ? '원' : 'KRW'}</td>
@@ -169,8 +252,8 @@ export default function SalePage() {
                             {Array.from({ length: 12 }).map((_, i) => (
                             <tr key={i} className="border-b h-14 text-[#1A1A1A]">
                                 <td className="p-2 items-center border">24.07.10</td>
-                                <td className="p-2 text-center border">26{t('orders')}</td>
-                                <td className="p-2 text-center border">50{t('orders')}</td>
+                                <td className="p-2 text-center border">26{t('statistics:orders')}</td>
+                                <td className="p-2 text-center border">50{t('statistics:orders')}</td>
                                 <td className="p-2 text-center border">1,257,000{currentLocale === '' ? '원' : 'KRW'}</td>
                                 <td className="p-2 text-center border">27,000{currentLocale === '' ? '원' : 'KRW'}</td>
                                 <td className="p-2 text-center border">25,000{currentLocale === '' ? '원' : 'KRW'}</td>
@@ -183,6 +266,8 @@ export default function SalePage() {
                     </table>
                 </div>
             </div>
+            <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
+            <SetDateModal startDate={startDate} endDate={endDate} open={openSelectDateModal} setStartDate={setStartDate} setEndDate={setEndDate} setOpen={setOpenSelecteDateModal} />
         </main>
     )
 }

@@ -1,16 +1,16 @@
 'use client'
 
-import Pagination from "@/components/pagination"
 import OrderStatus from "../components/order-status"
 import OrderFilter from "../components/order-filter"
 import ExchangeList from "./components/exchange-list"
 import { useState } from "react"
-import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
+import { useCurrentLocale, useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales"
 import { useTranslation } from "../../../../../../utils/localization/client"
 
 export default function ExchangePage() {
     const locale = useLocaleAsLocaleTypes()
     const { t } = useTranslation(locale, ['common', 'product', 'order', 'push'])
+    const currentLocale = useCurrentLocale()
 
     const statusList = [
         { label: t('order:exchange_requested'), count: 105, value: "exchange_requested" },
@@ -27,13 +27,12 @@ export default function ExchangePage() {
             <div className="p-12 text-[#231815B2] text-sm space-y-4">
                 <h1 className="text-2xl font-bold text-[#5E5955]">{t('order:exchange_manage')}</h1>
                 {/* 상품 상태 */ }
-                <OrderStatus orderState={exchangeState} setOrderState={setExchangeState} statusList={statusList} />
+                <OrderStatus orderState={exchangeState} setOrderState={setExchangeState} statusList={statusList} link={`${currentLocale}/order/exchange`} />
                 {/* 검색 */}
                 <OrderFilter />
 
                 {/* 테이블 */}
                 <ExchangeList exchangeState={exchangeState} t={t} />
-                <Pagination totalPages={15} />
             </div>
         </main>
     )

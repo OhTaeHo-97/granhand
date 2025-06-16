@@ -1,7 +1,19 @@
+'use client'
+
+import Pagination from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useLocaleAsLocaleTypes } from "@/lib/useCurrentLocales";
+import { useTranslation } from "../../../../../../utils/localization/client";
+import { useState } from "react";
+import ExcelDownloadModal from "../../order/components/modal/excel-download-modal";
 
-export default function PointList({ t }: { t: (key: string) => string }) {
+export default function PointList() {
+    const locale = useLocaleAsLocaleTypes()
+    const { t } = useTranslation(locale, ['common', 'point', 'push'])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [openExcelDown, setOpenExcelDown] = useState(false)
+
     return (
         <div className="p-6 shadow-sm">
             {/* ------------------- 상품 목록 테이블 ------------------- */}
@@ -21,7 +33,7 @@ export default function PointList({ t }: { t: (key: string) => string }) {
                                 <SelectItem value="500">500</SelectItem>
                             </SelectContent>
                         </Select>
-                        <Button className="border">엑셀 다운로드</Button>
+                        <Button className="border" onClick={() => setOpenExcelDown(true)}>{t('excel_down')}</Button>
                     </div>
                 </div>
                 <table className="w-full text-left border-collapse min-w-6xl">
@@ -65,6 +77,8 @@ export default function PointList({ t }: { t: (key: string) => string }) {
                     </div>
                 </div>
             </div>
+            <Pagination totalPages={15} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <ExcelDownloadModal open={openExcelDown} setOpen={setOpenExcelDown} t={t} />
         </div>
     )
 }
